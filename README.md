@@ -11,3 +11,23 @@
 |6              |Allan Paul Lopez       |[allanation](https://github.com/allanation)                    |40000954
 |7              |Samaninder Singh       |[SamSDK](https://github.com/SamSDK)                            |40133493
 |8              |Jonathan Di Ioia       |[infernalturtle](https://github.com/infernalturtle)            |40132750  
+
+## Naming Convention
+### Branches:
+
+- **Syntax:** WHATSUP-issue_number-issue_topic
+
+- **Example:** WHATSUP-21-Add-Admin-Login-Page
+
+### Commits:
+
+- **Syntax:** WHATSUP-issue_number < message >
+- **Example:** WHATSUP-21 Add Admin Login Page
+
+**Note:** All commit messages should be written in the imperative, present tense.
+
+### Pull Requests:
+
+- **Syntax:** [Solves WHATSUP-issue_number] < topic >
+- **Example:** [Solves WHATSUP-21] Add Admin Login Page
+
