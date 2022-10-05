@@ -1,7 +1,7 @@
 const express = require("express");
 
 const admin = require("firebase-admin");
-const serviceAccount = require("./WhatsUp/web/backend/firebase-config/serviceAccount.json");
+const serviceAccount = require("./firebase-config/serviceAccount.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
