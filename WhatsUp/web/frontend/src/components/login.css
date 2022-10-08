@@ -5,9 +5,9 @@
 
 body {
   height: 100vh;
-  margin-left: 200px;
+  margin-left: 15%;
   background-image: radial-gradient(
-    50% 400% at right 150%,
+    50% 400% at right 120%,
     #e2e2e2 92%,
     transparent 92.25%
   );
@@ -22,8 +22,8 @@ p {
 
 img {
   float: right;
-  margin-top: 280px;
-  margin-right: 150px;
+  margin-top: 265px;
+  margin-right: 15%;
 }
 
 input {
@@ -64,4 +64,20 @@ button {
 
 .login:hover {
     background-color: #3acfb7;
+}
+
+#email-error-msg {
+    color: #ff2851;
+    font-size: 18px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    visibility: hidden;
+}
+
+#login-error-msg {
+    color: #ff2851;
+    font-size: 18px;
+    padding-bottom: 0px;
+    margin-top: -20px;
+    visibility: hidden;
 }

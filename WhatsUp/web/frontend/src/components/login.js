@@ -9,35 +9,62 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
+
+  let btn = document.getElementById("btn");
+  let emailErrorMsg = document.getElementById("email-error-msg");
+  let loginErrorMsg = document.getElementById("login-error-msg");
+  var mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+  function isValidEmail(email) {
+    return mailRegex.test(email);
+  }
+
+  function emailValidator(event) {
+    if (true) {
+      emailErrorMsg.style.visibility = "visible";
+      emailErrorMsg.style.paddingTop = "15px";
+    }
+    if (isValidEmail(event.target.value)) {
+      emailErrorMsg.style.visibility = "hidden";
+      emailErrorMsg.style.paddingTop = "0px";
+    }
+    setEmail(event.target.value);
+  }
 
   const signIn = () => {
-
     signInWithEmailAndPassword(auth, email, password)
       .then((auth) => {
         navigate("/dashboard");
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error(error);
+        loginErrorMsg.style.visibility = "visible";
+        loginErrorMsg.style.marginTop = "20px";
+      });
   };
 
   return (
     <div className="div">
-    
-    <img src={logo} alt="WhatsUp logo" width="350" height="440"/>
+      <img src={logo} alt="WhatsUp logo" width="440" height="525" />
       <h1 className="welcome">Welcome Back!</h1>
       <p>Please enter your credentials</p>
       <input
-        placeHolder="Email"
+        placeholder="Email"
         id="email"
-        onChange={(event) => setEmail(event.target.value)}
+        onChange={emailValidator}
         autoComplete="off"
         className="input"
         type="email"
         name="email"
       />
       <br />
-      <br />
+      <p id="email-error-msg" className="email-error-msg">
+        Please enter a valid Email address.
+      </p>
       <input
-        placeHolder="Password"
+        placeholder="Password"
         id="password"
         onChange={(event) => setPassword(event.target.value)}
         autoComplete="off"
@@ -46,6 +73,7 @@ function Login() {
         name="password"
       />
       <br />
+      <p id="login-error-msg">Incorrect Email address or Password.</p>
       <button onClick={signIn} className="login" id="btn">
         Login
       </button>
