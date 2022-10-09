@@ -31,3 +31,12 @@
 - **Syntax:** [Solves WHATSUP-issue_number] < topic >
 - **Example:** [Solves WHATSUP-21] Add Admin Login Page
 
+## Expo Test Setup Instruction:
+-npm install
+-npm start 
+
+Download the expo go app and create an account.
+After sign in scan qr code to run app on mobile.
+
+
+
