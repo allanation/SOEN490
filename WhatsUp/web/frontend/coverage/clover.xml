@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1665450881193" clover="3.2.0">
+  <project timestamp="1665450881194" name="All files">
+    <metrics statements="23" coveredstatements="19" conditionals="4" coveredconditionals="3" methods="7" coveredmethods="5" elements="34" coveredelements="27" complexity="0" loc="23" ncloc="23" packages="2" files="2" classes="2"/>
+    <package name="src">
+      <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="firebase.js" path="C:\Users\Robin Lebel\Desktop\SOEN 490\SOEN490\WhatsUp\web\frontend\src\firebase.js">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components">
+      <metrics statements="19" coveredstatements="15" conditionals="4" coveredconditionals="3" methods="7" coveredmethods="5"/>
+      <file name="login.js" path="C:\Users\Robin Lebel\Desktop\SOEN 490\SOEN490\WhatsUp\web\frontend\src\components\login.js">
+        <metrics statements="19" coveredstatements="15" conditionals="4" coveredconditionals="3" methods="7" coveredmethods="5"/>
+        <line num="9" count="11" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="11" count="11" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="14" count="11" type="stmt"/>
+        <line num="15" count="11" type="stmt"/>
+        <line num="18" count="18" type="stmt"/>
+        <line num="22" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="23" count="14" type="stmt"/>
+        <line num="25" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="31" count="11" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="11" type="stmt"/>
+        <line num="64" count="7" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

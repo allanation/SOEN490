@@ -9,10 +9,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState(null);
 
-  let btn = document.getElementById("btn");
   let emailErrorMsg = document.getElementById("email-error-msg");
   let loginErrorMsg = document.getElementById("login-error-msg");
   var mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -22,13 +19,11 @@ function Login() {
   }
 
   function emailValidator(event) {
-    if (true) {
-      emailErrorMsg.style.visibility = "visible";
-      emailErrorMsg.style.paddingTop = "15px";
+    if (!isValidEmail(event.target.value)) {
+      emailErrorMsg.style.display = "block";
     }
     if (isValidEmail(event.target.value)) {
-      emailErrorMsg.style.visibility = "hidden";
-      emailErrorMsg.style.paddingTop = "0px";
+      emailErrorMsg.style.display = "none";
     }
     setEmail(event.target.value);
   }
@@ -40,8 +35,7 @@ function Login() {
       })
       .catch((error) => {
         console.error(error);
-        loginErrorMsg.style.visibility = "visible";
-        loginErrorMsg.style.marginTop = "20px";
+        loginErrorMsg.style.display = "block";
       });
   };
 
@@ -58,6 +52,7 @@ function Login() {
         className="input"
         type="email"
         name="email"
+        data-testid="email"
       />
       <br />
       <p id="email-error-msg" className="email-error-msg">
@@ -71,9 +66,12 @@ function Login() {
         className="input"
         type="password"
         name="password"
+        data-testid="password"
       />
       <br />
-      <p id="login-error-msg">Incorrect Email address or Password.</p>
+      <p className="login-error-msg" id="login-error-msg">
+        Incorrect Email address or Password.
+      </p>
       <button onClick={signIn} className="login" id="btn">
         Login
       </button>
