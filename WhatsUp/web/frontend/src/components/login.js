@@ -19,8 +19,12 @@ function Login() {
   }
 
   function emailValidator(event) {
-    if (!isValidEmail(event.target.value)) {
-      emailErrorMsg.style.display = "block";
+    try {
+      if (!isValidEmail(event.target.value)) {
+        emailErrorMsg.style.display = "block";
+      }
+    } catch (err) {
+      console.log("");
     }
     if (isValidEmail(event.target.value)) {
       emailErrorMsg.style.display = "none";
@@ -34,14 +38,16 @@ function Login() {
         navigate("/dashboard");
       })
       .catch((error) => {
-        console.error(error);
+        console.error("Invalid email or password.");
         loginErrorMsg.style.display = "block";
       });
   };
 
   return (
     <div className="div">
-      <img src={logo} alt="WhatsUp logo" width="440" height="525" />
+      <span id="grey-box">
+      <img src={logo} alt="WhatsUp logo" width="440" height="550" />
+      </span>
       <h1 className="welcome">Welcome Back!</h1>
       <p>Please enter your credentials</p>
       <input

@@ -25,14 +25,14 @@ test("No credentials returns error", async () => {
     </BrowserRouter>
   );
 
-  const signInButton = component.getByText('Login');
+  const signInButton = component.getByText("Login");
   expect(signInButton).toBeTruthy();
 
   await waitFor(() => fireEvent.click(signInButton), {
     timeout: 3000,
   });
 
-  expect(component.getByText('Incorrect Email address or Password.'));
+  expect(component.getByText("Incorrect Email address or Password."));
 });
 
 test("Email input", async () => {
@@ -42,11 +42,11 @@ test("Email input", async () => {
     </BrowserRouter>
   );
 
-  const emailInput = component.getByTestId('email');
+  const emailInput = component.getByTestId("email");
   expect(emailInput).toBeTruthy();
 
-  await userEvent.type(emailInput, 'test@hotmail.com');
-  expect((emailInput).value).toBe('test@hotmail.com');
+  await userEvent.type(emailInput, "test@hotmail.com");
+  expect(emailInput.value).toBe("test@hotmail.com");
 });
 
 test("Password input", async () => {
@@ -56,9 +56,9 @@ test("Password input", async () => {
     </BrowserRouter>
   );
 
-  const passwordInput = component.getByTestId('password');
+  const passwordInput = component.getByTestId("password");
   expect(passwordInput).toBeTruthy();
-  
-  await userEvent.type(passwordInput, 'test123');
-  expect((passwordInput).value).toBe('test123');
+
+  await userEvent.type(passwordInput, "test123");
+  expect(passwordInput.value).toBe("test123");
 });

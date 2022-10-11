@@ -6,11 +6,7 @@
 body {
   height: 100vh;
   margin-left: 15%;
-  background-image: radial-gradient(
-    50% 400% at right 120%,
-    #e2e2e2 92%,
-    transparent 92.25%
-  );
+  background: white;
   font: Helvetica Neue;
 }
 
@@ -22,8 +18,8 @@ p {
 
 img {
   float: right;
-  margin-top: 265px;
-  margin-right: 17%;
+  margin-top: 255px;
+  margin-right: 52%;
 }
 
 input {
@@ -85,4 +81,15 @@ button {
     padding-bottom: 0px;
     margin-top: 17px;
     display: none;
+}
+
+#grey-box {
+	width: 70%;
+	height: 100vh;
+  border-radius: 70px;
+  background:#F5F5F5;
+  float: right;
+  overflow: hidden;
+  position: fixed;
+  margin-left: 37%;
 }
