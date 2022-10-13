@@ -1,0 +1,89 @@
+#grey-box {
+	width: 70%;
+	height: 100vh;
+  border-radius: 70px;
+  background:#F5F5F5;
+  overflow: hidden;
+  position: fixed;
+  margin-left: 37%;
+}
+
+.Approved{
+  color: #969696;
+  width: 90px;
+  font-size: 17px;
+  background-color: inherit;
+  margin-top: 50px;
+  margin-left: 70px;
+  border: none;
+  cursor: pointer;
+  font: Helvetica Neue;
+  font-weight: bold;
+  text-decoration-skip-ink: none;
+}
+
+.Unapproved{
+  color: #969696;
+  width: 110px;
+  font-size: 17px;
+  background-color: inherit;
+  margin-top: 50px;
+  margin-left: 40px;
+  border: none;
+  cursor: pointer;
+  font: Helvetica Neue;
+  font-weight: bold;
+  text-decoration-skip-ink: none;
+}
+
+.logOut{
+  background-color: #3acfb7;
+  color: white;
+  width: 140px;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 50px;
+  margin-left: 400px;
+  height:47px;
+  cursor: pointer;
+}
+
+.logOut:hover{
+  background-color: #68eed8;
+}
+
+.searchBar{
+  position: absolute;
+  margin-left: 70px;
+  margin-top: 40px;
+  border-radius: 10px;
+  border: none;
+  width: 650px;
+}
+
+.searchBar:hover{
+border-color: #3acfb7;
+}
+
+::placeholder {
+  color:#C0C0C0;
+  margin-left: 200px;
+}
+
+.searchLoop{
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  background-color: inherit;
+  margin-left:670px;
+  margin-top: -220px;
+  width: 5%;
+}
+
+.filter{
+  background-color: inherit;
+  cursor: pointer;
+  border: none;
+  margin-left: 600px;
+  margin-top: -225px;
+}
