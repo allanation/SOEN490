@@ -7,10 +7,12 @@ import Screen from './components/Screen';
 import ScreenSubtitle from './components/ScreenSubtitle';
 import ScreenTitle from './components/ScreenTitle';
 import SignUpScreen from './screens/SignUpScreen';
+import UserDashboard from './screens/UserDashboard';
 
 export default function App() {
   return (
-    <SignUpScreen />
+    //<SignUpScreen />
+    <UserDashboard />
   );
 }
 
