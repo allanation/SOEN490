@@ -16,10 +16,11 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     paddingVertical: 7,
     paddingHorizontal: 12,
-    width: "100%",
+    width: "98%",
     marginVertical: 10,
     borderStyle: "solid",
     borderWidth: 1,
+    marginLeft: "1%",
   },
   text: {
     color: "black",
