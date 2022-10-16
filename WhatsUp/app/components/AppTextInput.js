@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   text: {
     color: "black",
     fontSize: 18,
-    //fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
   },
 });
 
