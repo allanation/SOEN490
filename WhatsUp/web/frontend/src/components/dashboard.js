@@ -21,7 +21,7 @@ function Dashboard() {
         {showDetails && <div className='bigDaddy'>
         <div className='container-row-1-left'>
                 <div className='imgDiv'>
-                <img className="Concordia" src={concordia}></img>
+                <img className="Concordia" src={concordia} alt="Concordia Event"></img>
                 </div>
                 <div className='details'>
                 <h2>Title</h2>
@@ -53,10 +53,10 @@ function Dashboard() {
         <div className='container-row-1-right'>
             <div className='mainButtons'>
                 <div className='eventButtons'>
-                <button className='Approved' onClick={()=>{setColorApproved(true); setColorUnapproved(false); setShowUnapproved(false)}} style={{textDecoration: isApproved==true?"underline":"",textDecorationColor:isApproved==true?"#3acfb7":"",
-         textDecorationThickness: isApproved==true?"1.5px":"", textUnderlineOffset: isApproved==true?"1em":"", color: isApproved==true?"black":""}}>Approved</button>
-                <button className='Unapproved' onClick={()=>{setColorUnapproved(true); setColorApproved(false); setShowUnapproved(true)}} style={{textDecoration: isUnApproved==true?"underline":"",textDecorationColor:isUnApproved==true?"#3acfb7":"",
-         textDecorationThickness: isUnApproved==true?"1.5px":"", textUnderlineOffset: isUnApproved==true?"1em":"", color: isUnApproved==true?"black":""}}>Unapproved</button>
+                <button className='Approved' onClick={()=>{setColorApproved(true); setColorUnapproved(false); setShowUnapproved(false)}} style={{textDecoration: isApproved===true?"underline":"",textDecorationColor:isApproved===true?"#3acfb7":"",
+         textDecorationThickness: isApproved===true?"1.5px":"", textUnderlineOffset: isApproved===true?"1em":"", color: isApproved===true?"black":""}}>Approved</button>
+                <button className='Unapproved' onClick={()=>{setColorUnapproved(true); setColorApproved(false); setShowUnapproved(true)}} style={{textDecoration: isUnApproved===true?"underline":"",textDecorationColor:isUnApproved===true?"#3acfb7":"",
+         textDecorationThickness: isUnApproved===true?"1.5px":"", textUnderlineOffset: isUnApproved===true?"1em":"", color: isUnApproved===true?"black":""}}>Unapproved</button>
                 </div>
                 <button className='LogOut'>Log Out</button>
             </div>
@@ -65,28 +65,28 @@ function Dashboard() {
         <div className='searchbar-loop'>
         <form id="search">
             <input type="text" placeholder="Search for..." className="searchBar"></input>
-            <button type="submit" className="searchLoop"><img src={searchloop}></img></button>
+            <button type="submit" className="searchLoop"><img src={searchloop} alt="Search Icon"></img></button>
         </form>
         </div>
-        <button type="submit" className="filter"><img src={filter}></img></button>
+        <button type="submit" className="filter"><img src={filter} alt="Filter Icon"></img></button>
         </div>
         {showEventsUnapproved &&<Container className="container-row-3-right">
           <Row className="eventRow">
           <Col md={{ span: 4, offset: 1 }} className="eventColumn" onClick={()=> {setShowDetails(true)}}>
-            <img src={concordia} className="eventImg"></img>
+            <img src={concordia} className="eventImg" alt="Concordia Event"></img>
             <div className='eventPreview'>
             <p className="eventTitle">Orientation Week</p>
             <p className="eventOrg">By Concordia University</p>
-            <img src={calendar} className="calendar"></img>
+            <img src={calendar} className="calendar" alt="Calendar Icon"></img>
             <p className="eventDate">May 21,2022</p>
             </div>
           </Col>
           <Col md={{ span: 4, offset: 1 }} className="eventColumn">
-            <img src={concordia} className="eventImg"></img>
+            <img src={concordia} className="eventImg" alt="Concordia Event"></img>
             <div className='eventPreview'>
             <p className="eventTitle">Orientation Week</p>
             <p className="eventOrg">By Concordia University</p>
-            <img src={calendar} className="calendar"></img>
+            <img src={calendar} className="calendar" alt="Calendar Icon"></img>
             <p className="eventDate">May 21,2022</p>
             </div>
           </Col>

@@ -189,8 +189,9 @@ html {
   }
 
   .searchbar-loop img{
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
+    margin-top: 10%;
   }
 
  .filter{
@@ -220,7 +221,7 @@ html {
     padding-left: 0px;
     border-radius: 20px;
     width: 330px;
-    box-shadow: 4px 8px rgb(216, 210, 210);
+    box-shadow: 4px 6px rgb(216, 210, 210);
     cursor: pointer;
  }
 
