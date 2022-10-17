@@ -1,3 +1,7 @@
+body{
+    
+}
+
 html {
     height: 100%;
 }
@@ -142,9 +146,10 @@ html {
     font-size: 17px;
     font-weight: bold;
     color: white;
+    cursor: pointer;
   }
 
-  .logOut:hover{
+  .LogOut:hover{
     background-color: #68eed8;
   }
 
@@ -173,7 +178,19 @@ html {
   .searchLoop{
     border: none;
     background-color: inherit;
+    position: absolute;
+    margin-top: 40px;
     margin-left: -50px;
+  }
+
+  .searchLoop button{
+    border: none;
+    background-color: inherit;
+  }
+
+  .searchbar-loop img{
+    width: 40px;
+    height: 40px;
   }
 
  .filter{
@@ -215,28 +232,27 @@ html {
 .eventPreview{
     width: 80%;
     margin-left: 20px;
+    margin-top: 10px;
 }
 
 .eventOrg{
     font-size: 12px;
     color: #969696;
     padding-top: -160px;
-    margin-top: -20px;
+    margin-top: 0px;
     
 }
 
 .calendar{
     width: 20px;
     height: 20px;
-    padding-top: -20px;
     margin-left: 14px;
+    margin-top: 20px;
 }
 
 .eventDate{
     padding-left: 60px;
-    margin-top: -22px;
     font-size: 12px;
     margin-left: -20px;
-    
+    margin-top: -22px;
 }
-

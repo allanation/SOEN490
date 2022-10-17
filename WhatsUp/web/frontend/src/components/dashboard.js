@@ -9,7 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function Dashboard2() {
+function Dashboard() {
     const [isApproved, setColorApproved] = useState(false);
     const [isUnApproved, setColorUnapproved] = useState(false);
     const [showEventsUnapproved, setShowUnapproved] = useState(false);
@@ -65,7 +65,7 @@ function Dashboard2() {
         <div className='searchbar-loop'>
         <form id="search">
             <input type="text" placeholder="Search for..." className="searchBar"></input>
-            <button type="submit" className="searchLoop"><img src={searchloop} width="40" height="40"></img></button>
+            <button type="submit" className="searchLoop"><img src={searchloop}></img></button>
         </form>
         </div>
         <button type="submit" className="filter"><img src={filter}></img></button>
@@ -97,4 +97,4 @@ function Dashboard2() {
   )
 }
 
-export default Dashboard2;
+export default Dashboard;
