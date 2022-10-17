@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
@@ -7,30 +7,65 @@ import Screen from "../components/Screen";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import Checkbox from 'expo-checkbox';
+import { auth, db, createUserWithEmailAndPassword, collection, addDoc } from "../firebase";
+
 
 function SignUpScreen() {
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isOrganizer, setIsOrganizer] = useState(false);
+
+  const handleSignUp = async (firstName, lastName, email, password, isOrganizer) => {
+    await createUserWithEmailAndPassword(auth, email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log(user.email);
+      })
+      .then(() => {
+         addDoc(collection(db, "users"), {
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          isOrganizer: isOrganizer
+        }).catch((error) => {alert(error.message)})
+      }).catch(error => alert(error.message))
+  }
+
+  const handleConfirmPass = (confirmPassword) => {
+    if (confirmPassword !== password) {
+      console.log('your gayy fix your confirm pass');
+    } else {
+      console.log('you good ma ggg');
+    }
+
+
+  }
+
   return (
     <Screen style={{padding: 20, marginTop: 20}}>
       <ScreenTitle title="Sign Up" />
       <ScreenSubtitle subtitle="Please fill the following information" />
-      <AppTextInput placeholder="First Name" />
-      <AppTextInput placeholder="Last Name" />
-      <AppTextInput placeholder="Email" />
-      <AppTextInput placeholder="Password" />
-      <AppTextInput placeholder="Confirm Password" />
+      <AppTextInput placeholder="First Name" onChangeText={text => setFirstName(text)}/>
+      <AppTextInput placeholder="Last Name" onChangeText={text => setLastName(text)}/>
+      <AppTextInput placeholder="Email" onChangeText={text => setEmail(text)} keyboardType='email-address'/>
+      <AppTextInput placeholder="Password" onChangeText={text => setPassword(text)} secureTextEntry/>
+      <AppTextInput placeholder="Confirm Password" onChangeText={text => handleConfirmPass(text)} secureTextEntry/>
       <View style={{flexDirection: 'row', paddingTop: 16}}>
         <View style={styles.organizer}>
             <Text>Are you an organizer?</Text>
         </View>
         <View style={styles.organizertwo}>
-            <Checkbox />
+            <Checkbox value={isOrganizer} onValueChange={setIsOrganizer}/>
         </View>
       </View>
-      <AppButton style title="Sign Up" onPress={() => console.log("ur gay")}/>  
+      <AppButton style title="Sign Up" onPress={() => handleSignUp(firstName, lastName, email, password, isOrganizer)}/>  
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <Text style={styles.text}>Already have an account? 
-            <Links style={styles.link} link="Login" onPress={() => console.log("ur gay")} />
-          </Text>
+          <Text style={styles.text}>Already have an account? </Text>
+          <Links style={styles.link} link="Login" onPress={() => console.log("ur gay")} />
         </View>
     </Screen>
   );
@@ -46,12 +81,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         width: '50%'
     },
-    text: {
-
-    },
-    link: {
-        
-    }
 });
 
 export default SignUpScreen;
