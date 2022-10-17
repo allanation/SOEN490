@@ -37,9 +37,9 @@ function SignUpScreen() {
 
   const handleConfirmPass = (confirmPassword) => {
     if (confirmPassword !== password) {
-      console.log('your gayy fix your confirm pass');
+      console.log('fix your pass');
     } else {
-      console.log('you good ma ggg');
+      console.log('you good');
     }
 
 
@@ -65,7 +65,7 @@ function SignUpScreen() {
       <AppButton style title="Sign Up" onPress={() => handleSignUp(firstName, lastName, email, password, isOrganizer)}/>  
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text style={styles.text}>Already have an account? </Text>
-          <Links style={styles.link} link="Login" onPress={() => console.log("ur gay")} />
+          <Links style={styles.link} link="Login" onPress={() => console.log("Login Screen Loading...")} />
         </View>
     </Screen>
   );
