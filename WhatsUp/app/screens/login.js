@@ -76,14 +76,12 @@ export default function Login() {
       </View>
       <AppButton style title="Login" onPress={handleLogin} />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Text style={styles.text}>
-          Don't have an account?
-          <Links
-            style={styles.link}
-            link="Sign up"
-            onPress={() => console.log("Sign up")}
-          />
-        </Text>
+        <Text style={styles.text}>Don't have an account? </Text>
+        <Links
+          style={styles.link}
+          link="Sign up"
+          onPress={() => console.log("Sign up")}
+        />
       </View>
       <View
         style={{
