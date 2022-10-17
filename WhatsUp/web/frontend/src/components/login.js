@@ -37,8 +37,7 @@ function Login() {
       .then((auth) => {
         navigate("/dashboard");
       })
-      .catch((error) => {
-        console.error("Invalid email or password.");
+      .catch(() => {
         loginErrorMsg.style.display = "block";
       });
   };
