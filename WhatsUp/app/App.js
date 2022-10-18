@@ -1,18 +1,25 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Button } from "react-native";
-import AppButton from "./components/AppButton";
-import AppTextInput from "./components/AppTextInput";
-import Links from "./components/Links";
-import Screen from "./components/Screen";
-import ScreenSubtitle from "./components/ScreenSubtitle";
-import ScreenTitle from "./components/ScreenTitle";
+//import UserDashboard from "./screens/UserDashboard";
+//import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
 import SignUpScreen from "./screens/SignUpScreen";
 import Login from "./screens/login";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 export default function App() {
+  const Stack = createNativeStackNavigator();
+  //headershown if u dont want the top navbar
   return (
-    // <SignUpScreen />
-    <Login />
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

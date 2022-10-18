@@ -8,14 +8,13 @@ import Screen from "../components/Screen";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import logo from "../Images/w3.png";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
-//import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Login() {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
@@ -27,7 +26,7 @@ export default function Login() {
           [{ text: "OK", onPress: () => console.log("") }],
           { cancelable: false }
         );
-        // navigation.navigate("dashboard");
+        // navigation.navigate("UserDashboard") or OrganzierDashboard
       })
       .catch((error) => {
         Alert.alert(
@@ -38,15 +37,18 @@ export default function Login() {
         );
       });
   };
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        //navigation.replace("Home");
-      }
-    });
+  const SignupPressed = () => {
+    navigation.navigate("SignUp");
+  };
+  // useEffect(() => {
+  //   const unsubscribe = auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       //navigation.replace("Home");
+  //     }
+  //   });
 
-    return unsubscribe;
-  }, []);
+  //   return unsubscribe;
+  // }, []);
   return (
     <Screen style={{ padding: 10, marginTop: 5 }}>
       <Image
@@ -77,11 +79,7 @@ export default function Login() {
       <AppButton style title="Login" onPress={handleLogin} />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Text style={styles.text}>Don't have an account? </Text>
-        <Links
-          style={styles.link}
-          link="Sign up"
-          onPress={() => console.log("Sign up")}
-        />
+        <Links style={styles.link} link="Sign up" onPress={SignupPressed} />
       </View>
       <View
         style={{
