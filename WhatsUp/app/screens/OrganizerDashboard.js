@@ -59,6 +59,12 @@ function OrganizerDashboardScreen() {
       organizer: 'Cinema',
       date: 'May 21, 2024',
     },
+    {
+      image: { EventImage },
+      title: 'Film Festival',
+      organizer: 'Cinema',
+      date: 'May 21, 2024',
+    },
   ];
 
   const eventsPast = [
@@ -73,6 +79,12 @@ function OrganizerDashboardScreen() {
       title: 'Music Festival',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+    },
+    {
+      image: { EventImage },
+      title: 'Film Festival',
+      organizer: 'Cinema',
+      date: 'May 21, 2024',
     },
     {
       image: { EventImage },
@@ -163,7 +175,7 @@ function OrganizerDashboardScreen() {
 
   var dE;
   var tabs;
-  var bruh;
+  var showEvents;
   if (displayedEvent) {
     tabs = (
       <>
@@ -183,7 +195,7 @@ function OrganizerDashboardScreen() {
         </TouchableOpacity>
       </>
     );
-    bruh = (
+    showEvents = (
       <>
         <FlatList
           data={filteredData ? filteredData : events}
@@ -214,7 +226,7 @@ function OrganizerDashboardScreen() {
         </TouchableOpacity>
       </>
     );
-    bruh = (
+    showEvents = (
       <>
         <FlatList
           data={filteredData ? filteredData : eventsPast}
@@ -269,7 +281,7 @@ function OrganizerDashboardScreen() {
 
           <Text style={styles.eventTitle}>Your Events</Text>
 
-          {bruh}
+          {showEvents}
         </Screen>
       </ScrollView>
     </SafeAreaView>
