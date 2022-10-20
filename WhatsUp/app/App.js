@@ -15,7 +15,6 @@ import colors from './config/colors';
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (
-    //<SignUpScreen />
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -44,7 +43,6 @@ export default function App() {
         <Tab.Screen name='SignUp' component={SignUpScreen} />
       </Tab.Navigator>
     </NavigationContainer>
-    //<OrganizerDashboardScreen />
   );
 }
 
