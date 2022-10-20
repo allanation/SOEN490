@@ -184,14 +184,14 @@ function OrganizerDashboardScreen() {
           onPress={() => setDisplayedEvents(true)}
           style={styles.upcoming}
         >
-          <Text>upcoming</Text>
+          <Text style={{ fontSize: 18 }}>upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.previous}
         >
-          <Text>previous</Text>
+          <Text style={{ fontSize: 18 }}>previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -215,14 +215,14 @@ function OrganizerDashboardScreen() {
           onPress={() => setDisplayedEvents(true)}
           style={styles.previous}
         >
-          <Text>upcoming</Text>
+          <Text style={{ fontSize: 18 }}>upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.upcoming}
         >
-          <Text>previous</Text>
+          <Text style={{ fontSize: 18 }}>previous</Text>
         </TouchableOpacity>
       </>
     );
