@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image } from "react-native";
+import { StyleSheet, Text, View, Button, Image, ScrollView } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -10,7 +10,7 @@ import Search from "../components/Search";
 import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
 import Event from "../components/Event";
-import Checkbox from 'expo-checkbox';
+import FilterButton from "../components/FilterButton";
 import NotificationIcon from "../assets/Icons/icons8-notifica.png";
 import LocationPin from "../assets/Icons/icons8-pin-64.png"
 import SliderIcon from "../assets/Icons/icons8-slider-4.png";
@@ -27,25 +27,76 @@ function UserDashboard() {
   var user = "TEMP";
   var welcome = "Welcome, " + user + "!";
 
+  const events = [
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+    {
+      image: {School},
+      title: 'Orientation Week',
+      organizer: 'Concordia University',
+      date: 'May 21, 2022',
+    },
+  ];
+
+
   return (
     <Screen style={{padding: 20, marginTop: 20, backgroundColor: '#F5F5F5'}}>
+
       <View style={{flexDirection: 'row'}}>
-        <SmallButton image = {LocationPin} title="Location" onPress={() => console.log("Location")} size = {120}/>
+        <SmallButton image = {LocationPin} title="Location, QC" onPress={() => console.log("Location")} size={15}/>
         <View style={{position: 'absolute', right: 10}}>
-            <SmallButton image = {NotificationIcon} title="" onPress={() => console.log("Notification")} size = {33}/>
+            <SmallButton image = {NotificationIcon} title="" onPress={() => console.log("Notification")} size={2}/>
         </View>
       </View>
+
       <Text style={styles.date}>{today}</Text>
+
       <Text style={styles.title}>{welcome}</Text>
+
       <View style={{flexDirection: 'row'}} >
         <Search placeholder="Search for..." />
-        <View style={styles.organizertwo}>
-            <Image source={SliderIcon} style={{width: 28, height: 28, marginLeft: 10, marginTop:15}}/>
-        </View>
+        <FilterButton image={SliderIcon} onPress={() => console.log("Filters")}/>
       </View>
-      <Text style={styles.text} >Popular Events</Text>
 
-      <Event image = {School} title="Orientation Week" organizer="Concordia University"onPress={() => console.log("Event")} />
+      <Text style={styles.text}>Popular Events</Text>
+
+      <View style={{height: '63%'}}>
+        <ScrollView>
+            {events.map((n) => {
+                return (
+                <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")}/>
+                );
+            })}
+        </ScrollView>
+      </View>
 
       <View style={styles.container}>
         <NavButton image={Home} onPress={() => console.log("Home")} position='5%'/>
@@ -83,7 +134,7 @@ const styles = StyleSheet.create({
     },
     container: {
         position: 'absolute',
-        bottom: 0,
+        bottom: -10,
         backgroundColor: '#FFFFFF',
         borderColor: '#969696',
         paddingVertical: 7,

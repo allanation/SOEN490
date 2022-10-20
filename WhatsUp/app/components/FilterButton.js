@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
 
-function NavButton({ image, position, onPress}) {
+function FilterButton({ image, onPress}) {
     return (
-        <TouchableOpacity style={[styles.button, {flexDirection:'row'}, {left: position}]} onPress={onPress}>
+        <TouchableOpacity style={[styles.button, {flexDirection:'row'}]} onPress={onPress}>
             <Image source={image}/>
         </TouchableOpacity>
     );
@@ -11,13 +11,15 @@ function NavButton({ image, position, onPress}) {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: '#FFFFFF',
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 1,
         marginVertical: 5,
-        height: 33,
+        height: 28,
+        width: 28,
+        marginTop: 13,
+        marginLeft: 8,
     },
     text: {
         color: '#32bca5',
@@ -29,4 +31,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default NavButton;
+export default FilterButton;
