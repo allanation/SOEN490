@@ -1,6 +1,6 @@
-import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import colors from '../config/colors';
+import React from "react";
+import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import colors from "../config/colors";
 
 function AppButton({ title, onPress, color = 'primary', disabled = false, style }) {
     return (
@@ -11,22 +11,21 @@ function AppButton({ title, onPress, color = 'primary', disabled = false, style 
 }
 
 const styles = StyleSheet.create({
-    button: {
-        borderRadius: 7,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 12,
-        width: '98%',
-        marginVertical: 40,
-        marginLeft: '1%'
-    },
-    text: {
-        color: colors.white,
-        fontSize: 18,
-        fontWeight: 'bold',
-        fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
-    }
+  button: {
+    borderRadius: 7,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 12,
+    width: "98%",
+    marginVertical: 40,
+    marginLeft: "1%",
+  },
+  text: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: "bold",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
+  },
 });
-
 
 export default AppButton;

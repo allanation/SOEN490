@@ -1,6 +1,6 @@
-import React from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
-import colors from '../config/colors';
+import React from "react";
+import { TextInput, View, StyleSheet } from "react-native";
+import colors from "../config/colors";
 
 function AppTextInput({ style, ...otherProps }) {
     return (
