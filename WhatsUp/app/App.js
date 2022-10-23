@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, Button } from "react-native";
 //import UserDashboard from "./screens/UserDashboard";
 //import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
 import SignUpScreen from "./screens/SignUpScreen";
-import Login from "./screens/Login";
+import Login from "./screens/login";
 import ResetPassword from "./screens/ResetPassword";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
