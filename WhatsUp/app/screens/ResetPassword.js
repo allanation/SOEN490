@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
@@ -7,44 +7,45 @@ import Links from "../components/Links";
 import Screen from "../components/Screen";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
-import logo from "../Images/w3.png";
+import { useNavigation } from "@react-navigation/native";
 import { auth } from "../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 
 export default function ResetPassword() {
+  const navigation = useNavigation();
   const [userEmail, setEmail] = useState("");
 
   const sendResetEmail = () => {
     sendPasswordResetEmail(auth, userEmail)
-    .then(() => {
-      Alert.alert(
-        "Email sent sucessfully.",
-        "Check your emails to reset the password."
-      );
-    })
-    .catch((error) => {
-
-    });
+      .then(() => {
+        Alert.alert(
+          "Email sent sucessfully.",
+          "Check your emails to reset the password."
+        );
+      })
+      .catch((error) => {});
   };
-  
+
   //Check if email exists in the database before sending the link
   const checkIfEmailExists = () => {
     fetchSignInMethodsForEmail(auth, userEmail)
-    .then((result) => {
-      if (result === undefined || result.length == 0) {
-        Alert.alert(
-          "We couldn't find an account with that email address."
-        );
-    }else{
-      //If email exists, send the link
-      sendResetEmail();
-    }
-    })
-    .catch((error) => {
-      console.log(error.message)
-      // ..
-    });
+      .then((result) => {
+        if (result === undefined || result.length == 0) {
+          Alert.alert("We couldn't find an account with that email address.");
+        } else {
+          //If email exists, send the link
+          sendResetEmail();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert("Please enter a valid email address.");
+      });
+  };
+
+  const LoginPressed = () => {
+    navigation.navigate("Login");
   };
 
   return (
@@ -63,11 +64,10 @@ export default function ResetPassword() {
       <View style={styles.organizertwo}>
         <Links
           style={styles.link}
-          link="Go back to Home page"
-          //onPress={() => }
+          link="Go back to Login page"
+          onPress={LoginPressed}
         />
       </View>
-        
     </Screen>
   );
 }
@@ -94,5 +94,7 @@ const styles = StyleSheet.create({
     alignContent: "center",
     borderRadius: 45,
   },
-  link: {},
+  link: {
+    marginLeft: "5%",
+  },
 });

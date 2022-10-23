@@ -1,7 +1,7 @@
 import "react-native";
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
-import Login from "../screens/login";
+import Login from "../screens/Login";
 import renderer from "react-test-renderer";
 import { isValidTimestamp } from "@firebase/util";
 
