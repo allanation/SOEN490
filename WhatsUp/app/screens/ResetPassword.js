@@ -13,7 +13,6 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 
 export default function ResetPassword() {
-  const navigation = useNavigation();
   const [userEmail, setEmail] = useState("");
 
   const sendResetEmail = () => {
@@ -44,10 +43,6 @@ export default function ResetPassword() {
       });
   };
 
-  const LoginPressed = () => {
-    navigation.navigate("Login");
-  };
-
   return (
     <Screen style={{ padding: 10, marginTop: 80 }}>
       <ScreenTitle title="Forgot Password?" />
@@ -65,7 +60,7 @@ export default function ResetPassword() {
         <Links
           style={styles.link}
           link="Go back to Login page"
-          onPress={LoginPressed}
+          //onPress={}
         />
       </View>
     </Screen>
