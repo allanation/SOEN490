@@ -72,7 +72,7 @@ export default function Login() {
       <View style={styles.organizertwo}>
         <Links
           style={styles.link}
-          link="Forget Password?"
+          link="Forgot Password?"
           onPress={() => console.log("password")}
         />
       </View>
