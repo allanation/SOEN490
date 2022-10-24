@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     padding: 12,
     width: "98%",
     marginVertical: 40,
-    marginLeft: "1%",
+    marginLeft: "1%"
   },
   text: {
     color: colors.white,

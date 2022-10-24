@@ -32,11 +32,10 @@
 - **Example:** [Solves WHATSUP-21] Add Admin Login Page
 
 ## Expo Test Setup Instruction:
--npm install
--npm start 
 
-Download the expo go app and create an account.
-After sign in scan qr code to run app on mobile.
+1. Run both `npm install` and `expo start`
+2. Download the Expo Go app and create an account.
+3. After signing in, scan the QR code from the terminal to run app on mobile.
 
 
 
