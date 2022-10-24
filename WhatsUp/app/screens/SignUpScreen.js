@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Alert } from "react-native";
+import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -10,9 +10,12 @@ import Checkbox from 'expo-checkbox';
 import { auth, db, createUserWithEmailAndPassword, collection, addDoc } from "../firebase";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
+import BottomImg from "../components/BottomImg";
+import AwesomeAlert from 'react-native-awesome-alerts';
+
 
 function SignUpScreen() {
-
+  
   const navigation = useNavigation();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,26 +24,27 @@ function SignUpScreen() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isOrganizer, setIsOrganizer] = useState(false);
   const [valid, setValid] = useState(true);
-
+  const [sAlert, setSAlert] = useState(false);
+  
   
   const handleSignUp = async (firstName, lastName, email, password, isOrganizer) => {
     if (firstName.length == 0) {
-      alert("Please fill out first name")
+      Alert.alert("Error","Please fill out your first name.")
       return;
     }
     if (lastName.length == 0) {
-      alert("Please fill out last name")
+      Alert.alert("Error","Please fill out your last name.")
       return;
     }
     await createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
           const user = userCredentials.user;
           console.log(user.email);
-          alert('Account Created');
+          Alert.alert('Account Created Succesfully');
           navigation.navigate('Login')
         })
         .then(() => {addDoc(collection(db, "users"), {
-              firstName: firstName,
+          firstName: firstName,
           lastName: lastName,
           email: email,
           isOrganizer: isOrganizer,
@@ -50,25 +54,25 @@ function SignUpScreen() {
   
   const handleErrorMsg = (error) => {
     if (error.message.includes('invalid-email')) {
-      alert('Invalid Email');
+      Alert.alert('Error','Invalid Email');
     }
     else if(error.message.includes('email-already-in-use')) {
-      alert('Email already in use');
+      Alert.alert('Error','Email already in use');
     }
     else if(error.message.includes('internal-error')) {
-      alert('Please fill in a password');
+      Alert.alert('Error','Please fill in a password');
     }
     console.log(error.message);
   }
   const handleConfirmPass = (confirmPassword) => {
-
+    
     if (confirmPassword !== password) {
       setValid(false)
     } else {
       setValid(true)
     }
   }  
-  
+
   return (
     <Screen style={{padding: 20, marginTop: 20}}>
       <ScreenTitle title="Sign Up" />
@@ -95,8 +99,8 @@ function SignUpScreen() {
         style={{
           shadowColor: 'black', // IOS
           shadowOffset: { height: 1, width: 1 }, // IOS
-          shadowOpacity: 1, // IOS
-          shadowRadius: 1, //IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 3, //IOS
           elevation: 4, // Android
         }}
         title="Sign Up" 
@@ -107,6 +111,11 @@ function SignUpScreen() {
           <Text style={styles.text}>Already have an account? </Text>
           <Links style={styles.link} link="Login" onPress={() => navigation.navigate('Login')} />
         </View>
+        
+        <BottomImg
+        resizeMode = 'contain'
+        />
+
     </Screen>
   );
 }
