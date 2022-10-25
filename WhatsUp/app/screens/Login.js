@@ -12,6 +12,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import colors from "../config/colors";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -92,11 +93,11 @@ export default function Login() {
           paddingVertical: 15,
         }}
       >
-        <View style={{ flex: 1, height: 1, backgroundColor: "grey" }} />
+        <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
         <View>
-          <Text style={{ width: 105, textAlign: "center" }}>Or login with</Text>
+          <Text style={{ width: 105, textAlign: "center", color: "darkgray", fontSize: 14 }}>Or login with</Text>
         </View>
-        <View style={{ flex: 1, height: 1, backgroundColor: "grey" }} />
+        <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
       </View>
       <View style={styles.rowContainer}>
         <FontAwesome
@@ -106,6 +107,7 @@ export default function Login() {
             color: "#3b5998",
             fontSize: 50,
             alignSelf: "center",
+            paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
         />
@@ -115,7 +117,8 @@ export default function Login() {
           style={{
             color: "#00acee",
             fontSize: 50,
-            paddingHorizontal: 10,
+            paddingHorizontal: 40,
+            paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
         />
@@ -125,6 +128,7 @@ export default function Login() {
           style={{
             color: "#db4a39",
             fontSize: 50,
+            paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
         />
@@ -144,8 +148,23 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: "row",
-    borderRadius: 45,
-    justifyContent: "center",
+    alignSelf: "center",
   },
-  link: {},
+  roundshape: {
+    backgroundColor: "grey",
+    height: 65,
+    width: 65,
+    justifyContent: "center",
+    alignSelf: "center",
+    alignContent: "center",
+    borderRadius: 45,
+  },
+  text: {
+    color: colors.darkerGrey,
+    fontSize: 16,
+  },
+  text2: {
+    fontSize: 16,
+    color: colors.darkGrey,
+  },
 });
