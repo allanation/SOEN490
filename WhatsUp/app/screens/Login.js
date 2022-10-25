@@ -40,6 +40,10 @@ export default function Login() {
   const SignupPressed = () => {
     navigation.navigate("SignUp");
   };
+
+  const ResetPassword = () => {
+    navigation.navigate("ResetPassword");
+  };
   // useEffect(() => {
   //   const unsubscribe = auth.onAuthStateChanged((user) => {
   //     if (user) {
@@ -73,7 +77,7 @@ export default function Login() {
         <Links
           style={styles.link}
           link="Forgot Password?"
-          onPress={() => console.log("password")}
+          onPress={ResetPassword}
         />
       </View>
       <AppButton style title="Login" onPress={handleLogin} />
