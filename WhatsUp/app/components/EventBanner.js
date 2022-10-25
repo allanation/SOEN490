@@ -13,12 +13,18 @@ import { Ionicons } from '@expo/vector-icons';
 function EventBanner({ image, title, organizer, date, onPress }) {
   return (
     <TouchableOpacity
-      style={[styles.button, { flexDirection: 'row' }, { marginTop: 16 }]}
+      style={[styles.button, { flexDirection: 'row' }, { marginBottom: 16 }]}
       onPress={onPress}
     >
       <Image
         source={image}
-        style={{ position: 'absolute', left: 0, width: 120, height: 100 }}
+        style={{
+          position: 'absolute',
+          left: 0,
+          width: 120,
+          height: 100,
+          borderRadius: 20,
+        }}
       />
       <View style={{ marginLeft: 30 }}>
         <Text style={styles.text}>{title}</Text>

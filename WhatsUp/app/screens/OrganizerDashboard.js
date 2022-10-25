@@ -16,8 +16,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Search from '../components/Search';
 import EventBanner from '../components/EventBanner';
-import EventImage from '../assets/Logos/w1.png';
+//import EventImage from '../assets/Logos/w1.png';
 import SearchBar from 'react-native-dynamic-search-bar';
+import EventImage from '../assets/stringio.jpg';
 
 function OrganizerDashboardScreen() {
   const Tab = createBottomTabNavigator();
@@ -27,9 +28,23 @@ function OrganizerDashboardScreen() {
 
   const [date, setDate] = useState(null);
   useEffect(() => {
-    let today = new Date();
-    let date = today.getMonth() + 1 + '-' + today.getDate();
-    setDate(date);
+    let d = new Date();
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    let today = "Today's " + months[d.getMonth()] + ' ' + d.getDate();
+    setDate(today);
     setMasterData(events);
     setPreviousData(eventsPast);
   }, []);
@@ -184,14 +199,14 @@ function OrganizerDashboardScreen() {
           onPress={() => setDisplayedEvents(true)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 18 }}>upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 18 }}>previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -200,6 +215,7 @@ function OrganizerDashboardScreen() {
         <FlatList
           data={filteredData ? filteredData : events}
           renderItem={ItemView}
+          style={{}}
         ></FlatList>
         <FlatList
           data={filteredOrgData ? filteredOrgData : []}
@@ -215,14 +231,14 @@ function OrganizerDashboardScreen() {
           onPress={() => setDisplayedEvents(true)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 18 }}>upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
           title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 18 }}>previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -247,7 +263,7 @@ function OrganizerDashboardScreen() {
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Text style={{ color: colors.darkGrey }}>
-                Today's <Text style={styles.paragraph}>{date}</Text>{' '}
+                <Text style={styles.paragraph}>{date}</Text>{' '}
               </Text>
               <Text style={{ fontWeight: 'bold', fontSize: 28 }}>
                 Welcome, {user.name}!
@@ -264,6 +280,9 @@ function OrganizerDashboardScreen() {
               <Ionicons name='notifications' size={24} color={colors.primary} />
             </TouchableOpacity>
           </View>
+
+          <View style={styles.eventTabs}>{tabs}</View>
+
           <View style={styles.searchBar}>
             <SearchBar
               style={{ width: '85%' }}
@@ -276,9 +295,6 @@ function OrganizerDashboardScreen() {
               <Ionicons name='ios-filter' size={24} color={colors.primary} />
             </TouchableOpacity>
           </View>
-
-          <View style={styles.eventTabs}>{tabs}</View>
-
           <Text style={styles.eventTitle}>Your Events</Text>
 
           {showEvents}
@@ -304,7 +320,8 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontWeight: 'bold',
     fontSize: 18,
-    marginTop: 24,
+    marginTop: 16,
+    marginBottom: 8,
   },
   searchBar: {
     flexDirection: 'row',
@@ -316,16 +333,17 @@ const styles = StyleSheet.create({
   },
   eventTabs: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
     marginTop: 20,
   },
   upcoming: {
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
+    paddingBottom: 10,
+    fontWeight: 'bold',
   },
   previous: {
-    borderBottomWidth: 2,
-    borderBottomColor: colors.darkGrey,
+    paddingBottom: 10,
   },
 });
 

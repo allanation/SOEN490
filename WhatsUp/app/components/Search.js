@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 function Search({ ...stuff }) {
   return (
     <View style={styles.container}>
-      <Ionicons name='ios-search' size={20} color={colors.lightGrey} />
+      <Ionicons name='ios-search' size={20} color={colors.lightgrey} />
       <TextInput style={styles.text} {...stuff} />
     </View>
   );
