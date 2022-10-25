@@ -81,7 +81,17 @@ export default function Login() {
           onPress={ResetPassword}
         />
       </View>
-      <AppButton style title="Login" onPress={handleLogin} />
+      <AppButton
+        style={{
+          shadowColor: "black", // IOS
+          shadowOffset: { height: 1, width: 1 }, // IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 3, //IOS
+          elevation: 4, // Android
+        }}
+        title="Login"
+        onPress={handleLogin}
+      />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Text style={styles.text}>Don't have an account? </Text>
         <Links style={styles.link} link="Sign up" onPress={SignupPressed} />
@@ -95,7 +105,16 @@ export default function Login() {
       >
         <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
         <View>
-          <Text style={{ width: 105, textAlign: "center", color: "darkgray", fontSize: 14 }}>Or login with</Text>
+          <Text
+            style={{
+              width: 105,
+              textAlign: "center",
+              color: "darkgray",
+              fontSize: 14,
+            }}
+          >
+            Or login with
+          </Text>
         </View>
         <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
       </View>

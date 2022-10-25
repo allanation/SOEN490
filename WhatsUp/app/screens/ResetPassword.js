@@ -59,14 +59,20 @@ export default function ResetPassword() {
         value={userEmail}
       />
 
-      <AppButton style title="Submit" onPress={checkIfEmailExists} />
+      <AppButton
+        style={{
+          shadowColor: "black", // IOS
+          shadowOffset: { height: 1, width: 1 }, // IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 3, //IOS
+          elevation: 4, // Android
+        }}
+        title="Submit"
+        onPress={checkIfEmailExists}
+      />
 
       <View style={styles.organizertwo}>
-        <Links
-          style={styles.link}
-          link="Go back to Login page"
-          onPress={Login}
-        />
+        <Links style={styles.link} link="Back to Login" onPress={Login} />
       </View>
     </Screen>
   );
@@ -95,6 +101,6 @@ const styles = StyleSheet.create({
     borderRadius: 45,
   },
   link: {
-    marginLeft: "5%",
+    marginLeft: "14.1%",
   },
 });
