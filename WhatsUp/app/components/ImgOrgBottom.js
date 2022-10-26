@@ -19,7 +19,7 @@ function BottomImg({ }) {
 
 const imageAspectRatio = (2481 / 1144);
 const scaledWidth = Dimensions.get('window').width;
-const scaledHeight = (scaledWidth / imageAspectRatio);
+const scaledHeight = (scaledWidth / imageAspectRatio)/2;
 
 const styles = StyleSheet.create({
     container: {
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         height: scaledHeight,
         position: 'absolute',
         bottom: 0,
+        resizeMode: 'stretch'
     } 
 });
 
