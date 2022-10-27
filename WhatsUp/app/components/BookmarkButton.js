@@ -1,19 +1,19 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
 import {useState} from 'react';
+import { Ionicons } from '@expo/vector-icons';
 
-function BookmarkButton({ image, colour = '#32bca5'}) {
+function BookmarkButton({colour = '#32bca5'}) {
     const [Active, setActive] = useState(false);
 
-    const handleClick = () => {
-
+    const handlePress = () => {
        setActive(current => !current);
        Active ? console.log("Event unBookmarked") : console.log("Event Bookmarked");
     };
 
     return (
-        <TouchableOpacity style={[styles.button, {flexDirection:'row'}, {backgroundColor: Active ? '#32bca5' : '#FFFFFF',}]} onPress={handleClick}>
-            <Image source={image} style={{height: 30, width: 30, top: 1}}/>
+        <TouchableOpacity style={[styles.button, {flexDirection:'row'}]} onPress={handlePress}>
+            <Ionicons name={Active ? 'ios-bookmark' : 'ios-bookmark-outline'} size={30} color={'#32bca5'} style={{height: 30, width: 30, top: '1%'}}/>
         </TouchableOpacity>
     );
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform, Image } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 function SmallButton({ image, title, onPress, size }) {
     return (
         <TouchableOpacity style={[styles.button, {flexDirection:'row'}]} onPress={onPress}>
-            <Image source={image} style={{marginLeft: size}}/>
+            <Ionicons name={image} size={24} color={'#32bca5'} style={{marginLeft: size}}/>
             <Text style={[styles.text, {marginRight: size}]}>{title}</Text>
         </TouchableOpacity>
     );

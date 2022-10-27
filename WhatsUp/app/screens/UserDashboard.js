@@ -11,14 +11,8 @@ import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
-import NotificationIcon from "../assets/Icons/icons8-notifica.png";
-import LocationPin from "../assets/Icons/icons8-pin-64.png"
-import SliderIcon from "../assets/Icons/icons8-slider-4.png";
-import Home from "../assets/Icons/icons8-home-48.png";
-import Ticket from "../assets/Icons/icons8-ticket-9.png";
-import Bookmark from "../assets/Icons/icons8-bookmark.png";
-import Profile from "../assets/Icons/icons8-user-48.png";
 import School from "../assets/Icons/stringio.png";// Temporary Placeholder
+import { Ionicons } from '@expo/vector-icons';
 
 function UserDashboard() {
   var date = new Date();
@@ -68,12 +62,12 @@ function UserDashboard() {
 
 
   return (
-    <Screen style={{padding: 20, marginTop: 20, backgroundColor: '#F5F5F5'}}>
-
+    <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
+      <View style={{left: '1.5%', marginTop: '5%', height: '101%'}}>
       <View style={{flexDirection: 'row'}}>
-        <SmallButton image = {LocationPin} title="Location, QC" onPress={() => console.log("Location")} size={15}/>
-        <View style={{position: 'absolute', right: 10}}>
-            <SmallButton image = {NotificationIcon} title="" onPress={() => console.log("Notification")} size={2}/>
+        <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'}/>
+        <View style={{position: 'absolute', right: '4%'}}>
+            <SmallButton image = 'notifications' title="" onPress={() => console.log("Notification")} size={4}/>
         </View>
       </View>
 
@@ -83,12 +77,12 @@ function UserDashboard() {
 
       <View style={{flexDirection: 'row'}} >
         <Search placeholder="Search for..." />
-        <FilterButton image={SliderIcon} onPress={() => console.log("Filters")}/>
+        <FilterButton image='ios-options' onPress={() => console.log("Filters")}/>
       </View>
 
       <Text style={styles.text}>Popular Events</Text>
 
-      <View style={{height: '63%'}}>
+      <View style={{height: '63%', width:'101%'}}>
         <ScrollView>
             {events.map((n) => {
                 return (
@@ -97,12 +91,14 @@ function UserDashboard() {
             })}
         </ScrollView>
       </View>
+      </View>
+
 
       <View style={styles.container}>
-        <NavButton image={Home} onPress={() => console.log("Home")} position='5%'/>
-        <NavButton image={Ticket} onPress={() => console.log("Ticket")} position='20%'/>
-        <NavButton image={Bookmark} onPress={() => console.log("Bookmark")} position='35%'/>
-        <NavButton image={Profile} onPress={() => console.log("Profile")} position='50%'/>
+        <NavButton image='ios-home' onPress={() => console.log("Home")} position='8%'/>
+        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")} position='23%'/>
+        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")} position='38%'/>
+        <NavButton image='md-person' onPress={() => console.log("Profile")} position='53%'/>
       </View>
     </Screen>
   );
@@ -121,27 +117,29 @@ const styles = StyleSheet.create({
     title:{
        color: '#100101',
        fontSize: 20,
+       fontWeight: 'bold',
     },
     date:{
        color: '#969696',
-       marginTop: 20,
+       marginTop: '6%',
        fontSize: 12,
     },
     text: {
         color: '#100101',
-        marginTop: 20,
+        marginTop: '6%',
         fontSize: 16,
+        fontWeight: 'bold',
     },
     container: {
         position: 'absolute',
-        bottom: -10,
+        bottom: '-1.4%',
         backgroundColor: '#FFFFFF',
         borderColor: '#969696',
         paddingVertical: 7,
         paddingHorizontal: 12,
         width: '113%',
-        height: 69,
-        marginVertical: 10,
+        height: '9%',
+        marginVertical: '1.4%',
         borderStyle: 'solid',
         borderWidth: .25,
         shadowColor: 'black',

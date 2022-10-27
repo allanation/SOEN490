@@ -2,8 +2,7 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform, Image, View } from 'react-native';
 import {useState} from 'react';
 import BookmarkButton from "../components/BookmarkButton";
-import Calendar from "../assets/Icons/icons8-calendar.png";
-import Bookmark from "../assets/Icons/icons8-bookmark.png";
+import { Ionicons } from '@expo/vector-icons';
 
 function Event({ image, title, organizer, date,  onPress}) {
 
@@ -14,11 +13,11 @@ function Event({ image, title, organizer, date,  onPress}) {
                 <Text style={styles.text}>{title}</Text>
                 <Text style={{fontSize: 12, color: '#969696'}}>By {organizer}</Text>
                 <View style={{marginTop: 5, flexDirection: 'row'}}>
-                    <Image source={Calendar} style={{height: 18, width: 18}}/>
-                    <Text style={{fontSize: 11, color: '#100101', marginLeft: 3, marginTop: 1}}>{date}</Text>
+                    <Ionicons name='ios-calendar-outline' size={18} color={'#32bca5'}/>
+                    <Text style={{fontSize: 11, color: '#100101', marginLeft: '2%', marginTop: '2%'}}>{date}</Text>
                 </View>
             </View>
-            <BookmarkButton image={Bookmark}/>
+            <BookmarkButton/>
         </TouchableOpacity>
     );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import { TextInput, View, StyleSheet, Image } from 'react-native';
-import SearchIcon from "../assets/Icons/icons8-search-5.png"
+import { TextInput, View, StyleSheet } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 function Search({ ...stuff }) {
     return (
         <View style={styles.container}>
-        <Image source={SearchIcon} style={{width: 23, height: 23}}/>
+        <Ionicons name='ios-search-outline' size={24} color={'#969696'} style={{width: 23, height: 23}}/>
         <TextInput style={styles.text} { ...stuff }/>
         </View>
     );
@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
         marginLeft: 5,
+        alignItem: 'center',
+        top: '1%',
     },
 });
 
