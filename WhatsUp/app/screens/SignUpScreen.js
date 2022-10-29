@@ -66,7 +66,7 @@ function SignUpScreen() {
       Alert.alert('Error','Please fill in a password');
     }
     else if(error.message.includes('weak-password')) {
-      Alert.alert('Error','Passwords should be at least 6 characters.');
+      Alert.alert('Error','Passwords must be at least 6 characters.');
     }
     console.log(error.message);
   }
