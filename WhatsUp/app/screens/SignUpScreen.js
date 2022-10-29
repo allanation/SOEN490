@@ -53,6 +53,9 @@ function SignUpScreen() {
   }
   
   const handleErrorMsg = (error) => {
+    if (error.message.includes('missing-email')) {
+      Alert.alert('Error','Please fill in an email');
+    }
     if (error.message.includes('invalid-email')) {
       Alert.alert('Error','Invalid Email');
     }
@@ -62,12 +65,15 @@ function SignUpScreen() {
     else if(error.message.includes('internal-error')) {
       Alert.alert('Error','Please fill in a password');
     }
+    else if(error.message.includes('weak-password')) {
+      Alert.alert('Error','Passwords should be at least 6 characters.');
+    }
     console.log(error.message);
   }
   const handleConfirmPass = (confirmPassword) => {
     
     if (confirmPassword !== password) {
-      setValid(false)
+      setValid(false);
     } else {
       setValid(true)
     }
