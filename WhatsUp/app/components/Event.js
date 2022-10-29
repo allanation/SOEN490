@@ -7,7 +7,6 @@ import {
   Image,
   View,
 } from "react-native";
-import colors from "../config/colors";
 
 function Event({ image, title, organizer, onPress }) {
   return (

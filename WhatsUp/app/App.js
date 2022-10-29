@@ -1,5 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, Button } from "react-native";
+/* eslint-disable react/react-in-jsx-scope */
+import { StyleSheet } from "react-native";
 //import UserDashboard from "./screens/UserDashboard";
 //import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
 import SignUpScreen from "./screens/SignUpScreen";

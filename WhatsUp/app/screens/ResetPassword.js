@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -24,7 +24,7 @@ export default function ResetPassword() {
           "Check your emails to reset the password."
         );
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   //Check if email exists in the database before sending the link

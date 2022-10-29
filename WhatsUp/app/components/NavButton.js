@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-  Image,
-} from "react-native";
-import colors from "../config/colors";
+import { TouchableOpacity, StyleSheet, Platform, Image } from "react-native";
 
 function NavButton({ image, position, onPress }) {
   return (

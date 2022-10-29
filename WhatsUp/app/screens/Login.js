@@ -1,6 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, Image, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -20,7 +20,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
+      .then(() => {
         Alert.alert(
           "Logged in sucessfully",
           "Email and password are valid",
@@ -29,7 +29,7 @@ export default function Login() {
         );
         // navigation.navigate("UserDashboard") or OrganzierDashboard
       })
-      .catch((error) => {
+      .catch(() => {
         Alert.alert(
           "Try again",
           "Invalid email or password.",

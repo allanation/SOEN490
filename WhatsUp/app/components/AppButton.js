@@ -2,12 +2,26 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import colors from "../config/colors";
 
-function AppButton({ title, onPress, color = 'primary', disabled = false, style }) {
-    return (
-        <TouchableOpacity style={[styles.button, {backgroundColor: !disabled ? colors[color] : colors.lightGrey}, style ]} onPress={onPress} disabled={disabled}>
-            <Text style={styles.text}>{title}</Text>
-        </TouchableOpacity>
-    );
+function AppButton({
+  title,
+  onPress,
+  color = "primary",
+  disabled = false,
+  style,
+}) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.button,
+        { backgroundColor: !disabled ? colors[color] : colors.lightGrey },
+        style,
+      ]}
+      onPress={onPress}
+      disabled={disabled}
+    >
+      <Text style={styles.text}>{title}</Text>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -18,7 +32,7 @@ const styles = StyleSheet.create({
     padding: 12,
     width: "98%",
     marginVertical: 40,
-    marginLeft: "1%"
+    marginLeft: "1%",
   },
   text: {
     color: colors.white,
