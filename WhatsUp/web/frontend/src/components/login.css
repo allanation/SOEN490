@@ -3,53 +3,52 @@
   margin: 0;
 }
 
-body {
-  height: 100vh;
-  margin-left: 15%;
-  background: white;
-  font: Helvetica Neue;
-}
-
-p {
+.enterCredentials, .email-error-msg, .login-error-msg {
   font-size: 22px;
   color: #747474;
   padding-bottom: 55px;
+  font: Helvetica Neue;
+  margin-left: 10%;
 }
 
-img {
+.whatsupLogo {
   float: right;
-  margin-top: 255px;
-  margin-right: 52%;
+  margin-top: 22%;
+  margin-right: 42%;
 }
 
-input {
+.inputPassword, .inputEmail {
   border: solid white;
   border-color: #e4dede;
-  border-width: 3px;
+  border-width: 2px;
 }
 
-input:hover {
+.inputPassword:hover, .inputEmail:hover {
   border: solid white;
   border-color: #747474;
-  border-width: 3px;
+  border-width: 2px;
 }
 
-input,
-button {
-  padding: 10px;
+.inputPassword, .inputEmail,
+.loginButton {
   height: 50px;
   width: 475px;
   font-size: 20px;
   border-radius: 5px;
   margin-top: 15px;
+  font: Helvetica Neue;
+  margin-left: 10%;
+  padding-left: 1%;
 }
 
 .welcome {
   font-size: 50px;
-  padding-top: 280px;
+  padding-top: 12%;
+  font: Helvetica Neue;
+  margin-left: 10%;
 }
 
-.login {
+.loginButton {
   background-color: #32bca5;
   font-size: 22px;
   color: white;
@@ -58,11 +57,11 @@ button {
   box-shadow: 4px 4px #e2e2e2;
 }
 
-.login:hover {
+.loginButton:hover {
     background-color: #3acfb7;
 }
 
-.login:active {
+.loginButton:active {
   background-color: #32bca5;
 }
 
@@ -84,12 +83,12 @@ button {
 }
 
 #grey-box {
-	width: 70%;
+	width: 60%;
 	height: 100vh;
   border-radius: 70px;
   background:#F5F5F5;
   float: right;
   overflow: hidden;
   position: fixed;
-  margin-left: 37%;
+  margin-left: 50%;
 }
