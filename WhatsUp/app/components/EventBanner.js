@@ -12,24 +12,27 @@ import { Ionicons } from '@expo/vector-icons';
 
 function EventBanner({ image, title, organizer, date, onPress }) {
   return (
-    <TouchableOpacity
-      style={[styles.button, { flexDirection: 'row' }, { marginBottom: 16 }]}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={[styles.eventBanner]} onPress={onPress}>
       <Image
         source={image}
         style={{
-          position: 'absolute',
           left: 0,
           width: 120,
           height: 100,
-          borderRadius: 20,
+          borderBottomLeftRadius: 16,
+          borderTopLeftRadius: 16,
+          marginRight: 16,
         }}
       />
-      <View style={{ marginLeft: 30 }}>
-        <Text style={styles.text}>{title}</Text>
-        <Text style={{ fontSize: 16, color: '#969696', marginLeft: 60 }}>
-          By {organizer}
+      <View>
+        <Text numberOfLines={1} style={styles.text}>
+          {title.length < 18 ? `${title}` : `${title.substring(0, 16)}...`}
+        </Text>
+        <Text numberOfLines={1} style={{ fontSize: 16, color: '#969696' }}>
+          By{' '}
+          {organizer.length < 22
+            ? `${organizer}`
+            : `${organizer.substring(0, 20)}...`}
         </Text>
         <View style={styles.date}>
           <Ionicons
@@ -45,17 +48,20 @@ function EventBanner({ image, title, organizer, date, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    borderWidth: 0.25,
-    justifyContent: 'center',
+  eventBanner: {
+    backgroundColor: colors.white,
+    borderRadius: 16,
     alignItems: 'center',
     height: 100,
+    flexDirection: 'row',
+    marginBottom: 20,
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
   text: {
     color: '#100101',
-    marginLeft: 60,
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
@@ -63,7 +69,6 @@ const styles = StyleSheet.create({
   },
   date: {
     flexDirection: 'row',
-    marginLeft: 60,
     marginTop: 8,
   },
 });
