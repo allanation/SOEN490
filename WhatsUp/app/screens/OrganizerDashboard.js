@@ -76,7 +76,7 @@ function OrganizerDashboardScreen() {
     },
     {
       image: { EventImage },
-      title: 'Anime Film rFestival',
+      title: 'Anime Film Festival',
       organizer: 'Cinema',
       date: 'June 24, 2024',
     },
