@@ -60,7 +60,7 @@ function OrganizerDashboardScreen() {
     {
       image: { EventImage },
       title: 'FROSH',
-      organizer: 'Concordia University',
+      organizer: 'Concordia Universityyyyyy',
       date: 'May 21, 2023',
     },
     {
@@ -71,9 +71,9 @@ function OrganizerDashboardScreen() {
     },
     {
       image: { EventImage },
-      title: 'Film Festival',
+      title: 'Anime Film Festival',
       organizer: 'Cinema',
-      date: 'May 21, 2024',
+      date: 'June 24, 2024',
     },
   ];
 
@@ -211,11 +211,11 @@ function OrganizerDashboardScreen() {
           data={filteredData ? filteredData : events}
           renderItem={ItemView}
           style={{}}
-        ></FlatList>
+        />
         <FlatList
           data={filteredOrgData ? filteredOrgData : []}
           renderItem={ItemView}
-        ></FlatList>
+        />
       </>
     );
   } else {
@@ -242,11 +242,11 @@ function OrganizerDashboardScreen() {
         <FlatList
           data={filteredData ? filteredData : eventsPast}
           renderItem={ItemView}
-        ></FlatList>
+        />
         <FlatList
           data={filteredOrgData ? filteredOrgData : []}
           renderItem={ItemView}
-        ></FlatList>
+        />
       </>
     );
   }
@@ -266,12 +266,17 @@ function OrganizerDashboardScreen() {
             <TouchableOpacity
               style={{
                 justifyContent: 'center',
-                borderRadius: 250,
-                paddingHorizontal: 15,
-                backgroundColor: colors.white,
+                shadowOffset: { height: 1, width: 1 }, // IOS
+                shadowOpacity: 0.2, // IOS
+                shadowRadius: 3, //IOS
+                elevation: 2, // Android
               }}
             >
-              <Ionicons name='notifications' size={24} color={colors.primary} />
+              <Ionicons
+                name='add-circle-outline'
+                size={40}
+                color={colors.primary}
+              />
             </TouchableOpacity>
           </View>
 

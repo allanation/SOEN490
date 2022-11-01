@@ -64,7 +64,7 @@ function Dashboard() {
         <div className='container-row-2-right'>
         <div className='searchbar-loop'>
         <form id="search">
-            <input type="text" placeholder="Search for..." className="searchBar"></input>
+            <input type="text" id="searchFor" placeholder="Search for..." className="searchBar"></input>
             <button type="submit" className="searchLoop"><img src={searchloop} alt="Search Icon"></img></button>
         </form>
         </div>
