@@ -3,8 +3,6 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Touchable,
   ScrollView,
   TouchableOpacity,
   FlatList,
@@ -14,14 +12,11 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Search from '../components/Search';
 import EventBanner from '../components/EventBanner';
-//import EventImage from '../assets/Logos/w1.png';
 import SearchBar from 'react-native-dynamic-search-bar';
 import EventImage from '../assets/stringio.jpg';
 
 function OrganizerDashboardScreen() {
-  const Tab = createBottomTabNavigator();
   const user = {
     name: 'George',
   };
@@ -255,7 +250,6 @@ function OrganizerDashboardScreen() {
       </>
     );
   }
-  // for past and upcoming events use useStates and a conditional mapping
   return (
     <SafeAreaView>
       <ScrollView>

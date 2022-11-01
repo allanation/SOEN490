@@ -3,20 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Touchable,
   ScrollView,
   TouchableOpacity,
-  FlatList,
   SafeAreaView,
-  Image,
 } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
-import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import BottomImg from '../components/ImgOrgBottom';
 function OrganizerDateInfo() {
   return (
     <SafeAreaView>
@@ -53,6 +49,11 @@ function OrganizerDateInfo() {
               width: 32,
               height: 32,
               justifyContent: 'center',
+              shadowColor: 'black', // IOS
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 3, //IOS
+              elevation: 2, // Android
             }}
           >
             <Ionicons
@@ -64,36 +65,102 @@ function OrganizerDateInfo() {
           <View>
             <View
               style={{
-                backgroundColor: 'blue',
                 flexDirection: 'row',
+                marginTop: 24,
               }}
             >
               <View style={{ width: '50%', justifyContent: 'center' }}>
-                <Text style={{ textAlignVertical: 'center' }}>Start Date</Text>
-                <DateTimePicker mode='date' value={new Date()} />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  Start Date
+                </Text>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: '60%',
+                  }}
+                >
+                  <DateTimePicker mode='date' value={new Date()} />
+                </View>
               </View>
               <View style={{ width: '50%', justifyContent: 'center' }}>
-                <Text>End Date</Text>
-                <DateTimePicker mode='date' value={new Date()} />
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  End Date
+                </Text>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: '60%',
+                  }}
+                >
+                  <DateTimePicker mode='date' value={new Date()} />
+                </View>
               </View>
             </View>
-            <View>
-              <Text>Start Time</Text>
-              <DateTimePicker
-                mode='time'
-                value={new Date()}
-                minuteInterval='5'
-              />
-              <Text>End Time</Text>
-              <DateTimePicker
-                mode='time'
-                value={new Date()}
-                minuteInterval='5'
-              />
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: 24,
+              }}
+            >
+              <View style={{ width: '50%', justifyContent: 'center' }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  Start Time
+                </Text>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: '50%',
+                  }}
+                >
+                  <DateTimePicker
+                    mode='time'
+                    value={new Date()}
+                    minuteInterval='5'
+                  />
+                </View>
+              </View>
+              <View style={{ width: '50%', justifyContent: 'center' }}>
+                <Text
+                  style={{
+                    textAlign: 'center',
+                    fontSize: 20,
+                  }}
+                >
+                  End Time
+                </Text>
+                <View
+                  style={{
+                    alignSelf: 'center',
+                    width: '50%',
+                  }}
+                >
+                  <DateTimePicker
+                    mode='time'
+                    value={new Date()}
+                    minuteInterval='5'
+                  />
+                </View>
+              </View>
             </View>
             <View>
               <AppButton title={'Next'}></AppButton>
             </View>
+            {/* <BottomImg /> */}
           </View>
         </Screen>
       </ScrollView>

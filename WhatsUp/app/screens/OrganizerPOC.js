@@ -11,6 +11,7 @@ import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
+import BottomImg from '../components/ImgOrgBottom';
 
 function OrganizerPOC() {
   return (
@@ -38,20 +39,22 @@ function OrganizerPOC() {
             </View>
           </View>
           <TouchableOpacity
-            style={
-              (styles.shadow,
-              {
-                position: 'absolute',
-                alignSelf: 'flex-start',
-                marginLeft: 12,
-                marginTop: 36,
-                backgroundColor: 'white',
-                borderRadius: 32,
-                width: 32,
-                height: 32,
-                justifyContent: 'center',
-              })
-            }
+            style={{
+              position: 'absolute',
+              alignSelf: 'flex-start',
+              marginLeft: 12,
+              marginTop: 18,
+              backgroundColor: 'white',
+              borderRadius: 32,
+              width: 32,
+              height: 32,
+              justifyContent: 'center',
+              shadowColor: 'black', // IOS
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 3, //IOS
+              elevation: 2, // Android
+            }}
           >
             <Ionicons
               name='chevron-back-outline'
@@ -72,6 +75,7 @@ function OrganizerPOC() {
               <AppButton style={styles.bottom} title='Next'></AppButton>
             </View>
           </View>
+          {/* <BottomImg /> */}
         </Screen>
       </ScrollView>
     </SafeAreaView>

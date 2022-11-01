@@ -19,6 +19,7 @@ import AppTextInput from '../components/AppTextInput';
 import * as ImagePicker from 'expo-image-picker';
 import { Entypo } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
+import BottomImg from '../components/ImgOrgBottom';
 
 function OrganizerNewEvent() {
   const Tab = createBottomTabNavigator();
@@ -129,6 +130,7 @@ function OrganizerNewEvent() {
             </View>
             <AppButton title={'Next'}></AppButton>
           </View>
+          {/* <BottomImg /> */}
         </Screen>
       </ScrollView>
     </SafeAreaView>

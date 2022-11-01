@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OrganizerNewEvent from './screens/OrganizerNewEvent';
 import OrganizerPOC from './screens/OrganizerPOC';
 import OrganizerDateInfo from './screens/OrganizerDataInfo';
+import OrganizerDashboardScreen from './screens/OrganizerDashboard';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -17,7 +18,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='DataInfo'
+        initialRouteName='OrgDash'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name='NewEvent' component={OrganizerNewEvent} />
         <Stack.Screen name='POC' component={OrganizerPOC} />
         <Stack.Screen name='DataInfo' component={OrganizerDateInfo} />
+        <Stack.Screen name='OrgDash' component={OrganizerDashboardScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
