@@ -53,10 +53,8 @@ function Dashboard() {
         <div className='container-row-1-right'>
             <div className='mainButtons'>
                 <div className='eventButtons'>
-                <button className='Approved' onClick={()=>{setColorApproved(true); setColorUnapproved(false); setShowUnapproved(false)}} style={{textDecoration: isApproved===true?"underline":"",textDecorationColor:isApproved===true?"#3acfb7":"",
-         textDecorationThickness: isApproved===true?"1.5px":"", textUnderlineOffset: isApproved===true?"1em":"", color: isApproved===true?"black":""}}>Approved</button>
-                <button className='Unapproved' onClick={()=>{setColorUnapproved(true); setColorApproved(false); setShowUnapproved(true)}} style={{textDecoration: isUnApproved===true?"underline":"",textDecorationColor:isUnApproved===true?"#3acfb7":"",
-         textDecorationThickness: isUnApproved===true?"1.5px":"", textUnderlineOffset: isUnApproved===true?"1em":"", color: isUnApproved===true?"black":""}}>Unapproved</button>
+                <button className={isApproved? 'onClickButton': ''} onClick={()=>{setColorApproved(true); setColorUnapproved(false); setShowUnapproved(false)}}>Approved</button>
+                <button className={isUnApproved? 'onClickButton': ''} onClick={()=>{setColorUnapproved(true); setColorApproved(false); setShowUnapproved(true)}}>Unapproved</button>
                 </div>
                 <button className='LogOut'>Log Out</button>
             </div>

@@ -6,7 +6,6 @@ import {
   Platform,
   Image,
 } from "react-native";
-import colors from "../config/colors";
 
 function NavButton({ image, position, onPress }) {
   return (

@@ -6,7 +6,6 @@ import {
   Platform,
   Image,
 } from "react-native";
-import colors from "../config/colors";
 
 function SmallButton({ image, title, onPress, size }) {
   return (
