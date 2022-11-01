@@ -19,6 +19,7 @@ export default Links;
 const styles = StyleSheet.create({
     text: {
         color: colors.primary,
-        fontWeight: '600', 
+        fontWeight: '400', 
+        fontSize: 16,
     },
 });

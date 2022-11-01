@@ -37,8 +37,7 @@ function Login() {
       .then((auth) => {
         navigate("/dashboard");
       })
-      .catch((error) => {
-        console.error("Invalid email or password.");
+      .catch(() => {
         loginErrorMsg.style.display = "block";
       });
   };
@@ -46,16 +45,16 @@ function Login() {
   return (
     <div className="div">
       <span id="grey-box">
-      <img src={logo} alt="WhatsUp logo" width="440" height="550" />
+      <img className="whatsupLogo" src={logo} alt="WhatsUp logo" width="325" height="385" />
       </span>
       <h1 className="welcome">Welcome Back!</h1>
-      <p>Please enter your credentials</p>
+      <p className="enterCredentials">Please enter your credentials</p>
       <input
         placeholder="Email"
         id="email"
         onChange={emailValidator}
         autoComplete="off"
-        className="input"
+        className="inputEmail"
         type="email"
         name="email"
         data-testid="email"
@@ -69,7 +68,7 @@ function Login() {
         id="password"
         onChange={(event) => setPassword(event.target.value)}
         autoComplete="off"
-        className="input"
+        className="inputPassword"
         type="password"
         name="password"
         data-testid="password"
@@ -78,7 +77,7 @@ function Login() {
       <p className="login-error-msg" id="login-error-msg">
         Incorrect Email address or Password.
       </p>
-      <button onClick={signIn} className="login" id="btn">
+      <button onClick={signIn} className="loginButton" id="btn">
         Login
       </button>
     </div>
