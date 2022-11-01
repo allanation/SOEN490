@@ -95,10 +95,10 @@ function UserDashboard() {
 
 
       <View style={styles.container}>
-        <NavButton image='ios-home' onPress={() => console.log("Home")} position='8%'/>
-        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")} position='23%'/>
-        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")} position='38%'/>
-        <NavButton image='md-person' onPress={() => console.log("Profile")} position='53%'/>
+        <NavButton image='ios-home' onPress={() => console.log("Home")}/>
+        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
+        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
+        <NavButton image='md-person' onPress={() => console.log("Profile")}/>
       </View>
     </Screen>
   );
@@ -135,8 +135,8 @@ const styles = StyleSheet.create({
         bottom: '-1.4%',
         backgroundColor: '#FFFFFF',
         borderColor: '#969696',
-        paddingVertical: 7,
-        paddingHorizontal: 12,
+        paddingVertical: '2%',
+        paddingHorizontal: '10%',
         width: '113%',
         height: '9%',
         marginVertical: '1.4%',
@@ -144,6 +144,8 @@ const styles = StyleSheet.create({
         borderWidth: .25,
         shadowColor: 'black',
         flexDirection: 'row',
+        display: 'flex',
+        justifyContent: 'space-between',
     }
 });
 
