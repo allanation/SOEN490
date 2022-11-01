@@ -11,6 +11,7 @@ import OrganizerNewEvent from './screens/OrganizerNewEvent';
 import OrganizerPOC from './screens/OrganizerPOC';
 import OrganizerDateInfo from './screens/OrganizerDataInfo';
 import OrganizerDashboardScreen from './screens/OrganizerDashboard';
+import OrganizerDaySchedule from './screens/OrganizerDaySchedule';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -18,7 +19,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='OrgDash'
+        initialRouteName='OrgDay'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
@@ -28,6 +29,7 @@ export default function App() {
         <Stack.Screen name='POC' component={OrganizerPOC} />
         <Stack.Screen name='DataInfo' component={OrganizerDateInfo} />
         <Stack.Screen name='OrgDash' component={OrganizerDashboardScreen} />
+        <Stack.Screen name='OrgDay' component={OrganizerDaySchedule} />
       </Stack.Navigator>
     </NavigationContainer>
   );
