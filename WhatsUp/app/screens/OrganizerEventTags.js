@@ -11,35 +11,10 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
-import ItineraryEvent from '../components/ItineraryEvent';
 import EventTags from '../components/EventTags';
-function OrganizerDaySchedule({ day }) {
-  itinerary = [
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-  ];
+import AppTextInput from '../components/AppTextInput';
+function OrganizeEventTags() {
+  tags = [{ name: 'University' }, { name: 'Networking' }, { name: 'Student' }];
   return (
     <SafeAreaView>
       <ScrollView>
@@ -55,7 +30,7 @@ function OrganizerDaySchedule({ day }) {
                   textAlign: 'center',
                 }}
               >
-                Day {day ? day : 'X'} schedule
+                Add Tags
               </Text>
               <Text style={{ color: colors.darkGrey }}>
                 <Text style={styles.paragraph}>
@@ -88,34 +63,34 @@ function OrganizerDaySchedule({ day }) {
               color={colors.primary}
             />
           </TouchableOpacity>
-          <TouchableOpacity
+          <AppTextInput style={{ marginTop: 40 }}>Ex.: University</AppTextInput>
+
+          <View
             style={{
-              justifyContent: 'center',
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-              alignSelf: 'flex-end',
-              marginRight: 24,
+              width: '90%',
+              alignSelf: 'center',
             }}
           >
-            <Ionicons
-              name='add-circle-outline'
-              size={40}
-              color={colors.primary}
-            />
-          </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.lightGrey,
+              }}
+            >
+              Add tags to increase visibility
+            </Text>
+          </View>
           <View style={{ marginTop: 12 }}>
-            <View>
-              {itinerary ? (
-                itinerary.map((it) => (
-                  <ItineraryEvent
-                    title={it.title}
-                    startTime={it.startTime}
-                    endTime={it.endTime}
-                    location={it.location}
-                  />
-                ))
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                width: '95%',
+                alignSelf: 'center',
+                justifyContent: 'flex-start',
+              }}
+            >
+              {tags ? (
+                tags.map((t) => <EventTags name={t.name} />)
               ) : (
                 <Text
                   style={{
@@ -124,16 +99,13 @@ function OrganizerDaySchedule({ day }) {
                     marginTop: 18,
                   }}
                 >
-                  'No items in your itinerary yet...'
+                  'No tags in your event yet...'
                 </Text>
               )}
             </View>
           </View>
           <View>
-            <EventTags name='University' />
-          </View>
-          <View>
-            <AppButton title={'Next'}></AppButton>
+            <AppButton title={'Submit Event'}></AppButton>
           </View>
         </Screen>
       </ScrollView>
@@ -163,4 +135,4 @@ const styles = StyleSheet.create({
   paragraph: { textAlign: 'center' },
 });
 
-export default OrganizerDaySchedule;
+export default OrganizeEventTags;
