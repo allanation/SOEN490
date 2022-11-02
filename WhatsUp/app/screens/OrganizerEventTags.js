@@ -6,15 +6,38 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
+  TextInput,
 } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
 import EventTags from '../components/EventTags';
-import AppTextInput from '../components/AppTextInput';
 function OrganizeEventTags() {
-  tags = [{ name: 'University' }, { name: 'Networking' }, { name: 'Student' }];
+  useEffect(() => {
+    const defaultTags = [
+      { name: 'University' },
+      { name: 'Networking' },
+      { name: 'Student' },
+    ];
+    setTags(defaultTags);
+  }, []);
+  const [tags, setTags] = useState([]);
+
+  function handleAddingTag(e) {
+    const newTag = { name: e.nativeEvent.text };
+    setTags((tags) => [...tags, newTag]);
+  }
+
+  function removePeople(e) {
+    this.setState({
+      people: this.state.people.filter(function (person) {
+        return person !== e.target.value;
+      }),
+    });
+  }
+
+  const [currentTag, setCurrentTag] = useState('');
   return (
     <SafeAreaView>
       <ScrollView>
@@ -63,8 +86,15 @@ function OrganizeEventTags() {
               color={colors.primary}
             />
           </TouchableOpacity>
-          <AppTextInput style={{ marginTop: 40 }}>Ex.: University</AppTextInput>
-
+          <View style={styles.inputBox}>
+            <TextInput
+              style={{ fontSize: 18, color: colors.lightGrey }}
+              placeholder='Ex.: University'
+              onChangeText={(newText) => setCurrentTag(newText)}
+              defaultValue={currentTag}
+              onSubmitEditing={handleAddingTag}
+            />
+          </View>
           <View
             style={{
               width: '90%',
@@ -114,6 +144,18 @@ function OrganizeEventTags() {
 }
 
 const styles = StyleSheet.create({
+  inputBox: {
+    borderColor: colors.lightGrey,
+    borderRadius: 7,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    width: '90%',
+    alignSelf: 'center',
+    marginVertical: 10,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    marginTop: 40,
+  },
   newEventHeader: {
     justifyContent: 'center',
     marginTop: 8,

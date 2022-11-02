@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: '#CFF3ED',
     alignSelf: 'center',
-    justifyContent: 'flex-start',
     borderRadius: 24,
     marginHorizontal: 4,
     marginVertical: 4,

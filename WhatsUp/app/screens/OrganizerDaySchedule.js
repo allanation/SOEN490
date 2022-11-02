@@ -12,7 +12,6 @@ import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
 import ItineraryEvent from '../components/ItineraryEvent';
-import EventTags from '../components/EventTags';
 function OrganizerDaySchedule({ day }) {
   itinerary = [
     {
@@ -128,9 +127,6 @@ function OrganizerDaySchedule({ day }) {
                 </Text>
               )}
             </View>
-          </View>
-          <View>
-            <EventTags name='University' />
           </View>
           <View>
             <AppButton title={'Next'}></AppButton>
