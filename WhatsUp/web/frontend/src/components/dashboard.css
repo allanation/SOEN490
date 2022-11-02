@@ -1,5 +1,13 @@
 html {
   height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
+.body{
+  height: 100%;
+  width: 100%;
+  position: absolute;
 }
 .admin-dashboard-container {
   display: flex;
@@ -126,6 +134,14 @@ html {
   font: Helvetica Neue;
   font-weight: bold;
   cursor: pointer;
+}
+
+.onClickButton{
+  text-decoration: underline;
+  text-decoration-color: #3acfb7 ;
+  text-decoration-thickness: "1.5px";
+  text-underline-offset: 1em;
+  color: black !important;
 }
 
 .LogOut {

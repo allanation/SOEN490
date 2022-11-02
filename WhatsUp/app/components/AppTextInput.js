@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { TextInput, View, StyleSheet, Platform } from "react-native";
 import colors from "../config/colors";
