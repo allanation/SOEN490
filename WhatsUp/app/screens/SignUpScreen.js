@@ -62,29 +62,17 @@ function SignUpScreen() {
   };
 
   const handleErrorMsg = (error) => {
-<<<<<<< HEAD
+    if (error.message.includes("missing-email")) {
+      Alert.alert("Error", "Please fill in an email");
+    }
     if (error.message.includes("invalid-email")) {
       Alert.alert("Error", "Invalid Email");
     } else if (error.message.includes("email-already-in-use")) {
       Alert.alert("Error", "Email already in use");
     } else if (error.message.includes("internal-error")) {
       Alert.alert("Error", "Please fill in a password");
-=======
-    if (error.message.includes('missing-email')) {
-      Alert.alert('Error','Please fill in an email');
-    }
-    if (error.message.includes('invalid-email')) {
-      Alert.alert('Error','Invalid Email');
-    }
-    else if(error.message.includes('email-already-in-use')) {
-      Alert.alert('Error','Email already in use');
-    }
-    else if(error.message.includes('internal-error')) {
-      Alert.alert('Error','Please fill in a password');
->>>>>>> c7d2936d716cfeda2a1c6abf2ecb5c4853f450f9
-    }
-    else if(error.message.includes('weak-password')) {
-      Alert.alert('Error','Passwords must be at least 6 characters.');
+    } else if (error.message.includes("weak-password")) {
+      Alert.alert("Error", "Passwords must be at least 6 characters.");
     }
     console.log(error.message);
   };
@@ -137,13 +125,6 @@ function SignUpScreen() {
         </View>
       </View>
       <AppButton
-        style={{
-          shadowColor: "black", // IOS
-          shadowOffset: { height: 1, width: 1 }, // IOS
-          shadowOpacity: 0.2, // IOS
-          shadowRadius: 3, //IOS
-          elevation: 4, // Android
-        }}
         title="Sign Up"
         disabled={!valid}
         onPress={() =>

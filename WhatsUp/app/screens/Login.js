@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useState } from "react";
 import { StyleSheet, Text, View, Image, Alert } from "react-native";
@@ -81,17 +82,7 @@ export default function Login() {
           onPress={ResetPassword}
         />
       </View>
-      <AppButton
-        style={{
-          shadowColor: "black", // IOS
-          shadowOffset: { height: 1, width: 1 }, // IOS
-          shadowOpacity: 0.2, // IOS
-          shadowRadius: 3, //IOS
-          elevation: 4, // Android
-        }}
-        title="Login"
-        onPress={handleLogin}
-      />
+      <AppButton title="Login" onPress={handleLogin} />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Text style={styles.text}>Don't have an account? </Text>
         <Links style={styles.link} link="Sign up" onPress={SignupPressed} />

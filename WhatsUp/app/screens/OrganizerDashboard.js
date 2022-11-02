@@ -269,15 +269,7 @@ function OrganizerDashboardScreen() {
                 Welcome, {user.name}!
               </Text>
             </View>
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                shadowOffset: { height: 1, width: 1 }, // IOS
-                shadowOpacity: 0.2, // IOS
-                shadowRadius: 3, //IOS
-                elevation: 2, // Android
-              }}
-            >
+            <TouchableOpacity>
               <Ionicons
                 name='add-circle-outline'
                 size={40}
