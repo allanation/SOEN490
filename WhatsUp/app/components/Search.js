@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     marginVertical: 12,
     shadowColor: "black",
     flexDirection: "row",
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
   text: {
     color: colors.lightGrey,

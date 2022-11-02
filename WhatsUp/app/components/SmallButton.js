@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
     height: 33,
     shadowColor: "#100101", // IOS
     shadowOffset: { height: 1, width: 1 }, // IOS
-    shadowOpacity: 1, // IOS
-    shadowRadius: 1, //IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
     elevation: 4, // Android
   },
   text: {
