@@ -1,9 +1,11 @@
 import "react-native";
 import React from "react";
-import { render, fireEvent } from "@testing-library/react-native";
-import Login from "../screens/Login";
 import renderer from "react-test-renderer";
-import { isValidTimestamp } from "@firebase/util";
+import Login from "../screens/Login";
+it("renders correctly", () => {
+  const tree = renderer.create(<Login />).toJSON();
+  expect(tree).toMatchSnapshot();
+});
 
 /*it("renders deafult elements", () => {
   const { getAllByText, getByPlaceHolderText } = render(<Login />);
@@ -16,8 +18,3 @@ test("renders correctly", () => {
   const tree = renderer.create(<Login />).toJSON();
   expect(tree).toMatchSnapshot();
 });*/
-
-it("Lets", () => {
-  const sum = 2 + 2;
-  expect(sum).toBe(4);
-});
