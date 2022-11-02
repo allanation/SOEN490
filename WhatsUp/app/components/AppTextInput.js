@@ -2,10 +2,10 @@ import React from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import colors from '../config/colors';
 
-function AppTextInput({ style, ...otherProps }) {
+function AppTextInput({ style, ...props }) {
   return (
     <View style={[styles.container, style]}>
-      <TextInput style={styles.text} {...otherProps} />
+      <TextInput style={styles.text} {...props} />
     </View>
   );
 }

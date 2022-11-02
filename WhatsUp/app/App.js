@@ -7,12 +7,13 @@ import Login from './screens/Login';
 import ResetPassword from './screens/ResetPassword';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OrganizerNewEvent from './screens/OrganizerNewEvent';
-import OrganizerPOC from './screens/OrganizerPOC';
-import OrganizerDateInfo from './screens/OrganizerDataInfo';
-import OrganizerDashboardScreen from './screens/OrganizerDashboard';
-import OrganizerDaySchedule from './screens/OrganizerDaySchedule';
-import OrganizeEventTags from './screens/OrganizerEventTags';
+import OrganizerNewEvent from './screens/OrgNewEvent';
+import OrganizerPOC from './screens/OrgPointOfContact';
+import OrganizerDateInfo from './screens/OrgDateInfo';
+import OrganizerDashboardScreen from './screens/OrgDashboard';
+import OrganizerDaySchedule from './screens/OrgDaySchedule';
+import OrganizeEventTags from './screens/OrgEventTags';
+import NewItemPopup from './components/NewItemPopup';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -20,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='OrgTags'
+        initialRouteName='OrgDay'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
@@ -28,7 +29,7 @@ export default function App() {
         <Stack.Screen name='ResetPassword' component={ResetPassword} />
         <Stack.Screen name='NewEvent' component={OrganizerNewEvent} />
         <Stack.Screen name='POC' component={OrganizerPOC} />
-        <Stack.Screen name='DataInfo' component={OrganizerDateInfo} />
+        <Stack.Screen name='DateInfo' component={OrganizerDateInfo} />
         <Stack.Screen name='OrgDash' component={OrganizerDashboardScreen} />
         <Stack.Screen name='OrgDay' component={OrganizerDaySchedule} />
         <Stack.Screen name='OrgTags' component={OrganizeEventTags} />

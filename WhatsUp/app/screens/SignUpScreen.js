@@ -121,11 +121,10 @@ function SignUpScreen() {
         <BottomImg
         resizeMode = 'contain'
         />
-
     </Screen>
   );
 }
-
+``
 const styles = StyleSheet.create({
     organizer: {
         alignItems: 'flex-start',
