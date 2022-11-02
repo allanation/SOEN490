@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Button } from "react-native";
 import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
 import SignUpScreen from "./screens/SignUpScreen";
+import UserDashboardScreen from "./screens/UserDashboard";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -11,7 +12,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ focused, color, size}) => {
             let iconName;
 
             if (route.name === "Organizer") {
@@ -20,6 +21,8 @@ export default function App() {
               iconName = focused ? "ios-person" : "ios-person-outline";
             } else if (route.name === "Add") {
               iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
+            } else if (route.name === "User") {
+              iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
             }
 
             // You can return any component that you like here!
@@ -34,6 +37,7 @@ export default function App() {
         <Tab.Screen name="Organizer" component={OrganizerDashboardScreen} />
         <Tab.Screen name="Add" component={OrganizerDashboardScreen} />
         <Tab.Screen name="SignUp" component={SignUpScreen} />
+        <Tab.Screen name="User" component={UserDashboardScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );

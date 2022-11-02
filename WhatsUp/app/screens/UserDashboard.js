@@ -1,11 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Button, Image, ScrollView } from "react-native";
-import AppButton from "../components/AppButton";
-import AppTextInput from "../components/AppTextInput";
-import Links from "../components/Links";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Screen from "../components/Screen";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import ScreenTitle from "../components/ScreenTitle";
 import Search from "../components/Search";
 import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
@@ -60,10 +56,11 @@ function UserDashboard() {
     },
   ];
 
+  const Tab = createBottomTabNavigator();
 
   return (
     <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
-      <View style={{left: '1.5%', marginTop: '5%', height: '101%'}}>
+      <View style={{left: '1.5%', marginTop: '5%', marginBottom: '40%'}}>
       <View style={{flexDirection: 'row'}}>
         <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'}/>
         <View style={{position: 'absolute', right: '4%'}}>
@@ -82,23 +79,21 @@ function UserDashboard() {
 
       <Text style={styles.text}>Popular Events</Text>
 
-      <View style={{height: '63%', width:'101%'}}>
-        <ScrollView>
+      <ScrollView style={{width:'101%'}}>
             {events.map((n) => {
                 return (
                 <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")}/>
                 );
             })}
-        </ScrollView>
-      </View>
+      </ScrollView>
       </View>
 
 
       <View style={styles.container}>
-        <NavButton image='ios-home' onPress={() => console.log("Home")}/>
+        <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
         <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
         <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='md-person' onPress={() => console.log("Profile")}/>
+        <NavButton image='ios-person-outline' onPress={() => console.log("Profile")}/>
       </View>
     </Screen>
   );
@@ -135,10 +130,9 @@ const styles = StyleSheet.create({
         bottom: '-1.4%',
         backgroundColor: '#FFFFFF',
         borderColor: '#969696',
-        paddingVertical: '2%',
         paddingHorizontal: '10%',
         width: '113%',
-        height: '9%',
+        height: '7%',
         marginVertical: '1.4%',
         borderStyle: 'solid',
         borderWidth: .25,
