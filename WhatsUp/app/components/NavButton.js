@@ -1,5 +1,15 @@
 import React from "react";
+<<<<<<< HEAD
 import { TouchableOpacity, StyleSheet, Platform, Image } from "react-native";
+=======
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Platform,
+  Image,
+} from "react-native";
+>>>>>>> c7d2936d716cfeda2a1c6abf2ecb5c4853f450f9
 
 function NavButton({ image, position, onPress }) {
   return (
