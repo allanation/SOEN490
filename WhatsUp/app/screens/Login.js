@@ -1,6 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from "react";
-import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { useState } from "react";
+import { StyleSheet, Text, View, Image, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -20,7 +21,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
+      .then(() => {
         Alert.alert(
           "Logged in sucessfully",
           "Email and password are valid",
@@ -29,7 +30,7 @@ export default function Login() {
         );
         // navigation.navigate("UserDashboard") or OrganzierDashboard
       })
-      .catch((error) => {
+      .catch(() => {
         Alert.alert(
           "Try again",
           "Invalid email or password.",
@@ -81,17 +82,7 @@ export default function Login() {
           onPress={ResetPassword}
         />
       </View>
-      <AppButton
-        style={{
-          shadowColor: "black", // IOS
-          shadowOffset: { height: 1, width: 1 }, // IOS
-          shadowOpacity: 0.2, // IOS
-          shadowRadius: 3, //IOS
-          elevation: 4, // Android
-        }}
-        title="Login"
-        onPress={handleLogin}
-      />
+      <AppButton title="Login" onPress={handleLogin} />
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <Text style={styles.text}>Don't have an account? </Text>
         <Links style={styles.link} link="Sign up" onPress={SignupPressed} />

@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { StyleSheet, Text, View, Button } from 'react-native';
 import OrganizerDashboardScreen from './screens/OrganizerDashboard';
 import SignUpScreen from './screens/SignUpScreen';
