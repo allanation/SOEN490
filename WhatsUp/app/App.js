@@ -11,8 +11,8 @@ import OrganizerNewEvent from './screens/OrgNewEvent';
 import OrganizerPOC from './screens/OrgPointOfContact';
 import OrganizerDateInfo from './screens/OrgDateInfo';
 import OrganizerDashboardScreen from './screens/OrgDashboard';
-import OrganizerDaySchedule from './screens/OrgDaySchedule';
-import OrganizeEventTags from './screens/OrgEventTags';
+import OrgDaySchedule from './screens/OrgDaySchedule';
+import OrgEventTags from './screens/OrgEventTags';
 import NewItemPopup from './components/NewItemPopup';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='OrgDay'
+        initialRouteName='DateInfo'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
@@ -31,8 +31,8 @@ export default function App() {
         <Stack.Screen name='POC' component={OrganizerPOC} />
         <Stack.Screen name='DateInfo' component={OrganizerDateInfo} />
         <Stack.Screen name='OrgDash' component={OrganizerDashboardScreen} />
-        <Stack.Screen name='OrgDay' component={OrganizerDaySchedule} />
-        <Stack.Screen name='OrgTags' component={OrganizeEventTags} />
+        <Stack.Screen name='OrgDay' component={OrgDaySchedule} />
+        <Stack.Screen name='OrgTags' component={OrgEventTags} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -11,31 +11,27 @@ function BackBtn({
   style,
 }) {
   return (
-
-<TouchableOpacity
-            style={{
-              position: 'absolute',
-              alignSelf: 'flex-start',
-              marginLeft: 22,
-              marginTop: 28,
-              backgroundColor: 'white',
-              borderRadius: 20,
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              shadowColor: 'black', // IOS
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-            }}
-          >
-            <Ionicons
-              name='chevron-back-outline'
-              size={32}
-              color={colors.primary}
-            />
-          </TouchableOpacity>
+    <TouchableOpacity
+      style={{
+        position: 'absolute',
+        alignSelf: 'flex-start',
+        marginLeft: 22,
+        marginTop: 28,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        width: 32,
+        height: 32,
+        justifyContent: 'center',
+        shadowColor: 'black', // IOS
+        shadowOffset: { height: 1, width: 1 }, // IOS
+        shadowOpacity: 0.2, // IOS
+        shadowRadius: 3, //IOS
+        elevation: 2, // Android
+      }}
+      onPress={onPress}
+    >
+      <Ionicons name='chevron-back-outline' size={32} color={colors.primary} />
+    </TouchableOpacity>
   );
 }
 

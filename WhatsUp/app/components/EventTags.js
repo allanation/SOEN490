@@ -1,12 +1,12 @@
 import React from 'react';
 import colors from '../config/colors';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 function EventTags({ name }) {
   return (
-    <View style={styles.tag}>
+    <TouchableOpacity style={styles.tag}>
       <Text style={styles.tagName}>{name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 

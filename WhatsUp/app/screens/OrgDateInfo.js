@@ -1,168 +1,46 @@
-import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
-  Text,
   View,
   ScrollView,
-  TouchableOpacity,
   SafeAreaView,
-} from "react-native";
-import Screen from "../components/Screen";
-import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
-import AppButton from "../components/AppButton";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import BottomImg from "../components/ImgOrgBottom";
+  Platform,
+} from 'react-native';
+import Screen from '../components/Screen';
+import AppButton from '../components/AppButton';
+import BottomImg from '../components/ImgOrgBottom';
+import ScreenTitle from '../components/ScreenTitle';
+import ScreenSubtitle from '../components/ScreenSubtitle';
+import BackBtn from '../components/BackBtn';
+import IOSDateTimePicker from '../components/IOSDateTimePicker';
+import AndroidDateTimePicker from '../components/AndroidDateTimePicker';
 
 function OrganizerDateInfo() {
   return (
     <SafeAreaView>
       <ScrollView>
         <Screen>
-          <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text
-                adjustsFontSizeToFit={true}
-                numberOfLines={1}
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  textAlign: "center",
-                }}
-              >
-                Set Date Information
-              </Text>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>
-                  Please fill the following information
-                </Text>
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={{
-              position: "absolute",
-              alignSelf: "flex-start",
-              marginLeft: 12,
-              marginTop: 18,
-              backgroundColor: "white",
-              borderRadius: 32,
-              width: 32,
-              height: 32,
-              justifyContent: "center",
-              shadowColor: "black", // IOS
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-            }}
-          >
-            <Ionicons
-              name="chevron-back-outline"
-              size={32}
-              color={colors.primary}
+          <View style={{ width: '100%', display: 'flex' }}>
+            <ScreenTitle
+              style={{ alignSelf: 'center' }}
+              title='Set Date Information'
             />
-          </TouchableOpacity>
-          <View>
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: 24,
-              }}
-            >
-              <View style={{ width: "50%", justifyContent: "center" }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                  }}
-                >
-                  {/* Start Date
-                </Text>
-                <View
-                  style={{
-                    alignSelf: "center",
-                    width: "60%",
-                  }}
-                >
-                  <DateTimePicker mode="date" value={new Date()} />
-                </View>
-              </View>
-              <View style={{ width: "50%", justifyContent: "center" }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                  }}
-                >
-                  End Date */}
-                </Text>
-                <View
-                  style={{
-                    alignSelf: "center",
-                    width: "60%",
-                  }}
-                >
-                  <DateTimePicker mode="date" value={new Date()} />
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                flexDirection: "row",
-                marginTop: 24,
-              }}
-            >
-              <View style={{ width: "50%", justifyContent: "center" }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                  }}
-                >
-                  {/* Start Time
-                </Text>
-                <View
-                  style={{
-                    alignSelf: "center",
-                    width: "50%",
-                  }}
-                >
-                  <DateTimePicker
-                    mode="time"
-                    value={new Date()}
-                    minuteInterval="5"
-                  />
-                </View>
-              </View>
-              <View style={{ width: "50%", justifyContent: "center" }}>
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                  }}
-                >
-                  End Time */}
-                </Text>
-                <View
-                  style={{
-                    alignSelf: "center",
-                    width: "50%",
-                  }}
-                >
-                  {/* <DateTimePicker
-                    mode="time"
-                    value={new Date()}
-                    minuteInterval="5"
-                  /> */}
-                </View>
-              </View>
-            </View>
-            <View>
-              <AppButton title={"Next"}></AppButton>
-            </View>
-            {/* <BottomImg /> */}
+            <ScreenSubtitle
+              style={{ alignSelf: 'center' }}
+              subtitle='Please fill the following information'
+            />
           </View>
+          <BackBtn />
+          <View>
+            {Platform.OS === 'ios' ? (
+              <IOSDateTimePicker />
+            ) : (
+              <AndroidDateTimePicker />
+            )}
+          </View>
+          <View>
+            <AppButton title={'Next'}></AppButton>
+          </View>
+          {/* <BottomImg /> */}
         </Screen>
       </ScrollView>
     </SafeAreaView>
@@ -171,24 +49,24 @@ function OrganizerDateInfo() {
 
 const styles = StyleSheet.create({
   newEventHeader: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 8,
     marginBottom: 16,
   },
   headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
+    justifyContent: 'flex-start',
+    width: '100%',
   },
   icon: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
   },
   coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
     marginVertical: 10,
   },
-  paragraph: { textAlign: "center" },
+  paragraph: { textAlign: 'center' },
 });
 
 export default OrganizerDateInfo;
