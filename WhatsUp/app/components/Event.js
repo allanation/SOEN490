@@ -7,7 +7,6 @@ import {
   Image,
   View,
 } from "react-native";
-import { useState } from "react";
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
 
