@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { StyleSheet, View, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -24,7 +24,7 @@ export default function ResetPassword() {
           "Check your emails to reset the password."
         );
       })
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   //Check if email exists in the database before sending the link
@@ -59,17 +59,7 @@ export default function ResetPassword() {
         value={userEmail}
       />
 
-      <AppButton
-        style={{
-          shadowColor: "black", // IOS
-          shadowOffset: { height: 1, width: 1 }, // IOS
-          shadowOpacity: 0.2, // IOS
-          shadowRadius: 3, //IOS
-          elevation: 4, // Android
-        }}
-        title="Submit"
-        onPress={checkIfEmailExists}
-      />
+      <AppButton title="Submit" onPress={checkIfEmailExists} />
 
       <View style={styles.organizertwo}>
         <Links style={styles.link} link="Back to Login" onPress={Login} />

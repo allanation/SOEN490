@@ -33,9 +33,11 @@
 
 ## Expo Test Setup Instruction:
 
-1. Run both `npm install` and `expo start`
+1. Run both `npm install` and `expo start`.
 2. Download the Expo Go app and create an account.
 3. After signing in, scan the QR code from the terminal to run app on mobile.
 
-
+## Using ESLint:
+1. Use `npm run lint` to start the linter and detect any code smells.
+2. Use `npm run lint-fix` to allow the linter to fix some code smells which do not require manual fixing.
 

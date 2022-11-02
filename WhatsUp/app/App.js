@@ -1,10 +1,12 @@
-import { StyleSheet, Text, View, Button } from "react-native";
-import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
-import SignUpScreen from "./screens/SignUpScreen";
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import colors from "./config/colors";
+/* eslint-disable react/react-in-jsx-scope */
+import { StyleSheet, Text, View, Button } from 'react-native';
+import OrganizerDashboardScreen from './screens/OrganizerDashboard';
+import SignUpScreen from './screens/SignUpScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import colors from './config/colors';
+
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (

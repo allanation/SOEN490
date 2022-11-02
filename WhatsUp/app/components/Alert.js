@@ -5,8 +5,7 @@ import logo from "../assets/Logos/waves.png";
 import { Dimensions } from 'react-native';
 
 function Alert({ }) {
-    return (
-        
+    return (  
     );
 }
 
