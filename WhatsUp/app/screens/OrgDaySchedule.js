@@ -117,13 +117,15 @@ function OrganizerDaySchedule({ day }) {
       >
         <View style={styles.modalView}>
           <BackBtn onPress={() => setModalVisible(!modalVisible)} />
-          <ScreenTitle title='New Item' />
+          <View style={styles.inputView}>
+          <ScreenTitle style={{ alignSelf: 'center' }} title={'New Item'}/>
           <AppTextInput placeholder='Title' />
           <AppTextInput placeholder='Start Time' />
           <AppTextInput placeholder='End Time' />
           <AppTextInput placeholder='Description' />
           <AppTextInput placeholder='Location (optional)' />
-          <AppButton title='Add' style={{ marginTop: 12 }} />
+          <AppButton title='Add' style={{ marginTop: 0 }} />
+          </View>
         </View>
       </AppModal>
     </Screen>
@@ -135,9 +137,10 @@ const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 35,
-    padding: 35,
-    width: '82%',
-    height: '50%',
+    padding: 20,
+    paddingTop: 25,
+    width: '86%',
+    height: '62%',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -147,6 +150,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  inputView: {
+    display: 'flex',
+    borderColor: colors.lightGrey,
+    borderRadius: 7,
+    width: '90%',
+    alignSelf: 'center',
   },
   button: {
     borderRadius: 20,

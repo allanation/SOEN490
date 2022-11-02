@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -7,38 +7,38 @@ import {
   TouchableOpacity,
   FlatList,
   SafeAreaView,
-} from 'react-native';
-import Screen from '../components/Screen';
-import colors from '../config/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EventBanner from '../components/EventBanner';
-import SearchBar from 'react-native-dynamic-search-bar';
-import EventImage from '../assets/stringio.jpg';
+} from "react-native";
+import Screen from "../components/Screen";
+import colors from "../config/colors";
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import EventBanner from "../components/EventBanner";
+import SearchBar from "react-native-dynamic-search-bar";
+import EventImage from "../assets/stringio.jpg";
 
 function OrganizerDashboardScreen() {
   const user = {
-    name: 'George',
+    name: "George",
   };
 
   const [date, setDate] = useState(null);
   useEffect(() => {
     let d = new Date();
     const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
-    let today = "Today's " + months[d.getMonth()] + ' ' + d.getDate();
+    let today = "Today's " + months[d.getMonth()] + " " + d.getDate();
     setDate(today);
     setMasterData(events);
     setPreviousData(eventsPast);
@@ -46,76 +46,76 @@ function OrganizerDashboardScreen() {
 
   const events = [
     {
-      image: '../assets/Logos/w1.png',
-      title: 'Fashion Week',
-      organizer: 'Lasalle College',
-      date: 'May 21, 2020',
+      image: "../assets/Logos/w1.png",
+      title: "Fashion Week",
+      organizer: "Lasalle College",
+      date: "May 21, 2020",
     },
     {
       image: { EventImage },
-      title: 'Orientation Week',
-      organizer: 'ETS',
-      date: 'May 21, 2022',
+      title: "Orientation Week",
+      organizer: "ETS",
+      date: "May 21, 2022",
     },
     {
       image: { EventImage },
-      title: 'FROSH',
-      organizer: 'Concordia Universityyyyyy',
-      date: 'May 21, 2023',
+      title: "FROSH",
+      organizer: "Concordia Universityyyyyy",
+      date: "May 21, 2023",
     },
     {
       image: { EventImage },
-      title: 'Film Festival',
-      organizer: 'Cinema',
-      date: 'May 21, 2024',
+      title: "Film Festival",
+      organizer: "Cinema",
+      date: "May 21, 2024",
     },
     {
       image: { EventImage },
-      title: 'Anime Film Festival',
-      organizer: 'Cinema',
-      date: 'June 24, 2024',
+      title: "Anime Film Festival",
+      organizer: "Cinema",
+      date: "June 24, 2024",
     },
   ];
 
   const eventsPast = [
     {
-      image: '../assets/Logos/w1.png',
-      title: 'Sports Weekend',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
+      image: "../assets/Logos/w1.png",
+      title: "Sports Weekend",
+      organizer: "Concordia University",
+      date: "May 21, 2022",
     },
     {
       image: { EventImage },
-      title: 'Music Festival',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
+      title: "Music Festival",
+      organizer: "Concordia University",
+      date: "May 21, 2022",
     },
     {
       image: { EventImage },
-      title: 'Film Festival',
-      organizer: 'Cinema',
-      date: 'May 21, 2024',
+      title: "Film Festival",
+      organizer: "Cinema",
+      date: "May 21, 2024",
     },
     {
       image: { EventImage },
-      title: 'Jazz Festival',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
+      title: "Jazz Festival",
+      organizer: "Concordia University",
+      date: "May 21, 2022",
     },
     {
       image: { EventImage },
-      title: 'F1 ',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
+      title: "F1 ",
+      organizer: "Concordia University",
+      date: "May 21, 2022",
     },
   ];
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
-  const [filteredData, setFilteredData] = useState('');
-  const [filteredOrgData, setFilteredOrgData] = useState('');
+  const [filteredData, setFilteredData] = useState("");
+  const [filteredOrgData, setFilteredOrgData] = useState("");
 
   const ItemView = ({ item }) => {
     return (
@@ -133,7 +133,7 @@ function OrganizerDashboardScreen() {
       const newData = masterData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -141,7 +141,7 @@ function OrganizerDashboardScreen() {
       const orgSearch = masterData.filter((item) => {
         const itemData = item.organizer
           ? item.organizer.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -154,7 +154,7 @@ function OrganizerDashboardScreen() {
       const newData = previousData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -162,7 +162,7 @@ function OrganizerDashboardScreen() {
       const orgSearch = previousData.filter((item) => {
         const itemData = item.organizer
           ? item.organizer.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -190,18 +190,18 @@ function OrganizerDashboardScreen() {
     tabs = (
       <>
         <TouchableOpacity
-          title='Show Form 1'
+          title="Show Form 1"
           onPress={() => setDisplayedEvents(true)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          title='Show Form 2'
+          title="Show Form 2"
           onPress={() => setDisplayedEvents(false)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -222,18 +222,18 @@ function OrganizerDashboardScreen() {
     tabs = (
       <>
         <TouchableOpacity
-          title='Show Form 1'
+          title="Show Form 1"
           onPress={() => setDisplayedEvents(true)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          title='Show Form 2'
+          title="Show Form 2"
           onPress={() => setDisplayedEvents(false)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -251,95 +251,93 @@ function OrganizerDashboardScreen() {
     );
   }
   return (
-    <SafeAreaView>
+    <Screen style= {{padding: 20, marginTop: 10}}>
       <ScrollView>
-        <Screen style={{ padding: 20, backgroundColor: '#F5F5F5' }}>
-          <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{date}</Text>{' '}
-              </Text>
-              <Text style={{ fontWeight: 'bold', fontSize: 28 }}>
-                Welcome, {user.name}!
-              </Text>
-            </View>
-            <TouchableOpacity
-              style={{
-                justifyContent: 'center',
-                shadowOffset: { height: 1, width: 1 }, // IOS
-                shadowOpacity: 0.2, // IOS
-                shadowRadius: 3, //IOS
-                elevation: 2, // Android
-              }}
-            >
-              <Ionicons
-                name='add-circle-outline'
-                size={40}
-                color={colors.primary}
-              />
-            </TouchableOpacity>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Text style={{ color: colors.darkGrey }}>
+              <Text style={styles.paragraph}>{date}</Text>{" "}
+            </Text>
+            <Text style={{ fontWeight: "bold", fontSize: 28 }}>
+              Welcome, {user.name}!
+            </Text>
           </View>
-
-          <View style={styles.eventTabs}>{tabs}</View>
-
-          <View style={styles.searchBar}>
-            <SearchBar
-              style={{ width: '85%' }}
-              placeholder='Search for...'
-              onChangeText={(text) => {
-                searchFilter(text);
-              }}
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 3, //IOS
+              elevation: 2, // Android
+            }}
+          >
+            <Ionicons
+              name="add-circle-outline"
+              size={40}
+              color={colors.primary}
             />
-            <TouchableOpacity style={styles.filter}>
-              <Ionicons name='ios-filter' size={24} color={colors.primary} />
-            </TouchableOpacity>
-          </View>
-          <Text style={styles.eventTitle}>Your Events</Text>
+          </TouchableOpacity>
+        </View>
 
-          {showEvents}
-        </Screen>
+        <View style={styles.eventTabs}>{tabs}</View>
+
+        <View style={styles.searchBar}>
+          <SearchBar
+            style={{ width: "85%" }}
+            placeholder="Search for..."
+            onChangeText={(text) => {
+              searchFilter(text);
+            }}
+          />
+          <TouchableOpacity style={styles.filter}>
+            <Ionicons name="ios-filter" size={24} color={colors.primary} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.eventTitle}>Your Events</Text>
+
+        {showEvents}
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 }
 
 const styles = StyleSheet.create({
   organizer: {
-    alignItems: 'flex-start',
-    width: '50%',
+    alignItems: "flex-start",
+    width: "50%",
   },
   organizertwo: {
-    alignItems: 'flex-end',
-    width: '50%',
+    alignItems: "flex-end",
+    width: "50%",
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   eventTitle: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
     marginBottom: 8,
   },
   searchBar: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 18,
   },
   filter: {
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   eventTabs: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 20,
   },
   upcoming: {
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
     paddingBottom: 10,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   previous: {
     paddingBottom: 10,

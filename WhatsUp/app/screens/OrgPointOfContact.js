@@ -12,57 +12,25 @@ import { Ionicons } from '@expo/vector-icons';
 import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import BottomImg from '../components/ImgOrgBottom';
+import ScreenSubtitle from '../components/ScreenSubtitle';
+import ScreenTitle from '../components/ScreenTitle';
+import BackBtn from '../components/BackBtn';
 
 function OrganizerPOC() {
   return (
-    <SafeAreaView>
+    <Screen style={{ padding: 20, marginTop: 30 }}>
+      <View style={{ width: '100%', display: 'flex' }}>
+        <ScreenTitle
+          style={{ alignSelf: 'center' }}
+          title={'Point of Contact Information'}
+        />
+        <ScreenSubtitle
+          style={{ alignSelf: 'center' }}
+          subtitle='Please fill the following information'
+        />
+      </View>
+      <BackBtn />
       <ScrollView>
-        <Screen>
-          <View style={styles.newEventHeader}>
-            <View style={styles.headerContent}>
-              <Text
-                adjustsFontSizeToFit={true}
-                numberOfLines={1}
-                style={{
-                  fontWeight: 'bold',
-                  fontSize: 18,
-                  textAlign: 'center',
-                }}
-              >
-                Point of Contact Information
-              </Text>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>
-                  Please fill the following information
-                </Text>
-              </Text>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              alignSelf: 'flex-start',
-              marginLeft: 12,
-              marginTop: 18,
-              backgroundColor: 'white',
-              borderRadius: 32,
-              width: 32,
-              height: 32,
-              justifyContent: 'center',
-              shadowColor: 'black', // IOS
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-            }}
-          >
-            <Ionicons
-              name='chevron-back-outline'
-              size={32}
-              color={colors.primary}
-            />
-          </TouchableOpacity>
-          <View>
             <View>
               <AppTextInput>Event Title</AppTextInput>
               <AppTextInput>Organization Name</AppTextInput>
@@ -71,14 +39,9 @@ function OrganizerPOC() {
             <View style={{ height: 350 }}>
               <Text></Text>
             </View>
-            <View style={styles.bottom}>
-              <AppButton style={styles.bottom} title='Next'></AppButton>
-            </View>
-          </View>
-          {/* <BottomImg /> */}
+          </ScrollView>
+            <AppButton title={'Next'}></AppButton>
         </Screen>
-      </ScrollView>
-    </SafeAreaView>
   );
 }
 
