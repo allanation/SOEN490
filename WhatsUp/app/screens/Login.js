@@ -21,13 +21,14 @@ export default function Login() {
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((auth) => {
-        Alert.alert(
-          "Logged in sucessfully",
-          "Email and password are valid",
-          [{ text: "OK", onPress: () => console.log("") }],
-          { cancelable: false }
-        );
-        // navigation.navigate("UserDashboard") or OrganzierDashboard
+        // Alert.alert(
+        //   "Logged in sucessfully",
+        //   "Email and password are valid",
+        //   [{ text: "OK", onPress: () => console.log("") }],
+        //   { cancelable: false }
+        // );
+
+        navigation.navigate("Organizer");
       })
       .catch((error) => {
         Alert.alert(
