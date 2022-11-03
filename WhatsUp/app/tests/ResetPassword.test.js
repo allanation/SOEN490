@@ -36,8 +36,10 @@ test("Reset Password", async () => {
   );
 
   await waitFor(() => fireEvent.press(screen.getByText("Submit")));
-  //   jest.spyOn(Alert, "alert");
-  //   await waitFor(() => expect(Alert.alert).toHaveBeenCalled());
+
+  //confirmation alert message
+  jest.spyOn(Alert, "alert");
+  await waitFor(() => expect(Alert.alert).toHaveBeenCalledTimes(1));
 });
 
 test("Reset password with wrong email", async () => {
@@ -52,5 +54,7 @@ test("Reset password with wrong email", async () => {
 
   await waitFor(() => fireEvent.press(screen.getByText("Submit")));
 
-  //error message
+  //error alert message
+  jest.spyOn(Alert, "alert");
+  await waitFor(() => expect(Alert.alert).toHaveBeenCalledTimes(1));
 });

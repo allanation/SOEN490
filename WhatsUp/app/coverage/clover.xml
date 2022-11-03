@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667503891799" clover="3.2.0">
-  <project timestamp="1667503891799" name="All files">
-    <metrics statements="53" coveredstatements="37" conditionals="12" coveredconditionals="5" methods="27" coveredmethods="13" elements="92" coveredelements="55" complexity="0" loc="53" ncloc="53" packages="5" files="11" classes="11"/>
+<coverage generated="1667505226324" clover="3.2.0">
+  <project timestamp="1667505226325" name="All files">
+    <metrics statements="53" coveredstatements="43" conditionals="12" coveredconditionals="8" methods="27" coveredmethods="17" elements="92" coveredelements="68" complexity="0" loc="53" ncloc="53" packages="5" files="11" classes="11"/>
     <package name="app">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="firebase.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\firebase.js">
+      <file name="firebase.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\firebase.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
@@ -14,39 +14,39 @@
     </package>
     <package name="app.Images">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="w3.png" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\Images\w3.png">
+      <file name="w3.png" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\Images\w3.png">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
       </file>
     </package>
     <package name="app.components">
       <metrics statements="12" coveredstatements="12" conditionals="8" coveredconditionals="5" methods="6" coveredmethods="6"/>
-      <file name="AppButton.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\AppButton.js">
+      <file name="AppButton.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\AppButton.js">
         <metrics statements="2" coveredstatements="2" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="13" count="8" type="stmt"/>
         <line num="29" count="2" type="stmt"/>
       </file>
-      <file name="AppTextInput.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\AppTextInput.js">
+      <file name="AppTextInput.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\AppTextInput.js">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="7" count="12" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
-      <file name="Links.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\Links.js">
+      <file name="Links.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\Links.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="12" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
       </file>
-      <file name="Screen.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\Screen.js">
+      <file name="Screen.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\Screen.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="8" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
       </file>
-      <file name="ScreenSubtitle.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\ScreenSubtitle.js">
+      <file name="ScreenSubtitle.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\ScreenSubtitle.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="6" count="8" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
       </file>
-      <file name="ScreenTitle.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\components\ScreenTitle.js">
+      <file name="ScreenTitle.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\ScreenTitle.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="8" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
@@ -54,13 +54,13 @@
     </package>
     <package name="app.config">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="colors.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\config\colors.js">
+      <file name="colors.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\config\colors.js">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="app.screens">
-      <metrics statements="36" coveredstatements="20" conditionals="4" coveredconditionals="0" methods="21" coveredmethods="7"/>
-      <file name="Login.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\screens\Login.js">
+      <metrics statements="36" coveredstatements="26" conditionals="4" coveredconditionals="3" methods="21" coveredmethods="11"/>
+      <file name="Login.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\screens\Login.js">
         <metrics statements="19" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="12" coveredmethods="4"/>
         <line num="19" count="4" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
@@ -82,20 +82,20 @@
         <line num="144" count="0" type="stmt"/>
         <line num="151" count="2" type="stmt"/>
       </file>
-      <file name="ResetPassword.js" path="C:\Users\Admin\Documents\GitHub\SOEN490\WhatsUp\app\screens\ResetPassword.js">
-        <metrics statements="17" coveredstatements="9" conditionals="4" coveredconditionals="0" methods="9" coveredmethods="3"/>
+      <file name="ResetPassword.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\screens\ResetPassword.js">
+        <metrics statements="17" coveredstatements="15" conditionals="4" coveredconditionals="3" methods="9" coveredmethods="7"/>
         <line num="16" count="4" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
         <line num="31" count="4" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="34" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="35" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
         <line num="47" count="4" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="51" count="4" type="stmt"/>
