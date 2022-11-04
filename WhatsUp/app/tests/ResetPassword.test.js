@@ -22,24 +22,23 @@ it("renders correctly", () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("Reset Password", async () => {
+test("Reset password with a correct email", async () => {
   render(
     <NavigationContainer>
       <ResetPassword />
     </NavigationContainer>
   );
   await waitFor(() =>
-    fireEvent.changeText(
-      screen.getByPlaceholderText("Email"),
-      "hanyelbob99@gmail.com"
-    )
+    fireEvent.changeText(screen.getByPlaceholderText("Email"), "taversofiya@gmail.com")
   );
 
-  await waitFor(() => fireEvent.press(screen.getByText("Submit")));
-
-  //confirmation alert message
   jest.spyOn(Alert, "alert");
-  await waitFor(() => expect(Alert.alert).toHaveBeenCalledTimes(1));
+
+  await waitFor(() =>{
+    fireEvent.press(screen.getByText("Submit"));
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+
 });
 
 test("Reset password with wrong email", async () => {
@@ -49,12 +48,42 @@ test("Reset password with wrong email", async () => {
     </NavigationContainer>
   );
   await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Email"), "notexistingemail@gmail.com")
+  );
+
+  jest.spyOn(Alert, "alert");
+
+  await waitFor(() =>{
+    fireEvent.press(screen.getByText("Submit"));
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+
+});
+
+test("Reset password with invalid email", async () => {
+  render(
+    <NavigationContainer>
+      <ResetPassword />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
     fireEvent.changeText(screen.getByPlaceholderText("Email"), "")
   );
 
-  await waitFor(() => fireEvent.press(screen.getByText("Submit")));
-
-  //error alert message
   jest.spyOn(Alert, "alert");
-  await waitFor(() => expect(Alert.alert).toHaveBeenCalledTimes(1));
+
+  await waitFor(() =>{
+    fireEvent.press(screen.getByText("Submit"));
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+});
+
+test("Go back to Login page", async () => {
+  render(
+    <NavigationContainer>
+      <ResetPassword />
+    </NavigationContainer>
+  );
+
+  await waitFor(() => fireEvent.press(screen.getByText("Back to Login")));
 });

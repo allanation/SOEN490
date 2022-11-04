@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1667505226324" clover="3.2.0">
-  <project timestamp="1667505226325" name="All files">
+<coverage generated="1667535886791" clover="3.2.0">
+  <project timestamp="1667535886791" name="All files">
     <metrics statements="53" coveredstatements="43" conditionals="12" coveredconditionals="8" methods="27" coveredmethods="17" elements="92" coveredelements="68" complexity="0" loc="53" ncloc="53" packages="5" files="11" classes="11"/>
     <package name="app">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -23,32 +23,32 @@
       <metrics statements="12" coveredstatements="12" conditionals="8" coveredconditionals="5" methods="6" coveredmethods="6"/>
       <file name="AppButton.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\AppButton.js">
         <metrics statements="2" coveredstatements="2" conditionals="6" coveredconditionals="4" methods="1" coveredmethods="1"/>
-        <line num="13" count="8" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
         <line num="29" count="2" type="stmt"/>
       </file>
       <file name="AppTextInput.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\AppTextInput.js">
         <metrics statements="2" coveredstatements="2" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="7" count="12" type="stmt"/>
+        <line num="7" count="15" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
       </file>
       <file name="Links.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\Links.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="12" type="stmt"/>
+        <line num="6" count="15" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
       </file>
       <file name="Screen.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\Screen.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="8" type="stmt"/>
+        <line num="6" count="11" type="stmt"/>
         <line num="9" count="2" type="stmt"/>
       </file>
       <file name="ScreenSubtitle.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\ScreenSubtitle.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="6" count="8" type="stmt"/>
+        <line num="6" count="11" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
       </file>
       <file name="ScreenTitle.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\components\ScreenTitle.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="5" count="8" type="stmt"/>
+        <line num="5" count="11" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
       </file>
     </package>
@@ -84,22 +84,22 @@
       </file>
       <file name="ResetPassword.js" path="C:\Users\s-tav\Desktop\SOEN490\SOEN490\WhatsUp\app\screens\ResetPassword.js">
         <metrics statements="17" coveredstatements="15" conditionals="4" coveredconditionals="3" methods="9" coveredmethods="7"/>
-        <line num="16" count="4" type="stmt"/>
-        <line num="17" count="4" type="stmt"/>
-        <line num="19" count="4" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="31" count="4" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="34" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="16" count="7" type="stmt"/>
+        <line num="17" count="7" type="stmt"/>
+        <line num="19" count="7" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="31" count="7" type="stmt"/>
+        <line num="32" count="23" type="stmt"/>
+        <line num="34" count="2" type="cond" truecount="3" falsecount="1"/>
         <line num="35" count="0" type="stmt"/>
-        <line num="38" count="1" type="stmt"/>
-        <line num="42" count="1" type="stmt"/>
-        <line num="43" count="1" type="stmt"/>
-        <line num="47" count="4" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="51" count="4" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="42" count="19" type="stmt"/>
+        <line num="43" count="19" type="stmt"/>
+        <line num="47" count="7" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="7" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
         <line num="71" count="1" type="stmt"/>
       </file>
     </package>
