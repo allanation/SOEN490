@@ -32,12 +32,7 @@ export default function Login() {
         navigation.navigate("Organizer");
       })
       .catch(() => {
-        Alert.alert(
-          "Try again",
-          "Invalid email or password.",
-          [{ text: "OK", onPress: () => console.log("") }],
-          { cancelable: false }
-        );
+        Alert.alert("Try again", "Invalid email or password.");
       });
   };
   const SignupPressed = () => {
@@ -121,6 +116,7 @@ export default function Login() {
             paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
+          testID="facebook"
         />
         <FontAwesome
           name="twitter-square"
@@ -132,6 +128,7 @@ export default function Login() {
             paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
+          testID="twitter"
         />
         <FontAwesome
           name="google"
@@ -142,6 +139,7 @@ export default function Login() {
             paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
+          testID="google"
         />
       </View>
     </Screen>

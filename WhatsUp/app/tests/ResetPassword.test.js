@@ -29,16 +29,18 @@ test("Reset password with a correct email", async () => {
     </NavigationContainer>
   );
   await waitFor(() =>
-    fireEvent.changeText(screen.getByPlaceholderText("Email"), "taversofiya@gmail.com")
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "taversofiya@gmail.com"
+    )
   );
 
   jest.spyOn(Alert, "alert");
 
-  await waitFor(() =>{
+  await waitFor(() => {
     fireEvent.press(screen.getByText("Submit"));
     expect(Alert.alert).toHaveBeenCalled();
   });
-
 });
 
 test("Reset password with wrong email", async () => {
@@ -48,16 +50,18 @@ test("Reset password with wrong email", async () => {
     </NavigationContainer>
   );
   await waitFor(() =>
-    fireEvent.changeText(screen.getByPlaceholderText("Email"), "notexistingemail@gmail.com")
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "notexistingemail@gmail.com"
+    )
   );
 
   jest.spyOn(Alert, "alert");
 
-  await waitFor(() =>{
+  await waitFor(() => {
     fireEvent.press(screen.getByText("Submit"));
     expect(Alert.alert).toHaveBeenCalled();
   });
-
 });
 
 test("Reset password with invalid email", async () => {
@@ -72,7 +76,7 @@ test("Reset password with invalid email", async () => {
 
   jest.spyOn(Alert, "alert");
 
-  await waitFor(() =>{
+  await waitFor(() => {
     fireEvent.press(screen.getByText("Submit"));
     expect(Alert.alert).toHaveBeenCalled();
   });
@@ -86,4 +90,11 @@ test("Go back to Login page", async () => {
   );
 
   await waitFor(() => fireEvent.press(screen.getByText("Back to Login")));
+  const ls = (
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  render(ls);
+  expect(screen.getByText("Please enter your details"));
 });
