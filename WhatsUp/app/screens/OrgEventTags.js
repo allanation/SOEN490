@@ -3,12 +3,11 @@ import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
-import EventTags from '../components/EventTags';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
-import AppTextInput from "../components/AppTextInput";
-import { useNavigation } from "@react-navigation/native";
+import AppTextInput from '../components/AppTextInput';
+import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import EventTagsList from '../components/EventTagsList';
 
@@ -48,7 +47,7 @@ function OrganizeEventTags() {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('OrgDay')}/>
+      <BackBtn onPress={() => navigation.navigate('OrgDay')} />
       <ScrollView>
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}
@@ -87,14 +86,42 @@ function OrganizeEventTags() {
           </View>
         </View>
       </ScrollView>
-        <View>
-          <AppButton title={"Submit Event"} onPress={() => navigation.navigate('OrgDash')}></AppButton>
-        </View>
+      <View>
+        <AppButton
+          title={'Submit Event'}
+          onPress={() => navigation.navigate('OrgDash')}
+        ></AppButton>
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 35,
+    padding: 20,
+    paddingTop: 25,
+    width: '86%',
+    height: '62%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  inputView: {
+    display: 'flex',
+    borderColor: colors.lightGrey,
+    borderRadius: 7,
+    width: '90%',
+    alignSelf: 'center',
+  },
   inputBox: {
     borderColor: colors.lightGrey,
     borderRadius: 7,

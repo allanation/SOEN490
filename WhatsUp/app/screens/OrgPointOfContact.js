@@ -16,9 +16,12 @@ import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
-
+import { useState } from 'react';
 function OrganizerPOC() {
   const navigation = useNavigation();
+  const [organizerName, setOrganizationName] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: '100%', display: 'flex' }}>
@@ -34,9 +37,20 @@ function OrganizerPOC() {
       <BackBtn onPress={() => navigation.navigate('NewEvent')} />
       <ScrollView>
         <View>
-          <AppTextInput placeholder='Name'></AppTextInput>
-          <AppTextInput placeholder='Phone Number'></AppTextInput>
-          <AppTextInput placeholder='Email'></AppTextInput>
+          <AppTextInput
+            placeholder='Name'
+            onChangeText={(currentName) => setOrganizationName(currentName)}
+          ></AppTextInput>
+          <AppTextInput
+            placeholder='Phone Number'
+            onChangeText={(currentPhoneNumber) =>
+              setPhoneNumber(currentPhoneNumber)
+            }
+          ></AppTextInput>
+          <AppTextInput
+            placeholder='Email'
+            onChangeText={(currentEmail) => setEmail(currentEmail)}
+          ></AppTextInput>
         </View>
         <View style={{ height: 350 }}>
           <Text></Text>
