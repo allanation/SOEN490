@@ -1,12 +1,14 @@
 import React from 'react';
 import colors from '../config/colors';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-function EventTags({ name }) {
+function EventTags({ tagname, id, onRemove }) {
   return (
-    <TouchableOpacity style={styles.tag}>
-      <Text style={styles.tagName}>{name}</Text>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity style={styles.tag} onPress={onRemove(id)}>
+        <Text style={styles.tagName}>{tagname}</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 

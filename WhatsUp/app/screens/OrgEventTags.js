@@ -1,50 +1,41 @@
-import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  TextInput,
-} from "react-native";
-import Screen from "../components/Screen";
-import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
-import AppButton from "../components/AppButton";
-import EventTags from "../components/EventTags";
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import Screen from '../components/Screen';
+import colors from '../config/colors';
+import AppButton from '../components/AppButton';
+import EventTags from '../components/EventTags';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
+import uuid from 'react-native-uuid';
+import EventTagsList from '../components/EventTagsList';
 
 function OrganizeEventTags() {
   const navigation = useNavigation();
   useEffect(() => {
     const defaultTags = [
-      { name: "University" },
-      { name: "Networking" },
-      { name: "Student" },
+      { tagname: 'University', id: ids },
+      { tagname: 'Networking', id: ids },
+      { tagname: 'Student', id: ids },
     ];
-    setTags(defaultTags);
+    setTags([]);
   }, []);
   const [tags, setTags] = useState([]);
+  const [currentTag, setCurrentTag] = useState('');
+
+  const ids = uuid.v4();
 
   function handleAddingTag(e) {
-    const newTag = { name: e.nativeEvent.text };
+    const newTag = { tagname: e.nativeEvent.text, id: ids };
     setTags((tags) => [...tags, newTag]);
   }
 
-  function removePeople(e) {
-    this.setState({
-      people: this.state.people.filter(function (person) {
-        return person !== e.target.value;
-      }),
-    });
-  }
+  const onRemove = (id) => (e) => {
+    setTags(tags.filter((tag) => tag.id !== id));
+  };
 
-  const [currentTag, setCurrentTag] = useState("");
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: '100%', display: 'flex' }}>
@@ -59,20 +50,29 @@ function OrganizeEventTags() {
       </View>
       <BackBtn onPress={() => navigation.navigate('OrgDay')}/>
       <ScrollView>
-        <AppTextInput placeholder="Ex. University" onChangeText={text => setCurrentTag(text)}/>
-        <ScreenSubtitle style= {{paddingHorizontal: 20, color: "gray"}} subtitle="Add tags to increase visibility" />
+        <AppTextInput
+          style={{ fontSize: 18, color: colors.lightGrey }}
+          placeholder='Ex.: University'
+          //onChangeText={(newText) => setCurrentTag(newText)}
+          defaultValue={currentTag}
+          onSubmitEditing={handleAddingTag}
+        />
+        <ScreenSubtitle
+          style={{ paddingHorizontal: 20, color: 'gray' }}
+          subtitle='Add tags to increase visibility'
+        />
         <View style={{ marginTop: 12 }}>
           <View
             style={{
-              flexDirection: "row",
-              flexWrap: "wrap",
-              width: "95%",
-              alignSelf: "center",
-              justifyContent: "flex-start",
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              width: '95%',
+              alignSelf: 'center',
+              justifyContent: 'flex-start',
             }}
           >
-            {tags ? (
-              tags.map((t) => <EventTags name={t.name} />)
+            {tags.length > 0 ? (
+              <EventTagsList tags={tags} onRemove={onRemove} />
             ) : (
               <Text
                 style={{
@@ -81,7 +81,7 @@ function OrganizeEventTags() {
                   marginTop: 18,
                 }}
               >
-                'No tags in your event yet...'
+                No tags in your event yet...
               </Text>
             )}
           </View>
@@ -100,32 +100,32 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     paddingVertical: 7,
     paddingHorizontal: 12,
-    width: "90%",
-    alignSelf: "center",
+    width: '90%',
+    alignSelf: 'center',
     marginVertical: 10,
-    borderStyle: "solid",
+    borderStyle: 'solid',
     borderWidth: 1,
     marginTop: 40,
   },
   newEventHeader: {
-    justifyContent: "center",
+    justifyContent: 'center',
     marginTop: 8,
     marginBottom: 16,
   },
   headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
+    justifyContent: 'flex-start',
+    width: '100%',
   },
   icon: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
   },
   coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
+    flexDirection: 'row',
+    width: '90%',
+    alignSelf: 'center',
     marginVertical: 10,
   },
-  paragraph: { textAlign: "center" },
+  paragraph: { textAlign: 'center' },
 });
 
 export default OrganizeEventTags;
