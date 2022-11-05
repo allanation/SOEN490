@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View, Button } from "react-native";
-import OrganizerDashboardScreen from "./screens/OrganizerDashboard";
 import SignUpScreen from "./screens/SignUpScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -8,6 +7,12 @@ import colors from "./config/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
 import ResetPassword from "./screens/ResetPassword";
+import OrgDashboard from "./screens/OrgDashboard";
+import OrgEventTags from "./screens/OrgEventTags";
+import OrgDateInfo from "./screens/OrgDateInfo";
+import OrgDaySchedule from "./screens/OrgDaySchedule";
+import OrgPointOfContact from "./screens/OrgPointOfContact";
+import OrgNewEvent from "./screens/OrgNewEvent";
 
 const tabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -46,16 +51,16 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="OrgDash"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
-        <Stack.Screen name="NewEvent" component={OrganizerNewEvent} />
-        <Stack.Screen name="POC" component={OrganizerPOC} />
-        <Stack.Screen name="DateInfo" component={OrganizerDateInfo} />
-        <Stack.Screen name="OrgDash" component={OrganizerDashboardScreen} />
+        <Stack.Screen name="NewEvent" component={OrgNewEvent} />
+        <Stack.Screen name="POC" component={OrgPointOfContact} />
+        <Stack.Screen name="DateInfo" component={OrgDateInfo} />
+        <Stack.Screen name="OrgDash" component={OrgDashboard} />
         <Stack.Screen name="OrgDay" component={OrgDaySchedule} />
         <Stack.Screen name="OrgTags" component={OrgEventTags} />
       </Stack.Navigator>

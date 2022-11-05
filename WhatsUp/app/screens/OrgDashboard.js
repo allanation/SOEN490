@@ -255,32 +255,16 @@ function OrganizerDashboardScreen() {
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
       <ScrollView>
-          <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{date}</Text>{' '}
-              </Text>
-              <Text style={{ fontWeight: 'bold', fontSize: 28 }}>
-                Welcome, {user.name}!
-              </Text>
-            </View>
-            <TouchableOpacity>
-              <Ionicons
-                name='add-circle-outline'
-                size={40}
-                color={colors.primary}
-              />
-            </TouchableOpacity>
+        <View style={styles.header}>
+          <View style={styles.headerContent}>
+            <Text style={{ color: colors.darkGrey }}>
+              <Text style={styles.paragraph}>{date}</Text>{" "}
+            </Text>
+            <Text style={{ fontWeight: "bold", fontSize: 28 }}>
+              Welcome, {user.name}!
+            </Text>
           </View>
-          <TouchableOpacity
-            style={{
-              justifyContent: "center",
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-            }}
-          >
+          <TouchableOpacity>
             <Ionicons
               name="add-circle-outline"
               size={40}
@@ -288,7 +272,7 @@ function OrganizerDashboardScreen() {
               onPress={() => navigation.navigate("NewEvent")}
             />
           </TouchableOpacity>
-
+        </View>
         <View style={styles.eventTabs}>{tabs}</View>
 
         <View style={styles.searchBar}>

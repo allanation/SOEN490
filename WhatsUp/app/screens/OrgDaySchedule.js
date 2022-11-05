@@ -137,44 +137,45 @@ function OrganizerDaySchedule({ day }) {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
           setModalVisible(!modalVisible);
         }}
       >
-        <View resizeMode="contain" style={styles.modalView}>
-          <BackBtn onPress={() => setModalVisible(!modalVisible)} />
-          <View style={styles.inputView}>
-            <ScreenTitle style={{ alignSelf: "center" }} title={"New Item"} />
-            <AppTextInput
-              placeholder="Title"
-              onChangeText={(currentTitle) => setTitle(currentTitle)}
-            />
-            <AppTextInput
-              placeholder="Start Time"
-              onChangeText={(currentStartTime) =>
-                setStartTime(currentStartTime)
-              }
-            />
-            <AppTextInput
-              placeholder="End Time"
-              onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
-            />
-            <AppTextInput
-              placeholder="Description"
-              onChangeText={(currentDescription) =>
-                setDescription(currentDescription)
-              }
-            />
-            <AppTextInput
-              placeholder="Location (optional)"
-              onChangeText={(currentLocation) => setLocation(currentLocation)}
-            />
-            <AppButton
-              title="Add"
-              style={{ marginTop: 0 }}
-              onPress={handleAddingItinerary}
-            />
-          </View>
+        <View resizeMode="" style={styles.modalView}>
+          <ScrollView style= {{width: "100%"}}>
+            <BackBtn onPress={() => setModalVisible(!modalVisible)} />
+            <View style={styles.inputView}>
+              <ScreenTitle style={{ alignSelf: "center" }} title={"New Item"} />
+              <AppTextInput
+                placeholder="Title"
+                onChangeText={(currentTitle) => setTitle(currentTitle)}
+              />
+              <AppTextInput
+                placeholder="Start Time"
+                onChangeText={(currentStartTime) =>
+                  setStartTime(currentStartTime)
+                }
+              />
+              <AppTextInput
+                placeholder="End Time"
+                onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
+              />
+              <AppTextInput
+                placeholder="Description"
+                onChangeText={(currentDescription) =>
+                  setDescription(currentDescription)
+                }
+              />
+              <AppTextInput
+                placeholder="Location (optional)"
+                onChangeText={(currentLocation) => setLocation(currentLocation)}
+              />
+              <AppButton
+                title="Add"
+                style={{ marginTop: 0 }}
+                onPress={handleAddingItinerary}
+              />
+            </View>
+          </ScrollView>
         </View>
       </AppModal>
     </Screen>
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 25,
     width: "86%",
-    height: "62%",
+    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -201,7 +202,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   inputView: {
-    display: "flex",
+    marginTop: 8,
     borderColor: colors.lightGrey,
     borderRadius: 7,
     width: "90%",
