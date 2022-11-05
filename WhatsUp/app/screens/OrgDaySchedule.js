@@ -21,50 +21,111 @@ import AddBtn from '../components/AddBtn';
 import NewItemPopup from '../components/NewItemPopup';
 import AppModal from '../components/AppModal';
 import AppTextInput from '../components/AppTextInput';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 
 function OrganizerDaySchedule({ day }) {
-  const navigation = useNavigation();
-  itinerary = [
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-    {
-      title: 'Round Table with William',
-      startTime: '9:00PM',
-      endTime: '10:00PM',
-      location: 'Auditorium 101',
-    },
-  ];
+  useEffect(() => {
+    const defaultItinerary = [
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+      {
+        title: 'Round Table with William',
+        startTime: '9:00PM',
+        endTime: '10:00PM',
+        location: 'Auditorium 101',
+      },
+    ];
+    setItinerary([]);
+  }, []);
 
+  function handleAddingItinerary(e) {
+    const newItinerary = {
+      title: title,
+      startTime: startTime,
+      endTime: endTime,
+      description: description,
+      location: location,
+    };
+    setItinerary((itinerary) => [...itinerary, newItinerary]);
+
+    setModalVisible(false);
+  }
+  const [itinerary, setItinerary] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+
+  const navigation = useNavigation();
+  // itinerary = [
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  //   {
+  //     title: 'Round Table with William',
+  //     startTime: '9:00PM',
+  //     endTime: '10:00PM',
+  //     location: 'Auditorium 101',
+  //   },
+  // ];
+
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: '100%', display: 'flex' }}>
@@ -77,7 +138,7 @@ function OrganizerDaySchedule({ day }) {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('DateInfo')}/>
+      <BackBtn onPress={() => navigation.navigate('DateInfo')} />
       <AddBtn onPress={() => setModalVisible(true)} />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
@@ -106,7 +167,10 @@ function OrganizerDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={'Next'} onPress={() => navigation.navigate('OrgTags')}></AppButton>
+        <AppButton
+          title={'Next'}
+          onPress={() => navigation.navigate('OrgTags')}
+        ></AppButton>
       </View>
       <AppModal
         animationType='slide'
@@ -120,13 +184,36 @@ function OrganizerDaySchedule({ day }) {
         <View style={styles.modalView}>
           <BackBtn onPress={() => setModalVisible(!modalVisible)} />
           <View style={styles.inputView}>
-          <ScreenTitle style={{ alignSelf: 'center' }} title={'New Item'}/>
-          <AppTextInput placeholder='Title' />
-          <AppTextInput placeholder='Start Time' />
-          <AppTextInput placeholder='End Time' />
-          <AppTextInput placeholder='Description' />
-          <AppTextInput placeholder='Location (optional)' />
-          <AppButton title='Add' style={{ marginTop: 0 }} />
+            <ScreenTitle style={{ alignSelf: 'center' }} title={'New Item'} />
+            <AppTextInput
+              placeholder='Title'
+              onChangeText={(currentTitle) => setTitle(currentTitle)}
+            />
+            <AppTextInput
+              placeholder='Start Time'
+              onChangeText={(currentStartTime) =>
+                setStartTime(currentStartTime)
+              }
+            />
+            <AppTextInput
+              placeholder='End Time'
+              onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
+            />
+            <AppTextInput
+              placeholder='Description'
+              onChangeText={(currentDescription) =>
+                setDescription(currentDescription)
+              }
+            />
+            <AppTextInput
+              placeholder='Location (optional)'
+              onChangeText={(currentLocation) => setLocation(currentLocation)}
+            />
+            <AppButton
+              title='Add'
+              style={{ marginTop: 0 }}
+              onPress={handleAddingItinerary}
+            />
           </View>
         </View>
       </AppModal>

@@ -6,13 +6,19 @@ function ItineraryEvent({ title, startTime, endTime, location }) {
   return (
     <TouchableOpacity style={styles.itineraryButton}>
       <View>
-        <Text style={styles.itineraryTitle}>{title}</Text>
+        <Text style={styles.itineraryTitle} numberOfLines={1}>
+          {title.length < 30 ? `${title}` : `${title.substring(0, 28)}...`}
+        </Text>
       </View>
       <View style={styles.itineraryDetails}>
-        <Text style={{ color: colors.darkGrey }}>
+        <Text style={{ color: colors.darkGrey }} numberOfLines={1}>
           {startTime}-{endTime}
         </Text>
-        <Text style={{ color: colors.darkGrey }}>{location}</Text>
+        <Text style={{ color: colors.darkGrey }} numberOfLines={1}>
+          {location.length < 16
+            ? `${location}`
+            : `${location.substring(0, 14)}...`}
+        </Text>
       </View>
     </TouchableOpacity>
   );
