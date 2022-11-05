@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='NewEvent'
+        initialRouteName='DateInfo'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
