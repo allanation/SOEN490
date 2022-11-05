@@ -1,20 +1,14 @@
 import React from "react";
-import {
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Platform,
-  Image,
-} from "react-native";
-import colors from "../config/colors";
+import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
-function NavButton({ image, position, onPress }) {
+function NavButton({ image, onPress }) {
   return (
     <TouchableOpacity
-      style={[styles.button, { flexDirection: "row" }, { left: position }]}
+      style={[styles.button, { flexDirection: "row" }]}
       onPress={onPress}
     >
-      <Image source={image} />
+      <Ionicons name={image} size={30} color={"#32bca5"} />
     </TouchableOpacity>
   );
 }
@@ -25,9 +19,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     justifyContent: "center",
     alignItems: "center",
-    padding: 1,
-    marginVertical: 5,
-    height: 33,
+    marginTop: "0.8%",
+    height: "77%",
   },
   text: {
     color: "#32bca5",

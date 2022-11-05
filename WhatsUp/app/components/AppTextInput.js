@@ -1,11 +1,15 @@
 import React from 'react';
 import { TextInput, View, StyleSheet } from 'react-native';
 import colors from '../config/colors';
+/* eslint-disable react/prop-types */
+import React from "react";
+import { TextInput, View, StyleSheet, Platform } from "react-native";
+import colors from "../config/colors";
 
-function AppTextInput({ style, ...props }) {
+function AppTextInput({ style, ...otherProps }) {
   return (
     <View style={[styles.container, style]}>
-      <TextInput style={styles.text} {...props} />
+      <TextInput style={styles.text} {...otherProps} />
     </View>
   );
 }
@@ -16,16 +20,16 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     paddingVertical: 7,
     paddingHorizontal: 12,
-    width: '90%',
-    alignSelf: 'center',
+    width: "98%",
     marginVertical: 10,
-    borderStyle: 'solid',
+    borderStyle: "solid",
     borderWidth: 1,
+    marginLeft: "1%",
   },
   text: {
-    color: colors.lightGrey,
+    color: "black",
     fontSize: 18,
-    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
   },
 });
 

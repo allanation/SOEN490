@@ -14,6 +14,7 @@ function AppButton({
       style={[
         styles.button,
         { backgroundColor: !disabled ? colors[color] : colors.lightGrey },
+        styles.shadow,
         style,
       ]}
       onPress={onPress}
@@ -32,12 +33,20 @@ const styles = StyleSheet.create({
     padding: 12,
     width: '90%',
     marginVertical: 40,
+    marginLeft: "1%",
   },
   text: {
     color: colors.white,
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+  },
+  shadow: {
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 4, // Android
   },
 });
 

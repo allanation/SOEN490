@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, Button, Image, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
