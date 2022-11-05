@@ -44,7 +44,7 @@ function AndroidDateTimePicker() {
           onPress={showTimepicker}
           title="Start Time"
         />
-      <Text style= {styles.text}>Event Starts: {date.toLocaleString()}</Text>
+        <Text style={styles.text}>Event Starts: {date.toLocaleString()}</Text>
       </View>
       <View
         style={{
@@ -65,7 +65,7 @@ function AndroidDateTimePicker() {
           onPress={showTimepicker}
           title="End Time"
         />
-         <Text style= {styles.text}>Event Ends: {date.toLocaleString()}</Text>
+        <Text style={styles.text}>Event Ends: {date.toLocaleString()}</Text>
         {show && (
           <DateTimePicker
             testID="dateTimePicker"
@@ -91,13 +91,13 @@ const styles = StyleSheet.create({
   btn: {
     borderRadius: 11,
     marginVertical: 10,
-    backgroundColor: 'gray'
+    backgroundColor: "gray",
   },
   text: {
     color: colors.darkerGrey,
     fontSize: 16,
     alignContent: "center",
-    alignSelf: 'center',
+    alignSelf: "center",
   },
 });
 

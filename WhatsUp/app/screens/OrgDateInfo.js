@@ -19,18 +19,18 @@ function OrganizerDateInfo() {
   const navigation = useNavigation();
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-    <View style={{ width: '100%', display: 'flex' }}>
-      <ScreenTitle
-        style={{ alignSelf: 'center' }}
-        title={'Set Date Information'}
-      />
-      <ScreenSubtitle
-        style={{ alignSelf: 'center' }}
-        subtitle='Please pick the dates for your event'
-      />
-    </View>
-    <BackBtn onPress={() => navigation.navigate('POC')}/>
-    <ScrollView>
+      <View style={{ width: "100%", display: "flex" }}>
+        <ScreenTitle
+          style={{ alignSelf: "center" }}
+          title={"Set Date Information"}
+        />
+        <ScreenSubtitle
+          style={{ alignSelf: "center" }}
+          subtitle="Please pick the dates for your event"
+        />
+      </View>
+      <BackBtn onPress={() => navigation.navigate("POC")} />
+      <ScrollView style= {{paddingTop: 20}}>
         <View>
           {Platform.OS === "ios" ? (
             <IOSDateTimePicker />
@@ -39,10 +39,13 @@ function OrganizerDateInfo() {
           )}
         </View>
       </ScrollView>
-        <View>
-          <AppButton title={"Next"} onPress={() => navigation.navigate('OrgDay')}></AppButton>
-        </View>
-        {/* <BottomImg /> */}
+      <View>
+        <AppButton
+          title={"Next"}
+          onPress={() => navigation.navigate("OrgDay")}
+        ></AppButton>
+      </View>
+      {/* <BottomImg /> */}
     </Screen>
   );
 }

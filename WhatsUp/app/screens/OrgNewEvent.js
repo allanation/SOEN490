@@ -33,7 +33,7 @@ function OrganizerNewEvent() {
   const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
   const ids = uuid.v4();
-  const [eventTitle, setEventTitle] = useState("");
+  const [events, setEvents] = useState("");
   const [orgName, setOrgName] = useState("");
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
@@ -42,7 +42,7 @@ function OrganizerNewEvent() {
 
   function handleAddingEvent(e) {
     const newEvent = {
-      eventTitle: eventTitle,
+      events: events,
       orgName: orgName,
       location: location,
       link: link,
@@ -50,7 +50,7 @@ function OrganizerNewEvent() {
       coverImage: coverImage,
       id: ids,
     };
-    setEvents((events) => [...eventTitle, newEventTitle]);
+    setEvents((events) => [...events, newEvents]);
   }
 
   const pickImage = async () => {
@@ -70,7 +70,7 @@ function OrganizerNewEvent() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: "100%", display: "flex" }}>
         <ScreenTitle
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: "center"}}
           title={"Create New Event"}
         />
         <ScreenSubtitle
@@ -79,18 +79,18 @@ function OrganizerNewEvent() {
         />
       </View>
       <BackBtn onPress={() => navigation.navigate("OrgDash")} />
-      <ScrollView>
+      <ScrollView style= {{paddingTop: 20}}>
         <View>
           <AppTextInput
             placeholder="Event Title"
-            onChangeText={(currentEventTitle) =>
-              setEventTitle(currentEventTitle)
+            onChangeText={(currentEvents) =>
+              setEvents(currentEvents)
             }
           ></AppTextInput>
           <AppTextInput
             placeholder="Organization Name"
             onChangeText={(currentOrgName) =>
-              setOrganizationName(currentOrgName)
+              setOrgName(currentOrgName)
             }
           ></AppTextInput>
           <AppTextInput
@@ -115,8 +115,8 @@ function OrganizerNewEvent() {
             }
           ></AppTextInput>
           <View style={styles.coverPage}>
-            {image ? (
-              <Image source={{ uri: image }} style={styles.coverImage} />
+            {coverImage ? (
+              <Image source={{ uri: coverImage }} style={styles.coverImage} />
             ) : (
               <Text
                 style={{
