@@ -15,8 +15,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import EventBanner from "../components/EventBanner";
 import SearchBar from "react-native-dynamic-search-bar";
 import EventImage from "../assets/stringio.jpg";
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizerDashboardScreen() {
+  const navigation = useNavigation();
   const user = {
     name: "George",
   };
@@ -251,7 +253,7 @@ function OrganizerDashboardScreen() {
     );
   }
   return (
-    <Screen style= {{padding: 20, marginTop: 10}}>
+    <Screen style={{ padding: 20, marginTop: 10 }}>
       <ScrollView>
         <View style={styles.header}>
           <View style={styles.headerContent}>
@@ -275,6 +277,7 @@ function OrganizerDashboardScreen() {
               name="add-circle-outline"
               size={40}
               color={colors.primary}
+              onPress={() => navigation.navigate("NewEvent")}
             />
           </TouchableOpacity>
         </View>

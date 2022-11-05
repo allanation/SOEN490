@@ -15,8 +15,10 @@ import BottomImg from '../components/ImgOrgBottom';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizerPOC() {
+  const navigation = useNavigation();
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: '100%', display: 'flex' }}>
@@ -29,7 +31,7 @@ function OrganizerPOC() {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn />
+      <BackBtn onPress={() => navigation.navigate('NewEvent')}/>
       <ScrollView>
             <View>
               <AppTextInput>Event Title</AppTextInput>
@@ -40,7 +42,7 @@ function OrganizerPOC() {
               <Text></Text>
             </View>
           </ScrollView>
-            <AppButton title={'Next'}></AppButton>
+            <AppButton title={'Next'} onPress={() => navigation.navigate('DateInfo')}></AppButton>
         </Screen>
   );
 }

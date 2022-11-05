@@ -13,8 +13,10 @@ import ScreenSubtitle from "../components/ScreenSubtitle";
 import BackBtn from "../components/BackBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizerDateInfo() {
+  const navigation = useNavigation();
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
     <View style={{ width: '100%', display: 'flex' }}>
@@ -27,7 +29,7 @@ function OrganizerDateInfo() {
         subtitle='Please fill the following information'
       />
     </View>
-    <BackBtn />
+    <BackBtn onPress={() => navigation.navigate('POC')}/>
     <ScrollView>
         <View>
           {Platform.OS === "ios" ? (
@@ -38,7 +40,7 @@ function OrganizerDateInfo() {
         </View>
       </ScrollView>
         <View>
-          <AppButton title={"Next"}></AppButton>
+          <AppButton title={"Next"} onPress={() => navigation.navigate('OrgDay')}></AppButton>
         </View>
         {/* <BottomImg /> */}
     </Screen>

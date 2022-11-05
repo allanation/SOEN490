@@ -17,8 +17,10 @@ import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import AppTextInput from "../components/AppTextInput";
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizeEventTags() {
+  const navigation = useNavigation();
   useEffect(() => {
     const defaultTags = [
       { name: "University" },
@@ -55,7 +57,7 @@ function OrganizeEventTags() {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn />
+      <BackBtn onPress={() => navigation.navigate('OrgDay')}/>
       <ScrollView>
         <AppTextInput placeholder="Ex. University" onChangeText={text => setCurrentTag(text)}/>
         <ScreenSubtitle style= {{paddingHorizontal: 20, color: "gray"}} subtitle="Add tags to increase visibility" />
@@ -86,7 +88,7 @@ function OrganizeEventTags() {
         </View>
       </ScrollView>
         <View>
-          <AppButton title={"Submit Event"}></AppButton>
+          <AppButton title={"Submit Event"} onPress={() => navigation.navigate('OrgDash')}></AppButton>
         </View>
     </Screen>
   );

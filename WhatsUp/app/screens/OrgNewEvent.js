@@ -23,8 +23,10 @@ import BottomImg from "../components/ImgOrgBottom";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import BackBtn from "../components/BackBtn";
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizerNewEvent() {
+  const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
   const user = {
     name: "George",
@@ -55,7 +57,7 @@ function OrganizerNewEvent() {
           subtitle="Please fill the following information"
         />
       </View>
-      <BackBtn />
+      <BackBtn onPress={() => navigation.navigate('OrgDash')}/>
       <ScrollView>
         <View>
           <AppTextInput>Event Title</AppTextInput>
@@ -99,7 +101,7 @@ function OrganizerNewEvent() {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"}></AppButton>
+        <AppButton title={"Next"} onPress={() => navigation.navigate('POC')}></AppButton>
       </View>
     </Screen>
   );

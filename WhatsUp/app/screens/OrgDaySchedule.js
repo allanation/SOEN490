@@ -21,8 +21,10 @@ import AddBtn from '../components/AddBtn';
 import NewItemPopup from '../components/NewItemPopup';
 import AppModal from '../components/AppModal';
 import AppTextInput from '../components/AppTextInput';
+import { useNavigation } from "@react-navigation/native";
 
 function OrganizerDaySchedule({ day }) {
+  const navigation = useNavigation();
   itinerary = [
     {
       title: 'Round Table with William',
@@ -75,7 +77,7 @@ function OrganizerDaySchedule({ day }) {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn />
+      <BackBtn onPress={() => navigation.navigate('DateInfo')}/>
       <AddBtn onPress={() => setModalVisible(true)} />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
@@ -104,7 +106,7 @@ function OrganizerDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={'Next'}></AppButton>
+        <AppButton title={'Next'} onPress={() => navigation.navigate('OrgTags')}></AppButton>
       </View>
       <AppModal
         animationType='slide'
