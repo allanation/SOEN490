@@ -24,30 +24,35 @@ import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import BackBtn from "../components/BackBtn";
 import { useNavigation } from "@react-navigation/native";
+import uuid from "react-native-uuid";
 
 function OrganizerNewEvent() {
+  useEffect(() => {
+    setEvents(events);
+  }, []);
   const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
-  const [eventTitle, setEventTitle] = useState('');
-  const [orgName, setOrgName] = useState('');
-  const [location, setLocation] = useState('');
-  const [link, setLink] = useState('');
-  const [description, setDescription] = useState('');
+  const ids = uuid.v4();
+  const [eventTitle, setEventTitle] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [location, setLocation] = useState("");
+  const [link, setLink] = useState("");
+  const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState(null);
 
-  const handleNewevent= async (
-    eventTitle,
-    orgName,
-    location,
-    link,
-    description,
-    coverImage,
-  ) => {
-  };
+  function handleAddingEvent(e) {
+    const newEvent = {
+      eventTitle: eventTitle,
+      orgName: orgName,
+      location: location,
+      link: link,
+      description: description,
+      coverImage: coverImage,
+      id: ids,
+    };
+    setEvents((events) => [...eventTitle, newEventTitle]);
+  }
 
-  const user = {
-    name: "George",
-  };
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -73,13 +78,29 @@ function OrganizerNewEvent() {
           subtitle="Please fill the following information"
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('OrgDash')}/>
+      <BackBtn onPress={() => navigation.navigate("OrgDash")} />
       <ScrollView>
         <View>
-          <AppTextInput>Event Title</AppTextInput>
-          <AppTextInput>Organization Name</AppTextInput>
-          <AppTextInput>Location</AppTextInput>
-          <AppTextInput>Link for ticket purchase (optional)</AppTextInput>
+          <AppTextInput
+            placeholder="Event Title"
+            onChangeText={(currentEventTitle) =>
+              setEventTitle(currentEventTitle)
+            }
+          ></AppTextInput>
+          <AppTextInput
+            placeholder="Organization Name"
+            onChangeText={(currentOrgName) =>
+              setOrganizationName(currentOrgName)
+            }
+          ></AppTextInput>
+          <AppTextInput
+            placeholder="Location"
+            onChangeText={(currentLocation) => setLocation(currentLocation)}
+          ></AppTextInput>
+          <AppTextInput
+            placeholder="Link for ticket purchase (optional)"
+            onChangeText={(currentLink) => setLink(currentLink)}
+          ></AppTextInput>
           <AppTextInput
             multiline={true}
             numberOfLines={5}
@@ -88,9 +109,11 @@ function OrganizerNewEvent() {
               textAlignVertical: "top",
               color: colors.lightGrey,
             }}
-          >
-            Description
-          </AppTextInput>
+            placeholder="Description"
+            onChangeText={(currentDescription) =>
+              setDescription(currentDescription)
+            }
+          ></AppTextInput>
           <View style={styles.coverPage}>
             {image ? (
               <Image source={{ uri: image }} style={styles.coverImage} />
@@ -117,7 +140,10 @@ function OrganizerNewEvent() {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} onPress={() => navigation.navigate('POC')}></AppButton>
+        <AppButton
+          title={"Next"}
+          onPress={() => (navigation.navigate("POC"), handleAddingEvent)}
+        ></AppButton>
       </View>
     </Screen>
   );

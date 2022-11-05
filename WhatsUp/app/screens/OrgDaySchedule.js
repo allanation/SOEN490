@@ -22,6 +22,7 @@ import NewItemPopup from '../components/NewItemPopup';
 import AppModal from '../components/AppModal';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
+import uuid from 'react-native-uuid';
 
 function OrganizerDaySchedule({ day }) {
   useEffect(() => {
@@ -50,21 +51,11 @@ function OrganizerDaySchedule({ day }) {
         endTime: '10:00PM',
         location: 'Auditorium 101',
       },
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
     ];
     setItinerary([]);
   }, []);
+
+  const ids = uuid.v4();
 
   function handleAddingItinerary(e) {
     const newItinerary = {
@@ -73,11 +64,16 @@ function OrganizerDaySchedule({ day }) {
       endTime: endTime,
       description: description,
       location: location,
+      id: ids,
     };
     setItinerary((itinerary) => [...itinerary, newItinerary]);
-
     setModalVisible(false);
   }
+
+  const onRemove = (id) => (e) => {
+    setItinerary(itinerary.filter((item) => item.id !== id));
+  };
+
   const [itinerary, setItinerary] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState('');
@@ -87,44 +83,6 @@ function OrganizerDaySchedule({ day }) {
   const [location, setLocation] = useState('');
 
   const navigation = useNavigation();
-  // itinerary = [
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  //   {
-  //     title: 'Round Table with William',
-  //     startTime: '9:00PM',
-  //     endTime: '10:00PM',
-  //     location: 'Auditorium 101',
-  //   },
-  // ];
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -143,16 +101,7 @@ function OrganizerDaySchedule({ day }) {
       <ScrollView>
         <View style={{ marginTop: 12 }}>
           <View>
-            {itinerary ? (
-              itinerary.map((it) => (
-                <ItineraryEvent
-                  title={it.title}
-                  startTime={it.startTime}
-                  endTime={it.endTime}
-                  location={it.location}
-                />
-              ))
-            ) : (
+            {itinerary.length == 0 ? (
               <Text
                 style={{
                   color: colors.lightGrey,
@@ -162,6 +111,17 @@ function OrganizerDaySchedule({ day }) {
               >
                 'No items in your itinerary yet...'
               </Text>
+            ) : (
+              itinerary.map((it) => (
+                <ItineraryEvent
+                  title={it.title}
+                  startTime={it.startTime}
+                  endTime={it.endTime}
+                  location={it.location}
+                  onRemove={onRemove}
+                  id={it.id}
+                />
+              ))
             )}
           </View>
         </View>

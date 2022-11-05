@@ -16,8 +16,8 @@ import BottomImg from '../components/ImgOrgBottom';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
-import { useNavigation } from "@react-navigation/native";
-
+import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react';
 function OrganizerPOC() {
   const navigation = useNavigation();
   const [pocName, setPocName] = useState('');
@@ -36,17 +36,33 @@ function OrganizerPOC() {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('NewEvent')}/>
-            <View>
-              <AppTextInput>Name</AppTextInput>
-              <AppTextInput>Phone Number</AppTextInput>
-              <AppTextInput>Email</AppTextInput>
-            </View>
-            <View style={{ height: 350 }}>
-              <Text></Text>
-            </View>
-            <AppButton title={'Next'} onPress={() => navigation.navigate('DateInfo')}></AppButton>
-        </Screen>
+      <BackBtn onPress={() => navigation.navigate('NewEvent')} />
+      <ScrollView>
+        <View>
+          <AppTextInput
+            placeholder='Name'
+            onChangeText={(currentName) => setPocName(currentName)}
+          ></AppTextInput>
+          <AppTextInput
+            placeholder='Phone Number'
+            onChangeText={(currentPhoneNumber) =>
+              setPocPhoneNum(currentPhoneNumber)
+            }
+          ></AppTextInput>
+          <AppTextInput
+            placeholder='Email'
+            onChangeText={(currentEmail) => setPocEmail(currentEmail)}
+          ></AppTextInput>
+        </View>
+        <View style={{ height: 350 }}>
+          <Text></Text>
+        </View>
+      </ScrollView>
+      <AppButton
+        title={'Next'}
+        onPress={() => navigation.navigate('DateInfo')}
+      ></AppButton>
+    </Screen>
   );
 }
 
