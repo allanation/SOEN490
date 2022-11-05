@@ -26,7 +26,7 @@ function OrganizerDateInfo() {
       />
       <ScreenSubtitle
         style={{ alignSelf: 'center' }}
-        subtitle='Please fill the following information'
+        subtitle='Please pick the dates for your event'
       />
     </View>
     <BackBtn onPress={() => navigation.navigate('POC')}/>

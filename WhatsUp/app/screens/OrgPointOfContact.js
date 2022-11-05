@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import React, { useState } from "react";
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -19,6 +20,10 @@ import { useNavigation } from "@react-navigation/native";
 
 function OrganizerPOC() {
   const navigation = useNavigation();
+  const [pocName, setPocName] = useState('');
+  const [pocPhoneNum, setPocPhoneNum] = useState('');
+  const [pocEmail, setPocEmail] = useState('');
+
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: '100%', display: 'flex' }}>
@@ -32,16 +37,14 @@ function OrganizerPOC() {
         />
       </View>
       <BackBtn onPress={() => navigation.navigate('NewEvent')}/>
-      <ScrollView>
             <View>
-              <AppTextInput>Event Title</AppTextInput>
-              <AppTextInput>Organization Name</AppTextInput>
-              <AppTextInput>Location</AppTextInput>
+              <AppTextInput>Name</AppTextInput>
+              <AppTextInput>Phone Number</AppTextInput>
+              <AppTextInput>Email</AppTextInput>
             </View>
             <View style={{ height: 350 }}>
               <Text></Text>
             </View>
-          </ScrollView>
             <AppButton title={'Next'} onPress={() => navigation.navigate('DateInfo')}></AppButton>
         </Screen>
   );

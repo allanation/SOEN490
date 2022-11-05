@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
+import ScreenTitle from "../components/ScreenTitle";
 
 function AndroidDateTimePicker() {
   const [date, setDate] = useState(new Date());
@@ -36,12 +37,12 @@ function AndroidDateTimePicker() {
         <AppButton
           style={styles.btn}
           onPress={showDatepicker}
-          title="Pick a Start Date"
+          title="Start Date"
         />
         <AppButton
           style={styles.btn}
           onPress={showTimepicker}
-          title="Pick a Start Time"
+          title="Start Time"
         />
       <Text style= {styles.text}>Event Starts: {date.toLocaleString()}</Text>
       </View>
@@ -57,12 +58,12 @@ function AndroidDateTimePicker() {
         <AppButton
           style={styles.btn}
           onPress={showDatepicker}
-          title="Pick a End Date"
+          title="End Date"
         />
         <AppButton
           style={styles.btn}
           onPress={showTimepicker}
-          title="Pick a End Time"
+          title="End Time"
         />
          <Text style= {styles.text}>Event Ends: {date.toLocaleString()}</Text>
         {show && (

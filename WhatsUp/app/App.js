@@ -21,7 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='OrgDash'
+        initialRouteName='SignUp'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />

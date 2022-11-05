@@ -28,6 +28,23 @@ import { useNavigation } from "@react-navigation/native";
 function OrganizerNewEvent() {
   const navigation = useNavigation();
   const Tab = createBottomTabNavigator();
+  const [eventTitle, setEventTitle] = useState('');
+  const [orgName, setOrgName] = useState('');
+  const [location, setLocation] = useState('');
+  const [link, setLink] = useState('');
+  const [description, setDescription] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
+
+  const handleNewevent= async (
+    eventTitle,
+    orgName,
+    location,
+    link,
+    description,
+    coverImage,
+  ) => {
+  };
+
   const user = {
     name: "George",
   };
@@ -40,10 +57,9 @@ function OrganizerNewEvent() {
     });
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      setCoverImage(result.uri);
     }
   };
-  const [image, setImage] = useState(null);
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>

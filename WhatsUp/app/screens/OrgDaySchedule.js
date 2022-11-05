@@ -181,7 +181,7 @@ function OrganizerDaySchedule({ day }) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.modalView}>
+        <View resizeMode = 'contain' style={styles.modalView}>
           <BackBtn onPress={() => setModalVisible(!modalVisible)} />
           <View style={styles.inputView}>
             <ScreenTitle style={{ alignSelf: 'center' }} title={'New Item'} />
