@@ -34,23 +34,20 @@ test("Testing Login page rendering", async () => {
     expect(component.getAllByText("Orientation Week")).toBeTruthy();
   });
 
-
-  // To be added when approving events is functional
-
-  // test("Approved button returns some events", async () => {
-  //   const component = render(
-  //     <BrowserRouter>
-  //       <Dashboard />
-  //     </BrowserRouter>
-  //   );
+  test("Approved button returns some events", async () => {
+    const component = render(
+      <BrowserRouter>
+        <Dashboard />
+      </BrowserRouter>
+    );
   
-  //   const approvedButton = component.getByText("Approved");
-  //   expect(approvedButton).toBeTruthy();
-  
-  //   await waitFor(() => fireEvent.click(approvedButton), {
-  //     timeout: 3000,
-  //   });
-  
-  //   expect(component.getByText("event_name")).toBeTruthy();
-  // });
+    const approvedButton = component.getByText("Approved");
+    expect(approvedButton).toBeTruthy();
+    
+    await waitFor(() => fireEvent.click(approvedButton), {
+      timeout: 3000,
+    });
+    
+    expect(component.getByText("Approved")).toBeTruthy();
+  });
 
