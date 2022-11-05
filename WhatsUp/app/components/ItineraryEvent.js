@@ -2,9 +2,9 @@ import React from 'react';
 import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
 import colors from '../config/colors';
 
-function ItineraryEvent({ title, startTime, endTime, location }) {
+function ItineraryEvent({ title, startTime, endTime, location, id, onRemove }) {
   return (
-    <TouchableOpacity style={styles.itineraryButton}>
+    <TouchableOpacity style={styles.itineraryButton} onPress={onRemove(id)}>
       <View>
         <Text style={styles.itineraryTitle} numberOfLines={1}>
           {title.length < 30 ? `${title}` : `${title.substring(0, 28)}...`}

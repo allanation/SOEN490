@@ -15,7 +15,7 @@ import BottomImg from '../components/ImgOrgBottom';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 
 function OrganizerPOC() {
   const navigation = useNavigation();
@@ -31,19 +31,22 @@ function OrganizerPOC() {
           subtitle='Please fill the following information'
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('NewEvent')}/>
+      <BackBtn onPress={() => navigation.navigate('NewEvent')} />
       <ScrollView>
-            <View>
-              <AppTextInput>Event Title</AppTextInput>
-              <AppTextInput>Organization Name</AppTextInput>
-              <AppTextInput>Location</AppTextInput>
-            </View>
-            <View style={{ height: 350 }}>
-              <Text></Text>
-            </View>
-          </ScrollView>
-            <AppButton title={'Next'} onPress={() => navigation.navigate('DateInfo')}></AppButton>
-        </Screen>
+        <View>
+          <AppTextInput placeholder='Name'></AppTextInput>
+          <AppTextInput placeholder='Phone Number'></AppTextInput>
+          <AppTextInput placeholder='Email'></AppTextInput>
+        </View>
+        <View style={{ height: 350 }}>
+          <Text></Text>
+        </View>
+      </ScrollView>
+      <AppButton
+        title={'Next'}
+        onPress={() => navigation.navigate('DateInfo')}
+      ></AppButton>
+    </Screen>
   );
 }
 
