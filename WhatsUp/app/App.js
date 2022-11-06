@@ -8,6 +8,7 @@ import colors from "./config/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
 import ResetPassword from "./screens/ResetPassword";
+import UserDashboard from "./screens/UserDashboard";
 
 const tabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -53,6 +54,7 @@ export default function App() {
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="ResetPassword" component={ResetPassword} />
         <Stack.Screen name="Organizer" component={tabScreen} />
+        <Stack.Screen name="UserDashboard" component={UserDashboard} />
       </Stack.Navigator>
     </NavigationContainer>
   );
