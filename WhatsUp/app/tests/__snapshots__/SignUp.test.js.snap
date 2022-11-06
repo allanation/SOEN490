@@ -1,0 +1,390 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flex": 1,
+        "paddingTop": 20,
+      },
+      Object {
+        "marginTop": 20,
+        "padding": 20,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Object {
+        "fontSize": 28,
+        "fontWeight": "bold",
+        "marginLeft": "1%",
+      }
+    }
+  >
+    Sign Up
+  </Text>
+  <Text
+    style={
+      Object {
+        "color": "#747474",
+        "marginBottom": 6,
+        "marginLeft": "1%",
+        "paddingVertical": 6,
+      }
+    }
+  >
+    Please fill the following information
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "borderColor": "#989797",
+          "borderRadius": 7,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "marginLeft": "1%",
+          "marginVertical": 10,
+          "paddingHorizontal": 12,
+          "paddingVertical": 7,
+          "width": "98%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="First Name"
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "borderColor": "#989797",
+          "borderRadius": 7,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "marginLeft": "1%",
+          "marginVertical": 10,
+          "paddingHorizontal": 12,
+          "paddingVertical": 7,
+          "width": "98%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Last Name"
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "borderColor": "#989797",
+          "borderRadius": 7,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "marginLeft": "1%",
+          "marginVertical": 10,
+          "paddingHorizontal": 12,
+          "paddingVertical": 7,
+          "width": "98%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <TextInput
+      keyboardType="email-address"
+      onChangeText={[Function]}
+      placeholder="Email"
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "borderColor": "#989797",
+          "borderRadius": 7,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "marginLeft": "1%",
+          "marginVertical": 10,
+          "paddingHorizontal": 12,
+          "paddingVertical": 7,
+          "width": "98%",
+        },
+        undefined,
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Password"
+      secureTextEntry={true}
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "borderColor": "#989797",
+          "borderRadius": 7,
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "marginLeft": "1%",
+          "marginVertical": 10,
+          "paddingHorizontal": 12,
+          "paddingVertical": 7,
+          "width": "98%",
+        },
+        Object {
+          "borderColor": "#989797",
+        },
+      ]
+    }
+  >
+    <TextInput
+      onChangeText={[Function]}
+      placeholder="Confirm Password"
+      secureTextEntry={true}
+      style={
+        Object {
+          "color": "black",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "paddingTop": 16,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "color": "#989797",
+          "width": "50%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#484545",
+            "fontSize": 16,
+          }
+        }
+      >
+        Are you an organizer?
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-end",
+          "width": "50%",
+        }
+      }
+    >
+      <View
+        accessibilityRole="checkbox"
+        accessibilityState={
+          Object {
+            "checked": false,
+            "disabled": undefined,
+          }
+        }
+        accessible={true}
+        collapsable={false}
+        focusable={true}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Array [
+            Object {
+              "borderColor": "#657786",
+              "borderRadius": 2,
+              "borderWidth": 2,
+              "height": 20,
+              "width": 20,
+            },
+            Object {
+              "borderRadius": 6,
+              "borderWidth": 1,
+            },
+            false,
+            false,
+            undefined,
+            false,
+          ]
+        }
+      />
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#00c0a4",
+        "borderRadius": 7,
+        "elevation": 4,
+        "justifyContent": "center",
+        "marginLeft": "1%",
+        "marginVertical": 40,
+        "opacity": 1,
+        "padding": 12,
+        "shadowColor": "black",
+        "shadowOffset": Object {
+          "height": 1,
+          "width": 1,
+        },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 3,
+        "width": "98%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#FFF",
+          "fontFamily": "Helvetica Neue",
+          "fontSize": 18,
+          "fontWeight": "bold",
+        }
+      }
+    >
+      Sign Up
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "justifyContent": "center",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#484545",
+          "fontSize": 16,
+        }
+      }
+    >
+      Already have an account? 
+    </Text>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+    >
+      <Text
+        style={
+          Object {
+            "color": "#00c0a4",
+            "fontSize": 16,
+            "fontWeight": "400",
+          }
+        }
+      >
+        Login
+      </Text>
+    </View>
+  </View>
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "bottom": 0,
+          "height": "100%",
+          "position": "absolute",
+          "width": "100%",
+        },
+        Object {
+          "bottom": 0,
+          "height": 345.82829504232166,
+          "position": "absolute",
+          "width": 750,
+        },
+      ]
+    }
+  />
+</View>
+`;
