@@ -1,12 +1,12 @@
+import React from 'react';
+import { TextInput, View, StyleSheet } from 'react-native';
+import colors from '../config/colors';
 /* eslint-disable react/prop-types */
-import React from "react";
-import { TextInput, View, StyleSheet, Platform } from "react-native";
-import colors from "../config/colors";
 
 function AppTextInput({ style, ...otherProps }) {
   return (
     <View style={[styles.container, style]}>
-      <TextInput style={styles.text} {...otherProps} />
+      <TextInput placeholderTextColor = "grey" style={styles.text} {...otherProps} />
     </View>
   );
 }

@@ -2,8 +2,8 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import colors from "../config/colors";
 
-function ScreenSubtitle({ subtitle }) {
-  return <Text style={styles.text}>{subtitle}</Text>;
+function ScreenSubtitle({ subtitle, style }) {
+  return <Text style={(styles.text, style)}>{subtitle}</Text>;
 }
 
 export default ScreenSubtitle;
