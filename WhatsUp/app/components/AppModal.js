@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, StyleSheet, View } from 'react-native';
+import { Modal, StyleSheet, View, Platform } from 'react-native';
 import { BlurView } from "expo-blur";
 
 function AppModal({ children, style, ...otherProps }) {
@@ -19,11 +19,18 @@ function AppModal({ children, style, ...otherProps }) {
 
 const styles = StyleSheet.create({
     centeredView: {
-        flex: 1,
+        ...Platform.select({
+            ios:{
+                flex: 0
+            },
+            android:{
+                flex: 1
+            }
+        }),
         justifyContent: "center",
         alignItems: "center",
         marginTop: 22,  
-        
+        resizeMode: "contain"
     },
     blurBackground: {
         position: "absolute",

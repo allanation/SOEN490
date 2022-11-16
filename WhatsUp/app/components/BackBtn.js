@@ -9,6 +9,8 @@ function BackBtn({
   color = 'primary',
   disabled = false,
   style,
+  children, 
+  ...otherProps
 }) {
   return (
     <TouchableOpacity

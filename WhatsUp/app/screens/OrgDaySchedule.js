@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
+  KeyboardAvoidingView,
+  KeyboardAwareScrollView,
   StyleSheet,
   Text,
   View,
@@ -140,10 +142,10 @@ function OrganizerDaySchedule({ day }) {
           setModalVisible(!modalVisible);
         }}
       >
-        <View resizeMode="" style={styles.modalView}>
-          <ScrollView style= {{width: "100%"}}>
-            <BackBtn onPress={() => setModalVisible(!modalVisible)} />
+        <View  style={styles.modalView}>
+            <BackBtn style={styles.backModal} onPress={() => setModalVisible(!modalVisible)}/>
             <View style={styles.inputView}>
+          <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
               <ScreenTitle style={{ alignSelf: "center" }} title={"New Item"} />
               <AppTextInput
                 placeholder="Title"
@@ -174,8 +176,8 @@ function OrganizerDaySchedule({ day }) {
                 style={{ marginTop: 0 }}
                 onPress={handleAddingItinerary}
               />
-            </View>
           </ScrollView>
+            </View>
         </View>
       </AppModal>
     </Screen>
@@ -188,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 35,
     padding: 20,
-    paddingTop: 25,
+    paddingTop: 20,
     width: "86%",
     // height: "62%",
     alignItems: "center",
@@ -226,6 +228,9 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+  },
+  backModal: {
+    backgroundColor: 'black',
   },
 });
 

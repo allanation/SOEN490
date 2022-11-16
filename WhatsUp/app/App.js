@@ -40,8 +40,8 @@ const tabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Organizer" component={OrganizerDashboardScreen} />
-      <Tab.Screen name="Add" component={OrganizerDashboardScreen} />
+      <Tab.Screen name="Organizer" component={OrgDashboard} />
+      <Tab.Screen name="Add" component={OrgDashboard} />
       <Tab.Screen name="SignUp" component={SignUpScreen} />
     </Tab.Navigator>
   );
@@ -52,7 +52,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="OrgDay"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="Login" component={Login} />
