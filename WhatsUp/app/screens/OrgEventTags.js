@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
@@ -10,21 +10,63 @@ import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import EventTagsList from '../components/EventTagsList';
+import { Storage } from 'expo-storage';
+import { db, addDoc, collection} from "../firebase";
 
 function OrganizeEventTags() {
   const navigation = useNavigation();
-  useEffect(() => {
-    const defaultTags = [
-      { tagname: 'University', id: ids },
-      { tagname: 'Networking', id: ids },
-      { tagname: 'Student', id: ids },
-    ];
-    setTags([]);
-  }, []);
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState('');
-
   const ids = uuid.v4();
+
+  const submitEvent = async (
+    tags) => {  
+
+  if (tags.length == 0) {
+    Alert.alert("Error", "Please fill out the tags.");
+    return;
+  }
+
+  try {
+    //Get NewEvent object
+    const newEvent = await Storage.getItem({
+      key: 'newEvent'
+    })
+    const newEventObject = JSON.parse(newEvent);
+
+    //Get POC object
+    const POC = await Storage.getItem({
+      key: 'POC'
+    })
+    const POCObject = JSON.parse(POC);
+
+    //Save the event to firestore
+    await addDoc(collection(db, "events"), {
+      isApproved: false,
+      eventName: newEventObject.eventName,
+      orgName: newEventObject.orgName,
+      location: newEventObject.location,
+      description: newEventObject.description,
+      link : newEventObject.link,
+      pocName: POCObject.pocName,
+      pocPhoneNum: POCObject.pocPhoneNum,
+      pocEmail: POCObject.pocEmail,
+      tags : tags
+    })
+    .then(() => {
+
+      Storage.removeItem({key: 'newEvent'});
+      Storage.removeItem({key: 'POC'});
+
+      Alert.alert("Event Submited Succesfully");
+      navigation.navigate("Organizer");
+
+    }).catch((error) => console.log(error.message) );
+
+  } catch(e) {
+    console.log(e)
+  }
+}
 
   function handleAddingTag(e) {
     const newTag = { tagname: e.nativeEvent.text, id: ids };
@@ -52,7 +94,6 @@ function OrganizeEventTags() {
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}
           placeholder='Ex.: University'
-          //onChangeText={(newText) => setCurrentTag(newText)}
           defaultValue={currentTag}
           onSubmitEditing={handleAddingTag}
         />
@@ -89,12 +130,13 @@ function OrganizeEventTags() {
       <View>
         <AppButton
           title={'Submit Event'}
-          onPress={() => navigation.navigate('Organizer')}
+          onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>
     </Screen>
   );
 }
+            
 
 const styles = StyleSheet.create({
   modalView: {

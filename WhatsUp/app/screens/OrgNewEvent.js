@@ -17,6 +17,7 @@ import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
+import { Storage } from 'expo-storage';
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -50,7 +51,17 @@ function OrganizerNewEvent() {
       return;
     }
 
-    //If every mandatory fields is filled out, go to next page
+    const newEvent = {
+      eventName: eventName,
+      orgName: orgName,
+      location: location,
+      description: description,
+      link : link,
+      coverImage: coverImage
+    };
+    
+    //If every mandatory fields is filled out, store the information and go to next page
+    storeNewEvent(newEvent);
     navigation.navigate('POC')
   }
 
@@ -66,6 +77,18 @@ function OrganizerNewEvent() {
       setCoverImage(result.uri);
     }
   };
+
+  const storeNewEvent = async (newEvent) => {
+    try {
+      const jsonValue = JSON.stringify(newEvent)
+      await Storage.setItem({
+        key: 'newEvent',
+        value: jsonValue
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
