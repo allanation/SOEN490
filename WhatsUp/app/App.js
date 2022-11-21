@@ -14,6 +14,7 @@ import OrgDaySchedule from './screens/OrgDaySchedule';
 import OrgPointOfContact from './screens/OrgPointOfContact';
 import OrgNewEvent from './screens/OrgNewEvent';
 import UserDashboard from './screens/UserDashboard';
+import AttendeeView from './screens/AttendeeView';
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -52,7 +53,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='Login'
+        initialRouteName='AttendeeView'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
@@ -66,6 +67,7 @@ export default function App() {
         <Stack.Screen name='OrgTags' component={OrgEventTags} />
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='UserDashboard' component={UserDashboard} />
+        <Stack.Screen name='AttendeeView' component={AttendeeView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
