@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, Image, StyleSheet, ScrollView } from "react-native";
+import { View, Image, StyleSheet, ScrollView, Alert} from "react-native";
 import Screen from "../components/Screen";
 import ScreenTitle from "../components/ScreenTitle";
 import { Ionicons } from "@expo/vector-icons";
@@ -11,14 +11,58 @@ import colors from "../config/colors";
 import AppModal from "../components/AppModal";
 import BackBtn from "../components/BackBtn";
 import AppTextInput from "../components/AppTextInput";
+import AppButton from "../components/AppButton";
+import {useAuthState} from 'react-firebase-hooks/auth';
+import {auth} from '../firebase';
+import { sendPasswordResetEmail, getAuth, updateEmail } from "firebase/auth";
+import { fetchSignInMethodsForEmail } from "firebase/auth";
+
 
 function UserProfile() {
   const [modalVisibleName, setModalVisibleName] = useState(false);
   const [modalVisibleEmail, setModalVisibleEmail] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [username, setUsername] = useState('');
+  const [user] = useAuthState(auth);
 
+  const updateEmailForCurrentUser = () =>{
+  updateEmail(user, newEmail).then(() => {
+    // Email updated!
+    // ...
+  }).catch((error) => {
+    // An error occurred
+    // ...
+  })};
 
+  const sendResetEmail = () => {
+    sendPasswordResetEmail(auth, user.email)
+      .then(() => {
+        Alert.alert(
+          "Email sent sucessfully.",
+          "Check your emails to reset the password."
+        );
+      })
+      .catch(() => {});
+  };
+
+  const checkIfEmailExists = () => {
+    fetchSignInMethodsForEmail(auth, user.email)
+      .then((result) => {
+        if (result === undefined || result.length == 0) {
+          Alert.alert("We couldn't find an account with that email address.");
+        } else {
+          //If email exists, send the link
+          sendResetEmail();
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert(error.message);
+      });
+  };
+  
+  console.log(user.email);
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
       <View style={{ left: "1.5%", marginTop: "5%" }}>
@@ -50,7 +94,7 @@ function UserProfile() {
       </View>
       <View>
         <ScreenSubtitle
-          subtitle="Georges El-Hage"
+          subtitle={user.displayName}
           style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
         />
         </View>
@@ -70,7 +114,7 @@ function UserProfile() {
         </View>
         <View>
         <ScreenSubtitle
-          subtitle="georgeselhage98@gmail.com"
+          subtitle={user.email}
           style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
         />
         <ScreenTitle
@@ -80,7 +124,7 @@ function UserProfile() {
         <Links
           style={{ marginLeft: "1%", marginTop: '0.5%', fontSize: '16px' }}
           link="Change Password"
-          //onPress={ResetPassword}
+          onPress={checkIfEmailExists}
         />
       </View>
       <ImgOrgBottom resizeMode="contain" />
@@ -120,7 +164,15 @@ function UserProfile() {
               <ScreenTitle style={{ alignSelf: "center" }} title={"Email"} />
               <AppTextInput
                 placeholder="Email"
-                onChangeText={(currentEmail) => setNewEmail(currentEmail)}
+                onChangeText={(newEmail) => { 
+                  setNewEmail(newEmail);
+                  updateEmailForCurrentUser(newEmail)
+              }}
+              />
+              <AppButton
+                title="Submit"
+                style={{ marginTop: 0 }}
+                onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
               />
           </ScrollView>
             </View>
