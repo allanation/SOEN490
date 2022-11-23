@@ -5,9 +5,11 @@ import {
   SafeAreaView,
   Platform,
   Image,
+  Linking,
+  text,
 } from "react-native";
 import Screen from "../components/Screen";
-import AppButton from "../components/AppButton";
+import TktBtn from "../components/TktBtn";
 import BottomImg from "../components/ImgOrgBottom";
 import ScreenTitle from "../components/ScreenTitle";
 import ScreenSubtitle from "../components/ScreenSubtitle";
@@ -19,14 +21,30 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import AttendeeDetails from "./AttendeeDetails";
 import AttendeeSchedule from "./AttendeeSchedule";
 import colors from "../config/colors";
-
-const Tab = createMaterialTopTabNavigator();
-
-const logoUri =
-  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgF8uhC7o6A1vXBOf0a45bDY1CJMHbzerNg&usqp=CAU";
+import React, { useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 function AttendeeView() {
-  const navigation = useNavigation();
+  const Tab = createMaterialTopTabNavigator();
+
+  const logoUri =
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgF8uhC7o6A1vXBOf0a45bDY1CJMHbzerNg&usqp=CAU";
+
+  const [buttonText, setButtonText] = useState("Going");
+  const [valid, setValid] = useState(false);
+
+  function handlePressGoing(text) {
+    setButtonText("yeah im Going ma dude");
+  }
+
+  const handleGoing = (buttonText) => {
+    if (buttonText == "Going") {
+      setButtonText("✔ Going");
+    } else {
+      setButtonText("Going");
+    }
+  };
+
   return (
     <Screen>
       <Image
@@ -62,8 +80,20 @@ function AttendeeView() {
           paddingRight: "10%",
         }}
       >
-        <AppButton style={styles.btn} title="Buy Tickets" />
-        <AppButton style={styles.btn} title="Going" />
+        <TktBtn
+          style={styles.btn}
+          title="Buy Tickets"
+          onPress={() => {
+            handlePress(text);
+          }}
+        />
+        <TktBtn
+          style={styles.btn}
+          title={buttonText}
+          onPress={() => {
+            handleGoing(buttonText);
+          }}
+        />
       </View>
     </Screen>
   );
@@ -77,9 +107,9 @@ const styles = StyleSheet.create({
   },
   btn: {
     borderRadius: 7,
-    height: "80%",
+    height: "65%",
     width: "40%",
-    padding: "5%",
+    padding: "4%",
     marginVertical: 0,
     alignSelf: "center",
     alignItems: "center",
