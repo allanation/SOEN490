@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    textAlign: "center",
+    textAlignVertical: "center",
   },
   shadow: {
     shadowColor: "black", // IOS

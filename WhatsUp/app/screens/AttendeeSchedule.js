@@ -22,7 +22,7 @@ import {
   function AttendeeSchedule() {
     const navigation = useNavigation();
     return (
-      <Screen style={{ padding: 20, marginTop: 30 }}>
+      <Screen style={{backgroundColor: "white" }}>
         <View style={{ width: "100%", display: "flex" }}>
           <ScreenTitle style={{ alignSelf: "center" }} title={"Schedule"} />
         </View>
