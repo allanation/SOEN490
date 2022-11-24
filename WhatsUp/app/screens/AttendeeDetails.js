@@ -26,13 +26,13 @@ function AttendeeDetails() {
   };
   const navigation = useNavigation();
   return (
-    <Screen style={{ marginTop: 5 }}>
+    <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
         <ScreenTitle title={"Orientation Week"} />
         <ScreenSubtitle style={{ padding: 4, marginBottom: 5 }} subtitle="By Concordia University" />
         <View style={styles.iconText}>
           <Ionicons
-            name='ios-location-outline'
+            name="ios-location-outline"
             size={20}
             color={colors.primary}
           />
@@ -40,22 +40,19 @@ function AttendeeDetails() {
         </View>
         <View style={styles.iconText}>
           <Ionicons
-            name='ios-calendar-outline'
+            name="ios-calendar-outline"
             size={20}
             color={colors.primary}
           />
           <Text style={{ marginLeft: 10 }}>May 21, 2022</Text>
         </View>
         <View style={styles.iconText}>
-          <Ionicons
-            name='ios-time-outline'
-            size={20}
-            color={colors.primary}
-          />
+          <Ionicons name="ios-time-outline" size={20} color={colors.primary} />
           <Text style={{ marginLeft: 10 }}>9:00PM - 11:00PM</Text>
         </View>
         <Text style={styles.text}> Description</Text>
-        <Text style={styles.description}> It is a long established fact that a
+        <Text style={styles.description}> 
+          It is a long established fact that a
           reader will be distracted by the readable content of a page when
           looking at its layout. The point of using Lorem Ipsum</Text>
 
@@ -90,9 +87,9 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 14,
-    alignSelf: "left",
-    alignContent: "left",
-    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    alignSelf: "flex-start",
+    alignContent: "flex-start",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
   },
   map: {
     width: Dimensions.get('window').width,
