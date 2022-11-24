@@ -4,16 +4,16 @@ import {
   ScrollView,
   Platform,
   Text,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import Screen from "../components/Screen";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import ScreenTitle from "../components/ScreenTitle";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import { useNavigation } from "@react-navigation/native";
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import colors from '../config/colors';
-import { Ionicons } from '@expo/vector-icons';
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import colors from "../config/colors";
+import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -29,7 +29,10 @@ function AttendeeDetails() {
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
         <ScreenTitle title={"Orientation Week"} />
-        <ScreenSubtitle style={{ padding: 4, marginBottom: 5 }} subtitle="By Concordia University" />
+        <ScreenSubtitle
+          style={{ padding: 4, marginBottom: 5 }}
+          subtitle="By Concordia University"
+        />
         <View style={styles.iconText}>
           <Ionicons
             name="ios-location-outline"
@@ -51,19 +54,22 @@ function AttendeeDetails() {
           <Text style={{ marginLeft: 10 }}>9:00PM - 11:00PM</Text>
         </View>
         <Text style={styles.text}> Description</Text>
-        <Text style={styles.description}> 
-          It is a long established fact that a
-          reader will be distracted by the readable content of a page when
-          looking at its layout. The point of using Lorem Ipsum</Text>
+        <Text style={styles.description}>
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum
+        </Text>
 
         <Text style={styles.text}> Location</Text>
-        <MapView
-          style={styles.map}
-          initialRegion={tokyoRegion}
-          provider={PROVIDER_GOOGLE}
-        >
-          <Marker coordinate={tokyoRegion} pinColor={colors.primary} />
-        </MapView>
+        <View style={{ borderRadius: 20, overflow: "hidden" }}>
+          <MapView
+            style={styles.map}
+            initialRegion={tokyoRegion}
+            provider={PROVIDER_GOOGLE}
+          >
+            <Marker coordinate={tokyoRegion} pinColor={colors.primary} />
+          </MapView>
+        </View>
         <Text style={styles.text}> Tags</Text>
       </ScrollView>
     </Screen>
@@ -75,15 +81,15 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
   },
   iconText: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginTop: 8,
   },
   text: {
-    color: '#100101',
+    color: "#100101",
     fontSize: 17,
-    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
-    marginTop: '5%',
-    marginBottom: '2%',
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
+    marginTop: "5%",
+    marginBottom: "2%",
   },
   description: {
     fontSize: 14,
@@ -92,8 +98,10 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
   },
   map: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height / 4,
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height / 4,
+    borderRadius: 20,
+    overflow: "hidden",
   },
 });
 

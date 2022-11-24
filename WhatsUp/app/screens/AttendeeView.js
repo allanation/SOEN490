@@ -84,7 +84,7 @@ function AttendeeView() {
           style={styles.btn}
           title="Buy Tickets"
           onPress={() => {
-            handlePress(text);
+            Linking.openURL('http://google.com')
           }}
         />
         <TktBtn
