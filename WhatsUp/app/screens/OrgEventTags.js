@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -11,7 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import EventTagsList from '../components/EventTagsList';
 import { Storage } from 'expo-storage';
-import { db, addDoc, collection} from "../firebase";
+import { db, addDoc, collection } from '../firebase';
 
 function OrganizeEventTags() {
   const navigation = useNavigation();
@@ -19,63 +19,69 @@ function OrganizeEventTags() {
   const [currentTag, setCurrentTag] = useState('');
   const ids = uuid.v4();
 
-  const submitEvent = async (
-    tags) => {  
+  const submitEvent = async (tags) => {
+    if (tags.length == 0) {
+      Alert.alert('Error', 'Please fill out the tags.');
+      return;
+    }
 
-  if (tags.length == 0) {
-    Alert.alert("Error", "Please fill out the tags.");
-    return;
-  }
+    try {
+      //Get NewEvent object
+      const newEvent = await Storage.getItem({
+        key: 'newEvent',
+      });
+      const newEventObject = JSON.parse(newEvent);
 
-  try {
-    //Get NewEvent object
-    const newEvent = await Storage.getItem({
-      key: 'newEvent'
-    })
-    const newEventObject = JSON.parse(newEvent);
+      //Get POC object
+      const POC = await Storage.getItem({
+        key: 'POC',
+      });
+      const POCObject = JSON.parse(POC);
 
-    //Get POC object
-    const POC = await Storage.getItem({
-      key: 'POC'
-    })
-    const POCObject = JSON.parse(POC);
+      //Save the event to firestore
+      await addDoc(collection(db, 'events'), {
+        isApproved: false,
+        eventName: newEventObject.eventName,
+        orgName: newEventObject.orgName,
+        location: newEventObject.location,
+        description: newEventObject.description,
+        link: newEventObject.link,
+        pocName: POCObject.pocName,
+        pocPhoneNum: POCObject.pocPhoneNum,
+        pocEmail: POCObject.pocEmail,
+        tags: tags,
+      })
+        .then(() => {
+          Storage.removeItem({ key: 'newEvent' });
+          Storage.removeItem({ key: 'POC' });
 
-    //Save the event to firestore
-    await addDoc(collection(db, "events"), {
-      isApproved: false,
-      eventName: newEventObject.eventName,
-      orgName: newEventObject.orgName,
-      location: newEventObject.location,
-      description: newEventObject.description,
-      link : newEventObject.link,
-      pocName: POCObject.pocName,
-      pocPhoneNum: POCObject.pocPhoneNum,
-      pocEmail: POCObject.pocEmail,
-      tags : tags
-    })
-    .then(() => {
-
-      Storage.removeItem({key: 'newEvent'});
-      Storage.removeItem({key: 'POC'});
-
-      Alert.alert("Event Submited Succesfully");
-      navigation.navigate("Organizer");
-
-    }).catch((error) => console.log(error.message) );
-
-  } catch(e) {
-    console.log(e)
-  }
-}
-
+          Alert.alert('Event Submited Succesfully');
+          navigation.navigate('Organizer');
+        })
+        .catch((error) => console.log(error.message));
+    } catch (e) {
+      console.log(e);
+    }
+  };
   function handleAddingTag(e) {
     const newTag = { tagname: e.nativeEvent.text, id: ids };
-    setTags((tags) => [...tags, newTag]);
+    setCurrentTag('');
+    if (!tags.some((tag) => e.nativeEvent.text == tag.tagname)) {
+      if (e.nativeEvent.text.length > 0) {
+        setTags((tags) => [...tags, newTag]);
+      } else {
+        console.log('she already goes here!!!');
+      }
+    } else {
+      console.log('hi');
+    }
   }
 
   const onRemove = (id) => (e) => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
+
+  const onChange = (tagValue) => setCurrentTag(tagValue);
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -94,7 +100,10 @@ function OrganizeEventTags() {
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}
           placeholder='Ex.: University'
-          defaultValue={currentTag}
+          autoCapitalize
+          clearButtonMode='always'
+          onChangeText={(text) => setCurrentTag({ text })}
+          value={currentTag.text}
           onSubmitEditing={handleAddingTag}
         />
         <ScreenSubtitle
@@ -136,7 +145,6 @@ function OrganizeEventTags() {
     </Screen>
   );
 }
-            
 
 const styles = StyleSheet.create({
   modalView: {
