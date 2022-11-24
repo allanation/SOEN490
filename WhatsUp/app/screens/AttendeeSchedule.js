@@ -29,6 +29,10 @@ import {
 
 
   function AttendeeSchedule() {
+    useEffect(() => {
+      setMasterData(itinerary);
+    }, []);
+
     const itinerary = [
       {
         title: "Round Table with William",
@@ -72,10 +76,10 @@ import {
     ];
 
     const onRemove = (id) => (e) => {
-      setItinerary(itinerary.filter((item) => item.id !== id));
+      setItineraryw(itinerary.filter((item) => item.id !== id));
     };
 
-
+  const [itineraryw, setItineraryw] = useState([]);
   const [displayedItinerary, setDisplayedItinerary] = useState(true);
   const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
@@ -90,7 +94,7 @@ import {
         startTime={item.startTime}
         endTime={item.endTime}
         location={item.location}
-        onRemove={onRemove}
+        onRemove={() => console.log("itinerary")}
         id={item.id}
       />
     );
@@ -225,7 +229,6 @@ import {
       <Screen style={{backgroundColor: "white" }}>
         <View style={{ width: "100%", display: "flex" }}>
         <SearchBar style={{ width: "85%" }} placeholder="Search for..." onChangeText={(text) => {searchFilter(text);}}/>
-        {showItinerary}
           <ScrollView style={{marginBottom: "10%"}}>
             <View style={{ marginTop: 12 }}>
               <View>
@@ -242,16 +245,9 @@ import {
                                     There are no activities today
                                 </Text>
                                 ) : (
-                                itinerary.map((it) => (
-                                    <ItineraryEvent
-                                        title={it.title}
-                                        startTime={it.startTime}
-                                        endTime={it.endTime}
-                                        location={it.location}
-                                        onRemove={onRemove}
-                                        id={it.id}
-                                    />
-                                ))
+                                <View>
+                                    {showItinerary}
+                                </View>
                             )}
                     </View>
                     );
@@ -259,7 +255,6 @@ import {
               </View>
             </View>
           </ScrollView>
-
         </View>
       </Screen>
     );
