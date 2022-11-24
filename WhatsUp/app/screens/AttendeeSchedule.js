@@ -222,7 +222,7 @@ import {
 
     const navigation = useNavigation();
     return (
-      <Screen style={{ padding: 20, marginTop: 30 }}>
+      <Screen style={{backgroundColor: "white" }}>
         <View style={{ width: "100%", display: "flex" }}>
         <SearchBar style={{ width: "85%" }} placeholder="Search for..." onChangeText={(text) => {searchFilter(text);}}/>
         {showItinerary}

@@ -5,7 +5,7 @@ import colors from '../config/colors';
 function AppButton({
   title,
   onPress,
-  color = 'primary',
+  color = 'orange',
   disabled = false,
   style,
 }) {
