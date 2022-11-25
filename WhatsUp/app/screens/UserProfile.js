@@ -23,7 +23,6 @@ function UserProfile() {
   const [modalVisibleEmail, setModalVisibleEmail] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
-  const [username, setUsername] = useState('');
   const [user] = useAuthState(auth);
 
   const updateEmailForCurrentUser = () =>{
@@ -61,6 +60,24 @@ function UserProfile() {
         Alert.alert(error.message);
       });
   };
+
+  const checkIfEmailAlreadyExists = () => {
+    fetchSignInMethodsForEmail(auth, newEmail)
+      .then((result) => {
+        if (result === undefined || result.length == 0) {
+          Alert.alert("All good!");
+          updateEmailForCurrentUser(newEmail);
+        } else {
+          Alert.alert("The email already exists.");
+          
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        Alert.alert(error.message);
+      });
+  };
+
   
   console.log(user.email);
   return (
@@ -145,6 +162,13 @@ function UserProfile() {
                 placeholder="Name"
                 onChangeText={(currentName) => setNewName(currentName)}
               />
+               <AppButton
+                title="Submit"
+                style={{ marginTop: 0 }}
+                onPress={() => 
+                  {setModalVisibleName(!modalVisibleName);
+                }}
+              />
           </ScrollView>
             </View>
         </View>
@@ -154,7 +178,7 @@ function UserProfile() {
         transparent={true}
         visible={modalVisibleEmail}
         onRequestClose={() => {
-          setModalVisibleName(!modalVisible);
+          setModalVisibleName(!modalVisibleName);
         }}
       >
         <View  style={styles.modalView}>
@@ -166,13 +190,15 @@ function UserProfile() {
                 placeholder="Email"
                 onChangeText={(newEmail) => { 
                   setNewEmail(newEmail);
-                  updateEmailForCurrentUser(newEmail)
               }}
               />
               <AppButton
                 title="Submit"
                 style={{ marginTop: 0 }}
-                onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
+                onPress={() => 
+                  {setModalVisibleEmail(!modalVisibleEmail);
+                  checkIfEmailAlreadyExists()
+                }}
               />
           </ScrollView>
             </View>
