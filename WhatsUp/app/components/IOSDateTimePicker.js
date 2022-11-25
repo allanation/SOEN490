@@ -1,21 +1,90 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, Alert } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import colors from '../config/colors';
 import AppButton from './AppButton';
+import { Storage } from 'expo-storage';
 
 function IOSDateTimePicker() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [today, setToday] = useState(new Date());
+  const [startDate, setStartDate] = useState({
+    date: new Date(Date.now() + 24 * 60 * 60 * 1000),
+    timestamp: Date.now() + 24 * 60 * 60 * 1000,
+  });
+  const [endDate, setEndDate] = useState({
+    date: new Date(),
+    timestamp: Date.now() + 24 * 60 * 60 * 1000,
+  });
+  const [startTime, setStartTime] = useState({
+    date: new Date(),
+    timestamp: Date.now(),
+  });
+  const [endTime, setEndTime] = useState({
+    date: new Date(),
+    timestamp: '',
+  });
 
-  const handleSelectStartDate = (e, date) => {
-    setStartDate(e.nativeEvent.timestamp);
-    setToday(date);
+  const handleSelectStartDate = (e) => {
+    setStartDate({
+      date: new Date(e.nativeEvent.timestamp),
+      timestamp: e.nativeEvent.timestamp,
+    });
   };
 
   const handleSelectEndDate = (e) => {
-    setEndDate(e.nativeEvent.timestamp);
+    setEndDate({
+      date: new Date(e.nativeEvent.timestamp),
+      timestamp: e.nativeEvent.timestamp,
+    });
+  };
+
+  const handleSelectEndTime = (e) => {
+    setEndTime({
+      date: new Date(e.nativeEvent.timestamp),
+      timestamp: e.nativeEvent.timestamp,
+    });
+  };
+
+  const handleSelectStartTime = (e) => {
+    setStartTime({
+      date: new Date(e.nativeEvent.timestamp),
+      timestamp: e.nativeEvent.timestamp,
+    });
+  };
+
+  const handleAddingEvent = async (startDate, startTime, endDate, endTime) => {
+    if (endTime.timestamp == '') {
+      Alert.alert('Error', 'Please select a later timestamp');
+      return;
+    }
+    if (
+      startDate.timestamp == endDate.timestamp &&
+      endTime.timestamp < startTime.timestamp
+    ) {
+      Alert.alert('Error', 'Cannot end before the event starts');
+      return;
+    }
+
+    const eventDates = {
+      startDate: startDate.timestamp,
+      startTime: startTime.timestamp,
+      endDate: endDate.timestamp,
+      endTime: endTime.timestamp,
+    };
+    //If every mandatory fields is filled out, store the information and go to next page
+    storeDates(eventDates);
+  };
+
+  const storeDates = async (eventDates) => {
+    try {
+      const jsonValue = JSON.stringify(eventDates);
+      await Storage.setItem({
+        key: 'eventDates',
+        value: jsonValue,
+      });
+      console.log(jsonValue);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -25,7 +94,7 @@ function IOSDateTimePicker() {
         <DateTimePicker
           style={styles.btn}
           mode='date'
-          value={today}
+          value={startDate.date}
           onChange={handleSelectStartDate}
           minimumDate={new Date()}
         />
@@ -33,8 +102,9 @@ function IOSDateTimePicker() {
           display='inline'
           style={styles.btn}
           mode='time'
-          value={new Date()}
+          value={startTime.date}
           minuteInterval='15'
+          onChange={handleSelectStartTime}
         />
       </View>
       <View
@@ -50,18 +120,25 @@ function IOSDateTimePicker() {
         <DateTimePicker
           style={styles.btn}
           mode='date'
-          value={today}
-          minimumDate={startDate}
+          value={endDate.date}
+          minimumDate={startDate.date}
           onChange={handleSelectEndDate}
         />
         <DateTimePicker
           display='inline'
           style={styles.btn}
           mode='time'
-          value={new Date()}
+          value={endTime.date}
           minuteInterval='15'
+          onChange={handleSelectEndTime}
         />
       </View>
+      <AppButton
+        title={'Confirm'}
+        onPress={() =>
+          handleAddingEvent(startDate, startTime, endDate, endTime)
+        }
+      ></AppButton>
     </View>
   );
 }

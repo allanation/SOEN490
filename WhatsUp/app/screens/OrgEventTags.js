@@ -38,6 +38,12 @@ function OrganizeEventTags() {
       });
       const POCObject = JSON.parse(POC);
 
+      //Get eventDates object
+      const eventDates = await Storage.getItem({
+        key: 'eventDates',
+      });
+      const eventDatesObject = JSON.parse(eventDates);
+
       //Save the event to firestore
       await addDoc(collection(db, 'events'), {
         isApproved: false,
@@ -49,11 +55,17 @@ function OrganizeEventTags() {
         pocName: POCObject.pocName,
         pocPhoneNum: POCObject.pocPhoneNum,
         pocEmail: POCObject.pocEmail,
+        startDate: eventDatesObject.startDate,
+        startTime: eventDatesObject.startTime,
+        endDate: eventDatesObject.endDate,
+        endTime: eventDatesObject.endTime,
+
         tags: tags,
       })
         .then(() => {
           Storage.removeItem({ key: 'newEvent' });
           Storage.removeItem({ key: 'POC' });
+          Storage.removeItem({ key: 'eventDates' });
 
           Alert.alert('Event Submited Succesfully');
           navigation.navigate('Organizer');
