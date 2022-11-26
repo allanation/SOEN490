@@ -65,7 +65,7 @@ function UserProfile() {
     fetchSignInMethodsForEmail(auth, newEmail)
       .then((result) => {
         if (result === undefined || result.length == 0) {
-          Alert.alert("All good!");
+          Alert.alert("Email was successfully updated.");
           updateEmailForCurrentUser(newEmail);
         } else {
           Alert.alert("The email already exists.");
@@ -78,8 +78,8 @@ function UserProfile() {
       });
   };
 
-  
-  console.log(user.email);
+  console.log(user.providerData);
+
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
       <View style={{ left: "1.5%", marginTop: "5%" }}>
@@ -97,7 +97,7 @@ function UserProfile() {
       </View>
       <View style={{flexDirection: 'row'}}>
         <ScreenTitle
-          title="Name"
+          title="Username"
           style={{ marginBottom: "2%", fontSize: "20px", marginTop: "10%" }}
         />
         <Ionicons
@@ -106,12 +106,11 @@ function UserProfile() {
           size={20}
           color={colors.primary}
           style={{ marginBottom: "2%", marginTop: "10%", alignSelf: "flex-end", marginLeft: 'auto' }}
-          //onPress={() => navigation.navigate("NewEvent")}
         />
       </View>
       <View>
         <ScreenSubtitle
-          subtitle={user.displayName}
+          subtitle={user.uid}
           style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
         />
         </View>
@@ -126,7 +125,6 @@ function UserProfile() {
           size={20}
           color={colors.primary}
           style={{ marginBottom: "2%", marginTop: "5%", alignSelf: "flex-end", marginLeft: 'auto' }}
-          //onPress={() => navigation.navigate("NewEvent")}
         />
         </View>
         <View>
@@ -157,7 +155,7 @@ function UserProfile() {
             <BackBtn style={styles.backModal} onPress={() => setModalVisibleName(!modalVisibleName)}/>
             <View style={styles.inputView}>
           <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
-              <ScreenTitle style={{ alignSelf: "center" }} title={"Name"} />
+              <ScreenTitle style={{ alignSelf: "center", fontSize: '22px', marginBottom: '5%' }} title={"Enter New Name:"} />
               <AppTextInput
                 placeholder="Name"
                 onChangeText={(currentName) => setNewName(currentName)}
@@ -185,7 +183,7 @@ function UserProfile() {
             <BackBtn style={styles.backModal} onPress={() => setModalVisibleEmail(!modalVisibleEmail)}/>
             <View style={styles.inputView}>
           <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
-              <ScreenTitle style={{ alignSelf: "center" }} title={"Email"} />
+              <ScreenTitle style={{ alignSelf: "center", fontSize: '22px', marginBottom: '5%' }} title={"Enter New Email:"} />
               <AppTextInput
                 placeholder="Email"
                 onChangeText={(newEmail) => { 
