@@ -13,8 +13,9 @@ import BackBtn from "../components/BackBtn";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {auth} from '../firebase';
+import {auth, db} from '../firebase';
 import { sendPasswordResetEmail, getAuth, updateEmail } from "firebase/auth";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
 
 
@@ -24,6 +25,18 @@ function UserProfile() {
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        console.log(doc.data().firstName + " " + doc.data().lastName);
+      });
+    }
+  }
+
+  getName();
 
   const updateEmailForCurrentUser = () =>{
   updateEmail(user, newEmail).then(() => {
@@ -78,7 +91,7 @@ function UserProfile() {
       });
   };
 
-  console.log(user.providerData);
+  //console.log(user.providerData);
 
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
@@ -110,7 +123,7 @@ function UserProfile() {
       </View>
       <View>
         <ScreenSubtitle
-          subtitle={user.uid}
+          subtitle={""}
           style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
         />
         </View>
