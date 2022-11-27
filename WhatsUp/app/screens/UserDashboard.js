@@ -1,6 +1,7 @@
 import React from "react";
-import { StyleSheet, Text, View, Button, Image, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
 import Search from "../components/Search";
 import SmallButton from "../components/SmallButton";
@@ -8,9 +9,9 @@ import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
 import School from "../assets/Icons/stringio.png";// Temporary Placeholder
-import { Ionicons } from '@expo/vector-icons';
 
 function UserDashboard() {
+  const navigation = useNavigation();
   var date = new Date();
   const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   var today = "Today's " + (months[date.getMonth()]) + " " + date.getDate();
@@ -56,6 +57,7 @@ function UserDashboard() {
     },
   ];
 
+  // eslint-disable-next-line no-unused-vars
   const Tab = createBottomTabNavigator();
 
   return (
@@ -82,6 +84,7 @@ function UserDashboard() {
       <ScrollView style={{width:'101%'}}>
             {events.map((n) => {
                 return (
+                // eslint-disable-next-line react/jsx-key
                 <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")}/>
                 );
             })}
@@ -93,7 +96,7 @@ function UserDashboard() {
         <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
         <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
         <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='ios-person-outline' onPress={() => console.log("Profile")}/>
+        <NavButton image='ios-person-outline' onPress={() => navigation.navigate("UserProfile")}/>
       </View>
     </Screen>
   );

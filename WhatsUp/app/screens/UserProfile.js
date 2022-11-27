@@ -1,5 +1,7 @@
-import React, {useState} from "react";
-import { View, Image, StyleSheet, ScrollView, Alert} from "react-native";
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { View, Image, StyleSheet, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import ScreenTitle from "../components/ScreenTitle";
 import { Ionicons } from "@expo/vector-icons";
@@ -12,18 +14,26 @@ import AppModal from "../components/AppModal";
 import BackBtn from "../components/BackBtn";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import {useAuthState} from 'react-firebase-hooks/auth';
-import {auth, db} from '../firebase';
-import { sendPasswordResetEmail, getAuth, updateEmail } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import { sendPasswordResetEmail, updateEmail } from "firebase/auth";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
-
 
 function UserProfile() {
   const [modalVisibleName, setModalVisibleName] = useState(false);
   const [modalVisibleEmail, setModalVisibleEmail] = useState(false);
   const [newName, setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
+  const [docKey, setDocKey] = useState("");
+  const [userName, setUserName] = useState("");
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -31,21 +41,48 @@ function UserProfile() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        console.log(doc.data().firstName + " " + doc.data().lastName);
+        setUserName(doc.data().firstName + " " + doc.data().lastName);
       });
     }
-  }
+  };
+
+  const getKey = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setDocKey(doc.id);
+      });
+    }
+  };
 
   getName();
+  getKey();
 
-  const updateEmailForCurrentUser = () =>{
-  updateEmail(user, newEmail).then(() => {
-    // Email updated!
-    // ...
-  }).catch((error) => {
-    // An error occurred
-    // ...
-  })};
+  const updateFirestoreEmail = async () => {
+  const docRef = doc(db, "users", docKey);
+  const data = {
+    email: newEmail,
+  };
+  await updateDoc(docRef, data)
+    .then(() => {
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  const updateEmailForCurrentUser = () => {
+    updateEmail(user, newEmail)
+      .then(() => {
+        // Email updated!
+        // ...
+      })
+      .catch((error) => {
+        // An error occurred
+        // ...
+      });
+  };
 
   const sendResetEmail = () => {
     sendPasswordResetEmail(auth, user.email)
@@ -82,7 +119,6 @@ function UserProfile() {
           updateEmailForCurrentUser(newEmail);
         } else {
           Alert.alert("The email already exists.");
-          
         }
       })
       .catch((error) => {
@@ -90,8 +126,6 @@ function UserProfile() {
         Alert.alert(error.message);
       });
   };
-
-  //console.log(user.providerData);
 
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
@@ -108,26 +142,37 @@ function UserProfile() {
           }}
         />
       </View>
-      <View style={{flexDirection: 'row'}}>
+      <View style={{ flexDirection: "row" }}>
         <ScreenTitle
-          title="Username"
+          title="Name"
           style={{ marginBottom: "2%", fontSize: "20px", marginTop: "10%" }}
         />
-        <Ionicons
+        {/* code if we ever want to edit the name: */}
+        {/* <Ionicons
           name="pencil"
           onPress={() => setModalVisibleName(true)}
           size={20}
           color={colors.primary}
-          style={{ marginBottom: "2%", marginTop: "10%", alignSelf: "flex-end", marginLeft: 'auto' }}
-        />
+          style={{
+            marginBottom: "2%",
+            marginTop: "10%",
+            alignSelf: "flex-end",
+            marginLeft: "auto",
+          }}
+        /> */}
       </View>
       <View>
         <ScreenSubtitle
-          subtitle={""}
-          style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
+          subtitle={userName}
+          style={{
+            marginBottom: "2%",
+            marginTop: "0.5%",
+            marginLeft: "1%",
+            fontSize: "16px",
+          }}
         />
-        </View>
-        <View style={{flexDirection: 'row'}}>
+      </View>
+      <View style={{ flexDirection: "row" }}>
         <ScreenTitle
           title="Email"
           style={{ marginBottom: "2%", fontSize: "20px", marginTop: "5%" }}
@@ -137,20 +182,30 @@ function UserProfile() {
           onPress={() => setModalVisibleEmail(true)}
           size={20}
           color={colors.primary}
-          style={{ marginBottom: "2%", marginTop: "5%", alignSelf: "flex-end", marginLeft: 'auto' }}
+          style={{
+            marginBottom: "2%",
+            marginTop: "5%",
+            alignSelf: "flex-end",
+            marginLeft: "auto",
+          }}
         />
-        </View>
-        <View>
+      </View>
+      <View>
         <ScreenSubtitle
           subtitle={user.email}
-          style={{ marginBottom: "2%", marginTop: "0.5%", marginLeft: "1%", fontSize: '16px' }}
+          style={{
+            marginBottom: "2%",
+            marginTop: "0.5%",
+            marginLeft: "1%",
+            fontSize: "16px",
+          }}
         />
         <ScreenTitle
           title="Password"
           style={{ marginBottom: "2%", fontSize: "20px", marginTop: "5%" }}
         />
         <Links
-          style={{ marginLeft: "1%", marginTop: '0.5%', fontSize: '16px' }}
+          style={{ marginLeft: "1%", marginTop: "0.5%", fontSize: "16px" }}
           link="Change Password"
           onPress={checkIfEmailExists}
         />
@@ -164,24 +219,37 @@ function UserProfile() {
           setModalVisibleName(!modalVisible);
         }}
       >
-        <View  style={styles.modalView}>
-            <BackBtn style={styles.backModal} onPress={() => setModalVisibleName(!modalVisibleName)}/>
-            <View style={styles.inputView}>
-          <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
-              <ScreenTitle style={{ alignSelf: "center", fontSize: '22px', marginBottom: '5%' }} title={"Enter New Name:"} />
+        <View style={styles.modalView}>
+          <BackBtn
+            style={styles.backModal}
+            onPress={() => setModalVisibleName(!modalVisibleName)}
+          />
+          <View style={styles.inputView}>
+            <ScrollView
+              keyboardDismissMode="interactive"
+              style={{ width: "100%" }}
+            >
+              <ScreenTitle
+                style={{
+                  alignSelf: "center",
+                  fontSize: "22px",
+                  marginBottom: "5%",
+                }}
+                title={"Enter New Name:"}
+              />
               <AppTextInput
                 placeholder="Name"
                 onChangeText={(currentName) => setNewName(currentName)}
               />
-               <AppButton
+              <AppButton
                 title="Submit"
                 style={{ marginTop: 0 }}
-                onPress={() => 
-                  {setModalVisibleName(!modalVisibleName);
+                onPress={() => {
+                  setModalVisibleName(!modalVisibleName);
                 }}
               />
-          </ScrollView>
-            </View>
+            </ScrollView>
+          </View>
         </View>
       </AppModal>
       <AppModal
@@ -192,27 +260,41 @@ function UserProfile() {
           setModalVisibleName(!modalVisibleName);
         }}
       >
-        <View  style={styles.modalView}>
-            <BackBtn style={styles.backModal} onPress={() => setModalVisibleEmail(!modalVisibleEmail)}/>
-            <View style={styles.inputView}>
-          <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
-              <ScreenTitle style={{ alignSelf: "center", fontSize: '22px', marginBottom: '5%' }} title={"Enter New Email:"} />
+        <View style={styles.modalView}>
+          <BackBtn
+            style={styles.backModal}
+            onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
+          />
+          <View style={styles.inputView}>
+            <ScrollView
+              keyboardDismissMode="interactive"
+              style={{ width: "100%" }}
+            >
+              <ScreenTitle
+                style={{
+                  alignSelf: "center",
+                  fontSize: "22px",
+                  marginBottom: "5%",
+                }}
+                title={"Enter New Email:"}
+              />
               <AppTextInput
                 placeholder="Email"
-                onChangeText={(newEmail) => { 
+                onChangeText={(newEmail) => {
                   setNewEmail(newEmail);
-              }}
+                }}
               />
               <AppButton
                 title="Submit"
                 style={{ marginTop: 0 }}
-                onPress={() => 
-                  {setModalVisibleEmail(!modalVisibleEmail);
-                  checkIfEmailAlreadyExists()
+                onPress={() => {
+                  setModalVisibleEmail(!modalVisibleEmail);
+                  checkIfEmailAlreadyExists();
+                  updateFirestoreEmail(newEmail);
                 }}
               />
-          </ScrollView>
-            </View>
+            </ScrollView>
+          </View>
         </View>
       </AppModal>
     </Screen>
@@ -227,7 +309,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
-    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -247,7 +328,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   backModal: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
 });
 
