@@ -5,5 +5,6 @@ export default {
     darkerGrey: '#484545',
     lightGrey: '#989797',
     white: '#FFF',
-    orange: "darkorange"
+    orange: "darkorange",
+    offWhite: '#F0F0F0'
 }
