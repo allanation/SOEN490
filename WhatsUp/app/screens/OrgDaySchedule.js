@@ -1,65 +1,59 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import {
-  KeyboardAvoidingView,
-  KeyboardAwareScrollView,
   StyleSheet,
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  Pressable,
+  Alert
 } from 'react-native';
 import Screen from '../components/Screen';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import colors from '../config/colors';
-import { Ionicons } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
 import ItineraryEvent from '../components/ItineraryEvent';
-import EventTags from '../components/EventTags';
 import BackBtn from '../components/BackBtn';
 import AddBtn from '../components/AddBtn';
-import NewItemPopup from '../components/NewItemPopup';
 import AppModal from '../components/AppModal';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
+import { Storage } from 'expo-storage';
 
 function OrganizerDaySchedule({ day }) {
-  useEffect(() => {
-    const defaultItinerary = [
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
-      {
-        title: 'Round Table with William',
-        startTime: '9:00PM',
-        endTime: '10:00PM',
-        location: 'Auditorium 101',
-      },
-    ];
-    setItinerary([]);
-  }, []);
-
+  const [itinerary, setItinerary] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [startTime, setStartTime] = useState('');
+  const [endTime, setEndTime] = useState('');
+  const [description, setDescription] = useState('');
+  const [location, setLocation] = useState('');
+  const navigation = useNavigation();
   const ids = uuid.v4();
 
-  function handleAddingItinerary(e) {
+  const handleAddEvent = async (
+    title,
+    startTime,
+    endTime,
+    description,
+    location) => {  
+
+  if (title.length == 0) {
+    Alert.alert("Error", "Please fill out the title.");
+    return;
+  }
+  if (startTime.length == 0) {
+    Alert.alert("Error", "Please fill out the start date.");
+    return;
+  }
+  if (endTime.length == 0) {
+    Alert.alert("Error", "Please fill out the end date.");
+    return;
+  }
+  if (description.length == 0) {
+    Alert.alert("Error", "Please fill out the description.");
+    return;
+  }
     const newItinerary = {
       title: title,
       startTime: startTime,
@@ -68,6 +62,7 @@ function OrganizerDaySchedule({ day }) {
       location: location,
       id: ids,
     };
+
     setItinerary((itinerary) => [...itinerary, newItinerary]);
     setModalVisible(false);
   }
@@ -76,16 +71,30 @@ function OrganizerDaySchedule({ day }) {
     setItinerary(itinerary.filter((item) => item.id !== id));
   };
 
-  const displayEvents = () => {};
-  const [itinerary, setItinerary] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [title, setTitle] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
+  const onEdit = (newItinerary) => (e) => {
+    console.log('test')
+    setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
+    setItinerary((itinerary) => [...itinerary, newItinerary]);
+  };
 
-  const navigation = useNavigation();
+  const goToTagsPage= async () => { 
+  
+    //Store the information before leaving page
+    storeItinerary(itinerary);
+    navigation.navigate('OrgTags');
+  }
+
+  const storeItinerary = async (itinerary) => {
+    try {
+      const jsonValue = JSON.stringify(itinerary);
+      await Storage.setItem({
+        key: 'itinerary',
+        value: jsonValue
+      })
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -115,14 +124,16 @@ function OrganizerDaySchedule({ day }) {
                 'No items in your itinerary yet...'
               </Text>
             ) : (
-              itinerary.map((it) => (
+              itinerary.map((event) => (
                 <ItineraryEvent
-                  title={it.title}
-                  startTime={it.startTime}
-                  endTime={it.endTime}
-                  location={it.location}
+                  title={event.title}
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                  description={event.description}
+                  location={event.location}
+                  id={event.id}
                   onRemove={onRemove}
-                  id={it.id}
+                  onEdit={onEdit}
                 />
               ))
             )}
@@ -132,7 +143,7 @@ function OrganizerDaySchedule({ day }) {
       <View>
         <AppButton
           title={'Next'}
-          onPress={() => navigation.navigate('OrgTags')}
+          onPress={() => goToTagsPage()}
         ></AppButton>
       </View>
       <AppModal
@@ -181,7 +192,7 @@ function OrganizerDaySchedule({ day }) {
               <AppButton
                 title='Add'
                 style={{ marginTop: 0 }}
-                onPress={handleAddingItinerary}
+                onPress={() => handleAddEvent(title,startTime,endTime,description,location)}
               />
             </ScrollView>
           </View>

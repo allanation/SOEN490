@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState} from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -44,6 +44,12 @@ function OrganizeEventTags() {
       });
       const eventDatesObject = JSON.parse(eventDates);
 
+      //Get itinerary object
+      const itinerary = await Storage.getItem({
+        key: 'itinerary',
+      });
+      const itineraryObject = JSON.parse(itinerary);
+
       //Save the event to firestore
       await addDoc(collection(db, 'events'), {
         isApproved: false,
@@ -59,13 +65,14 @@ function OrganizeEventTags() {
         startTime: eventDatesObject.startTime,
         endDate: eventDatesObject.endDate,
         endTime: eventDatesObject.endTime,
-
+        itinerary: itineraryObject,
         tags: tags,
       })
         .then(() => {
           Storage.removeItem({ key: 'newEvent' });
           Storage.removeItem({ key: 'POC' });
           Storage.removeItem({ key: 'eventDates' });
+          Storage.removeItem({ key: 'itinerary' });
 
           Alert.alert('Event Submited Succesfully');
           navigation.navigate('Organizer');
@@ -92,8 +99,6 @@ function OrganizeEventTags() {
   const onRemove = (id) => (e) => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
-
-  const onChange = (tagValue) => setCurrentTag(tagValue);
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>

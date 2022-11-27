@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native';
 import colors from '../config/colors';
 import AppModal from './AppModal';
 import { Ionicons } from '@expo/vector-icons';
 import BackBtn from '../components/BackBtn';
 import { ScrollView } from 'react-native';
-import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import AppTextInput from './AppTextInput';
 import AppButton from './AppButton';
-import uuid from 'react-native-uuid';
+
 function ItineraryEvent({
   title,
   startTime,
@@ -18,33 +17,54 @@ function ItineraryEvent({
   location,
   id,
   onRemove,
+  onEdit,
 }) {
-  // const handleEdit = (e) => {
-  //   console.log('editing');
-  // };
-  const [itinerary, setItinerary] = useState([]);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [etitle, setETitle] = useState(title);
   const [estartTime, setEStartTime] = useState(startTime);
   const [eendTime, setEEndTime] = useState(endTime);
   const [edescription, setEDescription] = useState(description);
   const [elocation, setELocation] = useState(location);
-  const ids = uuid.v4();
-  function handleEdit(e) {
-    const editItinerary = {
-      title: title,
-      startTime: startTime,
-      endTime: endTime,
-      description: description,
-      location: location,
-      id: ids,
-    };
-    setItinerary((itinerary) => [...itinerary, editItinerary]);
-    setModalVisible(true);
-    console.log('editing', id);
+
+  const handleEditEvent = async (
+    etitle,
+    estartTime,
+    eendTime,
+    edescription,
+    elocation) => {  
+
+  if (etitle.length == 0) {
+    Alert.alert("Error", "Please fill out the title.");
+    return;
   }
+  if (estartTime.length == 0) {
+    Alert.alert("Error", "Please fill out the start date.");
+    return;
+  }
+  if (eendTime.length == 0) {
+    Alert.alert("Error", "Please fill out the end date.");
+    return;
+  }
+  if (edescription.length == 0) {
+    Alert.alert("Error", "Please fill out the description.");
+    return;
+  }
+    const newItinerary = {
+      title: etitle,
+      startTime: estartTime,
+      endTime: eendTime,
+      description: edescription,
+      location: elocation,
+      id: id,
+    };
+
+    onEdit(newItinerary);
+    setModalVisible(false);
+  }
+
   return (
-    <TouchableOpacity style={styles.itineraryButton} onPress={handleEdit}>
+    <TouchableOpacity style={styles.itineraryButton} onPress={() => setModalVisible(true)}>
       <View style={styles.itineraryDetails}>
         <Text style={styles.itineraryTitle} numberOfLines={1}>
           {title.length < 30 ? `${etitle}` : `${etitle.substring(0, 28)}...`}
@@ -89,33 +109,31 @@ function ItineraryEvent({
               />
               <AppTextInput
                 placeholder='Title'
-                value={etitle ? etitle : console.log('no title')}
+                value={etitle}
                 onChangeText={(currentTitle) => setETitle(currentTitle)}
               />
               <AppTextInput
                 placeholder='Start Time'
-                value={estartTime ? estartTime : console.log('no start time')}
+                value={estartTime}
                 onChangeText={(currentStartTime) =>
                   setEStartTime(currentStartTime)
                 }
               />
               <AppTextInput
                 placeholder='End Time'
-                value={eendTime ? eendTime : console.log('no end time')}
+                value={eendTime}
                 onChangeText={(currentEndTime) => setEEndTime(currentEndTime)}
               />
               <AppTextInput
                 placeholder='Description'
-                value={
-                  edescription ? edescription : console.log('no description')
-                }
+                value={edescription}
                 onChangeText={(currentDescription) =>
                   setEDescription(currentDescription)
                 }
               />
               <AppTextInput
                 placeholder='Location (optional)'
-                value={elocation ? elocation : console.log('no location')}
+                value={elocation}
                 onChangeText={(currentLocation) =>
                   setELocation(currentLocation)
                 }
@@ -123,7 +141,7 @@ function ItineraryEvent({
               <AppButton
                 title='Edit'
                 style={{ marginTop: 0 }}
-                onPress={() => setModalVisible(false)}
+                onPress={() => handleEditEvent(etitle,estartTime,eendTime,edescription,elocation)}
               />
             </ScrollView>
           </View>
