@@ -23,36 +23,42 @@ function UserDashboard() {
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "1",
     },
     {
       image: {School},
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "2",
     },
     {
       image: {School},
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "3",
     },
     {
       image: {School},
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "4",
     },
     {
       image: {School},
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "5",
     },
     {
       image: {School},
       title: 'Orientation Week',
       organizer: 'Concordia University',
       date: 'May 21, 2022',
+      key: "6",
     },
   ];
 
@@ -62,9 +68,9 @@ function UserDashboard() {
     <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
       <View style={{left: '1.5%', marginTop: '5%', marginBottom: '40%'}}>
       <View style={{flexDirection: 'row'}}>
-        <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'}/>
+        <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'} testID="location"/>
         <View style={{position: 'absolute', right: '4%'}}>
-            <SmallButton image = 'notifications' title="" onPress={() => console.log("Notification")} size={4}/>
+            <SmallButton image = 'notifications' title="" onPress={() => console.log("Notification")} size={4} testID="notification"/>
         </View>
       </View>
 
@@ -72,9 +78,9 @@ function UserDashboard() {
 
       <Text style={styles.title}>{welcome}</Text>
 
-      <View style={{flexDirection: 'row'}} >
+      <View style={{flexDirection: 'row'}}>
         <Search placeholder="Search for..." />
-        <FilterButton image='ios-options' onPress={() => console.log("Filters")}/>
+        <FilterButton image='ios-options' onPress={() => console.log("Filters")} title=""/>
       </View>
 
       <Text style={styles.text}>Popular Events</Text>
@@ -82,7 +88,7 @@ function UserDashboard() {
       <ScrollView style={{width:'101%'}}>
             {events.map((n) => {
                 return (
-                <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")}/>
+                <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")} key={n.key}/>
                 );
             })}
       </ScrollView>
@@ -90,10 +96,10 @@ function UserDashboard() {
 
 
       <View style={styles.container}>
-        <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
-        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
-        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='ios-person-outline' onPress={() => console.log("Profile")}/>
+        <NavButton image='ios-home-outline' onPress={() => console.log("Home")} title=""/>
+        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")} title=""/>
+        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")} title=""/>
+        <NavButton image='ios-person-outline' onPress={() => console.log("Profile")} title=""/>
       </View>
     </Screen>
   );
