@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, StyleSheet } from "react-native";
 
-function ScreenTitle({ title }) {
-  return <Text style={styles.text}>{title}</Text>;
+function ScreenTitle({ title, style }) {
+  return <Text style={[styles.text, style]}>{title}</Text>;
 }
 
 export default ScreenTitle;

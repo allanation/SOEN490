@@ -10,47 +10,45 @@ import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import logo from "../Images/w3.png";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
+import { async } from "@firebase/util";
 
 export default function Login() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
-        // Alert.alert(
-        //   "Logged in sucessfully",
-        //   "Email and password are valid",
-        //   [{ text: "OK", onPress: () => console.log("") }],
-        //   { cancelable: false }
-        // );
-
-        navigation.navigate("Organizer");
+  const [isOrganizer, setIsOrganizer] = useState(false);
+  const handleLogin = async () => {
+    await signInWithEmailAndPassword(auth, email, password)
+      .then(async (auth) => {
+        const q = query(collection(db, "users"), where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot != null) {
+          querySnapshot.forEach((doc) => {
+            console.log(doc.id, " => ", doc.data());
+            if (isOrganizer == doc.data().isOrganizer) {
+              navigation.navigate("UserDashboard");
+            } else {
+              navigation.navigate("Organizer");
+            }
+          });
+        }
       })
       .catch(() => {
         Alert.alert("Try again", "Invalid email or password.");
       });
   };
-  const SignupPressed = () => {
+  const SignupPressed = async () => {
     navigation.navigate("SignUp");
   };
 
   const ResetPassword = () => {
     navigation.navigate("ResetPassword");
   };
-  // useEffect(() => {
-  //   const unsubscribe = auth.onAuthStateChanged((user) => {
-  //     if (user) {
-  //       //navigation.replace("Home");
-  //     }
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
   return (
     <Screen style={{ padding: 10, marginTop: 5 }}>
       <Image

@@ -19,26 +19,26 @@ function BottomImg({}) {
   // </KeyboardAvoidingView>
 }
 
-const imageAspectRatio = 2481 / 1144;
-const scaledWidth = Dimensions.get("window").width;
-const scaledHeight = scaledWidth / imageAspectRatio;
+const imageAspectRatio = (2481 / 1144);
+const scaledWidth = Dimensions.get('window').width;
+const scaledHeight = (scaledWidth / imageAspectRatio);
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  imageContainer: {
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    bottom: 0,
-  },
-  waves: {
-    width: scaledWidth,
-    height: scaledHeight,
-    position: "absolute",
-    bottom: 0,
-  },
+    container: {
+        flex: 1,
+    },
+    imageContainer: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        bottom: 0,
+    },
+    waves: {
+        width: scaledWidth,
+        height: scaledHeight,
+        position: 'absolute',
+        bottom: 0,
+    } 
 });
 
 export default BottomImg;
