@@ -10,7 +10,7 @@ import {
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
 
-function Event({ image, title, organizer, date, onPress, ...key }) {
+function Event({ image, title, organizer, date, onPress }) {
   return (
     <TouchableOpacity
       style={[styles.button, { flexDirection: "row" }, { marginTop: 16 }]}
