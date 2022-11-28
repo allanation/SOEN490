@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
@@ -9,14 +9,37 @@ import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
 import School from "../assets/Icons/stringio.png";// Temporary Placeholder
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 function UserDashboard() {
   const navigation = useNavigation();
   var date = new Date();
   const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   var today = "Today's " + (months[date.getMonth()]) + " " + date.getDate();
-  var user = "TEMP";
-  var welcome = "Welcome, " + user + "!";
+  
+  const [userName, setUserName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setUserName(doc.data().firstName);
+      });
+    }
+  };
+
+  getName();
+
+  var welcome = "Welcome, " + userName + "!";
 
   const events = [
     {
