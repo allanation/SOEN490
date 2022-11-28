@@ -16,12 +16,32 @@ import EventBanner from "../components/EventBanner";
 import SearchBar from "react-native-dynamic-search-bar";
 import EventImage from "../assets/stringio.jpg";
 import { useNavigation } from "@react-navigation/native";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
-  const user = {
-    name: "George",
+
+  const [userName, setUserName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setUserName(doc.data().firstName);
+      });
+    }
   };
+
+  getName();
 
   const [date, setDate] = useState(null);
   useEffect(() => {
@@ -261,7 +281,7 @@ function OrganizerDashboardScreen() {
               <Text style={styles.paragraph}>{date}</Text>{" "}
             </Text>
             <Text style={{ fontWeight: "bold", fontSize: 28 }}>
-              Welcome, {user.name}!
+              Welcome, {userName}!
             </Text>
           </View>
           <TouchableOpacity>
