@@ -1,12 +1,5 @@
-import React, { useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Alert
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Image, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppTextInput from '../components/AppTextInput';
@@ -28,26 +21,26 @@ function OrganizerNewEvent() {
   const [description, setDescription] = useState('');
   const [coverImage, setCoverImage] = useState(null);
 
- const handleAddingEvent = async (
-      eventName,
-      orgName,
-      location,
-      description) => {  
-
+  const handleAddingEvent = async (
+    eventName,
+    orgName,
+    location,
+    description
+  ) => {
     if (eventName.length == 0) {
-      Alert.alert("Error", "Please fill out the title.");
+      Alert.alert('Error', 'Please fill out the title.');
       return;
     }
     if (orgName.length == 0) {
-      Alert.alert("Error", "Please fill out the organization name.");
+      Alert.alert('Error', 'Please fill out the organization name.');
       return;
     }
     if (location.length == 0) {
-      Alert.alert("Error", "Please fill out the location.");
+      Alert.alert('Error', 'Please fill out the location.');
       return;
     }
     if (description.length == 0) {
-      Alert.alert("Error", "Please fill out the description.");
+      Alert.alert('Error', 'Please fill out the description.');
       return;
     }
 
@@ -56,14 +49,14 @@ function OrganizerNewEvent() {
       orgName: orgName,
       location: location,
       description: description,
-      link : link,
-      coverImage: coverImage
+      link: link,
+      coverImage: coverImage,
     };
-    
+
     //If every mandatory fields is filled out, store the information and go to next page
     storeNewEvent(newEvent);
-    navigation.navigate('POC')
-  }
+    navigation.navigate('POC');
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -80,15 +73,15 @@ function OrganizerNewEvent() {
 
   const storeNewEvent = async (newEvent) => {
     try {
-      const jsonValue = JSON.stringify(newEvent)
+      const jsonValue = JSON.stringify(newEvent);
       await Storage.setItem({
         key: 'newEvent',
-        value: jsonValue
-      })
+        value: jsonValue,
+      });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -136,7 +129,10 @@ function OrganizerNewEvent() {
           ></AppTextInput>
           <View style={styles.coverPage}>
             {coverImage ? (
-              <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              <View>
+                <Text>{coverImage}</Text>
+                <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              </View>
             ) : (
               <Text
                 style={{
@@ -162,7 +158,9 @@ function OrganizerNewEvent() {
       <View>
         <AppButton
           title={'Next'}
-          onPress={() => (handleAddingEvent(eventName,orgName,location,description))}
+          onPress={() =>
+            handleAddingEvent(eventName, orgName, location, description)
+          }
         ></AppButton>
       </View>
     </Screen>

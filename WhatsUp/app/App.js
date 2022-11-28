@@ -52,7 +52,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName='OrgDay'
+        initialRouteName='DateInfo'
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='Login' component={Login} />
