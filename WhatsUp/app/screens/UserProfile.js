@@ -275,7 +275,7 @@ function UserProfile() {
                 style={{
                   alignSelf: "center",
                   fontSize: 22,
-                  marginBottom: "5%",
+                  marginBottom: 10,
                 }}
                 title={"Enter New Email:"}
               />
@@ -287,7 +287,7 @@ function UserProfile() {
               />
               <AppButton
                 title="Submit"
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 15 }}
                 onPress={() => {
                   setModalVisibleEmail(!modalVisibleEmail);
                   checkIfEmailAlreadyExists();
