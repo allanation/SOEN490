@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
@@ -58,6 +58,7 @@ function OrganizeEventTags() {
         location: newEventObject.location,
         description: newEventObject.description,
         link: newEventObject.link,
+        coverImage: newEventObject.coverImage,
         pocName: POCObject.pocName,
         pocPhoneNum: POCObject.pocPhoneNum,
         pocEmail: POCObject.pocEmail,

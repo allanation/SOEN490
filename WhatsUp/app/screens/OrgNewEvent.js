@@ -25,7 +25,8 @@ function OrganizerNewEvent() {
     eventName,
     orgName,
     location,
-    description
+    description,
+    coverImage
   ) => {
     if (eventName.length == 0) {
       Alert.alert('Error', 'Please fill out the title.');
@@ -130,7 +131,6 @@ function OrganizerNewEvent() {
           <View style={styles.coverPage}>
             {coverImage ? (
               <View>
-                <Text>{coverImage}</Text>
                 <Image source={{ uri: coverImage }} style={styles.coverImage} />
               </View>
             ) : (
@@ -159,7 +159,13 @@ function OrganizerNewEvent() {
         <AppButton
           title={'Next'}
           onPress={() =>
-            handleAddingEvent(eventName, orgName, location, description)
+            handleAddingEvent(
+              eventName,
+              orgName,
+              location,
+              description,
+              coverImage
+            )
           }
         ></AppButton>
       </View>
