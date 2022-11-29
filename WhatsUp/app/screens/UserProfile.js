@@ -1,7 +1,8 @@
+/* eslint-disable react/no-children-prop */
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { View, Image, StyleSheet, ScrollView, Alert } from "react-native";
+import { View, Image, StyleSheet, ScrollView, Alert, Pressable, Text } from "react-native";
 import Screen from "../components/Screen";
 import ScreenTitle from "../components/ScreenTitle";
 import { Ionicons } from "@expo/vector-icons";
@@ -204,12 +205,11 @@ function UserProfile() {
           title="Password"
           style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
-        <Links
-          style={{ marginLeft: "1%", marginTop: "0.5%", fontSize: 16
-           }}
-          link="Change Password"
-          onPress={checkIfEmailExists}
-        />
+        <Pressable onPress={checkIfEmailExists} children={({ pressed }) => (
+          <Text style={{ color: pressed ? '#FF9E00' : colors.primary, marginLeft: "1%", marginTop: "0.5%", fontSize: 16}}>
+            Change Password
+          </Text>
+        )}/>
       </View>
       <ImgOrgBottom resizeMode="contain" />
       <AppModal
