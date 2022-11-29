@@ -3,16 +3,12 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
+  Alert
 } from "react-native";
 import React, { useState } from "react";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import BottomImg from "../components/ImgOrgBottom";
 import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import BackBtn from "../components/BackBtn";
@@ -23,6 +19,27 @@ function OrganizerPOC() {
   const [pocName, setPocName] = useState("");
   const [pocPhoneNum, setPocPhoneNum] = useState("");
   const [pocEmail, setPocEmail] = useState("");
+
+  const handleAddingOrganizerPOC= async (
+    pocName,
+    pocPhoneNum,
+    pocEmail) => {  
+
+  if (pocName.length == 0) {
+    Alert.alert("Error", "Please fill out the name.");
+    return;
+  }
+  if (pocPhoneNum.length == 0) {
+    Alert.alert("Error", "Please fill out the phone number.");
+    return;
+  }
+  if (pocEmail.length == 0) {
+    Alert.alert("Error", "Please fill out the email.");
+    return;
+  }
+    //If every mandatory fields is filled out, go to next page
+    navigation.navigate('DateInfo')
+  }
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -60,7 +77,7 @@ function OrganizerPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
-        onPress={() => navigation.navigate("DateInfo")}
+        onPress={() => handleAddingOrganizerPOC(pocName,pocPhoneNum,pocEmail)}
       ></AppButton>
     </Screen>
   );

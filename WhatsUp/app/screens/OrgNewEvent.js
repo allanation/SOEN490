@@ -1,56 +1,57 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import {
   StyleSheet,
   Text,
   View,
-  Button,
-  Touchable,
   ScrollView,
-  TouchableOpacity,
-  FlatList,
-  SafeAreaView,
   Image,
+  Alert
 } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AppTextInput from '../components/AppTextInput';
 import * as ImagePicker from 'expo-image-picker';
 import { Entypo } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
-import BottomImg from '../components/ImgOrgBottom';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
-import uuid from 'react-native-uuid';
 
 function OrganizerNewEvent() {
-  useEffect(() => {
-    setEvents(events);
-  }, []);
   const navigation = useNavigation();
-  const Tab = createBottomTabNavigator();
-  const ids = uuid.v4();
-  const [events, setEvents] = useState('');
+  const [eventName, setEventName] = useState('');
   const [orgName, setOrgName] = useState('');
   const [location, setLocation] = useState('');
   const [link, setLink] = useState('');
   const [description, setDescription] = useState('');
   const [coverImage, setCoverImage] = useState(null);
 
-  function handleAddingEvent(e) {
-    const newEvent = {
-      events: events,
-      orgName: orgName,
-      location: location,
-      link: link,
-      description: description,
-      coverImage: coverImage,
-      id: ids,
-    };
-    setEvents((events) => [...events, newEvents]);
+ const handleAddingEvent = async (
+      eventName,
+      orgName,
+      location,
+      description) => {  
+
+    if (eventName.length == 0) {
+      Alert.alert("Error", "Please fill out the title.");
+      return;
+    }
+    if (orgName.length == 0) {
+      Alert.alert("Error", "Please fill out the organization name.");
+      return;
+    }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
+    if (description.length == 0) {
+      Alert.alert("Error", "Please fill out the description.");
+      return;
+    }
+
+    //If every mandatory fields is filled out, go to next page
+    navigation.navigate('POC')
   }
 
   const pickImage = async () => {
@@ -83,7 +84,7 @@ function OrganizerNewEvent() {
         <View>
           <AppTextInput
             placeholder='Event Title'
-            onChangeText={(currentEvents) => setEvents(currentEvents)}
+            onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
             placeholder='Organization Name'
@@ -138,7 +139,7 @@ function OrganizerNewEvent() {
       <View>
         <AppButton
           title={'Next'}
-          onPress={() => (navigation.navigate('POC'), handleAddingEvent)}
+          onPress={() => (handleAddingEvent(eventName,orgName,location,description))}
         ></AppButton>
       </View>
     </Screen>
