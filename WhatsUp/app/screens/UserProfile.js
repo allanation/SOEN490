@@ -145,7 +145,7 @@ function UserProfile() {
       <View style={{ flexDirection: "row" }}>
         <ScreenTitle
           title="Name"
-          style={{ marginBottom: "2%", fontSize: "20px", marginTop: "10%" }}
+          style={{ marginBottom: "2%", fontSize: 20, marginTop: "10%" }}
         />
         {/* code if we ever want to edit the name: */}
         {/* <Ionicons
@@ -168,14 +168,14 @@ function UserProfile() {
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
-            fontSize: "16px",
+            fontSize: 16,
           }}
         />
       </View>
       <View style={{ flexDirection: "row" }}>
         <ScreenTitle
           title="Email"
-          style={{ marginBottom: "2%", fontSize: "20px", marginTop: "5%" }}
+          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
         <Ionicons
           name="pencil"
@@ -197,15 +197,16 @@ function UserProfile() {
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
-            fontSize: "16px",
+            fontSize: 16,
           }}
         />
         <ScreenTitle
           title="Password"
-          style={{ marginBottom: "2%", fontSize: "20px", marginTop: "5%" }}
+          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
         <Links
-          style={{ marginLeft: "1%", marginTop: "0.5%", fontSize: "16px" }}
+          style={{ marginLeft: "1%", marginTop: "0.5%", fontSize: 16
+           }}
           link="Change Password"
           onPress={checkIfEmailExists}
         />
@@ -232,7 +233,7 @@ function UserProfile() {
               <ScreenTitle
                 style={{
                   alignSelf: "center",
-                  fontSize: "22px",
+                  fontSize: 22,
                   marginBottom: "5%",
                 }}
                 title={"Enter New Name:"}
@@ -273,7 +274,7 @@ function UserProfile() {
               <ScreenTitle
                 style={{
                   alignSelf: "center",
-                  fontSize: "22px",
+                  fontSize: 22,
                   marginBottom: "5%",
                 }}
                 title={"Enter New Email:"}
