@@ -59,14 +59,8 @@ function OrganizerDateInfo() {
         </View>
       </ScrollView>
       <View>
-        {/* delete THIS next button if working on native datetimepickers */}
-        <AppButton
-          title={'remove from storage'}
-          onPress={() => Storage.removeItem({ key: 'eventDates' })}
-        ></AppButton>
         <AppButton title={'Next'} onPress={validateEventDate}></AppButton>
       </View>
-      {/* <BottomImg /> */}
     </Screen>
   );
 }
