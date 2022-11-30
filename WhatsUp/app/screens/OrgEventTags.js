@@ -52,7 +52,7 @@ function OrganizeEventTags() {
 
       //Save the event to firestore
       await addDoc(collection(db, 'events'), {
-        isApproved: false,
+        eventStatus: 'Unapproved',
         eventName: newEventObject.eventName,
         orgName: newEventObject.orgName,
         location: newEventObject.location,
