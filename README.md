@@ -1,4 +1,10 @@
-# SOEN490
+<img src="https://github.com/jasminelebel/SOEN490/blob/main/WhatsUp/app/Images/w3.png" width=15% height=15%>
+
+# Welcome to our SOEN 490 Capstone Project: "What's Up?"
+
+“What’s Up?” is a platform specifically designed for University students, which works to display a series of events hosted by the school which they attend to. This project is designed and implemented for our graduating course's Capstone project, SOEN 490, at Concordia University.
+
+Be sure to check out our [Wiki](https://github.com/jasminelebel/SOEN490/wiki) for more information on the agile development behind this project's implementation.
 
 ## Team Members
 |#              |Name                   |Github Username                                                |Student ID
