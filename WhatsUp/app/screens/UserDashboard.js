@@ -8,7 +8,7 @@ import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
-import School from "../assets/Icons/stringio.png"; // Temporary Placeholder
+import School from "../assets/Icons/stringio.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -169,7 +169,7 @@ function UserDashboard() {
         />
         <NavButton
           image="ios-person-outline"
-          onPress={() => console.log("Profile")}
+          onPress={() => navigation.navigate('UserProfile')}
           title=""
         />
       </View>

@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
-import AppButton from "./AppButton";
-
-
 
 
 function IOSDateTimePicker() {
@@ -57,7 +54,6 @@ const styles = StyleSheet.create({
     accentColor: 'red',
     width: "40%",
     marginBottom: 10,
-    // backgroundColor: 'red'
   },
   text: {
     paddingTop: 50,

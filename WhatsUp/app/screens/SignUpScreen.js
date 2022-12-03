@@ -17,7 +17,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
 import ImgOrgBottom from "../components/ImgOrgBottom";
-import AwesomeAlert from "react-native-awesome-alerts";
 
 function SignUpScreen() {
   const navigation = useNavigation();
@@ -25,10 +24,8 @@ function SignUpScreen() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [isOrganizer, setIsOrganizer] = useState(false);
   const [valid, setValid] = useState(true);
-  const [sAlert, setSAlert] = useState(false);
 
   const handleSignUp = async (
     firstName,

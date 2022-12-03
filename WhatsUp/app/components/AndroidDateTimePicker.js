@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
-import ScreenTitle from "../components/ScreenTitle";
 
 function AndroidDateTimePicker() {
   const [date, setDate] = useState(new Date());

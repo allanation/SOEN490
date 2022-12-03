@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -6,7 +8,6 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -201,11 +202,10 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  const toggleDisplay = (e) => {
+  const toggleDisplay = () => {
     setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
-  var dE;
   var tabs;
   var showEvents;
   if (displayedEvent) {

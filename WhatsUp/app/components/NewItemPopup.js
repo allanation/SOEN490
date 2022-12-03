@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { Alert, StyleSheet, Text, Pressable, View } from "react-native";
 import AppModal from "./AppModal";
 
 const NewItemPopup = ({ modalOpened }) => {

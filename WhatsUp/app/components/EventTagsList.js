@@ -1,4 +1,5 @@
-import { View, Text, ScrollView } from 'react-native';
+/* eslint-disable react/prop-types */
+import { View, ScrollView } from 'react-native';
 import React from 'react';
 import EventTags from './EventTags';
 
