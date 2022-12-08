@@ -1,4 +1,5 @@
-import { StyleSheet, Text, View, Button } from 'react-native';
+/* eslint-disable react/react-in-jsx-scope */
+import { StyleSheet } from 'react-native';
 import SignUpScreen from './screens/SignUpScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -14,6 +15,7 @@ import OrgDaySchedule from './screens/OrgDaySchedule';
 import OrgPointOfContact from './screens/OrgPointOfContact';
 import OrgNewEvent from './screens/OrgNewEvent';
 import UserDashboard from './screens/UserDashboard';
+import UserProfile from './screens/UserProfile';
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -23,9 +25,9 @@ const TabScreen = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Organizer') {
+          if (route.name === 'OrganizerDashboard') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'SignUp') {
+          } else if (route.name === 'UserProfile') {
             iconName = focused ? 'ios-person' : 'ios-person-outline';
           } else if (route.name === 'Add') {
             iconName = focused ? 'ios-add-circle' : 'ios-add-circle-outline';
@@ -40,9 +42,9 @@ const TabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name='Organizer' component={OrgDashboard} />
+      <Tab.Screen name='OrganizerDashboard' component={OrgDashboard} />
       <Tab.Screen name='Add' component={OrgDashboard} />
-      <Tab.Screen name='SignUp' component={SignUpScreen} />
+      <Tab.Screen name='UserProfile' component={UserProfile} />
     </Tab.Navigator>
   );
 };
@@ -66,11 +68,13 @@ export default function App() {
         <Stack.Screen name='OrgTags' component={OrgEventTags} />
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='UserDashboard' component={UserDashboard} />
+        <Stack.Screen name = 'UserProfile' component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
+// eslint-disable-next-line no-unused-vars
 const styles = StyleSheet.create({
   container: {
     flex: 1,
