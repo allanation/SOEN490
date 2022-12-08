@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -6,7 +8,6 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -16,12 +17,32 @@ import EventBanner from "../components/EventBanner";
 import SearchBar from "react-native-dynamic-search-bar";
 import EventImage from "../assets/stringio.jpg";
 import { useNavigation } from "@react-navigation/native";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
-  const user = {
-    name: "George",
+
+  const [userName, setUserName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setUserName(doc.data().firstName);
+      });
+    }
   };
+
+  getName();
 
   const [date, setDate] = useState(null);
   useEffect(() => {
@@ -181,11 +202,10 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  const toggleDisplay = (e) => {
+  const toggleDisplay = () => {
     setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
-  var dE;
   var tabs;
   var showEvents;
   if (displayedEvent) {
@@ -261,7 +281,7 @@ function OrganizerDashboardScreen() {
               <Text style={styles.paragraph}>{date}</Text>{" "}
             </Text>
             <Text style={{ fontWeight: "bold", fontSize: 28 }}>
-              Welcome, {user.name}!
+              Welcome, {userName}!
             </Text>
           </View>
           <TouchableOpacity>
@@ -288,9 +308,8 @@ function OrganizerDashboardScreen() {
           </TouchableOpacity>
         </View>
         <Text style={styles.eventTitle}>Your Events</Text>
-
-        {showEvents}
       </ScrollView>
+      {showEvents}
     </Screen>
   );
 }
@@ -312,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 40,
   },
   searchBar: {
     flexDirection: "row",

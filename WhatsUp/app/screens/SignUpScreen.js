@@ -104,7 +104,7 @@ function SignUpScreen() {
         />
         <AppTextInput
           placeholder="Email"
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text.toLowerCase())}
           keyboardType="email-address"
         />
         <AppTextInput

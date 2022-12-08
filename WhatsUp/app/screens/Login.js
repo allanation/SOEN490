@@ -60,7 +60,7 @@ export default function Login() {
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"
-        onChangeText={(text) => setEmail(text)}
+        onChangeText={(text) => setEmail(text.toLowerCase())}
         value={email}
       />
       <AppTextInput
