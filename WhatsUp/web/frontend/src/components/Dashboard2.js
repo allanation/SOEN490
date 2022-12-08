@@ -2,41 +2,48 @@ import React from 'react';
 import './Dashboard2.css';
 import EventImage from '../images/concordiaUni.jpg';
 import WhatsUpLogo from '../images/w1.png';
+import UserImage from '../images/george.jpeg';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+
 function Dashboard2() {
   return (
     <div class='container col-12'>
-      <div class='event-details col-6'>
+      <div class='event-details col-8'>
         <div class='logo col-12'>
           <img src={WhatsUpLogo} class='logo' alt='Whats Up Logo' />
-          <p class='logo-text'>WHAT'S UP</p>
+          <p class='logo-text'>WHAT'S UP ADMINISTRATOR</p>
         </div>
         <div class='event-header col-12'>
           <div class='event-image col-6'>
             <img src={EventImage} alt='Event' />
           </div>
           <div class='main-details col-6'>
-            <div class='text'>
-              <p class='text-title'>Event Name</p>
-              <p class='text-content'>Orientation Week</p>
+            <div class='main-detail-left col-6'>
+              <div class='text'>
+                <p class='text-title'>Event Name</p>
+                <p class='text-content'>Orientation Week</p>
+              </div>
+              <div class='text'>
+                <p class='text-title'>Organizer</p>
+                <p class='text-content'>George El-Hage</p>
+                <img src={UserImage} alt='George El-Hage' class='user-image' />
+              </div>
             </div>
-            <div class='text'>
-              <p class='text-title'>Organizer</p>
-              <p class='text-content'>George El-Hage</p>
-            </div>
-            <div class='text'>
-              <p class='text-title'>Organization</p>
-              <p class='text-content'>Concordia University</p>
-            </div>
-            <div class='text'>
-              <p class='text-title'>Point of Contact</p>
-              <p class='text-content'>Max Clonet</p>
-              <p class='text-content'>(514)971-9610</p>
-              <p class='text-content'>maxclonet@gmail.com</p>
+            <div class='main-detail-right col-6'>
+              <div class='text'>
+                <p class='text-title'>Organization</p>
+                <p class='text-content'>Concordia University</p>
+              </div>
+              <div class='text'>
+                <p class='text-title'>Point of Contact</p>
+                <p class='text-content'>Max Clonet</p>
+                <p class='text-content'>(514)971-9610</p>
+                <p class='text-content'>maxclonet@gmail.com</p>
+              </div>
             </div>
           </div>
         </div>
@@ -146,7 +153,7 @@ function Dashboard2() {
           </div>
         </div>
       </div>
-      <div class='view-events col-6'>
+      <div class='view-events col-4'>
         <div class='view-nav col-12'>
           <div class='event-status'>
             <p class='inactive-status-btn'>Approved</p>
@@ -176,7 +183,7 @@ function Dashboard2() {
           </div>
         </div>
         <div class='show-events col-12'>
-          <div class='active-event-banner'>
+          <div class='active-event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -191,7 +198,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -206,7 +213,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -221,7 +228,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -236,7 +243,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -251,7 +258,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -266,7 +273,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -281,7 +288,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -296,7 +303,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
@@ -311,37 +318,7 @@ function Dashboard2() {
               </div>
             </div>
           </div>
-          <div class='event-banner'>
-            <div class='view-event-image'>
-              <img src={EventImage} alt='Event' />
-            </div>
-            <div class='event-banner-text'>
-              <p class='event-banner-title'>Orientation Week</p>
-              <p class='time-place'>By Concordia University</p>
-              <div class='date'>
-                <div class='calendar-icon'>
-                  <CalendarMonthRoundedIcon style={{ color: '#00c0a4' }} />
-                </div>
-                <p class='event-banner-date-text'>January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div class='event-banner'>
-            <div class='view-event-image'>
-              <img src={EventImage} alt='Event' />
-            </div>
-            <div class='event-banner-text'>
-              <p class='event-banner-title'>Orientation Week</p>
-              <p class='time-place'>By Concordia University</p>
-              <div class='date'>
-                <div class='calendar-icon'>
-                  <CalendarMonthRoundedIcon style={{ color: '#00c0a4' }} />
-                </div>
-                <p class='event-banner-date-text'>January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div class='event-banner'>
+          <div class='event-banner col-12'>
             <div class='view-event-image'>
               <img src={EventImage} alt='Event' />
             </div>
