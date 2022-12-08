@@ -153,7 +153,7 @@
 
   .view-events {
     background-color: lightgrey;
-    padding: 48px;
+    padding: 24px;
     border-top-left-radius: 48px;
     border-bottom-left-radius: 48px;
   }
@@ -163,7 +163,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 4vh;
   }
 
   .event-status {
@@ -241,6 +240,12 @@
     overflow: auto;
   }
 
+  .event-banner-text {
+    width: 18vw;
+    padding: 12px;
+    margin-left: 12px;
+  }
+
   .event-banner-title {
     font-weight: bold;
   }
@@ -256,11 +261,6 @@
     height: 100%;
   }
 
-  .event-banner-text {
-    width: 18vw;
-    padding: 12px;
-  }
-
   .date {
     display: flex;
     flex-direction: row;
@@ -269,7 +269,7 @@
   }
 
   .calendar-icon {
-    width: 18%;
+    width: 12%;
     display: flex;
   }
   .event-banner-date-text {
