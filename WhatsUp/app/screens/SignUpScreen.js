@@ -25,7 +25,8 @@ function SignUpScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isOrganizer, setIsOrganizer] = useState(false);
-  const [valid, setValid] = useState(true);
+  const [valid, setValid] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = async (
     firstName,
@@ -76,10 +77,24 @@ function SignUpScreen() {
     console.log(error.message);
   };
   const handleConfirmPass = (confirmPassword) => {
-    if (confirmPassword !== password) {
-      setValid(false);
-    } else {
-      setValid(true);
+    setConfirmPassword(confirmPassword);
+    if (confirmPassword.length > 0) {
+      if (confirmPassword !== password) {
+        setValid(false);
+      } else {
+        setValid(true);
+      }
+    }
+  };
+
+  const handlePassword = (password) => {
+    setPassword(password);
+    if (password.length > 0) {
+      if (password !== confirmPassword) {
+        setValid(false);
+      } else {
+        setValid(true);
+      }
     }
   };
 
@@ -106,7 +121,7 @@ function SignUpScreen() {
         />
         <AppTextInput
           placeholder="Password"
-          onChangeText={(text) => setPassword(text)}
+          onChangeText={(text) => handlePassword(text)}
           secureTextEntry
         />
         <AppTextInput

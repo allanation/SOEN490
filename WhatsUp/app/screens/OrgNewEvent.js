@@ -1,12 +1,5 @@
-import React, { useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  Alert
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Image, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppTextInput from '../components/AppTextInput';
@@ -17,6 +10,7 @@ import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
+import { Storage } from 'expo-storage';
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -27,32 +21,43 @@ function OrganizerNewEvent() {
   const [description, setDescription] = useState('');
   const [coverImage, setCoverImage] = useState(null);
 
- const handleAddingEvent = async (
-      eventName,
-      orgName,
-      location,
-      description) => {  
-
+  const handleAddingEvent = async (
+    eventName,
+    orgName,
+    location,
+    description,
+    coverImage
+  ) => {
     if (eventName.length == 0) {
-      Alert.alert("Error", "Please fill out the title.");
+      Alert.alert('Error', 'Please fill out the title.');
       return;
     }
     if (orgName.length == 0) {
-      Alert.alert("Error", "Please fill out the organization name.");
+      Alert.alert('Error', 'Please fill out the organization name.');
       return;
     }
     if (location.length == 0) {
-      Alert.alert("Error", "Please fill out the location.");
+      Alert.alert('Error', 'Please fill out the location.');
       return;
     }
     if (description.length == 0) {
-      Alert.alert("Error", "Please fill out the description.");
+      Alert.alert('Error', 'Please fill out the description.');
       return;
     }
 
-    //If every mandatory fields is filled out, go to next page
-    navigation.navigate('POC')
-  }
+    const newEvent = {
+      eventName: eventName,
+      orgName: orgName,
+      location: location,
+      description: description,
+      link: link,
+      coverImage: coverImage,
+    };
+
+    //If every mandatory fields is filled out, store the information and go to next page
+    storeNewEvent(newEvent);
+    navigation.navigate('POC');
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -64,6 +69,18 @@ function OrganizerNewEvent() {
 
     if (!result.cancelled) {
       setCoverImage(result.uri);
+    }
+  };
+
+  const storeNewEvent = async (newEvent) => {
+    try {
+      const jsonValue = JSON.stringify(newEvent);
+      await Storage.setItem({
+        key: 'newEvent',
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -113,7 +130,9 @@ function OrganizerNewEvent() {
           ></AppTextInput>
           <View style={styles.coverPage}>
             {coverImage ? (
-              <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              <View>
+                <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              </View>
             ) : (
               <Text
                 style={{
@@ -139,7 +158,15 @@ function OrganizerNewEvent() {
       <View>
         <AppButton
           title={'Next'}
-          onPress={() => (handleAddingEvent(eventName,orgName,location,description))}
+          onPress={() =>
+            handleAddingEvent(
+              eventName,
+              orgName,
+              location,
+              description,
+              coverImage
+            )
+          }
         ></AppButton>
       </View>
     </Screen>

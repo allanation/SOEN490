@@ -308,9 +308,8 @@ function OrganizerDashboardScreen() {
           </TouchableOpacity>
         </View>
         <Text style={styles.eventTitle}>Your Events</Text>
-
-        {showEvents}
       </ScrollView>
+      {showEvents}
     </Screen>
   );
 }
@@ -332,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 40,
   },
   searchBar: {
     flexDirection: "row",
