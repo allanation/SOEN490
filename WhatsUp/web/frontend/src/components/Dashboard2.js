@@ -22,10 +22,12 @@ function Dashboard2() {
   const [approvedevents, setapprovedevents] = useState([]);
   const [unapprovedevents, setunapprovedevents] = useState([]);
   const [rejectedevents, setrejectedevents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState("");
 
   // USEEFFECT TO LOAD THE UNAPPROVED EVENTS
   const getUnApprovedEvents = async () => {
-    const name = "UnApproved";
+    const name = "Unapproved";
+    //will need to change the "isApproved" to "eventStatus" once we have more examples
     const q = query(collection(db, "events"), where("isApproved", "==", name));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
@@ -65,7 +67,8 @@ function Dashboard2() {
     } else console.error("Cant find rejected events at the moment");
   };
 
-  // TO reject function on press!
+
+  // To reject function on press!
   const handleRejectEvents = async (x) => {
     const changingToReject = doc(db, "events", x);
     await updateDoc(changingToReject, {
@@ -73,7 +76,7 @@ function Dashboard2() {
     });
   };
 
-  // TO accept on press function!
+  // To accept on press function!
   const handleAcceptanceEvents = async (x) => {
     const changingToApprove = doc(db, "events", x);
     await updateDoc(changingToApprove, {
@@ -94,10 +97,12 @@ function Dashboard2() {
     getUnApprovedEvents();
     //handleComments("riXCsVOOB7OdGIjtB46U", "TRASH");
     //handleAcceptanceEvents("BqTUaMfiUWMCEcMMlE5s");
-  }, []);
+  }, [unapprovedevents]);
+
 
   return (
     <div className="container col-12">
+      {unapprovedevents.map(unapprovedEvent => ( selectedEvent === unapprovedEvent.id &&
       <div className="event-details col-8">
         <div className="logo col-12">
           <img src={WhatsUpLogo} className="logo" alt="Whats Up Logo" />
@@ -111,11 +116,11 @@ function Dashboard2() {
             <div className="main-detail-left col-6">
               <div className="text">
                 <p className="text-title">Event Name</p>
-                <p className="text-content">Orientation Week</p>
+                <p className="text-content">{unapprovedEvent.eventName}</p>
               </div>
               <div className="text">
                 <p className="text-title">Organizer</p>
-                <p className="text-content">George El-Hage</p>
+                <p className="text-content">{unapprovedEvent.orgName}</p>
                 <img
                   src={UserImage}
                   alt="George El-Hage"
@@ -126,13 +131,13 @@ function Dashboard2() {
             <div className="main-detail-right col-6">
               <div className="text">
                 <p className="text-title">Organization</p>
-                <p className="text-content">Concordia University</p>
+                <p className="text-content">{unapprovedEvent.orgName}</p>
               </div>
               <div className="text">
                 <p className="text-title">Point of Contact</p>
-                <p className="text-content">Max Clonet</p>
-                <p className="text-content">(514)971-9610</p>
-                <p className="text-content">maxclonet@gmail.com</p>
+                <p className="text-content">{unapprovedEvent.pocName}</p>
+                <p className="text-content">{unapprovedEvent.pocPhoneNum}</p>
+                <p className="text-content">{unapprovedEvent.email}</p>
               </div>
             </div>
           </div>
@@ -141,28 +146,21 @@ function Dashboard2() {
           <div className="additional-details col-6">
             <div className="text">
               <p className="text-title">Date(s)</p>
-              <p className="text-content">January 31, 2023</p>
+              <p className="text-content">{unapprovedEvent.startDate}</p>
             </div>
             <div className="text">
               <p className="text-title">Time</p>
-              <p className="text-content">9:00PM - 10:00PM</p>
+              {/* should probably change the field or change in firebase */} 
+              <p className="text-content">{unapprovedEvent.startTime}</p>
             </div>
             <div className="text">
               <p className="text-title">Location</p>
-              <p className="text-content">JMSB 2.230</p>
+              <p className="text-content">{unapprovedEvent.location}</p>
             </div>
             <div className="text">
               <p className="text-title">Description</p>
               <p className="text-content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                rhoncus nibh eget mauris placerat facilisis. className aptent
-                taciti sociosqu ad litora torquent per conubia nostra, per
-                inceptos himenaeos. Mauris facilisis nibh nisl, ut dignissim leo
-                condimentum vel. Suspendisse nec odio at turpis hendrerit
-                tincidunt nec ut magna. Praesent ut volutpat lorem, sit amet
-                porttitor felis. Pellentesque purus turpis, bibendum vel erat
-                vel, tempus cursus massa. Donec varius vel ipsum sit amet
-                laoreet.
+               {unapprovedEvent.description}
               </p>
             </div>
             <div className="text">
@@ -237,12 +235,13 @@ function Dashboard2() {
               </div>
             </div>
             <div className="admin-approval">
-              <div className="logout-btn">Approve</div>
+              <div className="logout-btn" onClick={() => handleAcceptanceEvents(unapprovedEvent.id)}>Approve</div>
               <div className="reject-btn">Reject</div>
             </div>
           </div>
         </div>
       </div>
+))} 
       <div className="view-events col-4">
         <div className="view-nav col-12">
           <div className="event-status">
@@ -273,156 +272,24 @@ function Dashboard2() {
           </div>
         </div>
         <div className="show-events col-12">
-          <div className="active-event-banner col-12">
+          { unapprovedevents && unapprovedevents.map(unapprovedEvent => (
+            <div className={selectedEvent === unapprovedEvent.id ? 'active-event-banner col-12': 'event-banner col-12'} onClick={() => setSelectedEvent(unapprovedEvent.id)}>
             <div className="view-event-image">
               <img src={EventImage} alt="Event" />
             </div>
             <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
+              <p className="event-banner-title">{unapprovedEvent.eventName}</p>
+              <p className="time-place">{unapprovedEvent.orgName}</p>
               <div className="date">
                 <div className="calendar-icon">
                   <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                 </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
+                <p className="event-banner-date-text">{unapprovedEvent.startDate}</p>
               </div>
             </div>
           </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
-          <div className="event-banner col-12">
-            <div className="view-event-image">
-              <img src={EventImage} alt="Event" />
-            </div>
-            <div className="event-banner-text">
-              <p className="event-banner-title">Orientation Week</p>
-              <p className="time-place">By Concordia University</p>
-              <div className="date">
-                <div className="calendar-icon">
-                  <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
-                </div>
-                <p className="event-banner-date-text">January 31, 2023</p>
-              </div>
-            </div>
-          </div>
+          ))
+          }
         </div>
       </div>
     </div>
