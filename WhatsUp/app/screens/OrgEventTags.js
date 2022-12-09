@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
@@ -97,7 +98,7 @@ function OrganizeEventTags() {
     }
   }
 
-  const onRemove = (id) => (e) => {
+  const onRemove = (id) => () => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
 

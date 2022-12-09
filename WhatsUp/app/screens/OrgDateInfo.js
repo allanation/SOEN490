@@ -1,14 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/react-in-jsx-scope */
 import {
   StyleSheet,
   View,
   ScrollView,
-  SafeAreaView,
   Platform,
   Alert,
 } from 'react-native';
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
-import BottomImg from '../components/ImgOrgBottom';
 import ScreenTitle from '../components/ScreenTitle';
 import ScreenSubtitle from '../components/ScreenSubtitle';
 import BackBtn from '../components/BackBtn';
@@ -19,7 +19,7 @@ import { Storage } from 'expo-storage';
 
 function OrganizerDateInfo() {
   const navigation = useNavigation();
-  const validateEventDate = async (tags) => {
+  const validateEventDate = async () => {
     try {
       //Get NewEvent object
       const newDateInformation = await Storage.getItem({

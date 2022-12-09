@@ -1,3 +1,6 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
 import React, { useState} from 'react';
 import {
   StyleSheet,
@@ -67,11 +70,11 @@ function OrganizerDaySchedule({ day }) {
     setModalVisible(false);
   }
 
-  const onRemove = (id) => (e) => {
+  const onRemove = (id) => () => {
     setItinerary(itinerary.filter((item) => item.id !== id));
   };
 
-  const onEdit = (newItinerary) => (e) => {
+  const onEdit = (newItinerary) => () => {
     console.log('test')
     setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
     setItinerary((itinerary) => [...itinerary, newItinerary]);

@@ -47,52 +47,24 @@ function UserDashboard() {
 
   getName();
 
+  function getEvents() {
+    let eventsInfo = [];
+    for (let i = 0; i <= 5; i++) {
+      const event = {
+        image: { School },
+        title: "Orientation Week",
+        organizer: "Concordia University",
+        date: "May 21, 2022",
+        key: i,
+      };
+      eventsInfo[i] = event;
+    }
+    return eventsInfo;
+  }
+
   var welcome = "Welcome, " + userName + "!";
 
-  const events = [
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "1",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "2",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "3",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "4",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "5",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "6",
-    },
-  ];
+  const events = getEvents();
 
   // eslint-disable-next-line no-unused-vars
   const Tab = createBottomTabNavigator();
@@ -169,7 +141,7 @@ function UserDashboard() {
         />
         <NavButton
           image="ios-person-outline"
-          onPress={() => navigation.navigate('UserProfile')}
+          onPress={() => navigation.navigate("UserProfile")}
           title=""
         />
       </View>
