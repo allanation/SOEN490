@@ -236,7 +236,7 @@ function Dashboard2() {
             </div>
             <div className="admin-approval">
               <div className="logout-btn" onClick={() => handleAcceptanceEvents(unapprovedEvent.id)}>Approve</div>
-              <div className="reject-btn">Reject</div>
+              <div className="reject-btn" onClick={() => handleRejectEvents(unapprovedEvent.id)}>Reject</div>
             </div>
           </div>
         </div>
