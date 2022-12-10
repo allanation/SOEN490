@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform} from 'react-native';
+import { TouchableOpacity, StyleSheet} from 'react-native';
 import {useState} from 'react';
 import { Ionicons } from '@expo/vector-icons';
 

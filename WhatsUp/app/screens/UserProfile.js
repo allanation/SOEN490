@@ -76,12 +76,8 @@ function UserProfile() {
   const updateEmailForCurrentUser = () => {
     updateEmail(user, newEmail)
       .then(() => {
-        // Email updated!
-        // ...
       })
       .catch((error) => {
-        // An error occurred
-        // ...
       });
   };
 

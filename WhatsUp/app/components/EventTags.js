@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import colors from '../config/colors';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';

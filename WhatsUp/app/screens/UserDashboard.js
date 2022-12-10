@@ -8,7 +8,7 @@ import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
-import School from "../assets/Icons/stringio.png"; // Temporary Placeholder
+import School from "../assets/Icons/stringio.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
@@ -47,52 +47,24 @@ function UserDashboard() {
 
   getName();
 
+  function getEvents() {
+    let eventsInfo = [];
+    for (let i = 0; i <= 5; i++) {
+      const event = {
+        image: { School },
+        title: "Orientation Week",
+        organizer: "Concordia University",
+        date: "May 21, 2022",
+        key: i,
+      };
+      eventsInfo[i] = event;
+    }
+    return eventsInfo;
+  }
+
   var welcome = "Welcome, " + userName + "!";
 
-  const events = [
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "1",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "2",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "3",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "4",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "5",
-    },
-    {
-      image: { School },
-      title: "Orientation Week",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-      key: "6",
-    },
-  ];
+  const events = getEvents();
 
   // eslint-disable-next-line no-unused-vars
   const Tab = createBottomTabNavigator();
@@ -169,7 +141,7 @@ function UserDashboard() {
         />
         <NavButton
           image="ios-person-outline"
-          onPress={() => console.log("Profile")}
+          onPress={() => navigation.navigate("UserProfile")}
           title=""
         />
       </View>
