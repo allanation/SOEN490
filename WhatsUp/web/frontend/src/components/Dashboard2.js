@@ -97,7 +97,12 @@ function Dashboard2() {
     getUnApprovedEvents();
     //handleComments("riXCsVOOB7OdGIjtB46U", "TRASH");
     //handleAcceptanceEvents("BqTUaMfiUWMCEcMMlE5s");
-  }, [unapprovedevents]);
+  }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
+
+  //smtg wrong with the fourth event "Sofiya's Event"
+  console.log(unapprovedevents.map(unapprovedEvent => (
+    unapprovedEvent
+  )))
 
 
   return (
@@ -171,65 +176,22 @@ function Dashboard2() {
             </div>
           </div>
           <div className="details-right col-6">
+            <p className="text-title">Schedule</p>
+            {unapprovedEvent.itinerary.map((unapprovedEventItinerary,index) =>(    
             <div className="schedule">
               <div className="text">
-                <p className="text-title">Schedule</p>
+                {/* <p className="text-title">Schedule</p> */}
               </div>
               <div className="day">
-                <p className="day-count">Day 1</p>
+                <p className="day-count">Day {index+1}</p>
                 <div className="day-itinerary">
-                  <p className="day-title"> Round Table with William</p>
+                  <p className="day-title">{unapprovedEventItinerary.title}</p>
                   <div className="time-place">
                     <p className="time">7:00PM - 8:00PM</p>
-                    <p className="place">Auditorium 860</p>
+                    <p className="place">{unapprovedEventItinerary.location}</p>
                   </div>
                   <p className="itinerary-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    rhoncus nibh eget mauris placerat facilisis. className
-                    aptent taciti sociosqu ad litora torquent per conubia
-                    nostra, per inceptos himenaeos.
-                  </p>
-                </div>
-
-                <div className="day-itinerary">
-                  <p className="day-title"> Round Table with William</p>
-                  <div className="time-place">
-                    <p className="time">7:00PM - 8:00PM</p>
-                    <p className="place">Auditorium 860</p>
-                  </div>
-
-                  <p className="itinerary-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    rhoncus nibh eget mauris placerat facilisis. className
-                    aptent taciti sociosqu ad litora torquent per conubia
-                    nostra, per inceptos himenaeos.
-                  </p>
-                </div>
-                <p className="day-count">Day 2</p>
-                <div className="day-itinerary">
-                  <p className="day-title"> Round Table with William</p>
-                  <div className="time-place">
-                    <p className="time">7:00PM - 8:00PM</p>
-                    <p className="place">Auditorium 860</p>
-                  </div>
-                  <p className="itinerary-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    rhoncus nibh eget mauris placerat facilisis. className
-                    aptent taciti sociosqu ad litora torquent per conubia
-                    nostra, per inceptos himenaeos.
-                  </p>
-                </div>
-                <div className="day-itinerary">
-                  <p className="day-title"> Round Table with William</p>
-                  <div className="time-place">
-                    <p className="time">7:00PM - 8:00PM</p>
-                    <p className="place">Auditorium 860</p>
-                  </div>
-                  <p className="itinerary-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    rhoncus nibh eget mauris placerat facilisis. className
-                    aptent taciti sociosqu ad litora torquent per conubia
-                    nostra, per inceptos himenaeos.
+                  {unapprovedEventItinerary.description}
                   </p>
                 </div>
               </div>
