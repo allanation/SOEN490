@@ -6,7 +6,6 @@ import AppTextInput from '../components/AppTextInput';
 import * as ImagePicker from 'expo-image-picker';
 import { Entypo } from '@expo/vector-icons';
 import AppButton from '../components/AppButton';
-import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
@@ -91,9 +90,10 @@ function OrganizerNewEvent() {
           style={{ alignSelf: 'center' }}
           title={'Create New Event'}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+          isTitle = {false}
+          title='Please fill the following information'
         />
       </View>
       <BackBtn onPress={() => navigation.navigate('Organizer')} />

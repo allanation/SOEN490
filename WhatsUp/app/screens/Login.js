@@ -1,20 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, Image, Alert } from "react-native";
+import { StyleSheet, Text, View, Image, Alert, Animated, Easing } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
 import Screen from "../components/Screen";
-import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import logo from "../Images/w3.png";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from "react-native-vector-icons/SimpleLineIcons";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
+import { SimpleLineIcons } from "@expo/vector-icons";
 
 export default function Login() {
   const navigation = useNavigation();
@@ -49,13 +49,12 @@ export default function Login() {
     navigation.navigate("ResetPassword");
   };
   return (
-    <Screen style={{ padding: 10, marginTop: 5 }}>
+    <Screen style={{ paddingHorizontal: '10%', marginTop: 10 }}>
       <Image
         source={logo}
-        style={{ width: 166, height: 212, alignSelf: "center" }}
+        style={{ width: 166, height: 212, alignSelf: "center"}}
       />
-      <ScreenTitle title="Login" />
-      <ScreenSubtitle subtitle="Please enter your details" />
+      <ScreenTitle style={{ fontSize: 38,}} title="Login" isTitle={true} /> 
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"
@@ -87,8 +86,8 @@ export default function Login() {
           paddingVertical: 15,
         }}
       >
-        <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
-        <View>
+      <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
+      <View>
           <Text
             style={{
               width: 105,
@@ -103,36 +102,37 @@ export default function Login() {
         <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
       </View>
       <View style={styles.rowContainer}>
-        <FontAwesome
-          name="facebook-square"
+        <SimpleLineIcons
+          name="social-facebook"
           size={30}
           style={{
-            color: "#3b5998",
-            fontSize: 50,
+            color: colors.secondary,
+            fontSize: 30,
             alignSelf: "center",
             paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}
           testID="facebook"
         />
-        <FontAwesome
-          name="twitter-square"
+        <SimpleLineIcons
+          name="social-twitter"
           size={30}
           style={{
-            color: "#00acee",
-            fontSize: 50,
+            color: colors.secondary,
+            fontSize: 30,
             paddingHorizontal: 40,
-            paddingVertical: 10,
+            fontSize: 30,
+            alignSelf: "center",
           }}
           onPress={() => console.log("Facebook")}
           testID="twitter"
         />
-        <FontAwesome
-          name="google"
+        <SimpleLineIcons
+          name="social-google"
           size={30}
           style={{
-            color: "#db4a39",
-            fontSize: 50,
+            color: colors.secondary,
+            fontSize: 30,
             paddingVertical: 10,
           }}
           onPress={() => console.log("Facebook")}

@@ -10,7 +10,6 @@ import {
 import Screen from '../components/Screen';
 import AppButton from '../components/AppButton';
 import ScreenTitle from '../components/ScreenTitle';
-import ScreenSubtitle from '../components/ScreenSubtitle';
 import BackBtn from '../components/BackBtn';
 import IOSDateTimePicker from '../components/IOSDateTimePicker';
 import AndroidDateTimePicker from '../components/AndroidDateTimePicker';
@@ -43,9 +42,10 @@ function OrganizerDateInfo() {
           style={{ alignSelf: 'center' }}
           title={'Set Date Information'}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ alignSelf: 'center' }}
-          subtitle='Please pick the dates for your event'
+          isTitle = {false}
+          title='Please pick the dates for your event'
         />
       </View>
       <BackBtn onPress={() => navigation.navigate('POC')} />

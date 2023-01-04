@@ -5,7 +5,6 @@ import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
 import Screen from "../components/Screen";
-import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../firebase";
@@ -51,7 +50,7 @@ export default function ResetPassword() {
   return (
     <Screen style={{ padding: 10, marginTop: 80 }}>
       <ScreenTitle title="Forgot Password?" />
-      <ScreenSubtitle subtitle="Enter your email to receive a verification link" />
+      <ScreenTitle isTitle = {false} title="Enter your email to receive a verification link" />
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"

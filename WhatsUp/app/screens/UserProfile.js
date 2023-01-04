@@ -8,7 +8,6 @@ import ScreenTitle from "../components/ScreenTitle";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../Images/w3.png";
 import ImgOrgBottom from "../components/ImgOrgBottom";
-import ScreenSubtitle from "../components/ScreenSubtitle";
 import Links from "../components/Links";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
@@ -159,8 +158,9 @@ function UserProfile() {
         /> */}
       </View>
       <View>
-        <ScreenSubtitle
-          subtitle={userName}
+        <ScreenTitle
+          title={userName}
+          isTitle = {false}
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
@@ -188,8 +188,9 @@ function UserProfile() {
         />
       </View>
       <View>
-        <ScreenSubtitle
-          subtitle={user.email}
+        <ScreenTitle
+        isTitle = {false}
+          title={user.email}
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",

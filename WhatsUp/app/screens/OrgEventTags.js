@@ -4,7 +4,6 @@ import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
-import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import AppTextInput from '../components/AppTextInput';
@@ -109,9 +108,10 @@ function OrganizeEventTags() {
           style={{ alignSelf: 'center' }}
           title={'Create Event Tags'}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+          isTitle = {false}
+          title='Please fill the following information'
         />
       </View>
       <BackBtn onPress={() => navigation.navigate('OrgDay')} />
@@ -125,9 +125,10 @@ function OrganizeEventTags() {
           value={currentTag.text}
           onSubmitEditing={handleAddingTag}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ paddingHorizontal: 20, color: 'gray' }}
-          subtitle='Add tags to increase visibility'
+          isTitle = {false}
+          title='Add tags to increase visibility'
         />
         <View style={{ marginTop: 12 }}>
           <View

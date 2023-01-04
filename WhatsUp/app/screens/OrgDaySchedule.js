@@ -10,7 +10,6 @@ import {
   Alert
 } from 'react-native';
 import Screen from '../components/Screen';
-import ScreenSubtitle from '../components/ScreenSubtitle';
 import ScreenTitle from '../components/ScreenTitle';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
@@ -106,9 +105,10 @@ function OrganizerDaySchedule({ day }) {
           style={{ alignSelf: 'center' }}
           title={'Day ' + (day ? day + ' ' : '') + 'schedule'}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+          isTitle = {false}
+          title='Please fill the following information'
         />
       </View>
       <BackBtn onPress={() => navigation.navigate('DateInfo')} />
@@ -150,7 +150,7 @@ function OrganizerDaySchedule({ day }) {
         ></AppButton>
       </View>
       <AppModal
-        animationType='slide'
+        animationType='fade'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {

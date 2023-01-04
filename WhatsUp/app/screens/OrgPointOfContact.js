@@ -10,7 +10,6 @@ import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
-import ScreenSubtitle from "../components/ScreenSubtitle";
 import ScreenTitle from "../components/ScreenTitle";
 import BackBtn from "../components/BackBtn";
 import { useNavigation } from "@react-navigation/native";
@@ -109,9 +108,10 @@ function OrganizerPOC() {
           style={{ alignSelf: "center" }}
           title={"Contact Information"}
         />
-        <ScreenSubtitle
+        <ScreenTitle
           style={{ alignSelf: "center" }}
-          subtitle="Please fill the following information"
+          isTitle = {false}
+          title="Please fill the following information"
         />
       </View>
       <BackBtn onPress={() => goBackToNewEvent()} />

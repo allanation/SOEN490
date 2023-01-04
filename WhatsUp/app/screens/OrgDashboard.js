@@ -273,7 +273,7 @@ function OrganizerDashboardScreen() {
   }
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
-      <ScrollView>
+      <View>
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Text style={{ color: colors.darkGrey }}>
@@ -307,7 +307,7 @@ function OrganizerDashboardScreen() {
           </TouchableOpacity>
         </View>
         <Text style={styles.eventTitle}>Your Events</Text>
-      </ScrollView>
+      </View>
       {showEvents}
     </Screen>
   );
