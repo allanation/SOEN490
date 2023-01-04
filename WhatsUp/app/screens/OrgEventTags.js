@@ -5,7 +5,7 @@ import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
 import ScreenTitle from '../components/ScreenTitle';
-import BackBtn from '../components/BackBtn';
+import AddBtn from '../components/AddBtn';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
@@ -103,18 +103,24 @@ function OrganizeEventTags() {
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          title={'Create Event Tags'}
+       <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <AddBtn
+          icon="chevron-back-outline"
+          style={{position: "absolute", left:0}}
+          onPress={() => navigation.navigate("OrgDay")}
         />
+        <ScreenTitle
+          style={{ alignSelf: "center" }}
+          title={"Create Event Tags"}
+        />
+      </View>
+      <View style={{ width: '100%', display: 'flex' }}>
         <ScreenTitle
           style={{ alignSelf: 'center' }}
           isTitle = {false}
           title='Please fill the following information'
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('OrgDay')} />
       <ScrollView style={{ paddingTop: 20 }}>
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}

@@ -1,13 +1,13 @@
 import React from "react";
-import { View, StyleSheet, StatusBar } from "react-native";
+import { View, StyleSheet, StatusBar, ImageBackground} from "react-native";
 import Constants from "expo-constants";
 
-function Screen({ children, style }) {
+function Screen({ children, style, backgroundImage, resizeMode }) {
   return (
-    <View style={[styles.screen, style]}>
-      <StatusBar/>
+    <ImageBackground source={{ uri: backgroundImage }} style={[styles.screen, style]} resizeMode={resizeMode}>
+      <StatusBar />
       {children}
-    </View>
+    </ImageBackground>
   );
 }
 

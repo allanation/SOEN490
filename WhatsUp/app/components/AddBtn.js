@@ -11,27 +11,23 @@ function AddBtn({
   color = 'primary',
   disabled = false,
   style,
+  icon
 }) {
   return (
-
-<TouchableOpacity
-            style={{
-              justifyContent: 'center',
-              shadowOffset: { height: 1, width: 1 }, // IOS
-              shadowOpacity: 0.2, // IOS
-              shadowRadius: 3, //IOS
-              elevation: 2, // Android
-              alignSelf: 'flex-end',
-              marginRight: 24,
-            }}
-            onPress={onPress}
-          >
-            <Ionicons
-              name='add-circle-outline'
-              size={40}
-              color={colors.primary}
-            />
-          </TouchableOpacity>
+    <TouchableOpacity
+      style={[
+        {
+          shadowOffset: { height: 1, width: 1 }, // IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 3, //IOS
+          elevation: 2, // Android
+        },
+        style,
+      ]}
+      onPress={onPress}
+    >
+      <Ionicons name={icon} size={40} color={colors.primary} />
+    </TouchableOpacity>
   );
 }
 
@@ -41,8 +37,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     padding: 12,
-    width: '90%',
-    marginVertical: 40,
   },
   text: {
     color: colors.white,

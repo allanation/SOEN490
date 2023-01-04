@@ -8,7 +8,7 @@ const NewItemPopup = ({ modalOpened }) => {
 
   return (
     <AppModal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalOpened ? modalOpened : modalVisible}
         onRequestClose={() => {

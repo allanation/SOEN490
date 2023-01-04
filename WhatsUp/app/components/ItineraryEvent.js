@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native';
 import colors from '../config/colors';
 import AppModal from './AppModal';
 import { Ionicons } from '@expo/vector-icons';
-import BackBtn from '../components/BackBtn';
+import AddBtn from '../components/AddBtn';
 import { ScrollView } from 'react-native';
 import ScreenTitle from '../components/ScreenTitle';
 import AppTextInput from './AppTextInput';
@@ -86,7 +86,7 @@ function ItineraryEvent({
         </Text>
       </View>
       <AppModal
-        animationType='slide'
+        animationType='fade'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -94,9 +94,10 @@ function ItineraryEvent({
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
+          <AddBtn
             style={styles.backModal}
             onPress={() => setModalVisible(!modalVisible)}
+            icon="chevron-back-outline"
           />
           <View style={styles.inputView}>
             <ScrollView

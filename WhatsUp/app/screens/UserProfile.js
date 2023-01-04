@@ -11,7 +11,7 @@ import ImgOrgBottom from "../components/ImgOrgBottom";
 import Links from "../components/Links";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
-import BackBtn from "../components/BackBtn";
+import AddBtn from "../components/AddBtn";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -218,8 +218,9 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
+          <AddBtn
             style={styles.backModal}
+            icon="chevron-back-outline"
             onPress={() => setModalVisibleName(!modalVisibleName)}
           />
           <View style={styles.inputView}>
@@ -259,8 +260,9 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
+          <AddBtn
             style={styles.backModal}
+            icon="chevron-back-outline"
             onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
           />
           <View style={styles.inputView}>

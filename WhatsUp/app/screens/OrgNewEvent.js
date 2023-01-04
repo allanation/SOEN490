@@ -1,23 +1,26 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView, Image, Alert } from 'react-native';
-import Screen from '../components/Screen';
-import colors from '../config/colors';
-import AppTextInput from '../components/AppTextInput';
-import * as ImagePicker from 'expo-image-picker';
-import { Entypo } from '@expo/vector-icons';
-import AppButton from '../components/AppButton';
-import ScreenTitle from '../components/ScreenTitle';
-import BackBtn from '../components/BackBtn';
-import { useNavigation } from '@react-navigation/native';
-import { Storage } from 'expo-storage';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Image, Alert } from "react-native";
+import Screen from "../components/Screen";
+import colors from "../config/colors";
+import AppTextInput from "../components/AppTextInput";
+import * as ImagePicker from "expo-image-picker";
+import { Entypo } from "@expo/vector-icons";
+import AppButton from "../components/AppButton";
+import ScreenTitle from "../components/ScreenTitle";
+import AddBtn from "../components/AddBtn";
+import { useNavigation } from "@react-navigation/native";
+import { Storage } from "expo-storage";
+import ImgOrgBottom from "../components/ImgOrgBottom";
+import BottomImg from "../components/BottomImg";
+import AnimatedBg from "../components/AnimatedBg";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
-  const [eventName, setEventName] = useState('');
-  const [orgName, setOrgName] = useState('');
-  const [location, setLocation] = useState('');
-  const [link, setLink] = useState('');
-  const [description, setDescription] = useState('');
+  const [eventName, setEventName] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [location, setLocation] = useState("");
+  const [link, setLink] = useState("");
+  const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState(null);
 
   const handleAddingEvent = async (
@@ -28,19 +31,19 @@ function OrganizerNewEvent() {
     coverImage
   ) => {
     if (eventName.length == 0) {
-      Alert.alert('Error', 'Please fill out the title.');
+      Alert.alert("Error", "Please fill out the title.");
       return;
     }
     if (orgName.length == 0) {
-      Alert.alert('Error', 'Please fill out the organization name.');
+      Alert.alert("Error", "Please fill out the organization name.");
       return;
     }
     if (location.length == 0) {
-      Alert.alert('Error', 'Please fill out the location.');
+      Alert.alert("Error", "Please fill out the location.");
       return;
     }
     if (description.length == 0) {
-      Alert.alert('Error', 'Please fill out the description.');
+      Alert.alert("Error", "Please fill out the description.");
       return;
     }
 
@@ -55,7 +58,7 @@ function OrganizerNewEvent() {
 
     //If every mandatory fields is filled out, store the information and go to next page
     storeNewEvent(newEvent);
-    navigation.navigate('POC');
+    navigation.navigate("POC");
   };
 
   const pickImage = async () => {
@@ -75,7 +78,7 @@ function OrganizerNewEvent() {
     try {
       const jsonValue = JSON.stringify(newEvent);
       await Storage.setItem({
-        key: 'newEvent',
+        key: "newEvent",
         value: jsonValue,
       });
     } catch (e) {
@@ -84,35 +87,43 @@ function OrganizerNewEvent() {
   };
 
   return (
-    <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          title={'Create New Event'}
+    <Screen
+      style={{ padding: 20, marginTop: 30 }}
+    >
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <AddBtn
+          icon="chevron-back-outline"
+          style={{ position: "absolute", left: 0 }}
+          onPress={() => navigation.navigate("Organizer")}
         />
         <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          isTitle = {false}
-          title='Please fill the following information'
+          style={{ alignSelf: "center" }}
+          title={"Create New Event"}
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('Organizer')} />
+      <View style={{ width: "100%", display: "flex" }}>
+        <ScreenTitle
+          style={{ alignSelf: "center" }}
+          isTitle={false}
+          title="Please fill the following information"
+        />
+      </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
-            placeholder='Event Title'
+            placeholder="Event Title"
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Organization Name'
+            placeholder="Organization Name"
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Location'
+            placeholder="Location"
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Link for ticket purchase (optional)'
+            placeholder="Link for ticket purchase (optional)"
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
           <AppTextInput
@@ -120,10 +131,10 @@ function OrganizerNewEvent() {
             numberOfLines={5}
             style={{
               height: 100,
-              textAlignVertical: 'top',
+              textAlignVertical: "top",
               color: colors.lightGrey,
             }}
-            placeholder='Description'
+            placeholder="Description"
             onChangeText={(currentDescription) =>
               setDescription(currentDescription)
             }
@@ -137,7 +148,7 @@ function OrganizerNewEvent() {
               <Text
                 style={{
                   fontSize: 18,
-                  width: '90%',
+                  width: "90%",
                   color: colors.lightGrey,
                 }}
               >
@@ -147,7 +158,7 @@ function OrganizerNewEvent() {
 
             <Entypo
               onPress={pickImage}
-              name='images'
+              name="images"
               size={24}
               color={colors.primary}
               style={styles.icon}
@@ -155,9 +166,11 @@ function OrganizerNewEvent() {
           </View>
         </View>
       </ScrollView>
+
+      {/* <ImgOrgBottom style={{position: "absolute"}} resizeMode="contain" /> */}
       <View>
         <AppButton
-          title={'Next'}
+          title={"Next"}
           onPress={() =>
             handleAddingEvent(
               eventName,
@@ -175,32 +188,32 @@ function OrganizerNewEvent() {
 
 const styles = StyleSheet.create({
   newEventHeader: {
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 8,
     marginBottom: 16,
   },
   headerContent: {
-    justifyContent: 'flex-start',
-    width: '100%',
+    justifyContent: "flex-start",
+    width: "100%",
   },
-  paragraph: { textAlign: 'center' },
+  paragraph: { textAlign: "center" },
   coverImage: {
     width: 150,
     aspectRatio: 4 / 3,
     borderWidth: 0.5,
   },
   icon: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   coverPage: {
-    flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
+    flexDirection: "row",
+    width: "90%",
+    alignSelf: "center",
     marginVertical: 10,
   },
   bottom: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     marginBottom: 36,
   },
 });

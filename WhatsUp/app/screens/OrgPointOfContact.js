@@ -11,7 +11,7 @@ import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import ScreenTitle from "../components/ScreenTitle";
-import BackBtn from "../components/BackBtn";
+import AddBtn from "../components/AddBtn";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from 'expo-storage';
 
@@ -103,18 +103,25 @@ function OrganizerPOC() {
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: "100%", display: "flex" }}>
+       <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <AddBtn
+          icon="chevron-back-outline"
+          style={{position: "absolute", left:0}}
+          onPress={() => goBackToNewEvent()}
+        />
         <ScreenTitle
           style={{ alignSelf: "center" }}
           title={"Contact Information"}
         />
+      </View>
+      <View style={{ width: "100%", display: "flex" }}>
+      
         <ScreenTitle
           style={{ alignSelf: "center" }}
           isTitle = {false}
           title="Please fill the following information"
         />
       </View>
-      <BackBtn onPress={() => goBackToNewEvent()} />
       <ScrollView style= {{paddingTop: 20}}>
         <View>
           <AppTextInput

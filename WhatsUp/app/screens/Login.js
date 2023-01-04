@@ -36,6 +36,7 @@ export default function Login() {
             }
           });
         }
+        
       })
       .catch(() => {
         Alert.alert("Try again", "Invalid email or password.");
@@ -49,10 +50,10 @@ export default function Login() {
     navigation.navigate("ResetPassword");
   };
   return (
-    <Screen style={{ paddingHorizontal: '10%', marginTop: 10 }}>
+    <Screen topPadding={-20} resizeMode="cover" backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif" style={{ paddingHorizontal: '10%', marginTop: 10 }}>
       <Image
         source={logo}
-        style={{ width: 166, height: 212, alignSelf: "center"}}
+        style={{ marginTop: 18,width: 166, height: 212, alignSelf: "center"}}
       />
       <ScreenTitle style={{ fontSize: 38,}} title="Login" isTitle={true} /> 
       <AppTextInput

@@ -292,7 +292,6 @@ function OrganizerDashboardScreen() {
             />
           </TouchableOpacity>
         </View>
-        <View style={styles.eventTabs}>{tabs}</View>
 
         <View style={styles.searchBar}>
           <SearchBar
@@ -301,7 +300,8 @@ function OrganizerDashboardScreen() {
             onChangeText={(text) => {
               searchFilter(text);
             }}
-          />
+            // Icon={{ visible: searchText.length > 0 }}
+            />
           <TouchableOpacity style={styles.filter}>
             <Ionicons name="ios-filter" size={24} color={colors.primary} />
           </TouchableOpacity>
@@ -309,6 +309,7 @@ function OrganizerDashboardScreen() {
         <Text style={styles.eventTitle}>Your Events</Text>
       </View>
       {showEvents}
+        <View style={styles.eventTabs}>{tabs}</View>
     </Screen>
   );
 }
@@ -330,7 +331,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 40,
+    marginBottom: 10,
   },
   searchBar: {
     flexDirection: "row",
@@ -343,15 +344,17 @@ const styles = StyleSheet.create({
   eventTabs: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
+    marginTop: 2,
   },
   upcoming: {
+    marginTop: 4,
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
     paddingBottom: 10,
     fontWeight: "bold",
   },
   previous: {
+    marginTop: 4,
     paddingBottom: 10,
   },
 });
