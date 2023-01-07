@@ -6,7 +6,7 @@ import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
 import Screen from "../components/Screen";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import logo from "../Images/w3.png";
 import FontAwesome from "react-native-vector-icons/SimpleLineIcons";
 import { auth, db } from "../firebase";
@@ -55,7 +55,7 @@ export default function Login() {
         source={logo}
         style={{ marginTop: 18,width: 166, height: 212, alignSelf: "center"}}
       />
-      <ScreenTitle style={{ fontSize: 38,}} title="Login" isTitle={true} /> 
+      <TitleHeaders style={{ fontSize: 38,}} title="Login" isTitle={true} /> 
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"
@@ -122,7 +122,6 @@ export default function Login() {
             color: colors.secondary,
             fontSize: 30,
             paddingHorizontal: 40,
-            fontSize: 30,
             alignSelf: "center",
           }}
           onPress={() => console.log("Facebook")}

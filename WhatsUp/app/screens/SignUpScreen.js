@@ -4,7 +4,7 @@ import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
 import Screen from "../components/Screen";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import Checkbox from "expo-checkbox";
 import {
   auth,
@@ -118,8 +118,8 @@ function SignUpScreen() {
   return (
     <Screen style={{ padding: 20, marginTop: "2%" }}>
       <View style={{ height: "90%", paddingBottom: "20%" }}>
-        <ScreenTitle title="Sign Up" style={{ marginBottom: "2%" }} />
-        <ScreenTitle
+        <TitleHeaders title="Sign Up" style={{ marginBottom: "2%" }} />
+        <TitleHeaders
           title="Please fill the following information"
           isTitle = {false}
           style={{ marginBottom: "2%" }}

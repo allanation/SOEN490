@@ -1,43 +1,43 @@
-import React from 'react';
-import { useState } from 'react';
-import { StyleSheet, View, Text, Button, TouchableOpacity } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import colors from '../config/colors';
-import AppButton from './AppButton';
-import ScreenTitle from '../components/ScreenTitle';
-import { Storage } from 'expo-storage';
+import React from "react";
+import { useState } from "react";
+import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import colors from "../config/colors";
+import AppButton from "./AppButton";
+import TitleHeaders from "../components/TitleHeaders";
+import { Storage } from "expo-storage";
 
 function AndroidDateTimePicker() {
   const [date, setDate] = useState(new Date());
   const [sdate, setSDate] = useState(new Date());
   const [edate, setEDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
+  const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
-  const [clicked, setClicked] = useState('');
+  const [clicked, setClicked] = useState("");
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
-    if (clicked == 'startDate') {
+    if (clicked == "startDate") {
       setSDate(currentDate);
-      setClicked('');
+      setClicked("");
     }
-    if (clicked == 'startTime') {
+    if (clicked == "startTime") {
       setSDate(currentDate);
-      setClicked('');
+      setClicked("");
     }
-    if (clicked == 'endDate') {
+    if (clicked == "endDate") {
       setEDate(currentDate);
-      setClicked('');
+      setClicked("");
     }
-    if (clicked == 'endTime') {
+    if (clicked == "endTime") {
       setEDate(currentDate);
-      setClicked('');
+      setClicked("");
     }
     setShow(false);
   };
 
   const showMode = (currentMode) => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === "android") {
       setShow(true);
       // for iOS, add a button that closes the picker
     }
@@ -45,32 +45,32 @@ function AndroidDateTimePicker() {
   };
 
   const showDatepicker = () => {
-    showMode('date');
+    showMode("date");
   };
 
   const showTimepicker = () => {
-    showMode('time');
+    showMode("time");
   };
 
   const checkID = (status) => () => {
-    if (status == 'startDate') {
-      console.log('hahahhahah');
-      setClicked('startDate');
+    if (status == "startDate") {
+      console.log("hahahhahah");
+      setClicked("startDate");
       showDatepicker();
     }
-    if (status == 'startTime') {
-      console.log('hohohoh');
-      setClicked('startTime');
+    if (status == "startTime") {
+      console.log("hohohoh");
+      setClicked("startTime");
       showTimepicker();
     }
-    if (status == 'endDate') {
-      console.log('hihihihih');
-      setClicked('endDate');
+    if (status == "endDate") {
+      console.log("hihihihih");
+      setClicked("endDate");
       showDatepicker();
     }
-    if (status == 'endTime') {
-      console.log('huhuhuhu');
-      setClicked('endTime');
+    if (status == "endTime") {
+      console.log("huhuhuhu");
+      setClicked("endTime");
       showTimepicker();
     }
   };
@@ -102,7 +102,7 @@ function AndroidDateTimePicker() {
     try {
       const jsonValue = JSON.stringify(eventDates);
       await Storage.setItem({
-        key: 'eventDates',
+        key: "eventDates",
         value: jsonValue,
       });
       console.log(jsonValue);
@@ -115,14 +115,16 @@ function AndroidDateTimePicker() {
       <View style={styles.picker}>
         <AppButton
           style={styles.btn}
-          onPress={checkID('startDate')}
-          title='Start Date'
-          id='111'
+          onPress={checkID("startDate")}
+          title="Start Date"
+          id="111"
+          textStyle={{ color: colors.primary }}
         />
         <AppButton
           style={styles.btn}
-          onPress={checkID('startTime')}
-          title='Start Time'
+          onPress={checkID("startTime")}
+          title="Start Time"
+          textStyle={{ color: colors.primary }}
         />
         <Text style={styles.text}>Event Starts: {sdate.toLocaleString()}</Text>
       </View>
@@ -130,25 +132,27 @@ function AndroidDateTimePicker() {
         style={{
           flex: 1,
           height: 1,
-          width: '100%',
-          backgroundColor: 'lightgrey',
+          width: "100%",
+          backgroundColor: "lightgrey",
         }}
       />
       <View style={styles.picker}>
         <AppButton
           style={styles.btn}
-          onPress={checkID('endDate')}
-          title='End Date'
+          onPress={checkID("endDate")}
+          title="End Date"
+          textStyle={{ color: colors.primary }}
         />
         <AppButton
           style={styles.btn}
-          onPress={checkID('endTime')}
-          title='End Time'
+          onPress={checkID("endTime")}
+          title="End Time"
+          textStyle={{ color: colors.primary }}
         />
         <Text style={styles.text}>Event Ends: {edate.toLocaleString()}</Text>
         {show && (
           <DateTimePicker
-            testID='dateTimePicker'
+            testID="dateTimePicker"
             value={date}
             mode={mode}
             is24Hour={true}
@@ -158,8 +162,10 @@ function AndroidDateTimePicker() {
         )}
       </View>
       <AppButton
-        title={'Confirm'}
+        title={"Confirm"}
         onPress={() => handleAddingEvent(sdate, edate)}
+        style={{ backgroundColor: "white" }}
+        textStyle={{ color: colors.primary }}
       ></AppButton>
     </View>
   );
@@ -168,21 +174,24 @@ function AndroidDateTimePicker() {
 const styles = StyleSheet.create({
   picker: {
     // justifyContent: "center",
-    alignSelf: 'center',
-    width: '60%',
-    paddingVertical: '10%',
+    alignSelf: "center",
+    width: "60%",
+    paddingVertical: "10%",
     marginTop: 20,
   },
   btn: {
+    backgroundColor: colors.offWhite,
     borderRadius: 11,
     marginVertical: 10,
-    backgroundColor: 'gray',
+    outline: 12,
+    // borderWidth: 1,
+    borderColor: colors.primary,
   },
   text: {
     color: colors.darkerGrey,
     fontSize: 16,
-    alignContent: 'center',
-    alignSelf: 'center',
+    alignContent: "center",
+    alignSelf: "center",
   },
 });
 

@@ -3,7 +3,7 @@ import React from "react";
 import { Text, StyleSheet } from "react-native";
 import colors from "../config/colors";
 
-function ScreenTitle({ title, style, isTitle = true }) {
+function TitleHeaders({ title, style, isTitle = true }) {
   return (
     <Text
       style={[
@@ -25,7 +25,7 @@ function ScreenTitle({ title, style, isTitle = true }) {
   );
 }
 
-export default ScreenTitle;
+export default TitleHeaders;
 
 const styles = StyleSheet.create({
   text: {

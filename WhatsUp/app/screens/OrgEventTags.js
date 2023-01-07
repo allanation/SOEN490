@@ -4,8 +4,8 @@ import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
-import ScreenTitle from '../components/ScreenTitle';
-import AddBtn from '../components/AddBtn';
+import TitleHeaders from '../components/TitleHeaders';
+import UtilBtn from '../components/UtilBtn';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
@@ -104,18 +104,18 @@ function OrganizeEventTags() {
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <AddBtn
+        <UtilBtn
           icon="chevron-back-outline"
           style={{position: "absolute", left:0}}
           onPress={() => navigation.navigate("OrgDay")}
         />
-        <ScreenTitle
+        <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Create Event Tags"}
         />
       </View>
       <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
+        <TitleHeaders
           style={{ alignSelf: 'center' }}
           isTitle = {false}
           title='Please fill the following information'
@@ -131,7 +131,7 @@ function OrganizeEventTags() {
           value={currentTag.text}
           onSubmitEditing={handleAddingTag}
         />
-        <ScreenTitle
+        <TitleHeaders
           style={{ paddingHorizontal: 20, color: 'gray' }}
           isTitle = {false}
           title='Add tags to increase visibility'

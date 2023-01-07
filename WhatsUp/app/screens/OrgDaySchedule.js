@@ -4,11 +4,11 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
 import ItineraryEvent from "../components/ItineraryEvent";
-import AddBtn from "../components/AddBtn";
+import UtilBtn from "../components/UtilBtn";
 import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
@@ -94,24 +94,24 @@ function OrganizerDaySchedule({ day }) {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: "100%", display: "flex" }}>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <AddBtn
+          <UtilBtn
             icon="chevron-back-outline"
             onPress={() => navigation.navigate("DateInfo")}
             style={{ position: "absolute", left: 0 }}
           />
-          <ScreenTitle
+          <TitleHeaders
             style={{ alignSelf: "center" }}
             title={"Day " + (day ? day + " " : "") + "schedule"}
           />
         </View>
 
-        <ScreenTitle
+        <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
           title="Please fill the following information"
         />
       </View>
-      <AddBtn
+      <UtilBtn
         style={{ alignSelf: "flex-end", marginRight: 24 }}
         icon="add-circle"
         onPress={() => setModalVisible(true)}
@@ -159,12 +159,12 @@ function OrganizerDaySchedule({ day }) {
       >
         <View style={styles.modalView}>
           <View style={styles.inputView}>
-            <AddBtn
+            <UtilBtn
               icon="chevron-back-outline"
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
-            <ScreenTitle style={{ alignSelf: "center" }} title={"New Item"} />
+            <TitleHeaders style={{ alignSelf: "center" }} title={"New Item"} />
             <ScrollView
               keyboardDismissMode="interactive"
               style={{ width: "100%" }}

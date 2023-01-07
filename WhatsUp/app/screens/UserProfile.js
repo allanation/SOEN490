@@ -2,16 +2,24 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { View, Image, StyleSheet, ScrollView, Alert, Pressable, Text } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Pressable,
+  Text,
+} from "react-native";
 import Screen from "../components/Screen";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../Images/w3.png";
 import ImgOrgBottom from "../components/ImgOrgBottom";
 import Links from "../components/Links";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
-import AddBtn from "../components/AddBtn";
+import UtilBtn from "../components/UtilBtn";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -60,24 +68,21 @@ function UserProfile() {
   getKey();
 
   const updateFirestoreEmail = async () => {
-  const docRef = doc(db, "users", docKey);
-  const data = {
-    email: newEmail,
+    const docRef = doc(db, "users", docKey);
+    const data = {
+      email: newEmail,
+    };
+    await updateDoc(docRef, data)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  await updateDoc(docRef, data)
-    .then(() => {
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
 
   const updateEmailForCurrentUser = () => {
     updateEmail(user, newEmail)
-      .then(() => {
-      })
-      .catch((error) => {
-      });
+      .then(() => {})
+      .catch((error) => {});
   };
 
   const sendResetEmail = () => {
@@ -126,7 +131,7 @@ function UserProfile() {
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
       <View style={{ left: "1.5%", marginTop: "5%" }}>
-        <ScreenTitle title="Profile" style={{ marginBottom: "2%" }} />
+        <TitleHeaders title="Profile" style={{ marginBottom: "2%" }} />
 
         <Image
           source={logo}
@@ -139,7 +144,7 @@ function UserProfile() {
         />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <ScreenTitle
+        <TitleHeaders
           title="Name"
           style={{ marginBottom: "2%", fontSize: 20, marginTop: "10%" }}
         />
@@ -158,9 +163,9 @@ function UserProfile() {
         /> */}
       </View>
       <View>
-        <ScreenTitle
+        <TitleHeaders
           title={userName}
-          isTitle = {false}
+          isTitle={false}
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
@@ -170,7 +175,7 @@ function UserProfile() {
         />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <ScreenTitle
+        <TitleHeaders
           title="Email"
           style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
@@ -188,8 +193,8 @@ function UserProfile() {
         />
       </View>
       <View>
-        <ScreenTitle
-        isTitle = {false}
+        <TitleHeaders
+          isTitle={false}
           title={user.email}
           style={{
             marginBottom: "2%",
@@ -198,15 +203,25 @@ function UserProfile() {
             fontSize: 16,
           }}
         />
-        <ScreenTitle
+        <TitleHeaders
           title="Password"
           style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
-        <Pressable onPress={checkIfEmailExists} children={({ pressed }) => (
-          <Text style={{ color: pressed ? '#FF9E00' : colors.primary, marginLeft: "1%", marginTop: "0.5%", fontSize: 16}}>
-            Change Password
-          </Text>
-        )}/>
+        <Pressable
+          onPress={checkIfEmailExists}
+          children={({ pressed }) => (
+            <Text
+              style={{
+                color: pressed ? "#FF9E00" : colors.primary,
+                marginLeft: "1%",
+                marginTop: "0.5%",
+                fontSize: 16,
+              }}
+            >
+              Change Password
+            </Text>
+          )}
+        />
       </View>
       <ImgOrgBottom resizeMode="contain" />
       <AppModal
@@ -218,9 +233,9 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <AddBtn
-            style={styles.backModal}
-            icon="chevron-back-outline"
+          <UtilBtn
+            style={{ opacity: 1 }}
+            icon="chevron-back"
             onPress={() => setModalVisibleName(!modalVisibleName)}
           />
           <View style={styles.inputView}>
@@ -228,7 +243,7 @@ function UserProfile() {
               keyboardDismissMode="interactive"
               style={{ width: "100%" }}
             >
-              <ScreenTitle
+              <TitleHeaders
                 style={{
                   alignSelf: "center",
                   fontSize: 22,
@@ -260,9 +275,10 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <AddBtn
-            style={styles.backModal}
-            icon="chevron-back-outline"
+          <UtilBtn
+          title=""
+            style={{ opacity: 1 }}
+            icon="chevron-back"
             onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
           />
           <View style={styles.inputView}>
@@ -270,7 +286,7 @@ function UserProfile() {
               keyboardDismissMode="interactive"
               style={{ width: "100%" }}
             >
-              <ScreenTitle
+              <TitleHeaders
                 style={{
                   alignSelf: "center",
                   fontSize: 22,
@@ -326,9 +342,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     paddingTop: 20,
-  },
-  backModal: {
-    backgroundColor: "black",
   },
 });
 

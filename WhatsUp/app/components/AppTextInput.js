@@ -13,16 +13,22 @@ function AppTextInput({ style, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     borderColor: colors.lightGrey,
     borderRadius: 12,
     paddingVertical: 7,
     paddingHorizontal: 12,
     width: "98%",
     marginVertical: 10,
-    opacity: 0.8,
+    opacity: 1,
     // borderStyle: "ridge",
     borderWidth: 1,
     marginLeft: "1%",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 2, //IOS
+    elevation: 4, // Android
   },
   text: {
     opacity: 1,

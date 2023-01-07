@@ -3,8 +3,8 @@
 import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
-import ScreenTitle from "../components/ScreenTitle";
-import AddBtn from "../components/AddBtn";
+import TitleHeaders from "../components/TitleHeaders";
+import UtilBtn from "../components/UtilBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";
@@ -32,24 +32,24 @@ function OrganizerDateInfo() {
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <AddBtn
+        <UtilBtn
           icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
           onPress={() => navigation.navigate("POC")}
         />
-        <ScreenTitle
+        <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
-        <ScreenTitle
+        <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
           title="Please pick the dates for your event"
         />
       </View>
-      <ScrollView style={{ paddingTop: 20 }}>
+      <View style={{ paddingTop: 20 }}>
         <View>
           {Platform.OS === "ios" ? (
             <IOSDateTimePicker />
@@ -57,7 +57,7 @@ function OrganizerDateInfo() {
             <AndroidDateTimePicker />
           )}
         </View>
-      </ScrollView>
+      </View>
       <View>
         <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
       </View>

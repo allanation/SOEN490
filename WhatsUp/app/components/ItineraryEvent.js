@@ -3,9 +3,9 @@ import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native';
 import colors from '../config/colors';
 import AppModal from './AppModal';
 import { Ionicons } from '@expo/vector-icons';
-import AddBtn from '../components/AddBtn';
+import UtilBtn from '../components/UtilBtn';
 import { ScrollView } from 'react-native';
-import ScreenTitle from '../components/ScreenTitle';
+import TitleHeaders from '../components/TitleHeaders';
 import AppTextInput from './AppTextInput';
 import AppButton from './AppButton';
 
@@ -94,7 +94,7 @@ function ItineraryEvent({
         }}
       >
         <View style={styles.modalView}>
-          <AddBtn
+          <UtilBtn
             style={styles.backModal}
             onPress={() => setModalVisible(!modalVisible)}
             icon="chevron-back-outline"
@@ -104,7 +104,7 @@ function ItineraryEvent({
               keyboardDismissMode='interactive'
               style={{ width: '100%' }}
             >
-              <ScreenTitle
+              <TitleHeaders
                 style={{ alignSelf: 'center' }}
                 title={'Edit Item'}
               />
