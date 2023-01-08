@@ -1,7 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, Text, View, Image, Alert, Animated, Easing } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  Alert,
+  Animated,
+  Easing,
+} from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -36,7 +44,6 @@ export default function Login() {
             }
           });
         }
-        
       })
       .catch(() => {
         Alert.alert("Try again", "Invalid email or password.");
@@ -50,23 +57,42 @@ export default function Login() {
     navigation.navigate("ResetPassword");
   };
   return (
-    <Screen topPadding={-20} resizeMode="cover" backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif" style={{ paddingHorizontal: '10%', marginTop: 10 }}>
+    <Screen
+      topPadding={-20}
+      resizeMode="cover"
+      backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif"
+      style={{ paddingHorizontal: "10%", marginTop: 10 }}
+    >
       <Image
         source={logo}
-        style={{ marginTop: 18,width: 166, height: 212, alignSelf: "center"}}
+        style={{ marginTop: 18, width: 166, height: 212, alignSelf: "center" }}
       />
-      <TitleHeaders style={{ fontSize: 38,}} title="Login" isTitle={true} /> 
+      <TitleHeaders style={{ fontSize: 38 }} title="Login" isTitle={true} />
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"
         onChangeText={(text) => setEmail(text.toLowerCase())}
         value={email}
+        style={{
+          shadowColor: "black", // IOS
+          shadowOffset: { height: 1, width: 1 }, // IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 2, //IOS
+          elevation: 4, // Android
+        }}
       />
       <AppTextInput
         placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}
+        style={{
+          shadowColor: "black", // IOS
+          shadowOffset: { height: 1, width: 1 }, // IOS
+          shadowOpacity: 0.2, // IOS
+          shadowRadius: 2, //IOS
+          elevation: 4, // Android
+        }}
       />
       <View style={styles.organizertwo}>
         <Links
@@ -87,8 +113,8 @@ export default function Login() {
           paddingVertical: 15,
         }}
       >
-      <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
-      <View>
+        <View style={{ flex: 1, height: 1, backgroundColor: "lightgrey" }} />
+        <View>
           <Text
             style={{
               width: 105,

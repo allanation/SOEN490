@@ -20,15 +20,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     width: "98%",
     marginVertical: 10,
-    opacity: 1,
+    opacity: 0.9,
     // borderStyle: "ridge",
     borderWidth: 1,
     marginLeft: "1%",
-    shadowColor: "black", // IOS
-    shadowOffset: { height: 1, width: 1 }, // IOS
-    shadowOpacity: 0.2, // IOS
-    shadowRadius: 2, //IOS
-    elevation: 4, // Android
   },
   text: {
     opacity: 1,

@@ -283,7 +283,7 @@ function OrganizerDashboardScreen() {
             iconSize={40}
             style={[styles.button, { flexDirection: "row", size: 12 }]}
             icon="add-circle-outline"
-            onPress={() => console.log("Filters")}
+            onPress={() => navigation.navigate("NewEvent")}
           />
         </View>
 
