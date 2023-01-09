@@ -25,7 +25,7 @@ const TabScreen = () => {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
 
-          if (route.name === 'Organizer') {
+          if (route.name === 'OrganizerDashboard') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'UserProfile') {
             iconName = focused ? 'ios-person' : 'ios-person-outline';
@@ -42,7 +42,7 @@ const TabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name='Organizer' component={OrgDashboard} />
+      <Tab.Screen name='OrganizerDashboard' component={OrgDashboard} />
       <Tab.Screen name='Add' component={OrgDashboard} />
       <Tab.Screen name='UserProfile' component={UserProfile} />
     </Tab.Navigator>

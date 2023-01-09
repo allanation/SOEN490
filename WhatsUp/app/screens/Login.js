@@ -15,16 +15,15 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../config/colors";
-import { async } from "@firebase/util";
 
 export default function Login() {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isOrganizer, setIsOrganizer] = useState(false);
+  const [isOrganizer] = useState(false);
   const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email, password)
-      .then(async (auth) => {
+      .then(async () => {
         const q = query(collection(db, "users"), where("email", "==", email));
         const querySnapshot = await getDocs(q);
         if (querySnapshot != null) {

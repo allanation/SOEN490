@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";

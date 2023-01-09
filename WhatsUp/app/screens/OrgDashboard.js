@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -6,12 +8,10 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import EventBanner from "../components/EventBanner";
 import SearchBar from "react-native-dynamic-search-bar";
 import EventImage from "../assets/stringio.jpg";
@@ -201,11 +201,10 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  const toggleDisplay = (e) => {
+  const toggleDisplay = () => {
     setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
-  var dE;
   var tabs;
   var showEvents;
   if (displayedEvent) {
@@ -308,9 +307,8 @@ function OrganizerDashboardScreen() {
           </TouchableOpacity>
         </View>
         <Text style={styles.eventTitle}>Your Events</Text>
-
-        {showEvents}
       </ScrollView>
+      {showEvents}
     </Screen>
   );
 }
@@ -332,7 +330,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 40,
   },
   searchBar: {
     flexDirection: "row",

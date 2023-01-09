@@ -8,7 +8,7 @@ import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
 import Event from "../components/Event";
 import FilterButton from "../components/FilterButton";
-import School from "../assets/Icons/stringio.png";// Temporary Placeholder
+import School from "../assets/Icons/stringio.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import {
@@ -42,46 +42,24 @@ function UserDashboard() {
 
   getName();
 
+  function getEvents() {
+    let eventsInfo = [];
+    for (let i = 0; i <= 5; i++) {
+      const event = {
+        image: { School },
+        title: "Orientation Week",
+        organizer: "Concordia University",
+        date: "May 21, 2022",
+        key: i,
+      };
+      eventsInfo[i] = event;
+    }
+    return eventsInfo;
+  }
+
   var welcome = "Welcome, " + userName + "!";
 
-  const events = [
-    {
-      image: {School},
-      title: 'Orientation Jake',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Terry',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Amy',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Rosa',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Charles',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Ray',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-  ];
+  const events = getEvents();
 
   // eslint-disable-next-line no-unused-vars
   const Tab = createBottomTabNavigator();
