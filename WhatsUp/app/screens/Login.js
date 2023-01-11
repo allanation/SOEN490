@@ -31,8 +31,10 @@ export default function Login() {
             console.log(doc.id, " => ", doc.data());
             if (isOrganizer == doc.data().isOrganizer) {
               navigation.navigate("UserDashboard");
+              setPassword("");
             } else {
               navigation.navigate("Organizer");
+              setPassword("");
             }
           });
         }
