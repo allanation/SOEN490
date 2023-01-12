@@ -1,15 +1,21 @@
-/* eslint-disable react/no-children-prop */
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-children-prop */
 import React, { useState } from "react";
-import { View, Image, StyleSheet, ScrollView, Alert, Pressable, Text } from "react-native";
+import {
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Alert,
+  Pressable,
+  Text,
+} from "react-native";
 import Screen from "../components/Screen";
 import ScreenTitle from "../components/ScreenTitle";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../Images/w3.png";
 import ImgOrgBottom from "../components/ImgOrgBottom";
 import ScreenSubtitle from "../components/ScreenSubtitle";
-import Links from "../components/Links";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
 import BackBtn from "../components/BackBtn";
@@ -17,7 +23,7 @@ import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import { sendPasswordResetEmail, updateEmail } from "firebase/auth";
+import { sendPasswordResetEmail, updateEmail, signOut } from "firebase/auth";
 import {
   collection,
   getDocs,
@@ -27,11 +33,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 function UserProfile() {
+  const navigation = useNavigation();
   const [modalVisibleName, setModalVisibleName] = useState(false);
   const [modalVisibleEmail, setModalVisibleEmail] = useState(false);
-  const [newName, setNewName] = useState("");
+  const [setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [docKey, setDocKey] = useState("");
   const [userName, setUserName] = useState("");
@@ -61,24 +69,21 @@ function UserProfile() {
   getKey();
 
   const updateFirestoreEmail = async () => {
-  const docRef = doc(db, "users", docKey);
-  const data = {
-    email: newEmail,
+    const docRef = doc(db, "users", docKey);
+    const data = {
+      email: newEmail,
+    };
+    await updateDoc(docRef, data)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
   };
-  await updateDoc(docRef, data)
-    .then(() => {
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }
 
   const updateEmailForCurrentUser = () => {
     updateEmail(user, newEmail)
-      .then(() => {
-      })
-      .catch((error) => {
-      });
+      .then(() => {})
+      .catch(() => {});
   };
 
   const sendResetEmail = () => {
@@ -122,6 +127,13 @@ function UserProfile() {
         console.log(error.message);
         Alert.alert(error.message);
       });
+  };
+
+  const logOut = () => {
+    navigation.navigate("Login");
+    signOut(auth).then(function() {
+      Alert.alert("You have been logged out.");
+    });
   };
 
   return (
@@ -201,11 +213,42 @@ function UserProfile() {
           title="Password"
           style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
         />
-        <Pressable onPress={checkIfEmailExists} children={({ pressed }) => (
-          <Text style={{ color: pressed ? '#FF9E00' : colors.primary, marginLeft: "1%", marginTop: "0.5%", fontSize: 16}}>
-            Change Password
-          </Text>
-        )}/>
+        <Pressable
+          onPress={checkIfEmailExists}
+          children={({ pressed }) => (
+            <Text
+              style={{
+                color: pressed ? "#FF9E00" : colors.primary,
+                marginLeft: "1%",
+                marginTop: "0.5%",
+                fontSize: 16,
+              }}
+            >
+              Change Password
+            </Text>
+          )}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <Ionicons
+          name="log-out"
+          style={{
+            fontSize: 28,
+            marginTop: 80,
+            alignSelf: "flex-end",
+            marginLeft: "auto",
+          }}
+          color={colors.lightGrey}
+          onPress={() =>
+            Alert.alert("Log out", "You will be returned to the login screen.", [
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+              { text: "Log out", onPress: () => logOut() },
+            ])
+          }
+        />
       </View>
       <ImgOrgBottom resizeMode="contain" />
       <AppModal
