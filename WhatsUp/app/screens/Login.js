@@ -7,8 +7,6 @@ import {
   View,
   Image,
   Alert,
-  Animated,
-  Easing,
 } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
@@ -16,7 +14,6 @@ import Links from "../components/Links";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
 import logo from "../Images/w3.png";
-import FontAwesome from "react-native-vector-icons/SimpleLineIcons";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -67,7 +64,7 @@ export default function Login() {
         source={logo}
         style={{ marginTop: 18, width: 166, height: 212, alignSelf: "center" }}
       />
-      <TitleHeaders style={{ fontSize: 38 }} title="Login" isTitle={true} />
+      <TitleHeaders style={{ fontSize: 38, marginTop: 20, marginBottom: 5 }} title="Login" isTitle={true} />
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"

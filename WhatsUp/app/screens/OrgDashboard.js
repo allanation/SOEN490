@@ -344,15 +344,15 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   upcoming: {
-    marginTop: 4,
+    marginTop: 5,
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
-    paddingBottom: 10,
+    paddingBottom: 5,
     fontWeight: "bold",
   },
   previous: {
-    marginTop: 4,
-    paddingBottom: 10,
+    marginTop: 5,
+    paddingBottom: 5,
   },
 });
 

@@ -144,41 +144,42 @@ function UserProfile() {
         />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <TitleHeaders
-          title="Name"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "10%" }}
-        />
-        {/* code if we ever want to edit the name: */}
-        {/* <Ionicons
-          name="pencil"
-          onPress={() => setModalVisibleName(true)}
-          size={20}
-          color={colors.primary}
+        <Text
           style={{
             marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
             marginTop: "10%",
-            alignSelf: "flex-end",
-            marginLeft: "auto",
+            marginLeft: "1%",
           }}
-        /> */}
+        >
+          Name
+        </Text>
       </View>
       <View>
-        <TitleHeaders
-          title={userName}
-          isTitle={false}
+        <Text
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
             fontSize: 16,
           }}
-        />
+        >
+          {userName}
+        </Text>
       </View>
       <View style={{ flexDirection: "row" }}>
-        <TitleHeaders
-          title="Email"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
-        />
+        <Text
+          style={{
+            marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginTop: "5%",
+            marginLeft: "1%",
+          }}
+        >
+          Email
+        </Text>
         <Ionicons
           name="pencil"
           onPress={() => setModalVisibleEmail(true)}
@@ -193,20 +194,27 @@ function UserProfile() {
         />
       </View>
       <View>
-        <TitleHeaders
-          isTitle={false}
-          title={user.email}
+        <Text
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
             fontSize: 16,
           }}
-        />
-        <TitleHeaders
-          title="Password"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
-        />
+        >
+          {user.email}
+        </Text>
+        <Text
+          style={{
+            marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginTop: "5%",
+            marginLeft: "1%",
+          }}
+        >
+          Password
+        </Text>
         <Pressable
           onPress={checkIfEmailExists}
           children={({ pressed }) => (
@@ -276,7 +284,7 @@ function UserProfile() {
       >
         <View style={styles.modalView}>
           <UtilBtn
-          title=""
+            title=""
             style={{ opacity: 1 }}
             icon="chevron-back"
             onPress={() => setModalVisibleEmail(!modalVisibleEmail)}

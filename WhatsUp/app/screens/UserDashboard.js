@@ -77,7 +77,7 @@ function UserDashboard() {
         <UtilBtn
           icon="pin"
           iconSize={18}
-          title="Location, QC"
+          title="Montreal, QC"
           testID="location"
         />
           <UtilBtn
@@ -96,7 +96,7 @@ function UserDashboard() {
 
         <View style={{ flexDirection: "row" }}>
           <SearchBar
-            style={{ width: "85%" }}
+            style={{ width: "85%", marginTop: 15 }}
             placeholder="Search for..."
             onChangeText={(text) => {
               // searchFilter(text);  <-- !!! to be fixed !!!
@@ -107,7 +107,7 @@ function UserDashboard() {
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: "row", paddingHorizontal: 12 },
+              { flexDirection: "row", paddingHorizontal: 12, marginTop: 15 },
             ]}
             icon="ios-options"
             onPress={() => console.log("Filters")}
@@ -172,11 +172,12 @@ const styles = StyleSheet.create({
     color: "#100101",
     fontSize: 20,
     fontWeight: "bold",
+    marginTop: 10
   },
   date: {
     color: "#969696",
-    marginTop: "6%",
-    fontSize: 12,
+    marginTop: "3%",
+    fontSize: 16,
   },
   text: {
     color: "#100101",
