@@ -11,14 +11,13 @@ import {
   Text,
 } from "react-native";
 import Screen from "../components/Screen";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../Images/w3.png";
 import ImgOrgBottom from "../components/ImgOrgBottom";
-import ScreenSubtitle from "../components/ScreenSubtitle";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
-import BackBtn from "../components/BackBtn";
+import UtilBtn from "../components/UtilBtn";
 import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -139,7 +138,7 @@ function UserProfile() {
   return (
     <Screen style={{ padding: 20, backgroundColor: "#F5F5F5" }}>
       <View style={{ left: "1.5%", marginTop: "5%" }}>
-        <ScreenTitle title="Profile" style={{ marginBottom: "2%" }} />
+        <TitleHeaders title="Profile" style={{ marginBottom: "2%" }} />
 
         <Image
           source={logo}
@@ -152,40 +151,42 @@ function UserProfile() {
         />
       </View>
       <View style={{ flexDirection: "row" }}>
-        <ScreenTitle
-          title="Name"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "10%" }}
-        />
-        {/* code if we ever want to edit the name: */}
-        {/* <Ionicons
-          name="pencil"
-          onPress={() => setModalVisibleName(true)}
-          size={20}
-          color={colors.primary}
+        <Text
           style={{
             marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
             marginTop: "10%",
-            alignSelf: "flex-end",
-            marginLeft: "auto",
+            marginLeft: "1%",
           }}
-        /> */}
+        >
+          Name
+        </Text>
       </View>
       <View>
-        <ScreenSubtitle
-          subtitle={userName}
+        <Text
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
             fontSize: 16,
           }}
-        />
+        >
+          {userName}
+        </Text>
       </View>
       <View style={{ flexDirection: "row" }}>
-        <ScreenTitle
-          title="Email"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
-        />
+        <Text
+          style={{
+            marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginTop: "5%",
+            marginLeft: "1%",
+          }}
+        >
+          Email
+        </Text>
         <Ionicons
           name="pencil"
           onPress={() => setModalVisibleEmail(true)}
@@ -200,19 +201,27 @@ function UserProfile() {
         />
       </View>
       <View>
-        <ScreenSubtitle
-          subtitle={user.email}
+        <Text
           style={{
             marginBottom: "2%",
             marginTop: "0.5%",
             marginLeft: "1%",
             fontSize: 16,
           }}
-        />
-        <ScreenTitle
-          title="Password"
-          style={{ marginBottom: "2%", fontSize: 20, marginTop: "5%" }}
-        />
+        >
+          {user.email}
+        </Text>
+        <Text
+          style={{
+            marginBottom: "2%",
+            fontSize: 22,
+            fontWeight: "bold",
+            marginTop: "5%",
+            marginLeft: "1%",
+          }}
+        >
+          Password
+        </Text>
         <Pressable
           onPress={checkIfEmailExists}
           children={({ pressed }) => (
@@ -260,8 +269,9 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
-            style={styles.backModal}
+          <UtilBtn
+            style={{ opacity: 1 }}
+            icon="chevron-back"
             onPress={() => setModalVisibleName(!modalVisibleName)}
           />
           <View style={styles.inputView}>
@@ -269,7 +279,7 @@ function UserProfile() {
               keyboardDismissMode="interactive"
               style={{ width: "100%" }}
             >
-              <ScreenTitle
+              <TitleHeaders
                 style={{
                   alignSelf: "center",
                   fontSize: 22,
@@ -301,8 +311,10 @@ function UserProfile() {
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
-            style={styles.backModal}
+          <UtilBtn
+            title=""
+            style={{ opacity: 1 }}
+            icon="chevron-back"
             onPress={() => setModalVisibleEmail(!modalVisibleEmail)}
           />
           <View style={styles.inputView}>
@@ -310,7 +322,7 @@ function UserProfile() {
               keyboardDismissMode="interactive"
               style={{ width: "100%" }}
             >
-              <ScreenTitle
+              <TitleHeaders
                 style={{
                   alignSelf: "center",
                   fontSize: 22,
@@ -366,9 +378,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     paddingTop: 20,
-  },
-  backModal: {
-    backgroundColor: "black",
   },
 });
 

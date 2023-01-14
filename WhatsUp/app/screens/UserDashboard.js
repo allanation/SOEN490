@@ -5,10 +5,9 @@ import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
-import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
+import UtilBtn from "../components/UtilBtn";
 import Event from "../components/Event";
-import FilterButton from "../components/FilterButton";
 import School from "../assets/Icons/stringio.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
@@ -212,10 +211,20 @@ useEffect(() => {
     <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
       <View style={{left: '2.5%', marginTop: '5%'}}>
       <View style={{flexDirection: 'row'}}>
-        <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'}/>
-        <View style={{position: 'absolute', right: '4%'}}>
-            <SmallButton image = 'notifications' title="" onPress={() => console.log("Notification")} size={4}/>
-        </View>
+      <UtilBtn
+          icon="pin"
+          iconSize={18}
+          title="Montreal, QC"
+          testID="location"
+        />
+          <UtilBtn
+            style={{ position: "absolute", right: 16 }}
+            icon="notifications"
+            iconSize={24}
+            title=""
+            onPress={() => console.log("Notification")}
+            testID="notification"
+          />
       </View>
 
       <Text style={styles.date}>{today}</Text>
@@ -230,7 +239,15 @@ useEffect(() => {
                 searchFilter(text);
             }}
         />
-        <FilterButton image='ios-options' onPress={() => console.log("Filters")}/>
+        <UtilBtn
+            iconSize={32}
+            style={[
+              styles.button,
+              { flexDirection: "row", paddingHorizontal: 12, marginTop: 15 },
+            ]}
+            icon="ios-options"
+            onPress={() => console.log("Filters")}
+          />
       </View>
 
       <Text style={styles.text}>Popular Events</Text>

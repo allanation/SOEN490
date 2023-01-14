@@ -9,6 +9,7 @@ function AppButton({
   color = 'primary',
   disabled = false,
   style,
+  textStyle
 }) {
   return (
     <TouchableOpacity
@@ -21,14 +22,14 @@ function AppButton({
       onPress={onPress}
       disabled={disabled}
     >
-      <Text style={styles.text}>{title}</Text>
+      <Text style={[styles.text, textStyle]}>{title}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 7,
+    borderRadius: 20,
     alignSelf: 'center',
     alignItems: 'center',
     padding: 12,

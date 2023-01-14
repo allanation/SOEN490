@@ -4,9 +4,8 @@ import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
-import ScreenSubtitle from '../components/ScreenSubtitle';
-import ScreenTitle from '../components/ScreenTitle';
-import BackBtn from '../components/BackBtn';
+import TitleHeaders from '../components/TitleHeaders';
+import UtilBtn from '../components/UtilBtn';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
@@ -104,17 +103,24 @@ function OrganizeEventTags() {
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          title={'Create Event Tags'}
+       <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <UtilBtn
+          icon="chevron-back-outline"
+          style={{position: "absolute", left:0}}
+          onPress={() => navigation.navigate("OrgDay")}
         />
-        <ScreenSubtitle
-          style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+        <TitleHeaders
+          style={{ alignSelf: "center" }}
+          title={"Create Event Tags"}
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('OrgDay')} />
+      <View style={{ width: '100%', display: 'flex' }}>
+        <TitleHeaders
+          style={{ alignSelf: 'center' }}
+          isTitle = {false}
+          title='Please fill the following information'
+        />
+      </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}
@@ -125,9 +131,10 @@ function OrganizeEventTags() {
           value={currentTag.text}
           onSubmitEditing={handleAddingTag}
         />
-        <ScreenSubtitle
+        <TitleHeaders
           style={{ paddingHorizontal: 20, color: 'gray' }}
-          subtitle='Add tags to increase visibility'
+          isTitle = {false}
+          title='Add tags to increase visibility'
         />
         <View style={{ marginTop: 12 }}>
           <View

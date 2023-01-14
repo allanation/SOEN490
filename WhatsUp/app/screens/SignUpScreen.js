@@ -4,8 +4,7 @@ import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
 import Screen from "../components/Screen";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import Checkbox from "expo-checkbox";
 import {
   auth,
@@ -19,7 +18,11 @@ import colors from "../config/colors";
 import ImgOrgBottom from "../components/ImgOrgBottom";
 
 function SignUpScreen() {
+  // Use the `useNavigation` hook to access the navigation object
+  // for the current screen
   const navigation = useNavigation();
+
+  // Initialize the state variables for each input field
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,6 +31,7 @@ function SignUpScreen() {
   const [valid, setValid] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // Define a function to handle the sign up process
   const handleSignUp = async (
     firstName,
     lastName,
@@ -35,37 +39,46 @@ function SignUpScreen() {
     password,
     isOrganizer
   ) => {
+    // Check that the first name field is not empty
     if (firstName.length == 0) {
       Alert.alert("Error", "Please fill out your first name.");
       return;
     }
+
+    // Check that the last name field is not empty
     if (lastName.length == 0) {
       Alert.alert("Error", "Please fill out your last name.");
       return;
     }
+
+    // Attempt to create a new user account with the provided email and password
     await createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
+        // If the account is created successfully, navigate to the login screen
+        // and add the user's details to the Firebase database
         const user = userCredentials.user;
         console.log(user.email);
         Alert.alert("Account Created Succesfully");
         navigation.navigate("Login");
-      })
-      .then(() => {
-        addDoc(collection(db, "users"), {
+        return addDoc(collection(db, "users"), {
           firstName: firstName,
           lastName: lastName,
           email: email,
           isOrganizer: isOrganizer,
-        }).catch((error) => handleErrorMsg(error));
+        });
       })
-      .catch((error) => handleErrorMsg(error));
+      .catch((error) => {
+        // If any errors occur during the sign up process, display an alert
+        // with more information about the error
+        return handleErrorMsg(error);
+      });
   };
 
   const handleErrorMsg = (error) => {
+    // Check error message and show corresponding alert
     if (error.message.includes("missing-email")) {
       Alert.alert("Error", "Please fill in an email");
-    }
-    if (error.message.includes("invalid-email")) {
+    } else if (error.message.includes("invalid-email")) {
       Alert.alert("Error", "Invalid Email");
     } else if (error.message.includes("email-already-in-use")) {
       Alert.alert("Error", "Email already in use");
@@ -74,9 +87,12 @@ function SignUpScreen() {
     } else if (error.message.includes("weak-password")) {
       Alert.alert("Error", "Passwords must be at least 6 characters.");
     }
+    // Log error message for debugging purposes
     console.log(error.message);
   };
+
   const handleConfirmPass = (confirmPassword) => {
+    // Set value of confirm password and check if it matches password
     setConfirmPassword(confirmPassword);
     if (confirmPassword.length > 0) {
       if (confirmPassword !== password) {
@@ -88,6 +104,7 @@ function SignUpScreen() {
   };
 
   const handlePassword = (password) => {
+    // Set value of password and check if it matches confirm password
     setPassword(password);
     if (password.length > 0) {
       if (password !== confirmPassword) {
@@ -101,9 +118,10 @@ function SignUpScreen() {
   return (
     <Screen style={{ padding: 20, marginTop: "2%" }}>
       <View style={{ height: "90%", paddingBottom: "20%" }}>
-        <ScreenTitle title="Sign Up" style={{ marginBottom: "2%" }} />
-        <ScreenSubtitle
-          subtitle="Please fill the following information"
+        <TitleHeaders title="Sign Up" style={{ marginBottom: "2%" }} />
+        <TitleHeaders
+          title="Please fill the following information"
+          isTitle = {false}
           style={{ marginBottom: "2%" }}
         />
         <AppTextInput
