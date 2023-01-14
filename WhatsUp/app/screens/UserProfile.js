@@ -1,6 +1,5 @@
-/* eslint-disable react/no-children-prop */
 /* eslint-disable no-undef */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/no-children-prop */
 import React, { useState } from "react";
 import {
   View,
@@ -16,7 +15,6 @@ import TitleHeaders from "../components/TitleHeaders";
 import { Ionicons } from "@expo/vector-icons";
 import logo from "../Images/w3.png";
 import ImgOrgBottom from "../components/ImgOrgBottom";
-import Links from "../components/Links";
 import colors from "../config/colors";
 import AppModal from "../components/AppModal";
 import UtilBtn from "../components/UtilBtn";
@@ -24,7 +22,7 @@ import AppTextInput from "../components/AppTextInput";
 import AppButton from "../components/AppButton";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import { sendPasswordResetEmail, updateEmail } from "firebase/auth";
+import { sendPasswordResetEmail, updateEmail, signOut } from "firebase/auth";
 import {
   collection,
   getDocs,
@@ -34,11 +32,13 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { fetchSignInMethodsForEmail } from "firebase/auth";
+import { useNavigation } from "@react-navigation/native";
 
 function UserProfile() {
+  const navigation = useNavigation();
   const [modalVisibleName, setModalVisibleName] = useState(false);
   const [modalVisibleEmail, setModalVisibleEmail] = useState(false);
-  const [newName, setNewName] = useState("");
+  const [setNewName] = useState("");
   const [newEmail, setNewEmail] = useState("");
   const [docKey, setDocKey] = useState("");
   const [userName, setUserName] = useState("");
@@ -82,7 +82,7 @@ function UserProfile() {
   const updateEmailForCurrentUser = () => {
     updateEmail(user, newEmail)
       .then(() => {})
-      .catch((error) => {});
+      .catch(() => {});
   };
 
   const sendResetEmail = () => {
@@ -126,6 +126,13 @@ function UserProfile() {
         console.log(error.message);
         Alert.alert(error.message);
       });
+  };
+
+  const logOut = () => {
+    navigation.navigate("Login");
+    signOut(auth).then(function() {
+      Alert.alert("You have been logged out.");
+    });
   };
 
   return (
@@ -229,6 +236,27 @@ function UserProfile() {
               Change Password
             </Text>
           )}
+        />
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <Ionicons
+          name="log-out"
+          style={{
+            fontSize: 28,
+            marginTop: 80,
+            alignSelf: "flex-end",
+            marginLeft: "auto",
+          }}
+          color={colors.lightGrey}
+          onPress={() =>
+            Alert.alert("Log out", "You will be returned to the login screen.", [
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+              { text: "Log out", onPress: () => logOut() },
+            ])
+          }
         />
       </View>
       <ImgOrgBottom resizeMode="contain" />

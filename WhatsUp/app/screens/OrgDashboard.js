@@ -275,7 +275,7 @@ function OrganizerDashboardScreen() {
             <Text style={{ color: colors.darkGrey }}>
               <Text style={styles.paragraph}>{date}</Text>{" "}
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 28 }}>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
               Welcome, {userName}!
             </Text>
           </View>
