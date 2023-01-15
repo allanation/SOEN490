@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
     accentColor: 'red',
     width: '40%',
     marginBottom: 10,
-    // backgroundColor: 'red'
   },
   text: {
     paddingTop: 50,

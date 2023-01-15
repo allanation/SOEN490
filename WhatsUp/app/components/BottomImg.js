@@ -3,12 +3,8 @@ import { StyleSheet, Image } from "react-native";
 import logo from "../assets/Logos/waves.png";
 import { Dimensions } from "react-native";
 
+// eslint-disable-next-line no-empty-pattern
 function BottomImg({}) {
-  //     <KeyboardAvoidingView
-  //   behavior={Platform.OS === "ios" ? "padding" : "height"}
-  //   enabled={false}
-  //   style={styles.container}
-  // >
 
   return (
     <Image
@@ -16,7 +12,6 @@ function BottomImg({}) {
       source={logo}
     />
   );
-  // </KeyboardAvoidingView>
 }
 
 const imageAspectRatio = (2481 / 1144);

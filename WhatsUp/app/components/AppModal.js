@@ -1,18 +1,19 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Modal, StyleSheet, View, Platform } from 'react-native';
 import { BlurView } from "expo-blur";
 
+
 function AppModal({ children, style, ...otherProps }) {
     return (
         <Modal {...otherProps}>
-             <BlurView 
-              style= {styles.blurBackground}
-              intensity={10}
-            >
+            <View style={{ flex: 1, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+             <BlurView intensity={80} style={{ flex: 1 }}>
             <View style={[styles.centeredView, style]}>
                 {children}
             </View>
             </BlurView>
+            </View>
         </Modal>
     );
 }
