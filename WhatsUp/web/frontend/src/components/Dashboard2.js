@@ -4,6 +4,7 @@ import EventImage from "../images/concordiaUni.jpg";
 import WhatsUpLogo from "../images/w1.png";
 import UserImage from "../images/george.jpeg";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
@@ -31,26 +32,18 @@ function Dashboard2() {
   const [viewRejected, clickRejected] = useState(false);
   const storage = getStorage();
 
-  // function downloadURL(filePath){
-  // if (filePath){
-  // console.log(filePath);
-  // getDownloadURL(ref(storage, filePath))
-  // .then((url) => {
-  //   // `url` is the download URL for 'images/stars.jpg'
-  //   // Or inserted into an <img> element
-  //   const img = document.getElementById('eventImg');
-  //   img.setAttribute('src', url);
-  //   console.log(url);
-  // })
-  // .catch((error) => {
-  //   // Handle any errors
-  // })}};
+  const getImage = async (url) => {
+    const paths = url.split("/");
+    const lastPath = paths[paths.length-1]
+    const imageURL = getDownloadURL(ref(storage, lastPath))
+    return imageURL;
+  }
 
-  // USEEFFECT TO LOAD THE UNAPPROVED EVENTS
+  // useEffect to load unapproved events
   const getUnApprovedEvents = async () => {
     const name = "Unapproved";
     //will need to change the "isApproved" to "eventStatus" once we have more examples
-    const q = query(collection(db, "events"), where("isApproved", "==", name));
+    const q = query(collection(db, "events"), where("eventStatus", "==", name));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -61,7 +54,7 @@ function Dashboard2() {
     } else console.error("Cant find unapproved events at the moment");
   };
 
-  // USEEFFECT TO LOAD THE APPROVED EVENTS
+  // useEffect to load approved events
   const ApprovedEvents = async () => {
     const name = "Approved";
     const q = query(collection(db, "events"), where("isApproved", "==", name));
@@ -75,7 +68,7 @@ function Dashboard2() {
     } else console.error("Cant find approved events at the moment");
   };
 
-  // useeffect shows rejected events
+    // useEffect to load rejected events
   const RejectedEvents = async () => {
     const name = "Rejected";
     const q = query(collection(db, "events"), where("isApproved", "==", name));
@@ -90,7 +83,7 @@ function Dashboard2() {
   };
 
 
-  // To reject function on press!
+  // Rejects the event onClick
   const handleRejectEvents = async (x) => {
     const changingToReject = doc(db, "events", x);
     await updateDoc(changingToReject, {
@@ -98,7 +91,7 @@ function Dashboard2() {
     });
   };
 
-  // To accept on press function!
+  // Accepts the event onClick
   const handleAcceptanceEvents = async (x) => {
     const changingToApprove = doc(db, "events", x);
     await updateDoc(changingToApprove, {
@@ -106,7 +99,7 @@ function Dashboard2() {
     });
   };
 
-  //when you reject, you can add a comment
+  //Adds comment to the unapproved event about to be rejected
   const handleComments = async (x, suggestion) => {
     const changingToApprove = doc(db, "events", x);
     await updateDoc(changingToApprove, {
@@ -126,7 +119,7 @@ function Dashboard2() {
 
 
   return (
-    <div className={modalVisible == true? 'container-blur col-12': 'container col-12'}>
+    <div className='container col-12'>
       {viewUnapproved && unapprovedevents.map(unapprovedEvent => ( selectedEvent === unapprovedEvent.id &&
       <div className="event-details col-8">
         <div className="logo col-12">
@@ -135,7 +128,7 @@ function Dashboard2() {
         </div>
         <div className="event-header col-12">
           <div className="event-image col-6">
-            <img id="eventImage" src={EventImage} alt="Event" />
+            <img id="eventImage" src={getImage(unapprovedEvent.coverImage)} alt="Event" />
           </div>
           <div className="main-details col-6">
             <div className="main-detail-left col-6">
@@ -223,7 +216,12 @@ function Dashboard2() {
               <div className="reject-btn" onClick={() => setModalVisible(true)}>Reject</div>
             </div>
            { modalVisible && <div className="reject-comments">
+            <div className="btn-title-comments">
+            <div className="backButton">
+            <ChevronLeftIcon style={{ color: "#00c0a4", left:"20px", fontSize: "35"}} onClick={() => setModalVisible(false)}></ChevronLeftIcon>
+            </div>
             <h2>Add Comments</h2>
+            </div>
             <h4>For {unapprovedEvent.eventName} by {unapprovedEvent.orgName}</h4>
             <textarea className="comments" placeholder="comments"></textarea>
             <button className="comment-reject-btn" onClick={() => {setModalVisible(false); handleRejectEvents(unapprovedEvent.id)}}>
@@ -425,9 +423,9 @@ function Dashboard2() {
       <div className="view-events col-4">
         <div className="view-nav col-12">
           <div className="event-status">
-            <button className={viewApproved == true? 'active-status-btn': 'status-btn'} onClick={() => {clickApproved(true); clickUnapproved(false); clickRejected(false)}}>Approved</button>
-            <button className={viewUnapproved == true? 'active-status-btn': 'status-btn'} onClick={() => {clickUnapproved(true); clickApproved(false); clickRejected(false)}}>Unapproved</button>
-            <button className={viewRejected == true? 'active-status-btn': 'status-btn'} onClick={() => {clickRejected(true); clickApproved(false); clickUnapproved(false)}}>Rejected</button>
+            <button className={viewApproved === true? 'active-status-btn': 'status-btn'} onClick={() => {clickApproved(true); clickUnapproved(false); clickRejected(false)}}>Approved</button>
+            <button className={viewUnapproved === true? 'active-status-btn': 'status-btn'} onClick={() => {clickUnapproved(true); clickApproved(false); clickRejected(false)}}>Unapproved</button>
+            <button className={viewRejected === true? 'active-status-btn': 'status-btn'} onClick={() => {clickRejected(true); clickApproved(false); clickUnapproved(false)}}>Rejected</button>
           </div>
           <div className="logout-btn">
             <p>Log Out</p>

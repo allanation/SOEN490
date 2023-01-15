@@ -11,6 +11,8 @@ import ScreenTitle from '../components/ScreenTitle';
 import BackBtn from '../components/BackBtn';
 import { useNavigation } from '@react-navigation/native';
 import { Storage } from 'expo-storage';
+import {storage} from '../firebase';
+import {ref, uploadBytesResumable, getDownloadURL} from "firebase/storage";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -77,10 +79,25 @@ function OrganizerNewEvent() {
       const jsonValue = JSON.stringify(newEvent);
       await Storage.setItem({
         key: 'newEvent',
-        value: jsonValue,
+        value: jsonValue, 
       });
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const uploadToStorage = async() => {
+    const {uri} = coverImage
+    const paths = coverImage.split("/");
+    const lastPath = paths[paths.length-1];
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    const task = storage()
+    .ref(lastPath)
+    .putFile(uploadUri);
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
     }
   };
 

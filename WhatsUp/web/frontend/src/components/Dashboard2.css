@@ -10,13 +10,6 @@
     height: 100vh;
   }
 
-  .container-blur{
-    filter: blur(2px);
-    display: flex;
-    flex-direction: row;
-    height: 100vh;
-  }
-
   .logo {
     width: 48px;
     height: 48px;
@@ -163,13 +156,25 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    line-height: 1.4;
+    line-height: 2.1;
     padding: 14px 28px;
     border-radius: 20px;
-    max-width: 600px;
-    min-width: 300px;
+    max-width: 900px;
+    min-width: 590px;
     text-align: center;
-    box-shadow: 1px 1px 6px 6px rgb(216, 210, 210);
+    box-shadow: 3px 3px 10px 10px rgb(216, 210, 210);
+    backdrop-filter: blur(15px);
+  }
+
+  .btn-title-comments{
+    display: flex;
+    flex-direction: row;
+    gap: 150px;
+  }
+
+  .backButton{
+    margin-top: 12px;
+    display: flex;
   }
 
   .reject-comments h4{
@@ -178,15 +183,15 @@
 
   .comments{
     margin-top: 20px;
-    border: 1px solid black;
-    height: 300px;
+    border: 1px solid darkgray;
+    height: 380px;
     width: 90%;
   }
 
 .comment-reject-btn {
   text-align: right;
   margin-top: 10px;
-  margin-left: 330px;
+  margin-left: 370px;
   background-color: var(--primary);
   width: 120px;
   height: 48px;
