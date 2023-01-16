@@ -268,6 +268,8 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    align-content: flex-start;
+    gap: 12px;
     overflow-y: auto;
     height: 75vh;
     margin-bottom: 18px;
