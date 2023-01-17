@@ -257,7 +257,7 @@ function UserDashboard() {
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: 'row', paddingHorizontal: 12, marginTop: 15 },
+              { flexDirection: 'row', paddingHorizontal: 12, marginTop: 5 },
             ]}
             icon='ios-options'
             onPress={() => console.log('Filters')}
@@ -285,15 +285,16 @@ const styles = StyleSheet.create({
     color: '#100101',
     fontSize: 25,
     fontWeight: 'bold',
+    marginBottom: 8
   },
   date: {
     color: '#969696',
-    marginTop: '6%',
+    marginTop: '5%',
     fontSize: 12,
   },
   text: {
     color: '#100101',
-    marginTop: '6%',
+    marginTop: '4%',
     fontSize: 16,
     fontWeight: 'bold',
   },
