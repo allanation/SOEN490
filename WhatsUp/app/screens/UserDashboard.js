@@ -268,13 +268,6 @@ function UserDashboard() {
 
         <View>{showEvents}</View>
       </View>
-
-      {/* <View style={styles.container}>
-        <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
-        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
-        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='ios-person-outline' onPress={() => navigation.navigate("UserProfile")}/>
-      </View> */}
     </Screen>
   );
 }
