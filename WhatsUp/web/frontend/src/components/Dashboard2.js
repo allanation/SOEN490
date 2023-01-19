@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./Dashboard2.css";
 import EventImage from "../images/concordiaUni.jpg";
@@ -194,7 +195,7 @@ function Dashboard2() {
                     <div className="text">
                       <p className="text-title">Link(s)</p>
                       <p className="text-content">
-                        <a href="www.google.com">www.google.com</a>
+                      <a href="">{unapprovedEvent.link}</a>
                       </p>
                     </div>
                   </div>
@@ -356,7 +357,7 @@ function Dashboard2() {
                     <div className="text">
                       <p className="text-title">Link(s)</p>
                       <p className="text-content">
-                        <a href="www.google.com">www.google.com</a>
+                      <a href="">{approvedEvent.link}</a>
                       </p>
                     </div>
                   </div>
@@ -464,7 +465,7 @@ function Dashboard2() {
                     <div className="text">
                       <p className="text-title">Link(s)</p>
                       <p className="text-content">
-                        <a href="www.google.com">www.google.com</a>
+                        <a href="">{rejectedEvent.link}</a>
                       </p>
                     </div>
                   </div>
@@ -501,6 +502,7 @@ function Dashboard2() {
               </div>
             )
         )}
+        <div className="event-details col-8"></div>
       <div className="view-events col-4">
         <div className="view-nav col-12">
           <div className="event-status">
