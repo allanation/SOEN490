@@ -1,35 +1,49 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useNavigation } from "@react-navigation/native";
-import Screen from "../components/Screen";
-import NavButton from "../components/NavButton";
-import UtilBtn from "../components/UtilBtn";
-import Event from "../components/Event";
-import School from "../assets/Icons/stringio.png";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase";
+import React, { useState, useEffect } from 'react';
 import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import SearchBar from "react-native-dynamic-search-bar";
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useNavigation } from '@react-navigation/native';
+import Screen from '../components/Screen';
+import NavButton from '../components/NavButton';
+import UtilBtn from '../components/UtilBtn';
+import Event from '../components/Event';
+import School from '../assets/Icons/stringio.png';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth, db } from '../firebase';
+import { collection, getDocs, query, where } from 'firebase/firestore';
+import SearchBar from 'react-native-dynamic-search-bar';
 
 function UserDashboard() {
   const navigation = useNavigation();
   var date = new Date();
-  const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
-  var today = "Today's " + (months[date.getMonth()]) + " " + date.getDate();
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  var today = "Today's " + months[date.getMonth()] + ' ' + date.getDate();
 
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState('');
   const [user] = useAuthState(auth);
 
   const getName = async () => {
-    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const q = query(collection(db, 'users'), where('email', '==', user.email));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -45,9 +59,9 @@ function UserDashboard() {
     for (let i = 0; i <= 5; i++) {
       const event = {
         image: { School },
-        title: "Orientation Week",
-        organizer: "Concordia University",
-        date: "May 21, 2022",
+        title: 'Orientation Week',
+        organizer: 'Concordia University',
+        date: 'May 21, 2022',
         key: i,
       };
       eventsInfo[i] = event;
@@ -55,23 +69,23 @@ function UserDashboard() {
     return eventsInfo;
   }
 
-  var welcome = "Welcome, " + userName + "!";
+  var welcome = 'Welcome, ' + userName + '!';
 
   const events = getEvents();
 
   const Tab = createBottomTabNavigator();
 
-useEffect(() => {
+  useEffect(() => {
     setMasterData(events);
     setPreviousData(events);
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
-  const [filteredData, setFilteredData] = useState("");
-  const [filteredUserData, setFilteredUserData] = useState("");
+  const [filteredData, setFilteredData] = useState('');
+  const [filteredUserData, setFilteredUserData] = useState('');
 
   const ItemView = ({ item }) => {
     return (
@@ -80,7 +94,7 @@ useEffect(() => {
         title={item.title}
         organizer={item.organizer}
         date={item.date}
-        onPress={() => console.log("Event")}
+        onPress={() => console.log('Event')}
       />
     );
   };
@@ -90,7 +104,7 @@ useEffect(() => {
       const newData = masterData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
-          : "".toUpperCase();
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -98,7 +112,7 @@ useEffect(() => {
       const userSearch = masterData.filter((item) => {
         const itemData = item.organizer
           ? item.organizer.toUpperCase()
-          : "".toUpperCase();
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -111,7 +125,7 @@ useEffect(() => {
       const newData = previousData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
-          : "".toUpperCase();
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -119,7 +133,7 @@ useEffect(() => {
       const userSearch = previousData.filter((item) => {
         const itemData = item.organizer
           ? item.organizer.toUpperCase()
-          : "".toUpperCase();
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -146,18 +160,18 @@ useEffect(() => {
     tabs = (
       <>
         <TouchableOpacity
-          title="Show Form 1"
+          title='Show Form 1'
           onPress={() => setDisplayedEvents(true)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          title="Show Form 2"
+          title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -178,18 +192,18 @@ useEffect(() => {
     tabs = (
       <>
         <TouchableOpacity
-          title="Show Form 1"
+          title='Show Form 1'
           onPress={() => setDisplayedEvents(true)}
           style={styles.previous}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          title="Show Form 2"
+          title='Show Form 2'
           onPress={() => setDisplayedEvents(false)}
           style={styles.upcoming}
         >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
+          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
         </TouchableOpacity>
       </>
     );
@@ -208,108 +222,98 @@ useEffect(() => {
   }
 
   return (
-    <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
-      <View style={{left: '2.5%', marginTop: '5%'}}>
-      <View style={{flexDirection: 'row'}}>
-      <UtilBtn
-          icon="pin"
-          iconSize={18}
-          title="Montreal, QC"
-          testID="location"
-        />
+    <Screen style={{ padding: 20, backgroundColor: '#F5F5F5' }}>
+      <View style={{ left: '2.5%', marginTop: '5%' }}>
+        <View style={{ flexDirection: 'row' }}>
           <UtilBtn
-            style={{ position: "absolute", right: 16 }}
-            icon="notifications"
-            iconSize={24}
-            title=""
-            onPress={() => console.log("Notification")}
-            testID="notification"
+            icon='pin'
+            iconSize={18}
+            title='Montreal, QC'
+            testID='location'
           />
-      </View>
+          <UtilBtn
+            style={{ position: 'absolute', right: 16 }}
+            icon='notifications'
+            iconSize={24}
+            title=''
+            onPress={() => console.log('Notification')}
+            testID='notification'
+          />
+        </View>
 
-      <Text style={styles.date}>{today}</Text>
+        <Text style={styles.date}>{today}</Text>
 
-      <Text style={styles.title}>{welcome}</Text>
+        <Text style={styles.title}>{welcome}</Text>
 
-      <View style={{flexDirection: 'row'}} >
-        <SearchBar
-            style={{ width: "85%" }}
-            placeholder="Search for..."
+        <View style={{ flexDirection: 'row' }}>
+          <SearchBar
+            style={{ width: '85%' }}
+            placeholder='Search for...'
             onChangeText={(text) => {
-                searchFilter(text);
+              searchFilter(text);
             }}
-        />
-        <UtilBtn
+          />
+          <UtilBtn
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: "row", paddingHorizontal: 12, marginTop: 15 },
+              { flexDirection: 'row', paddingHorizontal: 12, marginTop: 5 },
             ]}
-            icon="ios-options"
-            onPress={() => console.log("Filters")}
+            icon='ios-options'
+            onPress={() => console.log('Filters')}
           />
-      </View>
+        </View>
 
-      <Text style={styles.text}>Popular Events</Text>
+        <Text style={styles.text}>Popular Events</Text>
 
-      <View>
-      {showEvents}
-      </View>
-      </View>
-
-
-      <View style={styles.container}>
-        <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
-        <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
-        <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='ios-person-outline' onPress={() => navigation.navigate("UserProfile")}/>
+        <View>{showEvents}</View>
       </View>
     </Screen>
   );
 }
 
-
 const styles = StyleSheet.create({
-    organizer: {
-        alignItems: 'flex-start',
-        width: '50%'
-    },
-    organizertwo: {
-        alignItems: 'flex-start',
-        width: '30%'
-    },
-    title:{
-       color: '#100101',
-       fontSize: 25,
-       fontWeight: 'bold',
-    },
-    date:{
-       color: '#969696',
-       marginTop: '6%',
-       fontSize: 12,
-    },
-    text: {
-        color: '#100101',
-        marginTop: '6%',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    container: {
-        position: 'absolute',
-        bottom: '-1.4%',
-        backgroundColor: '#FFFFFF',
-        borderColor: '#969696',
-        paddingHorizontal: '10%',
-        width: '113%',
-        height: '7%',
-        marginVertical: '1.4%',
-        borderStyle: 'solid',
-        borderWidth: .25,
-        shadowColor: 'black',
-        flexDirection: 'row',
-        display: 'flex',
-        justifyContent: 'space-between',
-    }
+  organizer: {
+    alignItems: 'flex-start',
+    width: '50%',
+  },
+  organizertwo: {
+    alignItems: 'flex-start',
+    width: '30%',
+  },
+  title: {
+    color: '#100101',
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginBottom: 8
+  },
+  date: {
+    color: '#969696',
+    marginTop: '5%',
+    fontSize: 12,
+  },
+  text: {
+    color: '#100101',
+    marginTop: '4%',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  container: {
+    position: 'absolute',
+    bottom: '-1.4%',
+    backgroundColor: '#FFFFFF',
+    borderColor: '#969696',
+    paddingHorizontal: '10%',
+    width: '113%',
+    height: '7%',
+    marginVertical: '1.4%',
+    borderStyle: 'solid',
+    borderWidth: 0.25,
+    shadowColor: 'black',
+    flexDirection: 'row',
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
 });
 
 export default UserDashboard;
