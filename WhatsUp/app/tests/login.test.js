@@ -1,6 +1,5 @@
 import "react-native";
 import React from "react";
-import renderer from "react-test-renderer";
 import Login from "../screens/Login";
 import { NavigationContainer } from "@react-navigation/native";
 import {
@@ -12,8 +11,11 @@ import {
 import { Alert } from "react-native";
 import ResetPassword from "../screens/ResetPassword";
 import SignUpScreen from "../screens/SignUpScreen";
-//import OrganizerDashboardScreen from "../screens/OrganizerDashboard";
+import UserDashboard from "../screens/UserDashboard";
+import OrganizerDashboardScreen from "../screens/OrgDashboard";
+
 jest.useFakeTimers();
+
 it("renders correctly", () => {
   const tree = render(
     <NavigationContainer>
@@ -21,9 +23,10 @@ it("renders correctly", () => {
     </NavigationContainer>
   ).toJSON();
   expect(tree).toMatchSnapshot();
+  // This test just checks if the login page loads correctly
 });
 
-test("Login sucessfully", async () => {
+test("Login sucessfully for user account", async () => {
   render(
     <NavigationContainer>
       <Login />
@@ -32,7 +35,7 @@ test("Login sucessfully", async () => {
   await waitFor(() =>
     fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
-      "taversofiya@gmail.com"
+      "jasmine@user.com"
     )
   );
   await waitFor(() =>
@@ -41,14 +44,17 @@ test("Login sucessfully", async () => {
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
   });
-  // const org = (
-  //   <NavigationContainer>
-  //     <OrganizerDashboardScreen />
-  //   </NavigationContainer>
-  // );
-  // render(org);
+  const user = (
+    <NavigationContainer>
+      <UserDashboard />
+    </NavigationContainer>
+  );
+  render(user);
+  expect(screen.getByText("Popular Events"));
+  // This test is to check if we input the right email and password we will go to the user page
 });
-test("Incorrect email", async () => {
+
+test("Login sucessfully for organizer account", async () => {
   render(
     <NavigationContainer>
       <Login />
@@ -57,18 +63,111 @@ test("Incorrect email", async () => {
   await waitFor(() =>
     fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
-      "taversofiya@gmail.com"
+      "jasmine@organizer.com"
     )
   );
   await waitFor(() =>
-    fireEvent.changeText(screen.getByPlaceholderText("Password"), "123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
+  );
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+  });
+  const org = (
+    <NavigationContainer>
+      <OrganizerDashboardScreen />
+    </NavigationContainer>
+  );
+  render(org);
+  expect(screen.getByText("Today's"));
+  // This test is to check if we input the right email and password we will go to the organizer page
+});
+
+test("Incorrect email", async () => {
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Email"), "aa")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
     expect(Alert.alert).toHaveBeenCalled();
   });
+  // This test checks if we input a non email field we will get an alert that it is wrong
 });
+
+test("Wrong password", async () => {
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "jasmine@organizer.com"
+    )
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone")
+  );
+  jest.spyOn(Alert, "alert");
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+  // This test checks if we input an wrong password we will get an alert that it is wrong
+});
+
+test("Empty email", async () => {
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Email"), " ")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
+  );
+  jest.spyOn(Alert, "alert");
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+  // This test checks if we input an empty email field we will get an alert that it is wrong
+});
+
+test("Empty password", async () => {
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "jasmine@user.com"
+    )
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), " ")
+  );
+  jest.spyOn(Alert, "alert");
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+  // This test checks if we input an empty password field we will get an alert that it is wrong
+});
+
 test("Going to ResetPassword page", async () => {
   render(
     <NavigationContainer>
@@ -78,7 +177,6 @@ test("Going to ResetPassword page", async () => {
   await waitFor(() => {
     fireEvent.press(screen.getByText("Forgot Password?"));
   });
-
   const Reset = (
     <NavigationContainer>
       <ResetPassword />
@@ -86,6 +184,7 @@ test("Going to ResetPassword page", async () => {
   );
   render(Reset);
   expect(screen.getAllByText("Forgot Password?"));
+  //This test checks by pressing forgot password that it will redirct to the reset password page
 });
 
 test("Going to Signup page", async () => {
@@ -97,7 +196,6 @@ test("Going to Signup page", async () => {
   await waitFor(() => {
     fireEvent.press(screen.getByText("Sign up"));
   });
-
   const signup = (
     <NavigationContainer>
       <SignUpScreen />
@@ -105,7 +203,9 @@ test("Going to Signup page", async () => {
   );
   render(signup);
   expect(screen.getAllByText("Please fill the following information"));
+  //This test checks by pressing signup that it will redirct to the signup page
 });
+
 test("Clicking Facebook", async () => {
   render(
     <NavigationContainer>
@@ -127,6 +227,7 @@ test("Clicking Twitter", async () => {
     fireEvent.press(screen.getByTestId("twitter"));
   });
 });
+
 test("Clicking Google", async () => {
   render(
     <NavigationContainer>
