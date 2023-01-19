@@ -21,6 +21,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import dateformat from "dateformat";
 
 function Dashboard2() {
   const [approvedevents, setapprovedevents] = useState([]);
@@ -106,7 +107,9 @@ function Dashboard2() {
     RejectedEvents();
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
-  console.log(approvedevents, unapprovedevents, rejectedevents);
+  console.log(unapprovedevents.map(
+    (unapprovedEvent) => new Date(unapprovedEvent.startDate))
+    );
 
   return (
     <div className="container col-12">
@@ -123,7 +126,7 @@ function Dashboard2() {
                   <div className="event-image col-6">
                     <img
                       id="eventImage"
-                      src={getImage(unapprovedEvent.coverImage)}
+                      src={EventImage}
                       alt="Event"
                     />
                   </div>
@@ -172,14 +175,14 @@ function Dashboard2() {
                     <div className="text">
                       <p className="text-title">Date(s)</p>
                       <p className="text-content">
-                        {unapprovedEvent.startDate}
+                        {dateformat(new Date(unapprovedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}
                       </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
                       <p className="text-content">
-                        {unapprovedEvent.startTime}
+                      {dateformat(new Date(unapprovedEvent.startDate).toString(), "h:MM:ss TT")}
                       </p>
                     </div>
                     <div className="text">
@@ -214,7 +217,7 @@ function Dashboard2() {
                                 {unapprovedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">7:00PM - 8:00PM</p>
+                                <p className="time">{unapprovedEventItinerary.startTime} - {unapprovedEventItinerary.endTime}</p>
                                 <p className="place">
                                   {unapprovedEventItinerary.location}
                                 </p>
@@ -337,12 +340,14 @@ function Dashboard2() {
                   <div className="additional-details col-6">
                     <div className="text">
                       <p className="text-title">Date(s)</p>
-                      <p className="text-content">{approvedEvent.startDate}</p>
+                      <p className="text-content">
+                        {dateformat(new Date(approvedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}</p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
-                      <p className="text-content">{approvedEvent.startTime}</p>
+                      <p className="text-content">
+                      {dateformat(new Date(approvedEvent.startDate).toString(), "h:MM:ss TT")}</p>
                     </div>
                     <div className="text">
                       <p className="text-title">Location</p>
@@ -376,7 +381,7 @@ function Dashboard2() {
                                 {approvedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">7:00PM - 8:00PM</p>
+                                <p className="time">{approvedEventItinerary.startTime}- {approvedEventItinerary.endTime}</p>
                                 <p className="place">
                                   {approvedEventItinerary.location}
                                 </p>
@@ -445,12 +450,14 @@ function Dashboard2() {
                   <div className="additional-details col-6">
                     <div className="text">
                       <p className="text-title">Date(s)</p>
-                      <p className="text-content">{rejectedEvent.startDate}</p>
+                      <p className="text-content">
+                        {dateformat(new Date(rejectedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}</p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
-                      <p className="text-content">{rejectedEvent.startTime}</p>
+                      <p className="text-content">
+                      {dateformat(new Date(rejectedEvent.startDate).toString(), "h:MM:ss TT")}</p>
                     </div>
                     <div className="text">
                       <p className="text-title">Location</p>
@@ -484,7 +491,7 @@ function Dashboard2() {
                                 {rejectedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">7:00PM - 8:00PM</p>
+                                <p className="time">{rejectedEventItinerary.startTime} - {rejectedEventItinerary.endTime}</p>
                                 <p className="place">
                                   {rejectedEventItinerary.location}
                                 </p>
@@ -591,7 +598,7 @@ function Dashboard2() {
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
                     <p className="event-banner-date-text">
-                      {unapprovedEvent.startDate}
+                    {dateformat(new Date(unapprovedEvent.startDate).toString(), "mmmm dS, yyyy")}
                     </p>
                   </div>
                 </div>
@@ -621,7 +628,7 @@ function Dashboard2() {
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
                     <p className="event-banner-date-text">
-                      {approvedEvent.startDate}
+                    {dateformat(new Date(approvedEvent.startDate).toString(), "mmmm dS, yyyy")}
                     </p>
                   </div>
                 </div>
@@ -651,7 +658,7 @@ function Dashboard2() {
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
                     <p className="event-banner-date-text">
-                      {rejectedEvent.startDate}
+                    {dateformat(new Date(rejectedEvent.startDate).toString(), "mmmm dS, yyyy")}
                     </p>
                   </div>
                 </div>
