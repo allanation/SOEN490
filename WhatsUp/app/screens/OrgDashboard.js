@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
@@ -6,22 +8,36 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
-  SafeAreaView,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import EventBanner from "../components/EventBanner";
 import SearchBar from "react-native-dynamic-search-bar";
 import EventImage from "../assets/stringio.jpg";
 import { useNavigation } from "@react-navigation/native";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import UtilBtn from "../components/UtilBtn";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
-  const user = {
-    name: "George",
+
+  const [userName, setUserName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setUserName(doc.data().firstName);
+      });
+    }
   };
+
+  getName();
 
   const [date, setDate] = useState(null);
   useEffect(() => {
@@ -181,11 +197,10 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  const toggleDisplay = (e) => {
+  const toggleDisplay = () => {
     setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
-  var dE;
   var tabs;
   var showEvents;
   if (displayedEvent) {
@@ -254,26 +269,23 @@ function OrganizerDashboardScreen() {
   }
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
-      <ScrollView>
+      <View>
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Text style={{ color: colors.darkGrey }}>
               <Text style={styles.paragraph}>{date}</Text>{" "}
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 28 }}>
-              Welcome, {user.name}!
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+              Welcome, {userName}!
             </Text>
           </View>
-          <TouchableOpacity>
-            <Ionicons
-              name="add-circle-outline"
-              size={40}
-              color={colors.primary}
-              onPress={() => navigation.navigate("NewEvent")}
-            />
-          </TouchableOpacity>
+          <UtilBtn
+            iconSize={40}
+            style={[styles.button, { flexDirection: "row", size: 12 }]}
+            icon="add-circle-outline"
+            onPress={() => navigation.navigate("NewEvent")}
+          />
         </View>
-        <View style={styles.eventTabs}>{tabs}</View>
 
         <View style={styles.searchBar}>
           <SearchBar
@@ -282,15 +294,19 @@ function OrganizerDashboardScreen() {
             onChangeText={(text) => {
               searchFilter(text);
             }}
+            // Icon={{ visible: searchText.length > 0 }}
           />
-          <TouchableOpacity style={styles.filter}>
-            <Ionicons name="ios-filter" size={24} color={colors.primary} />
-          </TouchableOpacity>
+          <UtilBtn
+            iconSize={32}
+            style={[styles.button, { flexDirection: "row", size: 12 }]}
+            icon="ios-options"
+            onPress={() => console.log("Filters")}
+          />
         </View>
         <Text style={styles.eventTitle}>Your Events</Text>
-
-        {showEvents}
-      </ScrollView>
+      </View>
+      {showEvents}
+      <View style={styles.eventTabs}>{tabs}</View>
     </Screen>
   );
 }
@@ -312,7 +328,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 8,
+    marginBottom: 10,
   },
   searchBar: {
     flexDirection: "row",
@@ -325,16 +341,18 @@ const styles = StyleSheet.create({
   eventTabs: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 20,
+    marginTop: 2,
   },
   upcoming: {
+    marginTop: 5,
     borderBottomWidth: 2,
     borderBottomColor: colors.primary,
-    paddingBottom: 10,
+    paddingBottom: 5,
     fontWeight: "bold",
   },
   previous: {
-    paddingBottom: 10,
+    marginTop: 5,
+    paddingBottom: 5,
   },
 });
 

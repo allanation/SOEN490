@@ -1,13 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-function NavButton({ image, onPress }) {
+function NavButton({ image, onPress, title }) {
   return (
     <TouchableOpacity
       style={[styles.button, { flexDirection: "row" }]}
       onPress={onPress}
     >
+      <Text>{title}</Text>
       <Ionicons name={image} size={30} color={"#32bca5"} />
     </TouchableOpacity>
   );

@@ -1,64 +1,140 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, ScrollView, Alert } from 'react-native';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import AppButton from '../components/AppButton';
-import ScreenSubtitle from '../components/ScreenSubtitle';
-import ScreenTitle from '../components/ScreenTitle';
-import BackBtn from '../components/BackBtn';
+import TitleHeaders from '../components/TitleHeaders';
+import UtilBtn from '../components/UtilBtn';
 import AppTextInput from '../components/AppTextInput';
 import { useNavigation } from '@react-navigation/native';
 import uuid from 'react-native-uuid';
 import EventTagsList from '../components/EventTagsList';
+import { Storage } from 'expo-storage';
+import { db, addDoc, collection } from '../firebase';
 
 function OrganizeEventTags() {
   const navigation = useNavigation();
-  useEffect(() => {
-    const defaultTags = [
-      { tagname: 'University', id: ids },
-      { tagname: 'Networking', id: ids },
-      { tagname: 'Student', id: ids },
-    ];
-    setTags([]);
-  }, []);
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState('');
-
   const ids = uuid.v4();
 
+  const submitEvent = async (tags) => {
+    if (tags.length == 0) {
+      Alert.alert('Error', 'Please fill out the tags.');
+      return;
+    }
+
+    try {
+      //Get NewEvent object
+      const newEvent = await Storage.getItem({
+        key: 'newEvent',
+      });
+      const newEventObject = JSON.parse(newEvent);
+
+      //Get POC object
+      const POC = await Storage.getItem({
+        key: 'POC',
+      });
+      const POCObject = JSON.parse(POC);
+
+      //Get eventDates object
+      const eventDates = await Storage.getItem({
+        key: 'eventDates',
+      });
+      const eventDatesObject = JSON.parse(eventDates);
+
+      //Get itinerary object
+      const itinerary = await Storage.getItem({
+        key: 'itinerary',
+      });
+      const itineraryObject = JSON.parse(itinerary);
+
+      //Save the event to firestore
+      await addDoc(collection(db, 'events'), {
+        eventStatus: 'Unapproved',
+        eventName: newEventObject.eventName,
+        orgName: newEventObject.orgName,
+        location: newEventObject.location,
+        description: newEventObject.description,
+        link: newEventObject.link,
+        coverImage: newEventObject.coverImage,
+        pocName: POCObject.pocName,
+        pocPhoneNum: POCObject.pocPhoneNum,
+        pocEmail: POCObject.pocEmail,
+        startDate: eventDatesObject.startDate,
+        startTime: eventDatesObject.startTime,
+        endDate: eventDatesObject.endDate,
+        endTime: eventDatesObject.endTime,
+        itinerary: itineraryObject,
+        tags: tags,
+      })
+        .then(() => {
+          Storage.removeItem({ key: 'newEvent' });
+          Storage.removeItem({ key: 'POC' });
+          Storage.removeItem({ key: 'eventDates' });
+          Storage.removeItem({ key: 'itinerary' });
+
+          Alert.alert('Event Submited Succesfully');
+          navigation.navigate('Organizer');
+        })
+        .catch((error) => console.log(error.message));
+    } catch (e) {
+      console.log(e);
+    }
+  };
   function handleAddingTag(e) {
     const newTag = { tagname: e.nativeEvent.text, id: ids };
-    setTags((tags) => [...tags, newTag]);
+    setCurrentTag('');
+    if (!tags.some((tag) => e.nativeEvent.text == tag.tagname)) {
+      if (e.nativeEvent.text.length > 0) {
+        setTags((tags) => [...tags, newTag]);
+      } else {
+        console.log('she already goes here!!!');
+      }
+    } else {
+      console.log('hi');
+    }
   }
 
-  const onRemove = (id) => (e) => {
+  const onRemove = (id) => () => {
     setTags(tags.filter((tag) => tag.id !== id));
   };
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          title={'Create Event Tags'}
+       <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <UtilBtn
+          icon="chevron-back-outline"
+          style={{position: "absolute", left:0}}
+          onPress={() => navigation.navigate("OrgDay")}
         />
-        <ScreenSubtitle
-          style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+        <TitleHeaders
+          style={{ alignSelf: "center" }}
+          title={"Create Event Tags"}
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('OrgDay')} />
+      <View style={{ width: '100%', display: 'flex' }}>
+        <TitleHeaders
+          style={{ alignSelf: 'center' }}
+          isTitle = {false}
+          title='Please fill the following information'
+        />
+      </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <AppTextInput
           style={{ fontSize: 18, color: colors.lightGrey }}
           placeholder='Ex.: University'
-          //onChangeText={(newText) => setCurrentTag(newText)}
-          defaultValue={currentTag}
+          autoCapitalize
+          clearButtonMode='always'
+          onChangeText={(text) => setCurrentTag({ text })}
+          value={currentTag.text}
           onSubmitEditing={handleAddingTag}
         />
-        <ScreenSubtitle
+        <TitleHeaders
           style={{ paddingHorizontal: 20, color: 'gray' }}
-          subtitle='Add tags to increase visibility'
+          isTitle = {false}
+          title='Add tags to increase visibility'
         />
         <View style={{ marginTop: 12 }}>
           <View
@@ -89,7 +165,7 @@ function OrganizeEventTags() {
       <View>
         <AppButton
           title={'Submit Event'}
-          onPress={() => navigation.navigate('Organizer')}
+          onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>
     </Screen>

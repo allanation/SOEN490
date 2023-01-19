@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import { Alert, StyleSheet, Text, Pressable, View } from "react-native";
 import AppModal from "./AppModal";
 
 const NewItemPopup = ({ modalOpened }) => {
@@ -7,7 +8,7 @@ const NewItemPopup = ({ modalOpened }) => {
 
   return (
     <AppModal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalOpened ? modalOpened : modalVisible}
         onRequestClose={() => {

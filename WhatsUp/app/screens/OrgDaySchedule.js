@@ -1,65 +1,54 @@
-import React, { useState, useEffect } from "react";
-import {
-  KeyboardAvoidingView,
-  KeyboardAwareScrollView,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  Pressable,
-} from "react-native";
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import ScreenTitle from "../components/ScreenTitle";
+import TitleHeaders from "../components/TitleHeaders";
 import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import ItineraryEvent from "../components/ItineraryEvent";
-import EventTags from "../components/EventTags";
-import BackBtn from "../components/BackBtn";
-import AddBtn from "../components/AddBtn";
-import NewItemPopup from "../components/NewItemPopup";
+import UtilBtn from "../components/UtilBtn";
 import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
+import { Storage } from "expo-storage";
 
 function OrganizerDaySchedule({ day }) {
-  useEffect(() => {
-    const defaultItinerary = [
-      {
-        title: "Round Table with William",
-        startTime: "9:00PM",
-        endTime: "10:00PM",
-        location: "Auditorium 101",
-      },
-      {
-        title: "Round Table with William",
-        startTime: "9:00PM",
-        endTime: "10:00PM",
-        location: "Auditorium 101",
-      },
-      {
-        title: "Round Table with William",
-        startTime: "9:00PM",
-        endTime: "10:00PM",
-        location: "Auditorium 101",
-      },
-      {
-        title: "Round Table with William",
-        startTime: "9:00PM",
-        endTime: "10:00PM",
-        location: "Auditorium 101",
-      },
-    ];
-    setItinerary([]);
-  }, []);
-
+  const [itinerary, setItinerary] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState("");
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [description, setDescription] = useState("");
+  const [location, setLocation] = useState("");
+  const navigation = useNavigation();
   const ids = uuid.v4();
 
-  function handleAddingItinerary(e) {
+  const handleAddEvent = async (
+    title,
+    startTime,
+    endTime,
+    description,
+    location
+  ) => {
+    if (title.length == 0) {
+      Alert.alert("Error", "Please fill out the title.");
+      return;
+    }
+    if (startTime.length == 0) {
+      Alert.alert("Error", "Please fill out the start date.");
+      return;
+    }
+    if (endTime.length == 0) {
+      Alert.alert("Error", "Please fill out the end date.");
+      return;
+    }
+    if (description.length == 0) {
+      Alert.alert("Error", "Please fill out the description.");
+      return;
+    }
     const newItinerary = {
       title: title,
       startTime: startTime,
@@ -68,38 +57,65 @@ function OrganizerDaySchedule({ day }) {
       location: location,
       id: ids,
     };
+
     setItinerary((itinerary) => [...itinerary, newItinerary]);
     setModalVisible(false);
-  }
+  };
 
-  const onRemove = (id) => (e) => {
+  const onRemove = (id) => () => {
     setItinerary(itinerary.filter((item) => item.id !== id));
   };
 
-  const [itinerary, setItinerary] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [title, setTitle] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endTime, setEndTime] = useState("");
-  const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
+  const onEdit = (newItinerary) => () => {
+    console.log("test");
+    setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
+    setItinerary((itinerary) => [...itinerary, newItinerary]);
+  };
 
-  const navigation = useNavigation();
+  const goToTagsPage = async () => {
+    //Store the information before leaving page
+    storeItinerary(itinerary);
+    navigation.navigate("OrgTags");
+  };
+
+  const storeItinerary = async (itinerary) => {
+    try {
+      const jsonValue = JSON.stringify(itinerary);
+      await Storage.setItem({
+        key: "itinerary",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: "100%", display: "flex" }}>
-        <ScreenTitle
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <UtilBtn
+            icon="chevron-back-outline"
+            onPress={() => navigation.navigate("DateInfo")}
+            style={{ position: "absolute", left: 0 }}
+          />
+          <TitleHeaders
+            style={{ alignSelf: "center" }}
+            title={"Day " + (day ? day + " " : "") + "schedule"}
+          />
+        </View>
+
+        <TitleHeaders
           style={{ alignSelf: "center" }}
-          title={"Day " + (day ? day + " " : "") + "schedule"}
-        />
-        <ScreenSubtitle
-          style={{ alignSelf: "center" }}
-          subtitle="Please fill the following information"
+          isTitle={false}
+          title="Please fill the following information"
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate("DateInfo")} />
-      <AddBtn onPress={() => setModalVisible(true)} />
+      <UtilBtn
+        style={{ alignSelf: "flex-end", marginRight: 24 }}
+        icon="add-circle"
+        onPress={() => setModalVisible(true)}
+      />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
           <View>
@@ -114,14 +130,16 @@ function OrganizerDaySchedule({ day }) {
                 'No items in your itinerary yet...'
               </Text>
             ) : (
-              itinerary.map((it) => (
+              itinerary.map((event) => (
                 <ItineraryEvent
-                  title={it.title}
-                  startTime={it.startTime}
-                  endTime={it.endTime}
-                  location={it.location}
+                  title={event.title}
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                  description={event.description}
+                  location={event.location}
+                  id={event.id}
                   onRemove={onRemove}
-                  id={it.id}
+                  onEdit={onEdit}
                 />
               ))
             )}
@@ -129,24 +147,28 @@ function OrganizerDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton
-          title={"Next"}
-          onPress={() => navigation.navigate("OrgTags")}
-        ></AppButton>
+        <AppButton title={"Next"} onPress={() => goToTagsPage()}></AppButton>
       </View>
       <AppModal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View  style={styles.modalView}>
-            <BackBtn style={styles.backModal} onPress={() => setModalVisible(!modalVisible)}/>
-            <View style={styles.inputView}>
-          <ScrollView keyboardDismissMode="interactive" style= {{width: "100%", }}>
-              <ScreenTitle style={{ alignSelf: "center" }} title={"New Item"} />
+        <View style={styles.modalView}>
+          <View style={styles.inputView}>
+            <UtilBtn
+              icon="chevron-back-outline"
+              style={{ position: "absolute" }}
+              onPress={() => setModalVisible(!modalVisible)}
+            />
+            <TitleHeaders style={{ alignSelf: "center" }} title={"New Item"} />
+            <ScrollView
+              keyboardDismissMode="interactive"
+              style={{ width: "100%" }}
+            >
               <AppTextInput
                 placeholder="Title"
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
@@ -174,10 +196,18 @@ function OrganizerDaySchedule({ day }) {
               <AppButton
                 title="Add"
                 style={{ marginTop: 0 }}
-                onPress={handleAddingItinerary}
+                onPress={() =>
+                  handleAddEvent(
+                    title,
+                    startTime,
+                    endTime,
+                    description,
+                    location
+                  )
+                }
               />
-          </ScrollView>
-            </View>
+            </ScrollView>
+          </View>
         </View>
       </AppModal>
     </Screen>
@@ -230,7 +260,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   backModal: {
-    backgroundColor: 'black',
+    backgroundColor: "black",
   },
 });
 

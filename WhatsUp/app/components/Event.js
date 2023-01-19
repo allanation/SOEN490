@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import {
   Text,
@@ -10,7 +12,7 @@ import {
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
 
-function Event({ image, title, organizer, date, onPress }) {
+function Event({ image, title, organizer, date, onPress, ...key }) {
   return (
     <TouchableOpacity
       style={[styles.button, { flexDirection: "row" }, { marginTop: 16 }]}

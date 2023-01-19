@@ -1,71 +1,230 @@
-import React from "react";
-import { StyleSheet, Text, View, Button, Image, ScrollView } from "react-native";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
-import Search from "../components/Search";
-import SmallButton from "../components/SmallButton";
 import NavButton from "../components/NavButton";
+import UtilBtn from "../components/UtilBtn";
 import Event from "../components/Event";
-import FilterButton from "../components/FilterButton";
-import School from "../assets/Icons/stringio.png";// Temporary Placeholder
-import { Ionicons } from '@expo/vector-icons';
+import School from "../assets/Icons/stringio.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
+import SearchBar from "react-native-dynamic-search-bar";
 
 function UserDashboard() {
+  const navigation = useNavigation();
   var date = new Date();
   const months = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
   var today = "Today's " + (months[date.getMonth()]) + " " + date.getDate();
-  var user = "TEMP";
-  var welcome = "Welcome, " + user + "!";
 
-  const events = [
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-    {
-      image: {School},
-      title: 'Orientation Week',
-      organizer: 'Concordia University',
-      date: 'May 21, 2022',
-    },
-  ];
+  const [userName, setUserName] = useState("");
+  const [user] = useAuthState(auth);
+
+  const getName = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setUserName(doc.data().firstName);
+      });
+    }
+  };
+
+  getName();
+
+  function getEvents() {
+    let eventsInfo = [];
+    for (let i = 0; i <= 5; i++) {
+      const event = {
+        image: { School },
+        title: "Orientation Week",
+        organizer: "Concordia University",
+        date: "May 21, 2022",
+        key: i,
+      };
+      eventsInfo[i] = event;
+    }
+    return eventsInfo;
+  }
+
+  var welcome = "Welcome, " + userName + "!";
+
+  const events = getEvents();
 
   const Tab = createBottomTabNavigator();
 
+useEffect(() => {
+    setMasterData(events);
+    setPreviousData(events);
+  }, []);
+
+  const [displayedEvent, setDisplayedEvents] = useState(true);
+  const [search, setSearch] = useState("");
+  const [masterData, setMasterData] = useState([]);
+  const [previousData, setPreviousData] = useState([]);
+  const [filteredData, setFilteredData] = useState("");
+  const [filteredUserData, setFilteredUserData] = useState("");
+
+  const ItemView = ({ item }) => {
+    return (
+      <Event
+        image={School}
+        title={item.title}
+        organizer={item.organizer}
+        date={item.date}
+        onPress={() => console.log("Event")}
+      />
+    );
+  };
+
+  const searchFilter = (text) => {
+    if (text && displayedEvent) {
+      const newData = masterData.filter((item) => {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      const userSearch = masterData.filter((item) => {
+        const itemData = item.organizer
+          ? item.organizer.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      setFilteredUserData(userSearch);
+      setFilteredData(newData);
+      console.log(filteredData);
+      setSearch(text);
+    } else if (text && !displayedEvent) {
+      const newData = previousData.filter((item) => {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      const userSearch = previousData.filter((item) => {
+        const itemData = item.organizer
+          ? item.organizer.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      setFilteredUserData(userSearch);
+      setFilteredData(newData);
+      console.log(filteredData);
+      setSearch(text);
+    } else {
+      displayedEvent
+        ? setFilteredData(masterData)
+        : setFilteredData(previousData);
+      setSearch(text);
+    }
+  };
+
+  const toggleDisplay = (e) => {
+    setDisplayedEvents({ displayedEvent: !displayedEvent });
+  };
+
+  var tabs;
+  var showEvents;
+  if (displayedEvent) {
+    tabs = (
+      <>
+        <TouchableOpacity
+          title="Show Form 1"
+          onPress={() => setDisplayedEvents(true)}
+          style={styles.upcoming}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          title="Show Form 2"
+          onPress={() => setDisplayedEvents(false)}
+          style={styles.previous}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
+        </TouchableOpacity>
+      </>
+    );
+    showEvents = (
+      <>
+        <FlatList
+          data={filteredData ? filteredData : events}
+          renderItem={ItemView}
+          style={{}}
+        />
+        <FlatList
+          data={filteredUserData ? filteredUserData : []}
+          renderItem={ItemView}
+        />
+      </>
+    );
+  } else {
+    tabs = (
+      <>
+        <TouchableOpacity
+          title="Show Form 1"
+          onPress={() => setDisplayedEvents(true)}
+          style={styles.previous}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          title="Show Form 2"
+          onPress={() => setDisplayedEvents(false)}
+          style={styles.upcoming}
+        >
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
+        </TouchableOpacity>
+      </>
+    );
+    showEvents = (
+      <>
+        <FlatList
+          data={filteredData ? filteredData : events}
+          renderItem={ItemView}
+        />
+        <FlatList
+          data={filteredUserData ? filteredUserData : []}
+          renderItem={ItemView}
+        />
+      </>
+    );
+  }
+
   return (
     <Screen style={{padding: 20, backgroundColor: '#F5F5F5'}}>
-      <View style={{left: '1.5%', marginTop: '5%', marginBottom: '40%'}}>
+      <View style={{left: '2.5%', marginTop: '5%'}}>
       <View style={{flexDirection: 'row'}}>
-        <SmallButton image = 'pin' title="Location, QC" onPress={() => console.log("Location")} size={'8%'}/>
-        <View style={{position: 'absolute', right: '4%'}}>
-            <SmallButton image = 'notifications' title="" onPress={() => console.log("Notification")} size={4}/>
-        </View>
+      <UtilBtn
+          icon="pin"
+          iconSize={18}
+          title="Montreal, QC"
+          testID="location"
+        />
+          <UtilBtn
+            style={{ position: "absolute", right: 16 }}
+            icon="notifications"
+            iconSize={24}
+            title=""
+            onPress={() => console.log("Notification")}
+            testID="notification"
+          />
       </View>
 
       <Text style={styles.date}>{today}</Text>
@@ -73,19 +232,29 @@ function UserDashboard() {
       <Text style={styles.title}>{welcome}</Text>
 
       <View style={{flexDirection: 'row'}} >
-        <Search placeholder="Search for..." />
-        <FilterButton image='ios-options' onPress={() => console.log("Filters")}/>
+        <SearchBar
+            style={{ width: "85%" }}
+            placeholder="Search for..."
+            onChangeText={(text) => {
+                searchFilter(text);
+            }}
+        />
+        <UtilBtn
+            iconSize={32}
+            style={[
+              styles.button,
+              { flexDirection: "row", paddingHorizontal: 12, marginTop: 15 },
+            ]}
+            icon="ios-options"
+            onPress={() => console.log("Filters")}
+          />
       </View>
 
       <Text style={styles.text}>Popular Events</Text>
 
-      <ScrollView style={{width:'101%'}}>
-            {events.map((n) => {
-                return (
-                <Event image={School} title={n.title} organizer={n.organizer} date={n.date} onPress={() => console.log("Event")}/>
-                );
-            })}
-      </ScrollView>
+      <View>
+      {showEvents}
+      </View>
       </View>
 
 
@@ -93,7 +262,7 @@ function UserDashboard() {
         <NavButton image='ios-home-outline' onPress={() => console.log("Home")}/>
         <NavButton image='ios-barcode-outline' onPress={() => console.log("Ticket")}/>
         <NavButton image='ios-bookmark-outline' onPress={() => console.log("Bookmark")}/>
-        <NavButton image='ios-person-outline' onPress={() => console.log("Profile")}/>
+        <NavButton image='ios-person-outline' onPress={() => navigation.navigate("UserProfile")}/>
       </View>
     </Screen>
   );
@@ -111,7 +280,7 @@ const styles = StyleSheet.create({
     },
     title:{
        color: '#100101',
-       fontSize: 20,
+       fontSize: 25,
        fontWeight: 'bold',
     },
     date:{

@@ -1,57 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  Touchable,
-  ScrollView,
-  TouchableOpacity,
-  FlatList,
-  SafeAreaView,
-  Image,
-} from 'react-native';
-import Screen from '../components/Screen';
-import colors from '../config/colors';
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import AppTextInput from '../components/AppTextInput';
-import * as ImagePicker from 'expo-image-picker';
-import { Entypo } from '@expo/vector-icons';
-import AppButton from '../components/AppButton';
-import BottomImg from '../components/ImgOrgBottom';
-import ScreenSubtitle from '../components/ScreenSubtitle';
-import ScreenTitle from '../components/ScreenTitle';
-import BackBtn from '../components/BackBtn';
-import { useNavigation } from '@react-navigation/native';
-import uuid from 'react-native-uuid';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, ScrollView, Image, Alert } from "react-native";
+import Screen from "../components/Screen";
+import colors from "../config/colors";
+import AppTextInput from "../components/AppTextInput";
+import * as ImagePicker from "expo-image-picker";
+import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import AppButton from "../components/AppButton";
+import TitleHeaders from "../components/TitleHeaders";
+import UtilBtn from "../components/UtilBtn";
+import { useNavigation } from "@react-navigation/native";
+import { Storage } from "expo-storage";
+import ImgOrgBottom from "../components/ImgOrgBottom";
+import BottomImg from "../components/BottomImg";
+
 
 function OrganizerNewEvent() {
-  useEffect(() => {
-    setEvents(events);
-  }, []);
   const navigation = useNavigation();
-  const Tab = createBottomTabNavigator();
-  const ids = uuid.v4();
-  const [events, setEvents] = useState('');
-  const [orgName, setOrgName] = useState('');
-  const [location, setLocation] = useState('');
-  const [link, setLink] = useState('');
-  const [description, setDescription] = useState('');
+  const [eventName, setEventName] = useState("");
+  const [orgName, setOrgName] = useState("");
+  const [location, setLocation] = useState("");
+  const [link, setLink] = useState("");
+  const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState(null);
 
-  function handleAddingEvent(e) {
+  const handleAddingEvent = async (
+    eventName,
+    orgName,
+    location,
+    description,
+    coverImage
+  ) => {
+    if (eventName.length == 0) {
+      Alert.alert("Error", "Please fill out the title.");
+      return;
+    }
+    if (orgName.length == 0) {
+      Alert.alert("Error", "Please fill out the organization name.");
+      return;
+    }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
+    if (description.length == 0) {
+      Alert.alert("Error", "Please fill out the description.");
+      return;
+    }
+
     const newEvent = {
-      events: events,
+      eventName: eventName,
       orgName: orgName,
       location: location,
-      link: link,
       description: description,
+      link: link,
       coverImage: coverImage,
-      id: ids,
     };
-    setEvents((events) => [...events, newEvents]);
-  }
+
+    //If every mandatory fields is filled out, store the information and go to next page
+    storeNewEvent(newEvent);
+    navigation.navigate("POC");
+  };
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -66,35 +74,56 @@ function OrganizerNewEvent() {
     }
   };
 
+  const storeNewEvent = async (newEvent) => {
+    try {
+      const jsonValue = JSON.stringify(newEvent);
+      await Storage.setItem({
+        key: "newEvent",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: '100%', display: 'flex' }}>
-        <ScreenTitle
-          style={{ alignSelf: 'center' }}
-          title={'Create New Event'}
+    <Screen
+      style={{ padding: 20, marginTop: 30 }}
+    >
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <UtilBtn
+          icon="chevron-back-outline"
+          style={{ position: "absolute", left: 0 }}
+          onPress={() => navigation.navigate("Organizer")}
         />
-        <ScreenSubtitle
-          style={{ alignSelf: 'center' }}
-          subtitle='Please fill the following information'
+        <TitleHeaders
+          style={{ alignSelf: "center" }}
+          title={"Create New Event"}
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate('Organizer')} />
+      <View style={{ width: "100%", display: "flex" }}>
+        <TitleHeaders
+          style={{ alignSelf: "center" }}
+          isTitle={false}
+          title="Please fill the following information"
+        />
+      </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
-            placeholder='Event Title'
-            onChangeText={(currentEvents) => setEvents(currentEvents)}
+            placeholder="Event Title"
+            onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Organization Name'
+            placeholder="Organization Name"
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Location'
+            placeholder="Location"
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Link for ticket purchase (optional)'
+            placeholder="Link for ticket purchase (optional)"
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
           <AppTextInput
@@ -102,22 +131,24 @@ function OrganizerNewEvent() {
             numberOfLines={5}
             style={{
               height: 100,
-              textAlignVertical: 'top',
+              textAlignVertical: "top",
               color: colors.lightGrey,
             }}
-            placeholder='Description'
+            placeholder="Description"
             onChangeText={(currentDescription) =>
               setDescription(currentDescription)
             }
           ></AppTextInput>
           <View style={styles.coverPage}>
             {coverImage ? (
-              <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              <View>
+                <Image source={{ uri: coverImage }} style={styles.coverImage} />
+              </View>
             ) : (
               <Text
                 style={{
                   fontSize: 18,
-                  width: '90%',
+                  width: "90%",
                   color: colors.lightGrey,
                 }}
               >
@@ -125,20 +156,30 @@ function OrganizerNewEvent() {
               </Text>
             )}
 
-            <Entypo
+            <EvilIcons
               onPress={pickImage}
-              name='images'
-              size={24}
+              name="image"
+              size={36}
               color={colors.primary}
               style={styles.icon}
             />
           </View>
         </View>
       </ScrollView>
+
+      {/* <ImgOrgBottom style={{position: "absolute"}} resizeMode="contain" /> */}
       <View>
         <AppButton
-          title={'Next'}
-          onPress={() => (navigation.navigate('POC'), handleAddingEvent)}
+          title={"Next"}
+          onPress={() =>
+            handleAddingEvent(
+              eventName,
+              orgName,
+              location,
+              description,
+              coverImage
+            )
+          }
         ></AppButton>
       </View>
     </Screen>
@@ -147,32 +188,32 @@ function OrganizerNewEvent() {
 
 const styles = StyleSheet.create({
   newEventHeader: {
-    justifyContent: 'center',
+    justifyContent: "center",
     marginTop: 8,
     marginBottom: 16,
   },
   headerContent: {
-    justifyContent: 'flex-start',
-    width: '100%',
+    justifyContent: "flex-start",
+    width: "100%",
   },
-  paragraph: { textAlign: 'center' },
+  paragraph: { textAlign: "center" },
   coverImage: {
     width: 150,
     aspectRatio: 4 / 3,
     borderWidth: 0.5,
   },
   icon: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   coverPage: {
-    flexDirection: 'row',
-    width: '90%',
-    alignSelf: 'center',
+    flexDirection: "row",
+    width: "90%",
+    alignSelf: "center",
     marginVertical: 10,
   },
   bottom: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     marginBottom: 36,
   },
 });

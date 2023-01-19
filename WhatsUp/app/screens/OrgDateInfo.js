@@ -1,36 +1,55 @@
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  SafeAreaView,
-  Platform,
-} from "react-native";
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/react-in-jsx-scope */
+import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
-import BottomImg from "../components/ImgOrgBottom";
-import ScreenTitle from "../components/ScreenTitle";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import BackBtn from "../components/BackBtn";
+import TitleHeaders from "../components/TitleHeaders";
+import UtilBtn from "../components/UtilBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";
+import { Storage } from "expo-storage";
 
 function OrganizerDateInfo() {
   const navigation = useNavigation();
+  const validateEventDate = async () => {
+    try {
+      //Get NewEvent object
+      const newDateInformation = await Storage.getItem({
+        key: "eventDates",
+      });
+      const newEventDates = JSON.parse(newDateInformation);
+      if (!newEventDates) {
+        Alert.alert("Error", "Please confirm your event's date information.");
+        return;
+      } else {
+        navigation.navigate("OrgDay");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-      <View style={{ width: "100%", display: "flex" }}>
-        <ScreenTitle
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <UtilBtn
+          icon="chevron-back-outline"
+          style={{ position: "absolute", left: 0 }}
+          onPress={() => navigation.navigate("POC")}
+        />
+        <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
         />
-        <ScreenSubtitle
+      </View>
+      <View style={{ width: "100%", display: "flex" }}>
+        <TitleHeaders
           style={{ alignSelf: "center" }}
-          subtitle="Please pick the dates for your event"
+          isTitle={false}
+          title="Please pick the dates for your event"
         />
       </View>
-      <BackBtn onPress={() => navigation.navigate("POC")} />
-      <ScrollView style= {{paddingTop: 20}}>
+      <View style={{ paddingTop: 20 }}>
         <View>
           {Platform.OS === "ios" ? (
             <IOSDateTimePicker />
@@ -38,14 +57,10 @@ function OrganizerDateInfo() {
             <AndroidDateTimePicker />
           )}
         </View>
-      </ScrollView>
-      <View>
-        <AppButton
-          title={"Next"}
-          onPress={() => navigation.navigate("OrgDay")}
-        ></AppButton>
       </View>
-      {/* <BottomImg /> */}
+      <View>
+        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
+      </View>
     </Screen>
   );
 }

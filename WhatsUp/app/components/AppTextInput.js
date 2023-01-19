@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, StyleSheet } from 'react-native';
+import { TextInput, View, StyleSheet, Platform } from 'react-native';
 import colors from '../config/colors';
 /* eslint-disable react/prop-types */
 
@@ -13,17 +13,20 @@ function AppTextInput({ style, ...otherProps }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     borderColor: colors.lightGrey,
-    borderRadius: 7,
+    borderRadius: 12,
     paddingVertical: 7,
     paddingHorizontal: 12,
     width: "98%",
     marginVertical: 10,
-    borderStyle: "solid",
+    opacity: 0.9,
+    // borderStyle: "ridge",
     borderWidth: 1,
     marginLeft: "1%",
   },
   text: {
+    opacity: 1,
     color: "black",
     fontSize: 18,
     fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
