@@ -12,9 +12,6 @@ import {
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import BottomImg from "../components/ImgOrgBottom";
-import ScreenTitle from "../components/ScreenTitle";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import BackBtn from "../components/BackBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import ItineraryEventSched from "../components/ItineraryEventSched";
@@ -235,10 +232,12 @@ function AttendeeSchedule() {
               {days.map((d) => {
                 return (
                   <View>
-                    <ScreenSubtitle
+                    <Text
                       style={{ marginTop: "5%", marginBottom: "5%" }}
-                      subtitle={"Day " + d.day}
-                    />
+                     
+                    >
+                    Day {d.day}
+                    </Text>
                     {d.day == 2 ? (
                       <Text
                         style={{

@@ -8,8 +8,7 @@ import {
 } from "react-native";
 import Screen from "../components/Screen";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import ScreenTitle from "../components/ScreenTitle";
-import ScreenSubtitle from "../components/ScreenSubtitle";
+import TitleHeaders from "../components/TitleHeaders";
 import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import colors from "../config/colors";
@@ -28,11 +27,12 @@ function AttendeeDetails() {
   return (
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
-        <ScreenTitle title={"Orientation Week"} />
-        <ScreenSubtitle
+        <TitleHeaders title={"Orientation Week"} />
+        <Text
           style={{ padding: 4, marginBottom: 5 }}
-          subtitle="By Concordia University"
         />
+        By Concordia University
+        <Text/>
         <View style={styles.iconText}>
           <Ionicons
             name="ios-location-outline"

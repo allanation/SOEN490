@@ -15,7 +15,6 @@ import OrgDaySchedule from './screens/OrgDaySchedule';
 import OrgPointOfContact from './screens/OrgPointOfContact';
 import OrgNewEvent from './screens/OrgNewEvent';
 import UserDashboard from './screens/UserDashboard';
-import AttendeeView from './screens/AttendeeView';
 import UserProfile from './screens/UserProfile';
 
 const TabScreen = () => {
@@ -69,7 +68,6 @@ export default function App() {
         <Stack.Screen name='OrgTags' component={OrgEventTags} />
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='UserDashboard' component={UserDashboard} />
-        <Stack.Screen name='AttendeeView' component={AttendeeView} />
         <Stack.Screen name = 'UserProfile' component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>

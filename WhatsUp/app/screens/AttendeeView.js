@@ -11,9 +11,6 @@ import {
 import Screen from "../components/Screen";
 import TktBtn from "../components/TktBtn";
 import BottomImg from "../components/ImgOrgBottom";
-import ScreenTitle from "../components/ScreenTitle";
-import ScreenSubtitle from "../components/ScreenSubtitle";
-import BackBtn from "../components/BackBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";

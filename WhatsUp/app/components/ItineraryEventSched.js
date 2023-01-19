@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import colors from "../config/colors";
 import CardModal from "../components/CardModal";
-import BackBtn from "./BackBtn";
+import UtilBtn from "../components/UtilBtn";
 
 function ItineraryEvent({ title, startTime, endTime, location }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -45,10 +45,11 @@ function ItineraryEvent({ title, startTime, endTime, location }) {
         }}
       >
         <View style={styles.modalView}>
-          <BackBtn
-            style={styles.backModal}
-            onPress={() => setModalVisible(!modalVisible)}
-          />
+        <UtilBtn
+          icon="chevron-back-outline"
+          style={styles.backModal}
+          onPress={() => setModalVisible(!modalVisible)}
+        />
         </View>
       </CardModal>
     </TouchableOpacity>
