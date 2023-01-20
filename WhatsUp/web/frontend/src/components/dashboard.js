@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
-import "./Dashboard.css";
+import "./dashboard.css";
 import EventImage from "../images/concordiaUni.jpg";
 import WhatsUpLogo from "../images/w1.png";
 import UserImage from "../images/george.jpeg";
