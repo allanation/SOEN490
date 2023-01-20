@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase";
 import logo from "../images/w5.png";
-import "./login.css";
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
