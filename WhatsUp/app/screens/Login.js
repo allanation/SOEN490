@@ -28,7 +28,7 @@ export default function Login() {
         if (querySnapshot != null) {
           querySnapshot.forEach((doc) => {
             if (isOrganizer == doc.data().isOrganizer) {
-              navigation.navigate("UserDashboard");
+              navigation.navigate("Attendee");
               setPassword("");
             } else {
               navigation.navigate("Organizer");

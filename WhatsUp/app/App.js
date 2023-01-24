@@ -48,6 +48,42 @@ const TabScreen = () => {
     </Tab.Navigator>
   );
 };
+
+const AttendeeTabScreen = () => {
+  const Tab = createBottomTabNavigator();
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'User') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Ticket') {
+            iconName = focused ? 'ios-barcode' : 'ios-barcode-outline';
+          } else if (route.name === 'Bookmark') {
+            iconName = focused ? 'ios-bookmark' : 'ios-bookmark-outline';
+          } else if (route.name === 'UserProfile') {
+            iconName = focused ? 'ios-person' : 'ios-person-outline';
+          }
+
+          // You can return any component that you like here!
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: colors.primary,
+        tabBarInactiveTintColor: colors.primary,
+        tabBarShowLabel: false,
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name='User' component={UserDashboard} />
+      <Tab.Screen name='Ticket' component={UserDashboard} />
+      <Tab.Screen name='Bookmark' component={UserDashboard} />
+      <Tab.Screen name='UserProfile' component={UserProfile} />
+    </Tab.Navigator>
+  );
+};
+
 export default function App() {
   const Stack = createNativeStackNavigator();
 
@@ -68,6 +104,7 @@ export default function App() {
         <Stack.Screen name='OrgTags' component={OrgEventTags} />
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='UserDashboard' component={UserDashboard} />
+        <Stack.Screen name='Attendee' component={AttendeeTabScreen} />
         <Stack.Screen name = 'UserProfile' component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
