@@ -1,6 +1,5 @@
 import "react-native";
 import React from "react";
-import renderer from "react-test-renderer";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   render,
@@ -10,34 +9,81 @@ import {
 } from "@testing-library/react-native";
 import { Alert } from "react-native";
 import UserProfile from "../screens/UserProfile";
-import Login from "../screens/Login";
 
 jest.useFakeTimers();
 
-it("Renders correctly", () => {
+it("Renders correctly user profile page", async () => {
   const tree = render(
     <NavigationContainer>
       <UserProfile />
     </NavigationContainer>
   ).toJSON();
+
   expect(tree).toMatchSnapshot();
 });
 
-test("Successful log out and go back to Login page", async () => {
+test("When press on log out icon, prompt a confirmation alert to log out", async () => {
   render(
     <NavigationContainer>
       <UserProfile />
     </NavigationContainer>
   );
 
-  await waitFor(() => fireEvent.press(screen.getByText("Log out")));
-  const ls = (
+  jest.spyOn(Alert, 'alert');
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("log-out"));
+    expect(Alert.alert).toHaveBeenCalled();
+  });
+});
+
+test("Edit information with an email that already exists should prompt an alert notifying that the email already exists.", async () => {
+  render(
     <NavigationContainer>
-      <Login />
+      <UserProfile />
     </NavigationContainer>
   );
-  render(ls);
-  expect(screen.getByText("Please enter your details"));
+
+  jest.spyOn(Alert, "alert");
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("edit-email"));
+    fireEvent.changeText(screen.getByPlaceholderText("Email"),"jasmine@user.com");
+    fireEvent.press(screen.getByText("Submit"));
+    expect(Alert.alert).toHaveBeenCalledWith("The email already exists.");
+  });
+});
+
+test("Edit information with an incorrect email, should prompt an alert notifying that the email is incorrect.", async () => {
+  render(
+    <NavigationContainer>
+      <UserProfile />
+    </NavigationContainer>
+  );
+
+  jest.spyOn(Alert, "alert");
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("edit-email"));
+    fireEvent.changeText(screen.getByPlaceholderText("Email"),"jasmine123@user.com");
+    fireEvent.press(screen.getByText("Submit"));
+    expect(Alert.alert).toHaveBeenCalledWith("Email was successfully updated.");
+  });
+});
+
+test("When press on change password button, prompt an alert notifying that the email to change the password was sent.", async () => {
+  render(
+    <NavigationContainer>
+      <UserProfile />
+    </NavigationContainer>
+  );
+
+  jest.spyOn(Alert, "alert");
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByText("Change Password"));
+    expect(Alert.alert).toHaveBeenCalledWith();
+  });
 });
 
 

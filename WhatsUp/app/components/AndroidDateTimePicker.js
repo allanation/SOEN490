@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { StyleSheet, View, Text, Button, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, Button, TouchableOpacity, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
