@@ -2,6 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <View
+  accessibilityIgnoresInvertColors={true}
   style={
     Array [
       Object {
@@ -9,60 +10,93 @@ exports[`renders correctly 1`] = `
         "paddingTop": 20,
       },
       Object {
-        "marginTop": 5,
-        "padding": 10,
+        "marginTop": 10,
+        "paddingHorizontal": "10%",
       },
     ]
   }
 >
+  <Image
+    resizeMode="cover"
+    source={
+      Object {
+        "uri": "https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "height": undefined,
+          "width": undefined,
+        },
+        undefined,
+      ]
+    }
+  />
   <Image
     source={1}
     style={
       Object {
         "alignSelf": "center",
         "height": 212,
+        "marginTop": 18,
         "width": 166,
       }
     }
   />
   <Text
     style={
-      Object {
-        "fontSize": 28,
-        "fontWeight": "bold",
-        "marginLeft": "1%",
-      }
+      Array [
+        Object {
+          "fontFamily": "Helvetica Neue",
+          "marginLeft": "1%",
+        },
+        Object {
+          "fontSize": 38,
+          "marginBottom": 5,
+          "marginTop": 20,
+        },
+        Object {
+          "fontSize": 28,
+          "fontWeight": "bold",
+        },
+      ]
     }
   >
     Login
-  </Text>
-  <Text
-    style={
-      Object {
-        "color": "#747474",
-        "marginBottom": 6,
-        "marginLeft": "1%",
-        "paddingVertical": 6,
-      }
-    }
-  >
-    Please enter your details
   </Text>
   <View
     style={
       Array [
         Object {
+          "backgroundColor": "white",
           "borderColor": "#989797",
-          "borderRadius": 7,
-          "borderStyle": "solid",
+          "borderRadius": 12,
           "borderWidth": 1,
           "marginLeft": "1%",
           "marginVertical": 10,
+          "opacity": 0.9,
           "paddingHorizontal": 12,
           "paddingVertical": 7,
           "width": "98%",
         },
-        undefined,
+        Object {
+          "elevation": 4,
+          "shadowColor": "black",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 2,
+        },
       ]
     }
   >
@@ -70,11 +104,13 @@ exports[`renders correctly 1`] = `
       keyboardType="email-address"
       onChangeText={[Function]}
       placeholder="Email"
+      placeholderTextColor="grey"
       style={
         Object {
           "color": "black",
           "fontFamily": "Helvetica Neue",
           "fontSize": 18,
+          "opacity": 1,
         }
       }
       value=""
@@ -84,29 +120,41 @@ exports[`renders correctly 1`] = `
     style={
       Array [
         Object {
+          "backgroundColor": "white",
           "borderColor": "#989797",
-          "borderRadius": 7,
-          "borderStyle": "solid",
+          "borderRadius": 12,
           "borderWidth": 1,
           "marginLeft": "1%",
           "marginVertical": 10,
+          "opacity": 0.9,
           "paddingHorizontal": 12,
           "paddingVertical": 7,
           "width": "98%",
         },
-        undefined,
+        Object {
+          "elevation": 4,
+          "shadowColor": "black",
+          "shadowOffset": Object {
+            "height": 1,
+            "width": 1,
+          },
+          "shadowOpacity": 0.2,
+          "shadowRadius": 2,
+        },
       ]
     }
   >
     <TextInput
       onChangeText={[Function]}
       placeholder="Password"
+      placeholderTextColor="grey"
       secureTextEntry={true}
       style={
         Object {
           "color": "black",
           "fontFamily": "Helvetica Neue",
           "fontSize": 18,
+          "opacity": 1,
         }
       }
       value=""
@@ -163,10 +211,10 @@ exports[`renders correctly 1`] = `
     style={
       Object {
         "alignItems": "center",
+        "alignSelf": "center",
         "backgroundColor": "#00c0a4",
-        "borderRadius": 7,
+        "borderRadius": 20,
         "elevation": 4,
-        "justifyContent": "center",
         "marginLeft": "1%",
         "marginVertical": 40,
         "opacity": 1,
@@ -178,18 +226,21 @@ exports[`renders correctly 1`] = `
         },
         "shadowOpacity": 0.2,
         "shadowRadius": 3,
-        "width": "98%",
+        "width": "90%",
       }
     }
   >
     <Text
       style={
-        Object {
-          "color": "#FFF",
-          "fontFamily": "Helvetica Neue",
-          "fontSize": 18,
-          "fontWeight": "bold",
-        }
+        Array [
+          Object {
+            "color": "#FFFFFF",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 18,
+            "fontWeight": "bold",
+          },
+          undefined,
+        ]
       }
     >
       Login

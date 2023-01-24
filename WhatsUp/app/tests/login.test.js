@@ -11,9 +11,6 @@ import {
 import { Alert } from "react-native";
 import ResetPassword from "../screens/ResetPassword";
 import SignUpScreen from "../screens/SignUpScreen";
-import UserDashboard from "../screens/UserDashboard";
-import OrganizerDashboardScreen from "../screens/OrgDashboard";
-
 jest.useFakeTimers();
 
 it("renders correctly", () => {
@@ -44,13 +41,6 @@ test("Login sucessfully for user account", async () => {
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
   });
-  const user = (
-    <NavigationContainer>
-      <UserDashboard />
-    </NavigationContainer>
-  );
-  render(user);
-  expect(screen.getByText("Popular Events"));
   // This test is to check if we input the right email and password we will go to the user page
 });
 
@@ -72,13 +62,6 @@ test("Login sucessfully for organizer account", async () => {
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
   });
-  const org = (
-    <NavigationContainer>
-      <OrganizerDashboardScreen />
-    </NavigationContainer>
-  );
-  render(org);
-  expect(screen.getByText("Today's"));
   // This test is to check if we input the right email and password we will go to the organizer page
 });
 

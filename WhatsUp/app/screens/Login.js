@@ -1,13 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  Alert,
-} from "react-native";
+import { StyleSheet, Text, View, Image, Alert } from "react-native";
 import AppButton from "../components/AppButton";
 import AppTextInput from "../components/AppTextInput";
 import Links from "../components/Links";
@@ -33,7 +27,6 @@ export default function Login() {
         const querySnapshot = await getDocs(q);
         if (querySnapshot != null) {
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, " => ", doc.data());
             if (isOrganizer == doc.data().isOrganizer) {
               navigation.navigate("UserDashboard");
               setPassword("");
@@ -66,7 +59,11 @@ export default function Login() {
         source={logo}
         style={{ marginTop: 18, width: 166, height: 212, alignSelf: "center" }}
       />
-      <TitleHeaders style={{ fontSize: 38, marginTop: 20, marginBottom: 5 }} title="Login" isTitle={true} />
+      <TitleHeaders
+        style={{ fontSize: 38, marginTop: 20, marginBottom: 5 }}
+        title="Login"
+        isTitle={true}
+      />
       <AppTextInput
         placeholder="Email"
         keyboardType="email-address"
