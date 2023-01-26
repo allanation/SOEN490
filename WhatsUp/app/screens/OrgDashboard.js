@@ -283,12 +283,13 @@ function OrganizerDashboardScreen() {
             iconSize={40}
             style={[styles.button, { flexDirection: "row", size: 12 }]}
             icon="add-circle-outline"
+            testID="addEventButton"
             onPress={() => navigation.navigate("NewEvent")}
           />
         </View>
 
         <View style={styles.searchBar}>
-          <SearchBar
+        <SearchBar
             style={{ width: "85%" }}
             placeholder="Search for..."
             onChangeText={(text) => {

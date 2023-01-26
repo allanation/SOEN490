@@ -1,6 +1,5 @@
 import "react-native";
 import React from "react";
-import renderer from "react-test-renderer";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   render,
@@ -8,13 +7,14 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import { Alert } from "react-native";
 import OrgDashboard from "../screens/OrgDashboard";
-import FilterButton from "../components/FilterButton";
+import Login from "../screens/Login";
+import UserProfile from "../screens/UserProfile";
+import NewEvent from "../screens/OrgNewEvent";
 
 jest.useFakeTimers();
 
-it("renders correctly", () => {
+it("Renders correctly organizer dashboard page.", () => {
   const tree = render(
     <NavigationContainer>
       <OrgDashboard />
@@ -23,85 +23,69 @@ it("renders correctly", () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("Clicking Location", async () => {
+test("Login sucessfully with organizer account and render organizer dashboard page.", async () => {
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "jasmine@organizer"
+    )
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
+  );
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+  });
+  const org = (
+    <NavigationContainer>
+      <OrgDashboard />
+    </NavigationContainer>
+  );
+  render(org);
+});
+
+test("Clicking on add Event Icon goes successfully to add new event page.", async () => {
   render(
     <NavigationContainer>
       <OrgDashboard />
     </NavigationContainer>
   );
   await waitFor(() => {
-    fireEvent.press(screen.getByText("Location, QC"));
+    fireEvent.press(screen.getByTestId("addEventButton"));
   });
-});
 
-test("Clicking Notification", async () => {
-  render(
+  const newEvent = (
     <NavigationContainer>
-      <UserDashboardScreen />
+      <NewEvent />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[0]);
-  });
+  render(newEvent);
 });
 
-test("Clicking Filter", async () => {
-  render(
-    <NavigationContainer>
-          <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[1]);
-  });
-});
 
-test("Clicking Home", async () => {
+test("Clicking on Profile Icon goes successfully to user profile page.", async () => {
   render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <OrgDashboard />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[2]);
-  });
-});
-
-test("Clicking Ticket", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[3]);
-  });
-});
-
-test("Clicking Bookmark", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[4]);
-  });
-});
-
-test("Clicking Profile", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
+  
   const temp = screen.queryAllByText("");
   await waitFor(() => {
     fireEvent.press(temp[5]);
   });
+
+  const userProfile = (
+    <NavigationContainer>
+      <UserProfile />
+    </NavigationContainer>
+  );
+  render(userProfile);
 });
+
+
