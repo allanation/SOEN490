@@ -1,6 +1,5 @@
 import "react-native";
 import React from "react";
-import renderer from "react-test-renderer";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   render,
@@ -8,9 +7,7 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import { Alert } from "react-native";
 import UserDashboardScreen from "../screens/UserDashboard";
-import FilterButton from "../components/FilterButton";
 
 jest.useFakeTimers();
 

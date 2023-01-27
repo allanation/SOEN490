@@ -27,7 +27,6 @@ export default function Login() {
         const querySnapshot = await getDocs(q);
         if (querySnapshot != null) {
           querySnapshot.forEach((doc) => {
-            console.log(doc.id, ' => ', doc.data());
             if (isOrganizer == doc.data().isOrganizer) {
               navigation.navigate('Attendee');
               setPassword('');
@@ -52,8 +51,8 @@ export default function Login() {
   return (
     <Screen
       topPadding={-20}
-      resizeMode='cover'
-      backgroundImage='https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif'
+      resizeMode="cover"
+      backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif"
       style={{ paddingHorizontal: '10%', marginTop: 10 }}
     >
       <Image
@@ -62,12 +61,12 @@ export default function Login() {
       />
       <TitleHeaders
         style={{ fontSize: 38, marginTop: 20, marginBottom: 5 }}
-        title='Login'
+        title="Login"
         isTitle={true}
       />
       <AppTextInput
-        placeholder='Email'
-        keyboardType='email-address'
+        placeholder="Email"
+        keyboardType="email-address"
         onChangeText={(text) => setEmail(text.toLowerCase())}
         value={email}
         style={{
@@ -79,7 +78,7 @@ export default function Login() {
         }}
       />
       <AppTextInput
-        placeholder='Password'
+        placeholder="Password"
         secureTextEntry
         onChangeText={(text) => setPassword(text)}
         value={password}
@@ -94,14 +93,14 @@ export default function Login() {
       <View style={styles.organizertwo}>
         <Links
           style={styles.link}
-          link='Forgot Password?'
+          link="Forgot Password?"
           onPress={ResetPassword}
         />
       </View>
-      <AppButton title='Login' onPress={handleLogin} />
+      <AppButton title="Login" onPress={handleLogin} />
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <Text style={styles.text}>Don't have an account? </Text>
-        <Links style={styles.link} link='Sign up' onPress={SignupPressed} />
+        <Links style={styles.link} link="Sign up" onPress={SignupPressed} />
       </View>
       <View
         style={{
@@ -127,7 +126,7 @@ export default function Login() {
       </View>
       <View style={styles.rowContainer}>
         <SimpleLineIcons
-          name='social-facebook'
+          name="social-facebook"
           size={30}
           style={{
             color: colors.secondary,
@@ -136,10 +135,10 @@ export default function Login() {
             paddingVertical: 10,
           }}
           onPress={() => console.log('Facebook')}
-          testID='facebook'
+          testID="facebook"
         />
         <SimpleLineIcons
-          name='social-twitter'
+          name="social-twitter"
           size={30}
           style={{
             color: colors.secondary,
@@ -148,10 +147,10 @@ export default function Login() {
             alignSelf: 'center',
           }}
           onPress={() => console.log('Facebook')}
-          testID='twitter'
+          testID="twitter"
         />
         <SimpleLineIcons
-          name='social-google'
+          name="social-google"
           size={30}
           style={{
             color: colors.secondary,
@@ -159,7 +158,7 @@ export default function Login() {
             paddingVertical: 10,
           }}
           onPress={() => console.log('Facebook')}
-          testID='google'
+          testID="google"
         />
       </View>
     </Screen>

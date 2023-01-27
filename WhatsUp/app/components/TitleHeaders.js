@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { Text, StyleSheet } from "react-native";
+import { Text, StyleSheet, Platform } from "react-native";
 import colors from "../config/colors";
 
 function TitleHeaders({ title, style, isTitle = true }) {
