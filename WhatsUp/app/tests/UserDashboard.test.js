@@ -27,7 +27,7 @@ test("Clicking Location", async () => {
     </NavigationContainer>
   );
   await waitFor(() => {
-    fireEvent.press(screen.getByText("Location, QC"));
+    fireEvent.press(screen.getByText("Montreal, QC"));
   });
 });
 
@@ -55,7 +55,7 @@ test("Clicking Filter", async () => {
   });
 });
 
-/**test("Clicking Event", async () => {
+test("Clicking Event", async () => {
   render(
     <NavigationContainer>
       <UserDashboardScreen />
@@ -64,53 +64,5 @@ test("Clicking Filter", async () => {
   const temp = screen.queryAllByText("");
   await waitFor(() => {
     fireEvent.press(screen.getByText("event"));
-  });
-});**/
-
-test("Clicking Home", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[2]);
-  });
-});
-
-test("Clicking Ticket", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[3]);
-  });
-});
-
-test("Clicking Bookmark", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[4]);
-  });
-});
-
-test("Clicking Profile", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[5]);
   });
 });

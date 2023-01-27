@@ -18,7 +18,7 @@ import School from '../assets/Icons/stringio.png';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import SearchBar from 'react-native-dynamic-search-bar';
+{/**import SearchBar from 'react-native-dynamic-search-bar';**/}
 
 function UserDashboard() {
   const navigation = useNavigation();
@@ -246,13 +246,13 @@ function UserDashboard() {
         <Text style={styles.title}>{welcome}</Text>
 
         <View style={{ flexDirection: 'row' }}>
-          <SearchBar
+          {/**<SearchBar
             style={{ width: '85%' }}
             placeholder='Search for...'
             onChangeText={(text) => {
               searchFilter(text);
             }}
-          />
+          />**/}
           <UtilBtn
             iconSize={32}
             style={[
