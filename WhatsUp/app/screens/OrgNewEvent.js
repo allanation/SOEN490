@@ -1,18 +1,19 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { StyleSheet, Text, View, ScrollView, Image, Alert } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
 import * as ImagePicker from "expo-image-picker";
-import { AntDesign, EvilIcons } from "@expo/vector-icons";
+import { EvilIcons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
+import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
-import ImgOrgBottom from "../components/ImgOrgBottom";
-import BottomImg from "../components/BottomImg";
 
+import {storage} from '../firebase';
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -83,6 +84,21 @@ function OrganizerNewEvent() {
       });
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const uploadToStorage = async() => {
+    const {uri} = coverImage
+    const paths = coverImage.split("/");
+    const lastPath = paths[paths.length-1];
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    const task = storage()
+    .ref(lastPath)
+    .putFile(uploadUri);
+    try {
+      await task;
+    } catch (e) {
+      console.error(e);
     }
   };
 
