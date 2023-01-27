@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Renders User Dashboard Correctly 1`] = `
 <View
   accessibilityIgnoresInvertColors={true}
   style={
@@ -42,6 +42,7 @@ exports[`renders correctly 1`] = `
   <View
     style={
       Object {
+        "bottom": "5%",
         "left": "2.5%",
         "marginTop": "5%",
       }
@@ -172,6 +173,41 @@ exports[`renders correctly 1`] = `
       }
     >
       <View
+        style={
+          Object {
+            "alignItems": "center",
+            "alignSelf": "center",
+            "backgroundColor": "#fdfdfd",
+            "borderRadius": 12,
+            "flexDirection": "row",
+            "height": 40,
+            "shadowColor": "#757575",
+            "shadowOffset": Object {
+              "height": 3,
+              "width": 0,
+            },
+            "shadowOpacity": 0.3,
+            "shadowRadius": 8,
+            "width": "90%",
+          }
+        }
+      >
+        <View>
+          <Text />
+        </View>
+        <TextInput
+          onChangeText={[Function]}
+          placeholder="Search for..."
+          style={
+            Object {
+              "color": "#19191a",
+              "marginLeft": 12,
+              "width": "80%",
+            }
+          }
+        />
+      </View>
+      <View
         accessible={true}
         collapsable={false}
         focusable={true}
@@ -228,923 +264,921 @@ exports[`renders correctly 1`] = `
     >
       Popular Events
     </Text>
+  </View>
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 0,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 1,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 2,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 3,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 4,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+        Object {
+          "date": "May 21, 2022",
+          "image": Object {
+            "School": 1,
+          },
+          "key": 5,
+          "organizer": "Concordia University",
+          "title": "Orientation Week",
+        },
+      ]
+    }
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    style={Object {}}
+    viewabilityConfigCallbackPairs={Array []}
+  >
     <View>
-      <RCTScrollView
-        data={
-          Array [
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 0,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 1,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 2,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 3,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 4,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-            Object {
-              "date": "May 21, 2022",
-              "image": Object {
-                "School": 1,
-              },
-              "key": 5,
-              "organizer": "Concordia University",
-              "title": "Orientation Week",
-            },
-          ]
-        }
-        getItem={[Function]}
-        getItemCount={[Function]}
-        keyExtractor={[Function]}
-        onContentSizeChange={[Function]}
+      <View
         onLayout={[Function]}
-        onMomentumScrollBegin={[Function]}
-        onMomentumScrollEnd={[Function]}
-        onScroll={[Function]}
-        onScrollBeginDrag={[Function]}
-        onScrollEndDrag={[Function]}
-        removeClippedSubviews={false}
-        renderItem={[Function]}
-        scrollEventThrottle={50}
-        stickyHeaderIndices={Array []}
-        style={Object {}}
-        viewabilityConfigCallbackPairs={Array []}
+        style={null}
       >
-        <View>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
           <View
-            onLayout={[Function]}
-            style={null}
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
           >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
+            <Text
               style={
                 Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
                 }
               }
             >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
                 }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
                 }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
+              }
+            >
+              <Text />
+              <Text
                 style={
                   Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
                   }
                 }
               >
-                <Text />
-              </View>
+                May 21, 2022
+              </Text>
             </View>
           </View>
           <View
-            onLayout={[Function]}
-            style={null}
-          >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
-                }
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
               }
-            >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
-                }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
-                  }
-                }
-              >
-                <Text />
-              </View>
-            </View>
-          </View>
-          <View
-            onLayout={[Function]}
-            style={null}
+            }
           >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
-                }
-              }
-            >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
-                }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
-                  }
-                }
-              >
-                <Text />
-              </View>
-            </View>
-          </View>
-          <View
-            onLayout={[Function]}
-            style={null}
-          >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
-                }
-              }
-            >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
-                }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
-                  }
-                }
-              >
-                <Text />
-              </View>
-            </View>
-          </View>
-          <View
-            onLayout={[Function]}
-            style={null}
-          >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
-                }
-              }
-            >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
-                }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
-                  }
-                }
-              >
-                <Text />
-              </View>
-            </View>
-          </View>
-          <View
-            onLayout={[Function]}
-            style={null}
-          >
-            <View
-              accessible={true}
-              collapsable={false}
-              focusable={true}
-              onClick={[Function]}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "#FFFFFF",
-                  "borderRadius": 19,
-                  "borderWidth": 0,
-                  "elevation": 4,
-                  "flexDirection": "row",
-                  "height": 81,
-                  "justifyContent": "center",
-                  "marginTop": 16,
-                  "marginVertical": 5,
-                  "opacity": 1,
-                  "padding": 1,
-                  "shadowColor": "#100101",
-                  "shadowOffset": Object {
-                    "height": 1,
-                    "width": 1,
-                  },
-                  "shadowOpacity": 0.2,
-                  "shadowRadius": 3,
-                  "width": "95%",
-                }
-              }
-            >
-              <Image
-                source={1}
-                style={
-                  Object {
-                    "left": 0,
-                    "position": "absolute",
-                  }
-                }
-              />
-              <View
-                style={
-                  Object {
-                    "marginLeft": 30,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "color": "#100101",
-                      "fontFamily": "Helvetica Neue",
-                      "fontSize": 16,
-                      "fontWeight": "bold",
-                      "marginTop": "2%",
-                    }
-                  }
-                >
-                  Orientation Week
-                </Text>
-                <Text
-                  style={
-                    Object {
-                      "color": "#969696",
-                      "fontSize": 12,
-                    }
-                  }
-                >
-                  By 
-                  Concordia University
-                </Text>
-                <View
-                  style={
-                    Object {
-                      "flexDirection": "row",
-                      "marginTop": 5,
-                    }
-                  }
-                >
-                  <Text />
-                  <Text
-                    style={
-                      Object {
-                        "color": "#100101",
-                        "fontSize": 11,
-                        "marginLeft": "2%",
-                        "marginTop": "2%",
-                      }
-                    }
-                  >
-                    May 21, 2022
-                  </Text>
-                </View>
-              </View>
-              <View
-                accessible={true}
-                collapsable={false}
-                focusable={true}
-                onClick={[Function]}
-                onResponderGrant={[Function]}
-                onResponderMove={[Function]}
-                onResponderRelease={[Function]}
-                onResponderTerminate={[Function]}
-                onResponderTerminationRequest={[Function]}
-                onStartShouldSetResponder={[Function]}
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "flexDirection": "row",
-                    "height": 20,
-                    "justifyContent": "center",
-                    "marginLeft": 8,
-                    "marginTop": 13,
-                    "marginVertical": 5,
-                    "opacity": 1,
-                    "padding": 1,
-                    "position": "absolute",
-                    "right": 20,
-                    "top": 5,
-                    "width": 16,
-                  }
-                }
-              >
-                <Text />
-              </View>
-            </View>
+            <Text />
           </View>
         </View>
-      </RCTScrollView>
-      <RCTScrollView
-        data={Array []}
-        getItem={[Function]}
-        getItemCount={[Function]}
-        keyExtractor={[Function]}
-        onContentSizeChange={[Function]}
+      </View>
+      <View
         onLayout={[Function]}
-        onMomentumScrollBegin={[Function]}
-        onMomentumScrollEnd={[Function]}
-        onScroll={[Function]}
-        onScrollBeginDrag={[Function]}
-        onScrollEndDrag={[Function]}
-        removeClippedSubviews={false}
-        renderItem={[Function]}
-        scrollEventThrottle={50}
-        stickyHeaderIndices={Array []}
-        viewabilityConfigCallbackPairs={Array []}
+        style={null}
       >
-        <View />
-      </RCTScrollView>
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
+                }
+              }
+            >
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
+                }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Object {
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
+                  }
+                }
+              >
+                May 21, 2022
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
+                }
+              }
+            >
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
+                }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Object {
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
+                  }
+                }
+              >
+                May 21, 2022
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
+                }
+              }
+            >
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
+                }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Object {
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
+                  }
+                }
+              >
+                May 21, 2022
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
+                }
+              }
+            >
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
+                }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Object {
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
+                  }
+                }
+              >
+                May 21, 2022
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          accessible={true}
+          collapsable={false}
+          focusable={true}
+          onClick={[Function]}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#FFFFFF",
+              "borderRadius": 19,
+              "borderWidth": 0,
+              "elevation": 4,
+              "flexDirection": "row",
+              "height": 81,
+              "justifyContent": "center",
+              "marginTop": 16,
+              "marginVertical": 5,
+              "opacity": 1,
+              "padding": 1,
+              "shadowColor": "#100101",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
+              "width": "95%",
+            }
+          }
+        >
+          <Image
+            source={1}
+            style={
+              Object {
+                "left": 0,
+                "position": "absolute",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "marginLeft": 30,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "#100101",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "fontWeight": "bold",
+                  "marginTop": "2%",
+                }
+              }
+            >
+              Orientation Week
+            </Text>
+            <Text
+              style={
+                Object {
+                  "color": "#969696",
+                  "fontSize": 12,
+                }
+              }
+            >
+              By 
+              Concordia University
+            </Text>
+            <View
+              style={
+                Object {
+                  "flexDirection": "row",
+                  "marginTop": 5,
+                }
+              }
+            >
+              <Text />
+              <Text
+                style={
+                  Object {
+                    "color": "#100101",
+                    "fontSize": 11,
+                    "marginLeft": "2%",
+                    "marginTop": "2%",
+                  }
+                }
+              >
+                May 21, 2022
+              </Text>
+            </View>
+          </View>
+          <View
+            accessible={true}
+            collapsable={false}
+            focusable={true}
+            onClick={[Function]}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "height": 20,
+                "justifyContent": "center",
+                "marginLeft": 8,
+                "marginTop": 13,
+                "marginVertical": 5,
+                "opacity": 1,
+                "padding": 1,
+                "position": "absolute",
+                "right": 20,
+                "top": 5,
+                "width": 16,
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
     </View>
-  </View>
+  </RCTScrollView>
+  <RCTScrollView
+    data={Array []}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    viewabilityConfigCallbackPairs={Array []}
+  >
+    <View />
+  </RCTScrollView>
 </View>
 `;
