@@ -16,7 +16,8 @@ function UtilBtn({
   disabled = false,
   style,
   icon,
-  iconSize = 40
+  iconSize = 40,
+  testID
 }) {
   return (
     <TouchableOpacity
@@ -33,7 +34,7 @@ function UtilBtn({
       onPress={onPress}
     > 
     <View style={{ flexDirection: 'row' }}>
-      <Ionicons name={icon} size={iconSize} color={colors[color]} />
+      <Ionicons testID= {testID} name={icon} size={iconSize} color={colors[color]} />
       <Text style={{ marginLeft: 2 }}>{title}</Text>
     </View>
     </TouchableOpacity>
