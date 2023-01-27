@@ -58,7 +58,7 @@ exports[`Renders User Dashboard Correctly 1`] = `
       <View
         accessible={true}
         collapsable={false}
-        focusable={false}
+        focusable={true}
         onClick={[Function]}
         onResponderGrant={[Function]}
         onResponderMove={[Function]}
@@ -151,7 +151,7 @@ exports[`Renders User Dashboard Correctly 1`] = `
         }
       }
     >
-      Today's January 26
+      Today's January 27
     </Text>
     <Text
       style={

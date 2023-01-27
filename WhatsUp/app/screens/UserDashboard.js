@@ -233,6 +233,7 @@ function UserDashboard() {
             icon='pin'
             iconSize={18}
             title='Montreal, QC'
+            onPress={() => console.log('Location')}
             testID='location'
           />
           <UtilBtn
