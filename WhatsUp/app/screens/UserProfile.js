@@ -191,6 +191,7 @@ function UserProfile() {
         </Text>
         <Ionicons
           name="pencil"
+          testID="edit-email"
           onPress={() => setModalVisibleEmail(true)}
           size={20}
           color={colors.primary}
@@ -243,6 +244,7 @@ function UserProfile() {
       <View style={{ flexDirection: "row" }}>
         <Ionicons
           name="log-out"
+          testID="log-out"
           style={{
             fontSize: 28,
             marginTop: 80,
