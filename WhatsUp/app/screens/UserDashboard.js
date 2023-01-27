@@ -18,7 +18,7 @@ import School from '../assets/Icons/stringio.png';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import SearchBar from 'react-native-dynamic-search-bar';
+import SearchBar from "../components/SearchBar";
 
 function UserDashboard() {
   const navigation = useNavigation();
@@ -121,7 +121,15 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else if (text && !displayedEvent) {
+    } else {
+            displayedEvent
+              ? setFilteredData(masterData)
+              : setFilteredData(previousData);
+            setSearch(text);
+          }
+          {/**I don't think the following applies for an Attendee, hopefully everything works
+              If it doesn't, the else goes below this**/}
+          {/**else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
@@ -142,21 +150,17 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else {
-      displayedEvent
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
-    }
+    }**/}
   };
 
   const toggleDisplay = (e) => {
     setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
-  var tabs;
+  {/**I don't think the following applies for an Attendee, hopefully everything works}**/}
+  {/**var tabs;**/}
   var showEvents;
-  if (displayedEvent) {
+  {/**if (displayedEvent) {
     tabs = (
       <>
         <TouchableOpacity
@@ -174,7 +178,7 @@ function UserDashboard() {
           <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
         </TouchableOpacity>
       </>
-    );
+    );**/}
     showEvents = (
       <>
         <FlatList
@@ -188,8 +192,8 @@ function UserDashboard() {
         />
       </>
     );
-  } else {
-    tabs = (
+  {/**} else {
+    {/**tabs = (
       <>
         <TouchableOpacity
           title='Show Form 1'
@@ -219,16 +223,17 @@ function UserDashboard() {
         />
       </>
     );
-  }
+  **/}
 
   return (
     <Screen style={{ padding: 20, backgroundColor: '#F5F5F5' }}>
-      <View style={{ left: '2.5%', marginTop: '5%' }}>
+      <View style={{ left: '2.5%', marginTop: '5%', bottom: "5%" }}>
         <View style={{ flexDirection: 'row' }}>
           <UtilBtn
             icon='pin'
             iconSize={18}
             title='Montreal, QC'
+            onPress={() => console.log('Location')}
             testID='location'
           />
           <UtilBtn
@@ -249,7 +254,7 @@ function UserDashboard() {
           <SearchBar
             style={{ width: '85%' }}
             placeholder='Search for...'
-            onChangeText={(text) => {
+            handleChange={(text) => {
               searchFilter(text);
             }}
           />
@@ -260,14 +265,14 @@ function UserDashboard() {
               { flexDirection: 'row', paddingHorizontal: 12, marginTop: 5 },
             ]}
             icon='ios-options'
+            testID="filters"
             onPress={() => console.log('Filters')}
           />
         </View>
 
         <Text style={styles.text}>Popular Events</Text>
-
-        <View>{showEvents}</View>
       </View>
+      {showEvents}
     </Screen>
   );
 }

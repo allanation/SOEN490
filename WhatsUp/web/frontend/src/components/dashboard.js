@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import "./dashboard.css";
-import EventImage from "../images/concordiaUni.jpg";
-import WhatsUpLogo from "../images/w1.png";
-import UserImage from "../images/george.jpeg";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import React from 'react';
+import './dashboard.css';
+import EventImage from '../images/concordiaUni.jpg';
+import WhatsUpLogo from '../images/w1.png';
+import UserImage from '../images/george.jpeg';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
+import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
+import CalendarMonthRoundedIcon from '@mui/icons-material/CalendarMonthRounded';
+import { useEffect, useState } from 'react';
+import { db } from '../firebase';
 import {
   getDocs,
   collection,
@@ -19,24 +19,24 @@ import {
   where,
   updateDoc,
   doc,
-} from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
-import dateformat from "dateformat";
+} from 'firebase/firestore';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import dateformat from 'dateformat';
 
 function Dashboard() {
   const [approvedevents, setapprovedevents] = useState([]);
   const [unapprovedevents, setunapprovedevents] = useState([]);
   const [rejectedevents, setrejectedevents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState("");
+  const [selectedEvent, setSelectedEvent] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
-  const [viewApproved, clickApproved] = useState(false);
+  const [viewApproved, clickApproved] = useState(true);
   const [viewUnapproved, clickUnapproved] = useState(false);
   const [viewRejected, clickRejected] = useState(false);
-  const [adminComment, setAdminComment] = useState("");
+  const [adminComment, setAdminComment] = useState('');
   const storage = getStorage();
 
   const getImage = async (url) => {
-    const paths = url.split("/");
+    const paths = url.split('/');
     const lastPath = paths[paths.length - 1];
     const imageURL = getDownloadURL(ref(storage, lastPath));
     return imageURL;
@@ -44,8 +44,8 @@ function Dashboard() {
 
   // useEffect to load unapproved events
   const getUnApprovedEvents = async () => {
-    const name = "Unapproved";
-    const q = query(collection(db, "events"), where("eventStatus", "==", name));
+    const name = 'Unapproved';
+    const q = query(collection(db, 'events'), where('eventStatus', '==', name));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -53,13 +53,13 @@ function Dashboard() {
           querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         );
       });
-    } else console.error("Cant find unapproved events at the moment");
+    } else console.error('Cant find unapproved events at the moment');
   };
 
   // useEffect to load approved events
   const ApprovedEvents = async () => {
-    const name = "Approved";
-    const q = query(collection(db, "events"), where("eventStatus", "==", name));
+    const name = 'Approved';
+    const q = query(collection(db, 'events'), where('eventStatus', '==', name));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -67,13 +67,13 @@ function Dashboard() {
           querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         );
       });
-    } else console.error("Cant find approved events at the moment");
+    } else console.error('Cant find approved events at the moment');
   };
 
   // useEffect to load rejected events
   const RejectedEvents = async () => {
-    const name = "Rejected";
-    const q = query(collection(db, "events"), where("eventStatus", "==", name));
+    const name = 'Rejected';
+    const q = query(collection(db, 'events'), where('eventStatus', '==', name));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -81,23 +81,23 @@ function Dashboard() {
           querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
         );
       });
-    } else console.error("Cant find rejected events at the moment");
+    } else console.error('Cant find rejected events at the moment');
   };
 
   // Rejects the event onClick
   const handleRejectEvents = async (x) => {
-    const changingToReject = doc(db, "events", x);
+    const changingToReject = doc(db, 'events', x);
     await updateDoc(changingToReject, {
-      eventStatus: "Rejected",
+      eventStatus: 'Rejected',
       adminComment: adminComment,
     });
   };
 
   // Accepts the event onClick
   const handleAcceptanceEvents = async (x) => {
-    const changingToApprove = doc(db, "events", x);
+    const changingToApprove = doc(db, 'events', x);
     await updateDoc(changingToApprove, {
-      eventStatus: "Approved",
+      eventStatus: 'Approved',
     });
   };
 
@@ -107,9 +107,11 @@ function Dashboard() {
     RejectedEvents();
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
-  console.log(unapprovedevents.map(
-    (unapprovedEvent) => new Date(unapprovedEvent.startDate))
-    );
+  console.log(
+    unapprovedevents.map(
+      (unapprovedEvent) => new Date(unapprovedEvent.startDate)
+    )
+  );
 
   return (
     <div className="container col-12">
@@ -124,11 +126,7 @@ function Dashboard() {
                 </div>
                 <div className="event-header col-12">
                   <div className="event-image col-6">
-                    <img
-                      id="eventImage"
-                      src={EventImage}
-                      alt="Event"
-                    />
+                    <img id="eventImage" src={EventImage} alt="Event" />
                   </div>
                   <div className="main-details col-6">
                     <div className="main-detail-left col-6">
@@ -165,7 +163,9 @@ function Dashboard() {
                         <p className="text-content">
                           {unapprovedEvent.pocPhoneNum}
                         </p>
-                        <p className="text-content">{unapprovedEvent.pocEmail}</p>
+                        <p className="text-content">
+                          {unapprovedEvent.pocEmail}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -175,14 +175,20 @@ function Dashboard() {
                     <div className="text">
                       <p className="text-title">Date(s)</p>
                       <p className="text-content">
-                        {dateformat(new Date(unapprovedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}
+                        {dateformat(
+                          new Date(unapprovedEvent.startDate).toString(),
+                          'dddd, mmmm dS, yyyy'
+                        )}
                       </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
                       <p className="text-content">
-                      {dateformat(new Date(unapprovedEvent.startDate).toString(), "h:MM:ss TT")}
+                        {dateformat(
+                          new Date(unapprovedEvent.startDate).toString(),
+                          'h:MM:ss TT'
+                        )}
                       </p>
                     </div>
                     <div className="text">
@@ -198,7 +204,7 @@ function Dashboard() {
                     <div className="text">
                       <p className="text-title">Link(s)</p>
                       <p className="text-content">
-                      <a href="">{unapprovedEvent.link}</a>
+                        <a href="">{unapprovedEvent.link}</a>
                       </p>
                     </div>
                   </div>
@@ -217,7 +223,10 @@ function Dashboard() {
                                 {unapprovedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">{unapprovedEventItinerary.startTime} - {unapprovedEventItinerary.endTime}</p>
+                                <p className="time">
+                                  {unapprovedEventItinerary.startTime} -{' '}
+                                  {unapprovedEventItinerary.endTime}
+                                </p>
                                 <p className="place">
                                   {unapprovedEventItinerary.location}
                                 </p>
@@ -237,6 +246,7 @@ function Dashboard() {
                         onClick={() =>
                           handleAcceptanceEvents(unapprovedEvent.id)
                         }
+                        data-testid="Approve"
                       >
                         Approve
                       </div>
@@ -253,9 +263,9 @@ function Dashboard() {
                           <div className="backButton">
                             <ChevronLeftIcon
                               style={{
-                                color: "#00c0a4",
-                                left: "20px",
-                                fontSize: "35",
+                                color: '#00c0a4',
+                                left: '20px',
+                                fontSize: '35',
                               }}
                               onClick={() => setModalVisible(false)}
                             ></ChevronLeftIcon>
@@ -265,13 +275,15 @@ function Dashboard() {
                           </h2>
                         </div>
                         <h4>
-                          For {unapprovedEvent.eventName} by{" "}
+                          For {unapprovedEvent.eventName} by{' '}
                           {unapprovedEvent.orgName}
                         </h4>
                         <textarea
                           className="comments"
                           placeholder="Add a comment explaining why the event was rejected..."
-                          onChange={(event) => setAdminComment(event.target.value)}
+                          onChange={(event) =>
+                            setAdminComment(event.target.value)
+                          }
                         ></textarea>
                         <button
                           className="comment-reject-btn"
@@ -341,13 +353,21 @@ function Dashboard() {
                     <div className="text">
                       <p className="text-title">Date(s)</p>
                       <p className="text-content">
-                        {dateformat(new Date(approvedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}</p>
+                        {dateformat(
+                          new Date(approvedEvent.startDate).toString(),
+                          'dddd, mmmm dS, yyyy'
+                        )}
+                      </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
                       <p className="text-content">
-                      {dateformat(new Date(approvedEvent.startDate).toString(), "h:MM:ss TT")}</p>
+                        {dateformat(
+                          new Date(approvedEvent.startDate).toString(),
+                          'h:MM:ss TT'
+                        )}
+                      </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Location</p>
@@ -362,7 +382,7 @@ function Dashboard() {
                     <div className="text">
                       <p className="text-title">Link(s)</p>
                       <p className="text-content">
-                      <a href="">{approvedEvent.link}</a>
+                        <a href="">{approvedEvent.link}</a>
                       </p>
                     </div>
                   </div>
@@ -381,7 +401,10 @@ function Dashboard() {
                                 {approvedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">{approvedEventItinerary.startTime}- {approvedEventItinerary.endTime}</p>
+                                <p className="time">
+                                  {approvedEventItinerary.startTime}-{' '}
+                                  {approvedEventItinerary.endTime}
+                                </p>
                                 <p className="place">
                                   {approvedEventItinerary.location}
                                 </p>
@@ -451,13 +474,21 @@ function Dashboard() {
                     <div className="text">
                       <p className="text-title">Date(s)</p>
                       <p className="text-content">
-                        {dateformat(new Date(rejectedEvent.startDate).toString(), "dddd, mmmm dS, yyyy")}</p>
+                        {dateformat(
+                          new Date(rejectedEvent.startDate).toString(),
+                          'dddd, mmmm dS, yyyy'
+                        )}
+                      </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Time</p>
                       {/* should probably change the field or change in firebase */}
                       <p className="text-content">
-                      {dateformat(new Date(rejectedEvent.startDate).toString(), "h:MM:ss TT")}</p>
+                        {dateformat(
+                          new Date(rejectedEvent.startDate).toString(),
+                          'h:MM:ss TT'
+                        )}
+                      </p>
                     </div>
                     <div className="text">
                       <p className="text-title">Location</p>
@@ -491,7 +522,10 @@ function Dashboard() {
                                 {rejectedEventItinerary.title}
                               </p>
                               <div className="time-place">
-                                <p className="time">{rejectedEventItinerary.startTime} - {rejectedEventItinerary.endTime}</p>
+                                <p className="time">
+                                  {rejectedEventItinerary.startTime} -{' '}
+                                  {rejectedEventItinerary.endTime}
+                                </p>
                                 <p className="place">
                                   {rejectedEventItinerary.location}
                                 </p>
@@ -509,13 +543,14 @@ function Dashboard() {
               </div>
             )
         )}
-        <div className="event-details col-8"></div>
+      <div className="event-details col-8"></div>
       <div className="view-events col-4">
         <div className="view-nav col-12">
           <div className="event-status">
             <button
+              data-testid="abutton"
               className={
-                viewApproved === true ? "active-status-btn" : "status-btn"
+                viewApproved === true ? 'active-status-btn' : 'status-btn'
               }
               onClick={() => {
                 clickApproved(true);
@@ -526,8 +561,9 @@ function Dashboard() {
               Approved
             </button>
             <button
+              data-testid="unbutton"
               className={
-                viewUnapproved === true ? "active-status-btn" : "status-btn"
+                viewUnapproved === true ? 'active-status-btn' : 'status-btn'
               }
               onClick={() => {
                 clickUnapproved(true);
@@ -538,8 +574,9 @@ function Dashboard() {
               Unapproved
             </button>
             <button
+              data-testid="rejectbutton"
               className={
-                viewRejected === true ? "active-status-btn" : "status-btn"
+                viewRejected === true ? 'active-status-btn' : 'status-btn'
               }
               onClick={() => {
                 clickRejected(true);
@@ -566,23 +603,24 @@ function Dashboard() {
               ),
             }}
             variant="outlined"
-            style={{ backgroundColor: "white", borderRadius: 4 }}
+            style={{ backgroundColor: 'white', borderRadius: 4 }}
             fullWidth
           />
           <div className="filter-icon">
-            <FilterListRoundedIcon style={{ color: "#00c0a4", fontSize: 36 }} />
+            <FilterListRoundedIcon style={{ color: '#00c0a4', fontSize: 36 }} />
           </div>
         </div>
-        <div className="show-events col-12">
+        <div className="show-events col-12" data-testid="show-events">
           {viewUnapproved &&
             unapprovedevents &&
             unapprovedevents.map((unapprovedEvent) => (
               <div
                 className={
                   selectedEvent === unapprovedEvent.id
-                    ? "active-event-banner col-12"
-                    : "event-banner col-12"
+                    ? 'active-event-banner col-12'
+                    : 'event-banner col-12'
                 }
+                data-testid="unapproved-event"
                 onClick={() => setSelectedEvent(unapprovedEvent.id)}
               >
                 <div className="view-event-image">
@@ -595,10 +633,13 @@ function Dashboard() {
                   <p className="time-place">{unapprovedEvent.orgName}</p>
                   <div className="date">
                     <div className="calendar-icon">
-                      <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
+                      <CalendarMonthRoundedIcon style={{ color: '#00c0a4' }} />
                     </div>
                     <p className="event-banner-date-text">
-                    {dateformat(new Date(unapprovedEvent.startDate).toString(), "mmmm dS, yyyy")}
+                      {dateformat(
+                        new Date(unapprovedEvent.startDate).toString(),
+                        'mmmm dS, yyyy'
+                      )}
                     </p>
                   </div>
                 </div>
@@ -608,27 +649,31 @@ function Dashboard() {
             approvedevents &&
             approvedevents.map((approvedEvent) => (
               <div
+                data-testid="approved"
                 className={
                   selectedEvent === approvedEvent.id
-                    ? "active-event-banner col-12"
-                    : "event-banner col-12"
+                    ? 'active-event-banner col-12'
+                    : 'event-banner col-12'
                 }
                 onClick={() => setSelectedEvent(approvedEvent.id)}
               >
                 <div className="view-event-image">
                   <img id="eventImage" src={EventImage} alt="Event" />
                 </div>
-                <div className="event-banner-text">
+                <div className="event-banner-text" data-testid="approved-event">
                   <p className="event-banner-title">
                     {approvedEvent.eventName}
                   </p>
                   <p className="time-place">{approvedEvent.orgName}</p>
                   <div className="date">
                     <div className="calendar-icon">
-                      <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
+                      <CalendarMonthRoundedIcon style={{ color: '#00c0a4' }} />
                     </div>
                     <p className="event-banner-date-text">
-                    {dateformat(new Date(approvedEvent.startDate).toString(), "mmmm dS, yyyy")}
+                      {dateformat(
+                        new Date(approvedEvent.startDate).toString(),
+                        'mmmm dS, yyyy'
+                      )}
                     </p>
                   </div>
                 </div>
@@ -640,9 +685,10 @@ function Dashboard() {
               <div
                 className={
                   selectedEvent === rejectedEvent.id
-                    ? "active-event-banner col-12"
-                    : "event-banner col-12"
+                    ? 'active-event-banner col-12'
+                    : 'event-banner col-12'
                 }
+                data-testid="Rejected"
                 onClick={() => setSelectedEvent(rejectedEvent.id)}
               >
                 <div className="view-event-image">
@@ -655,10 +701,13 @@ function Dashboard() {
                   <p className="time-place">{rejectedEvent.orgName}</p>
                   <div className="date">
                     <div className="calendar-icon">
-                      <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
+                      <CalendarMonthRoundedIcon style={{ color: '#00c0a4' }} />
                     </div>
                     <p className="event-banner-date-text">
-                    {dateformat(new Date(rejectedEvent.startDate).toString(), "mmmm dS, yyyy")}
+                      {dateformat(
+                        new Date(rejectedEvent.startDate).toString(),
+                        'mmmm dS, yyyy'
+                      )}
                     </p>
                   </div>
                 </div>
