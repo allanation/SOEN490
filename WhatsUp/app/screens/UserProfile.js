@@ -43,6 +43,7 @@ function UserProfile() {
   const [docKey, setDocKey] = useState("");
   const [userName, setUserName] = useState("");
   const [user] = useAuthState(auth);
+  const [userEmail, setUserEmail] = useState("");
 
   const getName = async () => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -50,6 +51,7 @@ function UserProfile() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         setUserName(doc.data().firstName + " " + doc.data().lastName);
+        setUserEmail(user.email);
       });
     }
   };
@@ -209,7 +211,7 @@ function UserProfile() {
             fontSize: 16,
           }}
         >
-          {user.email}
+          {userEmail}
         </Text>
         <Text
           style={{

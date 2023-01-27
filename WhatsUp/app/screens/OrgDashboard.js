@@ -13,7 +13,7 @@ import Screen from "../components/Screen";
 import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
 import EventBanner from "../components/EventBanner";
-import SearchBar from "react-native-dynamic-search-bar";
+import SearchBar from "../components/SearchBar";
 import EventImage from "../assets/stringio.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -283,23 +283,23 @@ function OrganizerDashboardScreen() {
             iconSize={40}
             style={[styles.button, { flexDirection: "row", size: 12 }]}
             icon="add-circle-outline"
+            testID="addEventButton"
             onPress={() => navigation.navigate("NewEvent")}
           />
         </View>
 
         <View style={styles.searchBar}>
-          <SearchBar
-            style={{ width: "85%" }}
+        <SearchBar
             placeholder="Search for..."
-            onChangeText={(text) => {
+            handleChange={(text) => {
               searchFilter(text);
             }}
-            // Icon={{ visible: searchText.length > 0 }}
           />
           <UtilBtn
             iconSize={32}
             style={[styles.button, { flexDirection: "row", size: 12 }]}
             icon="ios-options"
+            testID="filters"
             onPress={() => console.log("Filters")}
           />
         </View>
