@@ -30,6 +30,6 @@ export default TitleHeaders;
 const styles = StyleSheet.create({
   text: {
     marginLeft: "1%",
-    fontFamily:  "sans-serif",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
   },
 });

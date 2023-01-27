@@ -67,6 +67,61 @@ test("Clicking on add Event Icon goes successfully to add new event page.", asyn
   render(newEvent);
 });
 
+test("Searching in upcoming events starting with fa in search bar should show all events that starts with fa", async () => {
+  render(
+    <NavigationContainer>
+      <OrgDashboard />
+    </NavigationContainer>
+  );
+  await waitFor(() => {
+    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"fa");
+  });
+
+});
+
+test("Searching in previous events starting with sp in search bar should show all events that starts with sp", async () => {
+  render(
+    <NavigationContainer>
+      <OrgDashboard />
+    </NavigationContainer>
+  );
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByText("Previous"));
+  });
+
+  await waitFor(() => {
+    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"sp");
+  });
+
+});
+
+test("Switching sucessfully between previous and upcoming events tabs", async () => {
+  render(
+    <NavigationContainer>
+      <OrgDashboard />
+    </NavigationContainer>
+  );
+  await waitFor(() => {
+    fireEvent.press(screen.getByText("Previous"));
+  });
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByText("Upcoming"));
+  });
+
+});
+
+test("Clicking on filter Icon should show filters", async () => {
+  render(
+    <NavigationContainer>
+      <OrgDashboard />
+    </NavigationContainer>
+  );
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("filters"));
+  });
+});
 
 test("Clicking on Profile Icon goes successfully to user profile page.", async () => {
   render(
