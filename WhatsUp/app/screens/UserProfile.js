@@ -44,6 +44,7 @@ function UserProfile() {
   const [userName, setUserName] = useState("");
   const [user] = useAuthState(auth);
   const [userEmail, setUserEmail] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const getName = async () => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -212,7 +213,7 @@ function UserProfile() {
             fontSize: 16,
           }}
         >
-        {userEmail}
+          {user.email}
         </Text>
         <Text
           style={{
