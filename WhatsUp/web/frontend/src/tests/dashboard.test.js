@@ -17,27 +17,26 @@ afterEach(() => {
   cleanup();
 });
 test('Testing Login page rendering', async () => {
-  const component = render(
+  render(
     <BrowserRouter>
       <Dashboard />
     </BrowserRouter>
   );
-  expect(component.getAllByText('Approved')).toBeTruthy();
+  expect(screen.getAllByText('Approved')).toBeTruthy();
 });
 test('Unapproved button returns some events', async () => {
-  const component = render(
+  render(
     <BrowserRouter>
       <Dashboard />
     </BrowserRouter>
   );
   await waitFor(() =>
-    fireEvent.click(component.getByText('Unapproved'), {
-      timeout: 10000,
+    fireEvent.click(screen.getByTestId('unbutton'), {
+      timeout: 3000,
     })
   );
-  // const events = component.getAllByTestId('unapproved-event');
-  //expect(events).toHaveLength(3);
-  //expect(component.findAllByText('Mcgill')).toBeTruthy();
+  const events = screen.getAllByTestId('show-events');
+  expect(events).toBeTruthy();
 });
 
 test('Approved button returns some events', async () => {
@@ -46,27 +45,26 @@ test('Approved button returns some events', async () => {
       <Dashboard />
     </BrowserRouter>
   );
-  const mappedElements = screen.getAllByTestId('approved');
-  screen.debug();
+  await waitFor(() =>
+    fireEvent.click(screen.getByTestId('abutton'), {
+      timeout: 3000,
+    })
+  );
+  const events = screen.getAllByTestId('show-events');
+  expect(events).toBeTruthy();
 });
-// test('Checking to see if the approve button wokrs', async () => {
-//   const component = render(
-//     <BrowserRouter>
-//       <Dashboard />
-//     </BrowserRouter>
-//   );
 
-//   const unapprovedButton = component.getByText('Unapproved');
-//   expect(unapprovedButton).toBeTruthy();
-
-//   await waitFor(() => fireEvent.click(unapprovedButton), {
-//     timeout: 3000,
-//   });
-//   const unevent = component.findAllByText('2023');
-//   expect(unevent).toBeTruthy();
-
-//   await waitFor(() => fireEvent.click(unevent[0]), {
-//     timeout: 3000,
-//   });
-//   const approve = component.find;
-// });
+test('Rejected button returns some events', async () => {
+  render(
+    <BrowserRouter>
+      <Dashboard />
+    </BrowserRouter>
+  );
+  await waitFor(() =>
+    fireEvent.click(screen.getByTestId('rejectbutton'), {
+      timeout: 3000,
+    })
+  );
+  const events = screen.getAllByTestId('show-events');
+  expect(events).toBeTruthy();
+});

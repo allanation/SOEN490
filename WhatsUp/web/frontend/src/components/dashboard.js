@@ -561,6 +561,7 @@ function Dashboard() {
               Approved
             </button>
             <button
+              data-testid="unbutton"
               className={
                 viewUnapproved === true ? 'active-status-btn' : 'status-btn'
               }
@@ -573,6 +574,7 @@ function Dashboard() {
               Unapproved
             </button>
             <button
+              data-testid="rejectbutton"
               className={
                 viewRejected === true ? 'active-status-btn' : 'status-btn'
               }
@@ -608,7 +610,7 @@ function Dashboard() {
             <FilterListRoundedIcon style={{ color: '#00c0a4', fontSize: 36 }} />
           </div>
         </div>
-        <div className="show-events col-12">
+        <div className="show-events col-12" data-testid="show-events">
           {viewUnapproved &&
             unapprovedevents &&
             unapprovedevents.map((unapprovedEvent) => (
