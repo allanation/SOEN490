@@ -6,40 +6,55 @@ import {
   Text,
   Dimensions,
 } from "react-native";
+import React from 'react';
 import Screen from "../components/Screen";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import TitleHeaders from "../components/TitleHeaders";
-import { useNavigation } from "@react-navigation/native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
+import PropTypes from 'prop-types';
+import EventTagsList from '../components/EventTagsList';
+import { convertStartDate } from "./UserDashboard";
+import { format } from 'date-fns'
 
-const Tab = createMaterialTopTabNavigator();
+//Might want to find the real type
+AttendeeDetails.propTypes = {
+  route: PropTypes.any,
+};
 
-function AttendeeDetails() {
+export const convertTime = (number) => {
+  return number ? format(new Date(number), "hh:mm aaaaa'm'") : "";
+}
+
+const onRemove = (id) => () => {
+  
+};
+
+function AttendeeDetails({route}) {
   const tokyoRegion = {
     latitude: 35.6762,
     longitude: 139.6503,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   };
-  const navigation = useNavigation();
+  const { prop } = route.params;
+
   return (
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
-        <TitleHeaders title={"Orientation Week"} />
+        <TitleHeaders title={prop.eventName} />
         <Text
-          style={{ padding: 4, marginBottom: 5 }}
-        />
-        By Concordia University
-        <Text/>
+          style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver' }}
+        >
+          By {prop.orgName || "Concordia Uni"}
+        </Text>
         <View style={styles.iconText}>
           <Ionicons
             name="ios-location-outline"
             size={20}
             color={colors.primary}
           />
-          <Text style={{ marginLeft: 10 }}>JMSB 2230</Text>
+          <Text style={{ marginLeft: 10 }}>{prop.location}</Text>
         </View>
         <View style={styles.iconText}>
           <Ionicons
@@ -47,20 +62,18 @@ function AttendeeDetails() {
             size={20}
             color={colors.primary}
           />
-          <Text style={{ marginLeft: 10 }}>May 21, 2022</Text>
+          <Text style={{ marginLeft: 10 }}>{convertStartDate(prop.startDate)}</Text>
         </View>
         <View style={styles.iconText}>
           <Ionicons name="ios-time-outline" size={20} color={colors.primary} />
-          <Text style={{ marginLeft: 10 }}>9:00PM - 11:00PM</Text>
+          <Text style={{ marginLeft: 10 }}>{`${convertTime(prop.startTime)} - ${convertTime(prop.endTime)}`}</Text>
         </View>
-        <Text style={styles.text}> Description</Text>
+        <Text style={styles.text}>Description</Text>
         <Text style={styles.description}>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum
+           {prop.description}
         </Text>
 
-        <Text style={styles.text}> Location</Text>
+        <Text style={styles.text}>Location</Text>
         <View style={{ borderRadius: 20, overflow: "hidden" }}>
           <MapView
             style={styles.map}
@@ -70,7 +83,24 @@ function AttendeeDetails() {
             <Marker coordinate={tokyoRegion} pinColor={colors.primary} />
           </MapView>
         </View>
-        <Text style={styles.text}> Tags</Text>
+        <View
+            style={{
+              marginTop: 10,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              width: '95%',
+              alignSelf: 'center',
+              justifyContent: 'flex-start',
+            }}
+          >
+          {prop.tags.length > 0 ? (
+            <View>
+             <Text style={styles.text}>Tags</Text>
+              <EventTagsList tags={prop.tags} onRemove={onRemove} />
+              </View>
+          ):( <Text></Text>)}
+            
+          </View>
       </ScrollView>
     </Screen>
   );
@@ -82,7 +112,8 @@ const styles = StyleSheet.create({
   },
   iconText: {
     flexDirection: "row",
-    marginTop: 8,
+    marginTop: 3,
+    marginLeft: 8,
   },
   text: {
     color: "#100101",
@@ -90,8 +121,10 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
     marginTop: "5%",
     marginBottom: "2%",
+    marginLeft: '1%'
   },
   description: {
+    marginLeft: '1%',
     fontSize: 14,
     alignSelf: "flex-start",
     alignContent: "flex-start",

@@ -1,38 +1,33 @@
 import {
   StyleSheet,
   View,
-  ScrollView,
-  SafeAreaView,
-  Platform,
   Image,
   Linking,
-  text,
 } from "react-native";
 import Screen from "../components/Screen";
 import TktBtn from "../components/TktBtn";
-import BottomImg from "../components/ImgOrgBottom";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
-import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AttendeeDetails from "./AttendeeDetails";
 import AttendeeSchedule from "./AttendeeSchedule";
 import colors from "../config/colors";
 import React, { useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
+import PropTypes from 'prop-types';
+import UtilBtn from "../components/UtilBtn";
 
-function AttendeeView() {
+//Might want to find the real type
+AttendeeView.propTypes = {
+  route: PropTypes.any,
+  navigation: PropTypes.any,
+};
+
+function AttendeeView({ route, navigation }) {
+  const { prop } = route.params;
   const Tab = createMaterialTopTabNavigator();
 
   const logoUri =
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmgF8uhC7o6A1vXBOf0a45bDY1CJMHbzerNg&usqp=CAU";
+    "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
 
   const [buttonText, setButtonText] = useState("Going");
-  const [valid, setValid] = useState(false);
-
-  function handlePressGoing(text) {
-    setButtonText("yeah im Going ma dude");
-  }
 
   const handleGoing = (buttonText) => {
     if (buttonText == "Going") {
@@ -42,17 +37,30 @@ function AttendeeView() {
     }
   };
 
+  //remove margin -25 when you find why there is top padding (try to remove it)
   return (
-    <Screen>
+    <Screen style={{marginTop: -40, backgroundColor: 'white'}}>
       <Image
-        accessibilityLabel="React logo"
         source={{ uri: logoUri }}
         resizeMode="cover"
         style={styles.headerImage}
       />
+      <View style={styles.toolContainer}>
+        <UtilBtn
+          icon="chevron-back-outline"
+          iconSize={25}
+          style={styles.toolBtn}
+          onPress={() => navigation.goBack()}
+        />
+        <UtilBtn
+          icon="ios-bookmark-outline"
+          iconSize={20}
+          style={styles.toolBtn}
+        />
+      </View>
       <Tab.Navigator
         screenOptions={{
-          tabBarLabelStyle: { fontSize: 16 },
+          tabBarLabelStyle: { fontSize: 16, fontWeight: 'bold' },
           tabBarIndicatorStyle: {
             backgroundColor: colors.primary,
             width: "35%",
@@ -63,18 +71,22 @@ function AttendeeView() {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
+            marginHorizontal: '10%'
           },
+          
         }}
       >
-        <Tab.Screen name="Details" component={AttendeeDetails} />
-        <Tab.Screen name="Schedule" component={AttendeeSchedule} />
+        <Tab.Screen name="Details" component={AttendeeDetails} initialParams={{ prop: prop }} />
+        <Tab.Screen name="Schedule" component={AttendeeSchedule} initialParams={{ prop: prop.itinerary }} />
       </Tab.Navigator>
       <View
         style={{
           height: "10%",
           flexDirection: "row",
           justifyContent: "flex-end",
-          paddingRight: "10%",
+          paddingRight: "5%",
+          borderTopColor: 'silver',
+          borderTopWidth: 1,
         }}
       >
         <TktBtn
@@ -98,19 +110,33 @@ function AttendeeView() {
 
 const styles = StyleSheet.create({
   headerImage: {
-    height: "30%",
+    height: "35%",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
   },
   btn: {
     borderRadius: 7,
+    marginRight: 10,
     height: "65%",
-    width: "40%",
-    padding: "4%",
-    marginVertical: 0,
-    alignSelf: "center",
+    width: "auto",
     alignItems: "center",
   },
+  toolContainer: {
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    position: 'absolute', 
+    marginTop: 70, 
+    width: '100%',
+    paddingHorizontal: '10%'
+  },
+  toolBtn: {
+    backgroundColor: 'white',
+    borderRadius: 50,
+    height: 40,
+    width: 40,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });
 
 export default AttendeeView;

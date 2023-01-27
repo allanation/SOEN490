@@ -50,11 +50,10 @@ export default function Login() {
   };
   return (
     <Screen
-      topPadding={-20}
-      resizeMode="cover"
-      backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif"
-      style={{ paddingHorizontal: '10%', marginTop: 10 }}
-    >
+    resizeMode="cover"
+    backgroundImage="https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif"
+    style={{ paddingHorizontal: "10%" }}
+  >
       <Image
         source={logo}
         style={{ marginTop: 18, width: 166, height: 212, alignSelf: 'center' }}

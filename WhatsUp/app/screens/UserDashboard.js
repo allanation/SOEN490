@@ -14,11 +14,16 @@ import Screen from '../components/Screen';
 import NavButton from '../components/NavButton';
 import UtilBtn from '../components/UtilBtn';
 import Event from '../components/Event';
-import School from '../assets/Icons/stringio.png';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import SearchBar from 'react-native-dynamic-search-bar';
+
+import { format } from 'date-fns'
+
+export const convertStartDate = (number) => {
+  return number ? format(new Date(number), 'LLL dd, yyyy') : "";
+}
 
 function UserDashboard() {
   const navigation = useNavigation();
@@ -40,6 +45,7 @@ function UserDashboard() {
   var today = "Today's " + months[date.getMonth()] + ' ' + date.getDate();
 
   const [userName, setUserName] = useState('');
+  const [allEvents, setAllEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -52,32 +58,29 @@ function UserDashboard() {
     }
   };
 
-  getName();
-
-  function getEvents() {
-    let eventsInfo = [];
-    for (let i = 0; i <= 5; i++) {
-      const event = {
-        image: { School },
-        title: 'Orientation Week',
-        organizer: 'Concordia University',
-        date: 'May 21, 2022',
-        key: i,
-      };
-      eventsInfo[i] = event;
+  const getEvents = async () => {
+    const allEvents = [];
+    const q = query(collection(db, "events"));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        allEvents.push(doc.data());
+      });
+      setAllEvents(allEvents);
+      setMasterData(allEvents);
+      setPreviousData(allEvents);
     }
-    return eventsInfo;
+  
   }
 
   var welcome = 'Welcome, ' + userName + '!';
 
-  const events = getEvents();
 
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
-    setMasterData(events);
-    setPreviousData(events);
+    getName();
+    getEvents();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
@@ -90,11 +93,11 @@ function UserDashboard() {
   const ItemView = ({ item }) => {
     return (
       <Event
-        image={School}
-        title={item.title}
-        organizer={item.organizer}
-        date={item.date}
-        onPress={() => console.log('Event')}
+        image={item.coverImage}
+        title={item.eventName || "Mock"}
+        organizer={item.orgName}
+        date={convertStartDate(item.startDate)}
+        onPress={() => navigation.navigate("AttendeeView", {prop: item})}
       />
     );
   };
@@ -178,7 +181,7 @@ function UserDashboard() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : events}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
           style={{}}
         />
@@ -210,7 +213,7 @@ function UserDashboard() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : events}
+          data={[filteredData ? filteredData : allEvents]}
           renderItem={ItemView}
         />
         <FlatList
@@ -222,9 +225,9 @@ function UserDashboard() {
   }
 
   return (
-    <Screen style={{ padding: 20, backgroundColor: '#F5F5F5' }}>
+    <Screen style={{padding: 10, backgroundColor: '#F5F5F5'}}>
       <View style={{ left: '2.5%', marginTop: '5%' }}>
-        <View style={{ flexDirection: 'row' }}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}} >
           <UtilBtn
             icon='pin'
             iconSize={18}
@@ -257,7 +260,7 @@ function UserDashboard() {
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: 'row', paddingHorizontal: 12, marginTop: 5 },
+              { flexDirection: "row", paddingHorizontal: 12 },
             ]}
             icon='ios-options'
             onPress={() => console.log('Filters')}
@@ -266,7 +269,9 @@ function UserDashboard() {
 
         <Text style={styles.text}>Popular Events</Text>
 
-        <View>{showEvents}</View>
+        <View style={{marginBottom: 80}}>
+        {showEvents}
+        </View>
       </View>
     </Screen>
   );
@@ -306,7 +311,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: '10%',
     width: '113%',
     height: '7%',
-    marginVertical: '1.4%',
     borderStyle: 'solid',
     borderWidth: 0.25,
     shadowColor: 'black',

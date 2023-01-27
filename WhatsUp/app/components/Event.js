@@ -11,15 +11,24 @@ import {
 } from "react-native";
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
+import School from "../assets/Icons/stringio.png";
 
 function Event({ image, title, organizer, date, onPress, ...key }) {
+  const logoUri =
+    "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
+
   return (
     <TouchableOpacity
       style={[styles.button, { flexDirection: "row" }, { marginTop: 16 }]}
       onPress={onPress}
     >
-      <Image source={image} style={{ position: "absolute", left: 0 }} />
-      <View style={{ marginLeft: 30 }}>
+      <View style={{ flex: 2 }}>
+        <Image source={{ uri: image || logoUri }} 
+          style={{
+            width: '100%', height: "100%", borderRadius: 19 }} />
+      </View>
+
+      <View style={{ flex: 3, marginLeft: 15 }}>
         <Text style={styles.text}>{title}</Text>
         <Text style={{ fontSize: 12, color: "#969696" }}>By {organizer}</Text>
         <View style={{ marginTop: 5, flexDirection: "row" }}>
@@ -48,7 +57,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     justifyContent: "center",
     alignItems: "center",
-    padding: 1,
     marginVertical: 5,
     height: 81,
     width: "95%",

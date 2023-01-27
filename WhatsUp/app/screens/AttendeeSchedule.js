@@ -3,33 +3,33 @@ import {
   StyleSheet,
   View,
   ScrollView,
-  SafeAreaView,
-  Platform,
   Text,
   TouchableOpacity,
   FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
-import AppButton from "../components/AppButton";
-import BottomImg from "../components/ImgOrgBottom";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import ItineraryEventSched from "../components/ItineraryEventSched";
 import SearchBar from "react-native-dynamic-search-bar";
-import { useNavigation } from "@react-navigation/native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import Login from "./Login";
 import colors from "../config/colors";
-import CardModal from "../components/CardModal";
+import PropTypes from 'prop-types';
 
 const Tab = createMaterialTopTabNavigator();
 
-function AttendeeSchedule() {
+//Might want to find the real type
+AttendeeSchedule.propTypes = {
+  route: PropTypes.any,
+};
+
+function AttendeeSchedule({ route }) {
+  const { prop } = route.params;
+
   useEffect(() => {
-    setMasterData(itinerary);
+    setMasterData(prop);
   }, []);
 
-  const itinerary = [
+  //Remove condition when real data will be available
+  const itinerary = prop ? prop : [
     {
       title: "Round Table with William",
       startTime: "9:00PM",
@@ -86,6 +86,7 @@ function AttendeeSchedule() {
         startTime={item.startTime}
         endTime={item.endTime}
         location={item.location}
+        description={item.description}
         id={item.id}
       />
     );
@@ -187,7 +188,7 @@ function AttendeeSchedule() {
       <>
         <TouchableOpacity
           title="Show Form 1"
-          onPress={() => setDisplayedItinerary(true) }
+          onPress={() => setDisplayedItinerary(true)}
           style={styles.previous}
         >
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
@@ -215,28 +216,26 @@ function AttendeeSchedule() {
     );
   }
 
-  const navigation = useNavigation();
   return (
-    <Screen style={{ padding: "5%", backgroundColor: "white" }}>
-      <View style={{ width: "100%", display: "flex" }}>
-        <SearchBar
-          style={{ width: "85%" }}
-          placeholder="Search for..."
-          onChangeText={(text) => {
-            searchFilter(text);
-          }}
-        />
-        <ScrollView style={{ marginBottom: "10%" }}>
-          <View style={{ marginTop: 12 }}>
+    <ScrollView>
+      <Screen style={{ padding: "5%", backgroundColor: "white" }}>
+        <View style={{ width: "100%", display: "flex" }}>
+          <SearchBar
+            style={{ width: "85%" }}
+            placeholder="Search for..."
+            onChangeText={(text) => {
+              searchFilter(text);
+            }}
+          />
+          <View style={{ marginTop: 6}}>
             <View>
-              {days.map((d) => {
+              {days.map((d, i) => {
                 return (
-                  <View>
+                  <View key={i}>
                     <Text
                       style={{ marginTop: "5%", marginBottom: "5%" }}
-                     
                     >
-                    Day {d.day}
+                      Day {d.day}
                     </Text>
                     {d.day == 2 ? (
                       <Text
@@ -255,9 +254,9 @@ function AttendeeSchedule() {
               })}
             </View>
           </View>
-        </ScrollView>
-      </View>
-    </Screen>
+        </View>
+      </Screen>
+    </ScrollView>
   );
 }
 

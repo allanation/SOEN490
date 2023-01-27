@@ -16,6 +16,7 @@ import OrgPointOfContact from './screens/OrgPointOfContact';
 import OrgNewEvent from './screens/OrgNewEvent';
 import UserDashboard from './screens/UserDashboard';
 import UserProfile from './screens/UserProfile';
+import AttendeeView from './screens/AttendeeView';
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -105,6 +106,7 @@ export default function App() {
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='UserDashboard' component={UserDashboard} />
         <Stack.Screen name='Attendee' component={AttendeeTabScreen} />
+        <Stack.Screen name='AttendeeView' component={AttendeeView} />
         <Stack.Screen name = 'UserProfile' component={UserProfile} />
       </Stack.Navigator>
     </NavigationContainer>
