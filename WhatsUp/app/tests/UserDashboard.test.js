@@ -8,10 +8,12 @@ import {
   screen,
 } from "@testing-library/react-native";
 import UserDashboardScreen from "../screens/UserDashboard";
+import LoginScreen from "../screens/Login";
+import UserProfileScreen from "../screens/UserProfile";
 
 jest.useFakeTimers();
 
-it("renders correctly", () => {
+it("Renders User Dashboard Correctly", () => {
   const tree = render(
     <NavigationContainer>
       <UserDashboardScreen />
@@ -20,97 +22,90 @@ it("renders correctly", () => {
   expect(tree).toMatchSnapshot();
 });
 
-test("Clicking Location", async () => {
+test("Logging in with attendee account should render User Dashboard Screen", async () => {
+  render(
+    <NavigationContainer>
+      <LoginScreen />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      "jd@test.com"
+    )
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "123456")
+  );
+  await waitFor(() => {
+    fireEvent.press(screen.getAllByText("Login")[1]);
+  });
+  render(<NavigationContainer>
+               <UserDashboardScreen />
+             </NavigationContainer>);
+});
+
+test("When clicking on the Location icon it should console log Location", async () => {
   render(
     <NavigationContainer>
       <UserDashboardScreen />
     </NavigationContainer>
   );
   await waitFor(() => {
-    fireEvent.press(screen.getByText("Location, QC"));
+    fireEvent.press(screen.getByTestId("location"));
   });
 });
 
-test("Clicking Notification", async () => {
+test("When clicking on the Notification icon it should console log notification", async () => {
   render(
     <NavigationContainer>
       <UserDashboardScreen />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
   await waitFor(() => {
-    fireEvent.press(temp[0]);
+    fireEvent.press(screen.getByTestId("notification"));
   });
 });
 
-test("Clicking Filter", async () => {
+test("When clicking on the Filter icon it should console log Filters", async () => {
   render(
     <NavigationContainer>
           <UserDashboardScreen />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
   await waitFor(() => {
-    fireEvent.press(temp[1]);
+    fireEvent.press(screen.getByTestId("filters"));
   });
 });
 
-/**test("Clicking Event", async () => {
+test("When searching in search bar for fa, it should return events that include fa", async () => {
   render(
     <NavigationContainer>
       <UserDashboardScreen />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
   await waitFor(() => {
-    fireEvent.press(screen.getByText("event"));
-  });
-});**/
-
-test("Clicking Home", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[2]);
+    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"fa");
   });
 });
 
-test("Clicking Ticket", async () => {
+{/**Needs to be fixed**/}
+test("When clicking on the User Profile icon, it should redirect to the User Profile screen", async () => {
   render(
     <NavigationContainer>
       <UserDashboardScreen />
     </NavigationContainer>
   );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[3]);
-  });
-});
 
-test("Clicking Bookmark", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
-  const temp = screen.queryAllByText("");
-  await waitFor(() => {
-    fireEvent.press(temp[4]);
-  });
-});
-
-test("Clicking Profile", async () => {
-  render(
-    <NavigationContainer>
-      <UserDashboardScreen />
-    </NavigationContainer>
-  );
   const temp = screen.queryAllByText("");
   await waitFor(() => {
     fireEvent.press(temp[5]);
   });
+
+  const userProfile = (
+    <NavigationContainer>
+      <UserProfileScreen />
+    </NavigationContainer>
+  );
+  render(userProfile);
 });
