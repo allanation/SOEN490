@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import Screen from "../components/Screen";
 import ItineraryEventSched from "../components/ItineraryEventSched";
-import SearchBar from "react-native-dynamic-search-bar";
+import SearchBar from "../components/SearchBar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import colors from "../config/colors";
 import PropTypes from 'prop-types';
@@ -56,21 +56,6 @@ function AttendeeSchedule({ route }) {
     },
   ];
 
-  const days = [
-    {
-      day: 1,
-      schedule: { itinerary },
-    },
-    {
-      day: 2,
-      schedule: { itinerary },
-    },
-    {
-      day: 3,
-      schedule: { itinerary },
-    },
-  ];
-
   const [itineraryw, setItineraryw] = useState([]);
   const [displayedItinerary, setDisplayedItinerary] = useState(true);
   const [search, setSearch] = useState("");
@@ -114,7 +99,15 @@ function AttendeeSchedule({ route }) {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else if (text && !displayedItinerary) {
+    } else {
+            displayedItinerary
+              ? setFilteredData(masterData)
+              : setFilteredData(previousData);
+            setSearch(text);
+          }
+    {/**I don't think the following applies for the AttendeeSchedule, hopefully everything works
+                  If it doesn't, the else goes below this**/}
+    {/**else if (text && !displayedItinerary) {
       const newData = previousData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
@@ -135,22 +128,17 @@ function AttendeeSchedule({ route }) {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else {
-      displayedItinerary
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
-    }
+    }**/}
   };
 
   const toggleDisplay = (e) => {
     setDisplayedItinerary({ displayedItinerary: !displayedItinerary });
   };
 
-  var dE;
-  var tabs;
+  {/**I don't think the following applies for the AttendeeSchedule, hopefully everything works}**/}
+  {/**var tabs;**/}
   var showItinerary;
-  if (displayedItinerary) {
+  {/**if (displayedItinerary) {
     tabs = (
       <>
         <TouchableOpacity
@@ -168,7 +156,7 @@ function AttendeeSchedule({ route }) {
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
         </TouchableOpacity>
       </>
-    );
+    );**/}
 
     showItinerary = (
       <>
@@ -183,7 +171,7 @@ function AttendeeSchedule({ route }) {
         />
       </>
     );
-  } else {
+  {/**} else {
     tabs = (
       <>
         <TouchableOpacity
@@ -214,49 +202,21 @@ function AttendeeSchedule({ route }) {
         />
       </>
     );
-  }
+  }**/}
 
   return (
-    <ScrollView>
       <Screen style={{ padding: "5%", backgroundColor: "white" }}>
         <View style={{ width: "100%", display: "flex" }}>
           <SearchBar
             style={{ width: "85%" }}
             placeholder="Search for..."
-            onChangeText={(text) => {
+            handleChange={(text) => {
               searchFilter(text);
             }}
           />
-          <View style={{ marginTop: 6}}>
-            <View>
-              {days.map((d, i) => {
-                return (
-                  <View key={i}>
-                    <Text
-                      style={{ marginTop: "5%", marginBottom: "5%" }}
-                    >
-                      Day {d.day}
-                    </Text>
-                    {d.day == 2 ? (
-                      <Text
-                        style={{
-                          color: colors.lightGrey,
-                          marginLeft: 24,
-                        }}
-                      >
-                        There are no activities today
-                      </Text>
-                    ) : (
-                      <View>{showItinerary}</View>
-                    )}
-                  </View>
-                );
-              })}
-            </View>
-          </View>
         </View>
+        {showItinerary}
       </Screen>
-    </ScrollView>
   );
 }
 
