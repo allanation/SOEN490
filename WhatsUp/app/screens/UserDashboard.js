@@ -11,7 +11,6 @@ import {
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../components/Screen';
-import NavButton from '../components/NavButton';
 import UtilBtn from '../components/UtilBtn';
 import Event from '../components/Event';
 import { useAuthState } from 'react-firebase-hooks/auth';
@@ -94,7 +93,7 @@ function UserDashboard() {
     return (
       <Event
         image={item.coverImage}
-        title={item.eventName || "Mock"}
+        title={item.eventName}
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
         onPress={() => navigation.navigate("AttendeeView", {prop: item})}
@@ -124,7 +123,7 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else if (text && !displayedEvent) {
+    }  else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
         const itemData = item.title
           ? item.title.toUpperCase()
@@ -145,16 +144,12 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else {
+    }  else {
       displayedEvent
         ? setFilteredData(masterData)
         : setFilteredData(previousData);
       setSearch(text);
     }
-  };
-
-  const toggleDisplay = (e) => {
-    setDisplayedEvents({ displayedEvent: !displayedEvent });
   };
 
   var tabs;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, StyleSheet, View, Platform, TouchableWithoutFeedback } from "react-native";
+import { Modal, StyleSheet, View, } from "react-native";
 import { BlurView } from "expo-blur";
 import colors from "../config/colors";
 

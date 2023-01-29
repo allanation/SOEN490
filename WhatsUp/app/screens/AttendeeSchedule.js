@@ -2,21 +2,16 @@ import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
-  ScrollView,
-  Text,
-  TouchableOpacity,
   FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
 import ItineraryEventSched from "../components/ItineraryEventSched";
 import SearchBar from "../components/SearchBar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import colors from "../config/colors";
 import PropTypes from 'prop-types';
 
 const Tab = createMaterialTopTabNavigator();
 
-//Might want to find the real type
 AttendeeSchedule.propTypes = {
   route: PropTypes.any,
 };
@@ -28,37 +23,9 @@ function AttendeeSchedule({ route }) {
     setMasterData(prop);
   }, []);
 
-  //Remove condition when real data will be available
-  const itinerary = prop ? prop : [
-    {
-      title: "Round Table with William",
-      startTime: "9:00PM",
-      endTime: "10:00PM",
-      location: "Auditorium 101",
-    },
-    {
-      title: "Round Table with Paul",
-      startTime: "9:00PM",
-      endTime: "10:00PM",
-      location: "Auditorium 101",
-    },
-    {
-      title: "Round Table with Bob",
-      startTime: "9:00PM",
-      endTime: "10:00PM",
-      location: "Auditorium 101",
-    },
-    {
-      title: "Round Table with Jessica",
-      startTime: "9:00PM",
-      endTime: "10:00PM",
-      location: "Auditorium 101",
-    },
-  ];
+  const itinerary = prop 
 
-  const [itineraryw, setItineraryw] = useState([]);
   const [displayedItinerary, setDisplayedItinerary] = useState(true);
-  const [search, setSearch] = useState("");
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
   const [filteredData, setFilteredData] = useState("");
@@ -105,59 +72,10 @@ function AttendeeSchedule({ route }) {
               : setFilteredData(previousData);
             setSearch(text);
           }
-    {/**I don't think the following applies for the AttendeeSchedule, hopefully everything works
-                  If it doesn't, the else goes below this**/}
-    {/**else if (text && !displayedItinerary) {
-      const newData = previousData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = previousData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      console.log(filteredData);
-      setSearch(text);
-    }**/}
   };
 
-  const toggleDisplay = (e) => {
-    setDisplayedItinerary({ displayedItinerary: !displayedItinerary });
-  };
-
-  {/**I don't think the following applies for the AttendeeSchedule, hopefully everything works}**/}
-  {/**var tabs;**/}
   var showItinerary;
-  {/**if (displayedItinerary) {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedItinerary(true)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedItinerary(false)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );**/}
-
+ 
     showItinerary = (
       <>
         <FlatList
@@ -171,38 +89,6 @@ function AttendeeSchedule({ route }) {
         />
       </>
     );
-  {/**} else {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedItinerary(true)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedItinerary(false)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showItinerary = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : itinerary}
-          renderItem={ItemView}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  }**/}
 
   return (
       <Screen style={{ padding: "5%", backgroundColor: "white" }}>

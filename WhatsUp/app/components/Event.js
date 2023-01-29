@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
-import School from "../assets/Icons/stringio.png";
 
 function Event({ image, title, organizer, date, onPress, ...key }) {
   const logoUri =
@@ -23,7 +22,7 @@ function Event({ image, title, organizer, date, onPress, ...key }) {
       onPress={onPress}
     >
       <View style={{ flex: 2 }}>
-        <Image source={{ uri: image || logoUri }} 
+        <Image source={{ uri: image}} 
           style={{
             width: '100%', height: "100%", borderRadius: 19 }} />
       </View>

@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  ScrollView,
-  SafeAreaView,
-  Platform,
   Text,
   TouchableOpacity,
-  FlatList,
 } from "react-native";
 import colors from "../config/colors";
 import CardModal from "../components/CardModal";
@@ -33,7 +29,7 @@ function ItineraryEvent({ title, startTime, endTime, location, description }) {
         </Text>
         <Text style={{ color: colors.darkGrey }} numberOfLines={1}>
           {location.length < 16
-            ? `${'mock location'}`
+            ? `${location}`
             : `${location.substring(0, 14)}...`}
         </Text>
       </View>
@@ -67,15 +63,7 @@ function ItineraryEvent({ title, startTime, endTime, location, description }) {
               size={20}
               color={colors.primary}
             />
-            <Text style={{ marginLeft: 10 }}>{'mock location'}</Text>
-          </View>
-          <View style={styles.iconText}>
-            <Ionicons
-              name="ios-calendar-outline"
-              size={20}
-              color={colors.primary}
-            />
-            <Text style={{ marginLeft: 10 }}>{'mock'}</Text>
+            <Text style={{ marginLeft: 10 }}>{location}</Text>
           </View>
           <View style={styles.iconText}>
             <Ionicons name="ios-time-outline" size={20} color={colors.primary} />

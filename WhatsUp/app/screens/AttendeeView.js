@@ -2,10 +2,10 @@ import {
   StyleSheet,
   View,
   Image,
+  Text,
   Linking,
 } from "react-native";
 import Screen from "../components/Screen";
-import TktBtn from "../components/TktBtn";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AttendeeDetails from "./AttendeeDetails";
 import AttendeeSchedule from "./AttendeeSchedule";
@@ -13,8 +13,8 @@ import colors from "../config/colors";
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import UtilBtn from "../components/UtilBtn";
+import AppButton from "../components/AppButton";
 
-//Might want to find the real type
 AttendeeView.propTypes = {
   route: PropTypes.any,
   navigation: PropTypes.any,
@@ -25,7 +25,7 @@ function AttendeeView({ route, navigation }) {
   const Tab = createMaterialTopTabNavigator();
 
   const logoUri =
-    "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
+    "file:///var/mobile/Containers/Data/Application/13366C9D-903B-4C94-80AA-5B5206F41A09/Library/Caches/ExponentExperienceData/%2540anonymous%252Fapp-44cb83d2-a981-4ad5-91a4-f6aa5939ffef/ImagePicker/8F5454EC-25EE-4813-8923-0E94A6B3DF71.jpg";
 
   const [buttonText, setButtonText] = useState("Going");
 
@@ -37,15 +37,17 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
-  //remove margin -25 when you find why there is top padding (try to remove it)
   return (
-    <Screen style={{marginTop: -40, backgroundColor: 'white'}}>
+    <Screen style={{ backgroundColor: 'white'}}>
+    
       <Image
-        source={{ uri: logoUri }}
+        source={{ uri: prop.coverImage}}
         resizeMode="cover"
         style={styles.headerImage}
       />
-      <View style={styles.toolContainer}>
+      
+       <View style={styles.toolContainer}>
+       
         <UtilBtn
           icon="chevron-back-outline"
           iconSize={25}
@@ -56,7 +58,7 @@ function AttendeeView({ route, navigation }) {
           icon="ios-bookmark-outline"
           iconSize={20}
           style={styles.toolBtn}
-        />
+        > </UtilBtn>
       </View>
       <Tab.Navigator
         screenOptions={{
@@ -73,7 +75,6 @@ function AttendeeView({ route, navigation }) {
             borderBottomWidth: 0,
             marginHorizontal: '10%'
           },
-          
         }}
       >
         <Tab.Screen name="Details" component={AttendeeDetails} initialParams={{ prop: prop }} />
@@ -89,14 +90,16 @@ function AttendeeView({ route, navigation }) {
           borderTopWidth: 1,
         }}
       >
-        <TktBtn
+      {prop.link.length > 0 ? (
+        <AppButton
           style={styles.btn}
           title="Buy Tickets"
           onPress={() => {
-            Linking.openURL('http://google.com')
+           Linking.openURL(prop.link);
           }}
-        />
-        <TktBtn
+        />) : (<Text></Text>)
+      }
+        <AppButton
           style={styles.btn}
           title={buttonText}
           onPress={() => {
@@ -113,11 +116,12 @@ const styles = StyleSheet.create({
     height: "35%",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
+    marginTop: -50
   },
   btn: {
-    borderRadius: 7,
+    borderRadius: 5,
     marginRight: 10,
-    height: "65%",
+    height: "60%",
     width: "auto",
     alignItems: "center",
   },
@@ -135,7 +139,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: -30
   }
 });
 

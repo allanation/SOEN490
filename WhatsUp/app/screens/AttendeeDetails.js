@@ -17,7 +17,6 @@ import EventTagsList from '../components/EventTagsList';
 import { convertStartDate } from "./UserDashboard";
 import { format } from 'date-fns'
 
-//Might want to find the real type
 AttendeeDetails.propTypes = {
   route: PropTypes.any,
 };
@@ -46,7 +45,7 @@ function AttendeeDetails({route}) {
         <Text
           style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver' }}
         >
-          By {prop.orgName || "Concordia Uni"}
+          By {prop.orgName}
         </Text>
         <View style={styles.iconText}>
           <Ionicons
@@ -62,7 +61,10 @@ function AttendeeDetails({route}) {
             size={20}
             color={colors.primary}
           />
-          <Text style={{ marginLeft: 10 }}>{convertStartDate(prop.startDate)}</Text>
+          { convertStartDate(prop.startDate) == convertStartDate(prop.endDate) ? 
+          (<Text style={{ marginLeft: 10 }}>{`${convertStartDate(prop.startDate)}`}</Text>) :
+          (<Text style={{ marginLeft: 10 }}>{`${convertStartDate(prop.startDate)} - ${convertStartDate(prop.endDate)}`}</Text>)
+          }
         </View>
         <View style={styles.iconText}>
           <Ionicons name="ios-time-outline" size={20} color={colors.primary} />
