@@ -33,7 +33,7 @@ function AttendeeView({ route, navigation }) {
       setButtonText("Going");
     }
   };
-  
+
   return (
     <Screen style={{ backgroundColor: 'white'}}>
     
@@ -116,9 +116,9 @@ const styles = StyleSheet.create({
     marginTop: -50
   },
   btn: {
-    borderRadius: 5,
+    borderRadius: 3,
     marginRight: 10,
-    height: "60%",
+    height: "63%",
     width: "auto",
     alignItems: "center",
   },
