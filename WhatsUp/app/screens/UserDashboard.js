@@ -104,16 +104,16 @@ function UserDashboard() {
   const searchFilter = (text) => {
     if (text && displayedEvent) {
       const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const userSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -125,16 +125,16 @@ function UserDashboard() {
       setSearch(text);
     }  else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const userSearch = previousData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -174,11 +174,10 @@ function UserDashboard() {
       </>
     );
     showEvents = (
-      <>
+      <> 
         <FlatList
           data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
-          style={{}}
         />
         <FlatList
           data={filteredUserData ? filteredUserData : []}
@@ -221,7 +220,7 @@ function UserDashboard() {
 
   return (
     <Screen style={{padding: 10, backgroundColor: '#F5F5F5'}}>
-      <View style={{ left: '2.5%', marginTop: '5%' }}>
+      <View style={styles.container}>
       <View style={{flexDirection: 'row', alignItems: 'center'}} >
           <UtilBtn
             icon='pin'
@@ -264,7 +263,7 @@ function UserDashboard() {
 
         <Text style={styles.text}>Popular Events</Text>
 
-        <View style={{marginBottom: 80}}>
+        <View>
         {showEvents}
         </View>
       </View>
@@ -295,24 +294,16 @@ const styles = StyleSheet.create({
   text: {
     color: '#100101',
     marginTop: '4%',
+    marginBottom: '3%',
     fontSize: 16,
     fontWeight: 'bold',
   },
   container: {
-    position: 'absolute',
-    bottom: '-1.4%',
-    backgroundColor: '#FFFFFF',
-    borderColor: '#969696',
-    paddingHorizontal: '10%',
-    width: '113%',
-    height: '7%',
-    borderStyle: 'solid',
-    borderWidth: 0.25,
-    shadowColor: 'black',
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
+    left: '2.5%', 
+    marginTop: '5%', 
+    flex: 1, 
+    marginBottom: '45%'
+  }
 });
 
 export default UserDashboard;

@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   FlatList,
+  Text,
 } from "react-native";
 import Screen from "../components/Screen";
 import ItineraryEventSched from "../components/ItineraryEventSched";
@@ -28,11 +29,14 @@ function AttendeeSchedule({ route }) {
   const [displayedItinerary, setDisplayedItinerary] = useState(true);
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
+  const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState("");
   const [filteredOrgData, setFilteredOrgData] = useState("");
 
   const ItemView = ({ item }) => {
     return (
+      <View>
+      <Text style={styles.subtitle}>Day {item.day}</Text>
       <ItineraryEventSched
         title={item.title}
         startTime={item.startTime}
@@ -41,6 +45,7 @@ function AttendeeSchedule({ route }) {
         description={item.description}
         id={item.id}
       />
+      </View>
     );
   };
 
@@ -115,6 +120,11 @@ const styles = StyleSheet.create({
   headerContent: {
     justifyContent: "flex-start",
     width: "100%",
+  },
+  subtitle: {
+    padding: 14,
+    fontSize: 19,
+    fontWeight: "bold"
   },
   icon: {
     marginLeft: "auto",

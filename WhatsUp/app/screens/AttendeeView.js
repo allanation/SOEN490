@@ -24,9 +24,6 @@ function AttendeeView({ route, navigation }) {
   const { prop } = route.params;
   const Tab = createMaterialTopTabNavigator();
 
-  const logoUri =
-    "file:///var/mobile/Containers/Data/Application/13366C9D-903B-4C94-80AA-5B5206F41A09/Library/Caches/ExponentExperienceData/%2540anonymous%252Fapp-44cb83d2-a981-4ad5-91a4-f6aa5939ffef/ImagePicker/8F5454EC-25EE-4813-8923-0E94A6B3DF71.jpg";
-
   const [buttonText, setButtonText] = useState("Going");
 
   const handleGoing = (buttonText) => {
@@ -36,7 +33,7 @@ function AttendeeView({ route, navigation }) {
       setButtonText("Going");
     }
   };
-
+  
   return (
     <Screen style={{ backgroundColor: 'white'}}>
     
