@@ -5,20 +5,23 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   FlatList,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import Screen from '../components/Screen';
-import NavButton from '../components/NavButton';
 import UtilBtn from '../components/UtilBtn';
 import Event from '../components/Event';
-import School from '../assets/Icons/stringio.png';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import SearchBar from "../components/SearchBar";
+
+import { format } from 'date-fns'
+
+export const convertStartDate = (number) => {
+  return number ? format(new Date(number), 'LLL dd, yyyy') : "";
+}
 
 function UserDashboard() {
   const navigation = useNavigation();
@@ -40,6 +43,7 @@ function UserDashboard() {
   var today = "Today's " + months[date.getMonth()] + ' ' + date.getDate();
 
   const [userName, setUserName] = useState('');
+  const [allEvents, setAllEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -52,32 +56,29 @@ function UserDashboard() {
     }
   };
 
-  getName();
-
-  function getEvents() {
-    let eventsInfo = [];
-    for (let i = 0; i <= 5; i++) {
-      const event = {
-        image: { School },
-        title: 'Orientation Week',
-        organizer: 'Concordia University',
-        date: 'May 21, 2022',
-        key: i,
-      };
-      eventsInfo[i] = event;
+  const getEvents = async () => {
+    const allEvents = [];
+    const q = query(collection(db, "events"));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        allEvents.push(doc.data());
+      });
+      setAllEvents(allEvents);
+      setMasterData(allEvents);
+      setPreviousData(allEvents);
     }
-    return eventsInfo;
+  
   }
 
   var welcome = 'Welcome, ' + userName + '!';
 
-  const events = getEvents();
 
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
-    setMasterData(events);
-    setPreviousData(events);
+    getName();
+    getEvents();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
@@ -90,11 +91,11 @@ function UserDashboard() {
   const ItemView = ({ item }) => {
     return (
       <Event
-        image={School}
-        title={item.title}
-        organizer={item.organizer}
-        date={item.date}
-        onPress={() => console.log('Event')}
+        image={item.coverImage}
+        title={item.eventName}
+        organizer={item.orgName}
+        date={convertStartDate(item.startDate)}
+        onPress={() => navigation.navigate("AttendeeView", {prop: item})}
       />
     );
   };
@@ -102,16 +103,16 @@ function UserDashboard() {
   const searchFilter = (text) => {
     if (text && displayedEvent) {
       const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const userSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -121,26 +122,18 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    } else {
-            displayedEvent
-              ? setFilteredData(masterData)
-              : setFilteredData(previousData);
-            setSearch(text);
-          }
-          {/**I don't think the following applies for an Attendee, hopefully everything works
-              If it doesn't, the else goes below this**/}
-          {/**else if (text && !displayedEvent) {
+    }  else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const userSearch = previousData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -150,71 +143,21 @@ function UserDashboard() {
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
-    }**/}
+    }  else {
+      displayedEvent
+        ? setFilteredData(masterData)
+        : setFilteredData(previousData);
+      setSearch(text);
+    }
   };
 
-  const toggleDisplay = (e) => {
-    setDisplayedEvents({ displayedEvent: !displayedEvent });
-  };
-
-  {/**I don't think the following applies for an Attendee, hopefully everything works}**/}
-  {/**var tabs;**/}
+  var tabs;
   var showEvents;
-  {/**if (displayedEvent) {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title='Show Form 1'
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title='Show Form 2'
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );**/}
+
     showEvents = (
-      <>
+      <> 
         <FlatList
-          data={filteredData ? filteredData : events}
-          renderItem={ItemView}
-          style={{}}
-        />
-        <FlatList
-          data={filteredUserData ? filteredUserData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  {/**} else {
-    {/**tabs = (
-      <>
-        <TouchableOpacity
-          title='Show Form 1'
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title='Show Form 2'
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : events}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
         />
         <FlatList
@@ -223,12 +166,11 @@ function UserDashboard() {
         />
       </>
     );
-  **/}
 
   return (
-    <Screen style={{ padding: 20, backgroundColor: '#F5F5F5' }}>
-      <View style={{ left: '2.5%', marginTop: '5%', bottom: "5%" }}>
-        <View style={{ flexDirection: 'row' }}>
+    <Screen style={{padding: 10, backgroundColor: '#F5F5F5'}}>
+      <View style={styles.container}>
+      <View style={{flexDirection: 'row', alignItems: 'center'}} >
           <UtilBtn
             icon='pin'
             iconSize={18}
@@ -262,7 +204,7 @@ function UserDashboard() {
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: 'row', paddingHorizontal: 12, marginTop: 5 },
+              { flexDirection: "row", paddingHorizontal: 12 },
             ]}
             icon='ios-options'
             testID="filters"
@@ -271,8 +213,11 @@ function UserDashboard() {
         </View>
 
         <Text style={styles.text}>Popular Events</Text>
+
+        <View>
+        {showEvents}
+        </View>
       </View>
-      {showEvents}
     </Screen>
   );
 }
@@ -300,25 +245,16 @@ const styles = StyleSheet.create({
   text: {
     color: '#100101',
     marginTop: '4%',
+    marginBottom: '3%',
     fontSize: 16,
     fontWeight: 'bold',
   },
   container: {
-    position: 'absolute',
-    bottom: '-1.4%',
-    backgroundColor: '#FFFFFF',
-    borderColor: '#969696',
-    paddingHorizontal: '10%',
-    width: '113%',
-    height: '7%',
-    marginVertical: '1.4%',
-    borderStyle: 'solid',
-    borderWidth: 0.25,
-    shadowColor: 'black',
-    flexDirection: 'row',
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
+    left: '2.5%', 
+    marginTop: '5%', 
+    flex: 1, 
+    marginBottom: '45%'
+  }
 });
 
 export default UserDashboard;

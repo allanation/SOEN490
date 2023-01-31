@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import colors from '../config/colors';
@@ -6,10 +5,9 @@ import colors from '../config/colors';
 function AppButton({
   title,
   onPress,
-  color = 'primary',
+  color = 'orange',
   disabled = false,
   style,
-  textStyle
 }) {
   return (
     <TouchableOpacity
@@ -22,14 +20,14 @@ function AppButton({
       onPress={onPress}
       disabled={disabled}
     >
-      <Text style={[styles.text, textStyle]}>{title}</Text>
+      <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 20,
+    borderRadius: 7,
     alignSelf: 'center',
     alignItems: 'center',
     padding: 12,
