@@ -5,7 +5,6 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   FlatList,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,7 +15,7 @@ import Event from '../components/Event';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
-import SearchBar from 'react-native-dynamic-search-bar';
+import SearchBar from "../components/SearchBar";
 
 import { format } from 'date-fns'
 
@@ -154,25 +153,7 @@ function UserDashboard() {
 
   var tabs;
   var showEvents;
-  if (displayedEvent) {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title='Show Form 1'
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title='Show Form 2'
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
+
     showEvents = (
       <> 
         <FlatList
@@ -185,38 +166,6 @@ function UserDashboard() {
         />
       </>
     );
-  } else {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title='Show Form 1'
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title='Show Form 2'
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={[filteredData ? filteredData : allEvents]}
-          renderItem={ItemView}
-        />
-        <FlatList
-          data={filteredUserData ? filteredUserData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  }
 
   return (
     <Screen style={{padding: 10, backgroundColor: '#F5F5F5'}}>
@@ -226,6 +175,7 @@ function UserDashboard() {
             icon='pin'
             iconSize={18}
             title='Montreal, QC'
+            onPress={() => console.log('Location')}
             testID='location'
           />
           <UtilBtn
@@ -246,7 +196,7 @@ function UserDashboard() {
           <SearchBar
             style={{ width: '85%' }}
             placeholder='Search for...'
-            onChangeText={(text) => {
+            handleChange={(text) => {
               searchFilter(text);
             }}
           />
@@ -257,6 +207,7 @@ function UserDashboard() {
               { flexDirection: "row", paddingHorizontal: 12 },
             ]}
             icon='ios-options'
+            testID="filters"
             onPress={() => console.log('Filters')}
           />
         </View>
