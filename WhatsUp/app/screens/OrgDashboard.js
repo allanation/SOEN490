@@ -20,11 +20,32 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
+import { convertStartDate } from "./UserDashboard";
+import { format } from "date-fns/format";
+import Event from "../components/Event";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
+  var date = new Date();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
 
   const [userName, setUserName] = useState("");
+  const [allEvents, setAllEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -37,96 +58,28 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  getName();
+  const getEvents = async () => {
+    const allEvents = [];
+    const q = query(collection(db, "events"), where("pocEmail", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        allEvents.push(doc.data());
+      });
+      setAllEvents(allEvents);
+      setMasterData(allEvents);
+      setPreviousData(allEvents);
+    }
+  };
 
-  const [date, setDate] = useState(null);
+  var welcome = "Welcome, " + userName + "!";
+
+  const Tab = createBottomTabNavigator();
+
   useEffect(() => {
-    let d = new Date();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let today = "Today's " + months[d.getMonth()] + " " + d.getDate();
-    setDate(today);
-    setMasterData(events);
-    setPreviousData(eventsPast);
+    getName();
+    getEvents();
   }, []);
-
-  const events = [
-    {
-      image: "../assets/Logos/w1.png",
-      title: "Fashion Week",
-      organizer: "Lasalle College",
-      date: "May 21, 2020",
-    },
-    {
-      image: { EventImage },
-      title: "Orientation Week",
-      organizer: "ETS",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "FROSH",
-      organizer: "Concordia Universityyyyyy",
-      date: "May 21, 2023",
-    },
-    {
-      image: { EventImage },
-      title: "Film Festival",
-      organizer: "Cinema",
-      date: "May 21, 2024",
-    },
-    {
-      image: { EventImage },
-      title: "Anime Film Festival",
-      organizer: "Cinema",
-      date: "June 24, 2024",
-    },
-  ];
-
-  const eventsPast = [
-    {
-      image: "../assets/Logos/w1.png",
-      title: "Sports Weekend",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "Music Festival",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "Film Festival",
-      organizer: "Cinema",
-      date: "May 21, 2024",
-    },
-    {
-      image: { EventImage },
-      title: "Jazz Festival",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "F1 ",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-  ];
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
   const [search, setSearch] = useState("");
@@ -137,11 +90,12 @@ function OrganizerDashboardScreen() {
 
   const ItemView = ({ item }) => {
     return (
-      <EventBanner
-        image={EventImage}
-        title={item.title}
-        organizer={item.organizer}
-        date={item.date}
+      <Event
+        image={item.coverImage}
+        title={item.eventName}
+        organizer={item.orgName}
+        date={convertStartDate(item.startDate)}
+        onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
   };
@@ -225,7 +179,7 @@ function OrganizerDashboardScreen() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : events}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
           style={{}}
         />
@@ -257,7 +211,7 @@ function OrganizerDashboardScreen() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : eventsPast}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
         />
         <FlatList
@@ -273,11 +227,9 @@ function OrganizerDashboardScreen() {
         <View style={styles.header}>
           <View style={styles.headerContent}>
             <Text style={{ color: colors.darkGrey }}>
-              <Text style={styles.paragraph}>{date}</Text>{" "}
+              <Text style={styles.paragraph}>{today}</Text>
             </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-              Welcome, {userName}!
-            </Text>
+            <Text style={{ fontWeight: "bold", fontSize: 25 }}>{welcome}</Text>
           </View>
           <UtilBtn
             iconSize={40}
@@ -289,7 +241,7 @@ function OrganizerDashboardScreen() {
         </View>
 
         <View style={styles.searchBar}>
-        <SearchBar
+          <SearchBar
             placeholder="Search for..."
             handleChange={(text) => {
               searchFilter(text);
