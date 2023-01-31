@@ -20,7 +20,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
-import { convertStartDate } from "./UserDashboard";
+import { convertStartDate } from "./AttendeeDashboard.js";
 import { format } from "date-fns/format";
 import Event from "../components/Event";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -103,16 +103,16 @@ function OrganizerDashboardScreen() {
   const searchFilter = (text) => {
     if (text && displayedEvent) {
       const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
+          : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const orgSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -124,16 +124,16 @@ function OrganizerDashboardScreen() {
       setSearch(text);
     } else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const orgSearch = previousData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -223,6 +223,7 @@ function OrganizerDashboardScreen() {
   }
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
+    <View style={styles.container}>
       <View>
         <View style={styles.header}>
           <View style={styles.headerContent}>
@@ -249,7 +250,7 @@ function OrganizerDashboardScreen() {
           />
           <UtilBtn
             iconSize={32}
-            style={[styles.button, { flexDirection: "row", size: 12 }]}
+            style={[styles.button, { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" }]}
             icon="ios-options"
             testID="filters"
             onPress={() => console.log("Filters")}
@@ -258,6 +259,7 @@ function OrganizerDashboardScreen() {
         <Text style={styles.eventTitle}>Your Events</Text>
       </View>
       {showEvents}
+      </View>
       <View style={styles.eventTabs}>{tabs}</View>
     </Screen>
   );
@@ -306,6 +308,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingBottom: 5,
   },
+  container: {
+    left: '2.5%', 
+    marginTop: '5%', 
+    flex: 1, 
+    marginBottom: '45%'
+  }
 });
 
 export default OrganizerDashboardScreen;

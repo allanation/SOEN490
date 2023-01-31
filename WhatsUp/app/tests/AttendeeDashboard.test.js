@@ -7,22 +7,22 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import UserDashboardScreen from "../screens/UserDashboard";
+import AttendeeDashboardScreen from "../screens/AttendeeDashboard.js";
 import LoginScreen from "../screens/Login";
 import UserProfileScreen from "../screens/UserProfile";
 
 jest.useFakeTimers();
 
-it("Renders User Dashboard Correctly", () => {
+it("Renders Attendee Dashboard Correctly", () => {
   const tree = render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <AttendeeDashboardScreen />
     </NavigationContainer>
   ).toJSON();
   expect(tree).toMatchSnapshot();
 });
 
-test("Logging in with attendee account should render User Dashboard Screen", async () => {
+test("Logging in with attendee account should render Attendee Dashboard Screen", async () => {
   render(
     <NavigationContainer>
       <LoginScreen />
@@ -41,14 +41,14 @@ test("Logging in with attendee account should render User Dashboard Screen", asy
     fireEvent.press(screen.getAllByText("Login")[1]);
   });
   render(<NavigationContainer>
-               <UserDashboardScreen />
+               <AttendeeDashboardScreen />
              </NavigationContainer>);
 });
 
 test("When clicking on the Location icon it should console log Location", async () => {
   render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <AttendeeDashboardScreen />
     </NavigationContainer>
   );
   await waitFor(() => {
@@ -59,7 +59,7 @@ test("When clicking on the Location icon it should console log Location", async 
 test("When clicking on the Notification icon it should console log notification", async () => {
   render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <AttendeeDashboardScreen />
     </NavigationContainer>
   );
   await waitFor(() => {
@@ -70,7 +70,7 @@ test("When clicking on the Notification icon it should console log notification"
 test("When clicking on the Filter icon it should console log Filters", async () => {
   render(
     <NavigationContainer>
-          <UserDashboardScreen />
+          <AttendeeDashboardScreen />
     </NavigationContainer>
   );
   await waitFor(() => {
@@ -81,7 +81,7 @@ test("When clicking on the Filter icon it should console log Filters", async () 
 test("When searching in search bar for fa, it should return events that include fa", async () => {
   render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <AttendeeDashboardScreen />
     </NavigationContainer>
   );
   await waitFor(() => {
@@ -93,7 +93,7 @@ test("When searching in search bar for fa, it should return events that include 
 test("When clicking on the User Profile icon, it should redirect to the User Profile screen", async () => {
   render(
     <NavigationContainer>
-      <UserDashboardScreen />
+      <AttendeeDashboardScreen />
     </NavigationContainer>
   );
 

@@ -14,10 +14,12 @@ import OrgDateInfo from "./screens/OrgDateInfo";
 import OrgDaySchedule from "./screens/OrgDaySchedule";
 import OrgPointOfContact from "./screens/OrgPointOfContact";
 import OrgNewEvent from "./screens/OrgNewEvent";
-import UserDashboard from "./screens/UserDashboard";
+import OrgView from "./screens/OrgView";
+import OrgDetails from "./screens/OrgDetails";
+import OrgStatus from "./screens/OrgStatus";
+import AttendeeDashboard from "./screens/AttendeeDashboard.js";
 import UserProfile from "./screens/UserProfile";
 import AttendeeView from "./screens/AttendeeView";
-import OrgView from "./screens/OrgView";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -31,8 +33,8 @@ const TabScreen = () => {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "UserProfile") {
             iconName = focused ? "ios-person" : "ios-person-outline";
-          } else if (route.name === "Add") {
-            iconName = focused ? "ios-add-circle" : "ios-add-circle-outline";
+          } else if (route.name === "Notifs") {
+            iconName = focused ? "ios-megaphone" : "ios-megaphone-outline";
           }
 
           // You can return any component that you like here!
@@ -45,7 +47,7 @@ const TabScreen = () => {
       })}
     >
       <Tab.Screen name="OrganizerDashboard" component={OrgDashboard} />
-      <Tab.Screen name="Add" component={OrgDashboard} />
+      <Tab.Screen name="Notifs" component={OrgDashboard} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
     </Tab.Navigator>
   );
@@ -78,9 +80,9 @@ const AttendeeTabScreen = () => {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="User" component={UserDashboard} />
-      <Tab.Screen name="Ticket" component={UserDashboard} />
-      <Tab.Screen name="Bookmark" component={UserDashboard} />
+      <Tab.Screen name="User" component={AttendeeDashboard} />
+      <Tab.Screen name="Ticket" component={AttendeeDashboard} />
+      <Tab.Screen name="Bookmark" component={AttendeeDashboard} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
     </Tab.Navigator>
   );
@@ -105,8 +107,10 @@ export default function App() {
         <Stack.Screen name="OrgDay" component={OrgDaySchedule} />
         <Stack.Screen name="OrgTags" component={OrgEventTags} />
         <Stack.Screen name="OrgView" component={OrgView} />
+        <Stack.Screen name="OrgDetails" component={OrgDetails} />
+        <Stack.Screen name="OrgStatus" component={OrgStatus} />
         <Stack.Screen name="Organizer" component={TabScreen} />
-        <Stack.Screen name="UserDashboard" component={UserDashboard} />
+        <Stack.Screen name="AttendeeDashboard" component={AttendeeDashboard} />
         <Stack.Screen name="Attendee" component={AttendeeTabScreen} />
         <Stack.Screen name="AttendeeView" component={AttendeeView} />
         <Stack.Screen name="UserProfile" component={UserProfile} />

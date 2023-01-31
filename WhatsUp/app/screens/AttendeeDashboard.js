@@ -23,7 +23,7 @@ export const convertStartDate = (number) => {
   return number ? format(new Date(number), 'LLL dd, yyyy') : "";
 }
 
-function UserDashboard() {
+function AttendeeDashboard() {
   const navigation = useNavigation();
   var date = new Date();
   const months = [
@@ -204,7 +204,7 @@ function UserDashboard() {
             iconSize={32}
             style={[
               styles.button,
-              { flexDirection: "row", paddingHorizontal: 12 },
+              { flexDirection: "row", marginLeft: "1%", marginTop: "0.5%" },
             ]}
             icon='ios-options'
             testID="filters"
@@ -257,4 +257,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default UserDashboard;
+export default AttendeeDashboard;
