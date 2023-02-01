@@ -245,6 +245,7 @@ function OrganizerDashboardScreen() {
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
               </Text>
+              <View style={styles.eventTabs}>{tabs}</View>
             </View>
             <UtilBtn
               iconSize={40}
@@ -274,7 +275,6 @@ function OrganizerDashboardScreen() {
             />
           </View>
           <Text style={styles.eventTitle}>Your Events</Text>
-          <View style={styles.eventTabs}>{tabs}</View>
         </View>
         {showEvents}
       </View>
@@ -299,7 +299,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 10,
   },
   searchBar: {
     flexDirection: "row",
@@ -311,9 +310,10 @@ const styles = StyleSheet.create({
   },
   eventTabs: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 5,
-    marginBottom: 5
+    justifyContent: "space-between",
+    marginTop: 15,
+    marginBottom: 5,
+
   },
   upcoming: {
     marginTop: 5,
@@ -321,16 +321,17 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primary,
     paddingBottom: 5,
     fontWeight: "bold",
+    marginLeft: '20%'
   },
   previous: {
     marginTop: 5,
     paddingBottom: 5,
+    marginLeft: '20%'
   },
   container: {
     left: "2.5%",
     marginTop: "5%",
     flex: 1,
-    //marginBottom: "3%",
   },
 });
 
