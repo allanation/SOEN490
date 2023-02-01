@@ -35,13 +35,6 @@ function OrgView({ route, navigation }) {
           style={styles.toolBtn}
           onPress={() => navigation.goBack()}
         />
-        <UtilBtn
-          icon="ios-bookmark-outline"
-          iconSize={20}
-          style={styles.toolBtn}
-        >
-          {" "}
-        </UtilBtn>
       </View>
       <Tab.Navigator
         screenOptions={{

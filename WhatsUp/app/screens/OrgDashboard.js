@@ -43,7 +43,12 @@ function OrganizerDashboardScreen() {
     "December",
   ];
   var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
-  var todayDate = months[date.getMonth()].substring(0, 3) + " " + date.getDate() + ", " + date.getFullYear();
+  var todayDate =
+    months[date.getMonth()].substring(0, 3) +
+    " " +
+    date.getDate() +
+    ", " +
+    date.getFullYear();
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
@@ -61,7 +66,10 @@ function OrganizerDashboardScreen() {
 
   const getEvents = async () => {
     const allEvents = [];
-    const q = query(collection(db, "events"), where("pocEmail", "==", user.email));
+    const q = query(
+      collection(db, "events"),
+      where("pocEmail", "==", user.email)
+    );
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
@@ -98,6 +106,7 @@ function OrganizerDashboardScreen() {
         title={item.eventName}
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
+        isOrganizer={true}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
@@ -108,7 +117,7 @@ function OrganizerDashboardScreen() {
       const newData = masterData.filter((item) => {
         const itemData = item.eventName
           ? item.eventName.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -226,44 +235,49 @@ function OrganizerDashboardScreen() {
   }
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
-    <View style={styles.container}>
-      <View>
-        <View style={styles.header}>
-          <View style={styles.headerContent}>
-            <Text style={{ color: colors.darkGrey }}>
-              <Text style={styles.paragraph}>{today}</Text>
-            </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>{welcome}</Text>
+      <View style={styles.container}>
+        <View>
+          <View style={styles.header}>
+            <View style={styles.headerContent}>
+              <Text style={{ color: colors.darkGrey }}>
+                <Text style={styles.paragraph}>{today}</Text>
+              </Text>
+              <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                {welcome}
+              </Text>
+            </View>
+            <UtilBtn
+              iconSize={40}
+              style={[styles.button, { flexDirection: "row", size: 12 }]}
+              icon="add-circle-outline"
+              testID="addEventButton"
+              onPress={() => navigation.navigate("NewEvent")}
+            />
           </View>
-          <UtilBtn
-            iconSize={40}
-            style={[styles.button, { flexDirection: "row", size: 12 }]}
-            icon="add-circle-outline"
-            testID="addEventButton"
-            onPress={() => navigation.navigate("NewEvent")}
-          />
-        </View>
 
-        <View style={styles.searchBar}>
-          <SearchBar
-            placeholder="Search for..."
-            handleChange={(text) => {
-              searchFilter(text);
-            }}
-          />
-          <UtilBtn
-            iconSize={32}
-            style={[styles.button, { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" }]}
-            icon="ios-options"
-            testID="filters"
-            onPress={() => console.log("Filters")}
-          />
+          <View style={styles.searchBar}>
+            <SearchBar
+              placeholder="Search for..."
+              handleChange={(text) => {
+                searchFilter(text);
+              }}
+            />
+            <UtilBtn
+              iconSize={32}
+              style={[
+                styles.button,
+                { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" },
+              ]}
+              icon="ios-options"
+              testID="filters"
+              onPress={() => console.log("Filters")}
+            />
+          </View>
+          <Text style={styles.eventTitle}>Your Events</Text>
+          <View style={styles.eventTabs}>{tabs}</View>
         </View>
-        <Text style={styles.eventTitle}>Your Events</Text>
+        {showEvents}
       </View>
-      {showEvents}
-      </View>
-      <View style={styles.eventTabs}>{tabs}</View>
     </Screen>
   );
 }
@@ -298,7 +312,8 @@ const styles = StyleSheet.create({
   eventTabs: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 2,
+    marginTop: 5,
+    marginBottom: 5
   },
   upcoming: {
     marginTop: 5,
@@ -312,11 +327,11 @@ const styles = StyleSheet.create({
     paddingBottom: 5,
   },
   container: {
-    left: '2.5%', 
-    marginTop: '5%', 
-    flex: 1, 
-    marginBottom: '3%'
-  }
+    left: "2.5%",
+    marginTop: "5%",
+    flex: 1,
+    //marginBottom: "3%",
+  },
 });
 
 export default OrganizerDashboardScreen;
