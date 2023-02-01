@@ -20,11 +20,38 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
+import { convertStartDate } from "./AttendeeDashboard.js";
+import { format } from "date-fns/format";
+import Event from "../components/Event";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
+  var date = new Date();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
+  var todayDate =
+    months[date.getMonth()].substring(0, 3) +
+    " " +
+    date.getDate() +
+    ", " +
+    date.getFullYear();
 
   const [userName, setUserName] = useState("");
+  const [allEvents, setAllEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -37,96 +64,33 @@ function OrganizerDashboardScreen() {
     }
   };
 
-  getName();
+  const getEvents = async () => {
+    const allEvents = [];
+    const q = query(
+      collection(db, "events"),
+      where("pocEmail", "==", user.email)
+    );
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        allEvents.push(doc.data());
+        // console.log(convertStartDate(doc.data().startDate) > todayDate)
+        // console.log(todayDate)
+      });
+      setAllEvents(allEvents);
+      setMasterData(allEvents);
+      setPreviousData(allEvents);
+    }
+  };
 
-  const [date, setDate] = useState(null);
+  var welcome = "Welcome, " + userName + "!";
+
+  const Tab = createBottomTabNavigator();
+
   useEffect(() => {
-    let d = new Date();
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-    let today = "Today's " + months[d.getMonth()] + " " + d.getDate();
-    setDate(today);
-    setMasterData(events);
-    setPreviousData(eventsPast);
+    getName();
+    getEvents();
   }, []);
-
-  const events = [
-    {
-      image: "../assets/Logos/w1.png",
-      title: "Fashion Week",
-      organizer: "Lasalle College",
-      date: "May 21, 2020",
-    },
-    {
-      image: { EventImage },
-      title: "Orientation Week",
-      organizer: "ETS",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "FROSH",
-      organizer: "Concordia Universityyyyyy",
-      date: "May 21, 2023",
-    },
-    {
-      image: { EventImage },
-      title: "Film Festival",
-      organizer: "Cinema",
-      date: "May 21, 2024",
-    },
-    {
-      image: { EventImage },
-      title: "Anime Film Festival",
-      organizer: "Cinema",
-      date: "June 24, 2024",
-    },
-  ];
-
-  const eventsPast = [
-    {
-      image: "../assets/Logos/w1.png",
-      title: "Sports Weekend",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "Music Festival",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "Film Festival",
-      organizer: "Cinema",
-      date: "May 21, 2024",
-    },
-    {
-      image: { EventImage },
-      title: "Jazz Festival",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-    {
-      image: { EventImage },
-      title: "F1 ",
-      organizer: "Concordia University",
-      date: "May 21, 2022",
-    },
-  ];
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
   const [search, setSearch] = useState("");
@@ -137,11 +101,13 @@ function OrganizerDashboardScreen() {
 
   const ItemView = ({ item }) => {
     return (
-      <EventBanner
-        image={EventImage}
-        title={item.title}
-        organizer={item.organizer}
-        date={item.date}
+      <Event
+        image={item.coverImage}
+        title={item.eventName}
+        organizer={item.orgName}
+        date={convertStartDate(item.startDate)}
+        isOrganizer={true}
+        onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
   };
@@ -149,16 +115,16 @@ function OrganizerDashboardScreen() {
   const searchFilter = (text) => {
     if (text && displayedEvent) {
       const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const orgSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -170,16 +136,16 @@ function OrganizerDashboardScreen() {
       setSearch(text);
     } else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
+        const itemData = item.eventName
+          ? item.eventName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
 
       const orgSearch = previousData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
+        const itemData = item.orgName
+          ? item.orgName.toUpperCase()
           : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
@@ -225,7 +191,7 @@ function OrganizerDashboardScreen() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : events}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
           style={{}}
         />
@@ -257,7 +223,7 @@ function OrganizerDashboardScreen() {
     showEvents = (
       <>
         <FlatList
-          data={filteredData ? filteredData : eventsPast}
+          data={filteredData ? filteredData : allEvents}
           renderItem={ItemView}
         />
         <FlatList
@@ -269,44 +235,49 @@ function OrganizerDashboardScreen() {
   }
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
-      <View>
-        <View style={styles.header}>
-          <View style={styles.headerContent}>
-            <Text style={{ color: colors.darkGrey }}>
-              <Text style={styles.paragraph}>{date}</Text>{" "}
-            </Text>
-            <Text style={{ fontWeight: "bold", fontSize: 25 }}>
-              Welcome, {userName}!
-            </Text>
+      <View style={styles.container}>
+        <View>
+          <View style={styles.header}>
+            <View style={styles.headerContent}>
+              <Text style={{ color: colors.darkGrey }}>
+                <Text style={styles.paragraph}>{today}</Text>
+              </Text>
+              <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                {welcome}
+              </Text>
+              <View style={styles.eventTabs}>{tabs}</View>
+            </View>
+            <UtilBtn
+              iconSize={40}
+              style={[styles.button, { flexDirection: "row", size: 12 }]}
+              icon="add-circle-outline"
+              testID="addEventButton"
+              onPress={() => navigation.navigate("NewEvent")}
+            />
           </View>
-          <UtilBtn
-            iconSize={40}
-            style={[styles.button, { flexDirection: "row", size: 12 }]}
-            icon="add-circle-outline"
-            testID="addEventButton"
-            onPress={() => navigation.navigate("NewEvent")}
-          />
-        </View>
 
-        <View style={styles.searchBar}>
-        <SearchBar
-            placeholder="Search for..."
-            handleChange={(text) => {
-              searchFilter(text);
-            }}
-          />
-          <UtilBtn
-            iconSize={32}
-            style={[styles.button, { flexDirection: "row", size: 12 }]}
-            icon="ios-options"
-            testID="filters"
-            onPress={() => console.log("Filters")}
-          />
+          <View style={styles.searchBar}>
+            <SearchBar
+              placeholder="Search for..."
+              handleChange={(text) => {
+                searchFilter(text);
+              }}
+            />
+            <UtilBtn
+              iconSize={32}
+              style={[
+                styles.button,
+                { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" },
+              ]}
+              icon="ios-options"
+              testID="filters"
+              onPress={() => console.log("Filters")}
+            />
+          </View>
+          <Text style={styles.eventTitle}>Your Events</Text>
         </View>
-        <Text style={styles.eventTitle}>Your Events</Text>
+        {showEvents}
       </View>
-      {showEvents}
-      <View style={styles.eventTabs}>{tabs}</View>
     </Screen>
   );
 }
@@ -328,7 +299,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
     marginTop: 16,
-    marginBottom: 10,
   },
   searchBar: {
     flexDirection: "row",
@@ -340,8 +310,10 @@ const styles = StyleSheet.create({
   },
   eventTabs: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 2,
+    justifyContent: "space-between",
+    marginTop: 15,
+    marginBottom: 5,
+
   },
   upcoming: {
     marginTop: 5,
@@ -349,10 +321,17 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primary,
     paddingBottom: 5,
     fontWeight: "bold",
+    marginLeft: '20%'
   },
   previous: {
     marginTop: 5,
     paddingBottom: 5,
+    marginLeft: '20%'
+  },
+  container: {
+    left: "2.5%",
+    marginTop: "5%",
+    flex: 1,
   },
 });
 

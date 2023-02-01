@@ -383,6 +383,8 @@ exports[`renders correctly 1`] = `
               "fontFamily": "Helvetica Neue",
               "fontSize": 18,
               "fontWeight": "bold",
+              "textAlign": "center",
+              "textAlignVertical": "center",
             },
             undefined,
           ]

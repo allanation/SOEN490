@@ -14,7 +14,7 @@ import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
 import PropTypes from 'prop-types';
 import EventTagsList from '../components/EventTagsList';
-import { convertStartDate } from "./UserDashboard";
+import { convertStartDate } from "./AttendeeDashboard.js";
 import { format } from 'date-fns'
 
 AttendeeDetails.propTypes = {
@@ -43,7 +43,7 @@ function AttendeeDetails({route}) {
       <ScrollView style={{ width: "100%", display: "flex" }}>
         <TitleHeaders title={prop.eventName} />
         <Text
-          style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver' }}
+          style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver', marginTop: "1%" }}
         >
           By {prop.orgName}
         </Text>

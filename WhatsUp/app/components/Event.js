@@ -12,7 +12,7 @@ import {
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
 
-function Event({ image, title, organizer, date, onPress, ...key }) {
+function Event({ image, title, organizer, date, onPress, isOrganizer, ...key }) {
   const logoUri =
     "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
 
@@ -44,7 +44,7 @@ function Event({ image, title, organizer, date, onPress, ...key }) {
           </Text>
         </View>
       </View>
-      <BookmarkButton />
+      {isOrganizer ? '' : <BookmarkButton />}
     </TouchableOpacity>
   );
 }
