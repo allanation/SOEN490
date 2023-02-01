@@ -58,7 +58,7 @@ function AttendeeDashboard() {
 
   const getEvents = async () => {
     const allEvents = [];
-    const q = query(collection(db, "events"));
+    const q = query(collection(db, "events"), where('eventStatus', '==', 'Approved'));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {

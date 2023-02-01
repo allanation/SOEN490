@@ -43,6 +43,7 @@ function OrganizerDashboardScreen() {
     "December",
   ];
   var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
+  var todayDate = months[date.getMonth()].substring(0, 3) + " " + date.getDate() + ", " + date.getFullYear();
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
@@ -65,6 +66,8 @@ function OrganizerDashboardScreen() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         allEvents.push(doc.data());
+        // console.log(convertStartDate(doc.data().startDate) > todayDate)
+        // console.log(todayDate)
       });
       setAllEvents(allEvents);
       setMasterData(allEvents);
@@ -312,7 +315,7 @@ const styles = StyleSheet.create({
     left: '2.5%', 
     marginTop: '5%', 
     flex: 1, 
-    marginBottom: '45%'
+    marginBottom: '3%'
   }
 });
 

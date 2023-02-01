@@ -1,4 +1,4 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Text, Platform } from "react-native";
 import Screen from "../components/Screen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import OrgDetails from "./OrgDetails";
@@ -88,11 +88,11 @@ function OrgView({ route, navigation }) {
       >
         <AppButton
           style={styles.btn}
-          title=<Ionicons
+          title={prop.eventStatus === 'Rejected' ? "Resubmit" : <Ionicons
             name="ios-megaphone-outline"
             size={18}
             color={colors.white}
-          > Blast Info</Ionicons>
+          > <Text style={styles.text}>Blast Info</Text></Ionicons>}
           onPress={() => {}}
           />
       </View>
@@ -129,6 +129,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginTop: -30,
+  },
+  text: {
+    color: colors.white,
+    fontSize: 18,
+    fontWeight: 'bold',
+    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    textAlign: "center",
+    textAlignVertical: "center",
   },
 });
 
