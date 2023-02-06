@@ -12,6 +12,7 @@ import SignUpScreen from "../screens/SignUpScreen";
 import { Alert } from "react-native";
 
 jest.useFakeTimers();
+//jest.spyOn(Alert, "alert");
 it("renders correctly", () => {
   const tree = render(
     <NavigationContainer>
@@ -28,6 +29,7 @@ test("Successful Sign Up for a user", async () => {
       <SignUpScreen />
     </NavigationContainer>
   );
+  jest.spyOn(Alert, "alert");
   await waitFor(() =>
     fireEvent.changeText(screen.getByPlaceholderText("First Name"), "Mo")
   );
@@ -35,30 +37,24 @@ test("Successful Sign Up for a user", async () => {
     fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Salah")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       " mosalah@hotmail.com"
     )
   );
   await waitFor(() =>
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Confirm Password"),
       "capstone123"
     )
   );
-  const spyAlert = jest.spyOn(Alert, "alert");
   await waitFor(() => {
-    fireEvent.press(screen.getAllByText("Sign Up")[1]);
+    fireEvent.press(screen.getByTestId("signUpButton"));
+    expect(Alert.alert).toHaveBeenCalledWith("Account Created Succesfully");
   });
-  render(
-    <NavigationContainer>
-      <Login />
-    </NavigationContainer>
-  );
-  expect(screen.getByPlaceholderText("Email")).toBeTruthy();
 });
 
 test("Successful Sign Up for an organizer", async () => {
@@ -75,32 +71,25 @@ test("Successful Sign Up for an organizer", async () => {
     fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Salah")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       " mosalah@hotmail.com"
     )
   );
   await waitFor(() =>
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Confirm Password"),
       "capstone123"
     )
   );
   await waitFor(() => fireEvent.press(screen.getByTestId("isOrganizer")));
-  jest.spyOn(Alert, "alert");
   await waitFor(() => {
-    fireEvent.press(screen.getAllByText("Sign Up")[1]);
+    fireEvent.press(screen.getByTestId("signUpButton"));
     expect(Alert.alert);
   });
-  render(
-    <NavigationContainer>
-      <Login />
-    </NavigationContainer>
-  );
-  expect(screen.getByPlaceholderText("Email")).toBeTruthy();
 });
 
 test("Wrong Confirm Password", async () => {
@@ -117,23 +106,23 @@ test("Wrong Confirm Password", async () => {
     fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Mazumdar")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       "mohona6646@hotmail.com"
     )
   );
   await waitFor(() =>
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Confirm Password"),
       "capstone122"
     )
   );
 
   const onClick = jest.fn();
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
   expect(onClick).not.toHaveBeenCalled();
 });
 
@@ -145,12 +134,11 @@ test("Successful navigation to login page", async () => {
   );
 
   await waitFor(() => fireEvent.press(screen.getByText("Login")));
-  const ls = (
+  render(
     <NavigationContainer>
       <Login />
     </NavigationContainer>
   );
-  render(ls);
   expect(screen.getByPlaceholderText("Email")).toBeTruthy();
 });
 
@@ -167,17 +155,20 @@ test("Checks if the confirm password is working correctly", async () => {
     fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Mazumdar");
   });
   await waitFor(() => {
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       "mohona6646@hotmail.com"
     );
   });
   await waitFor(() => {
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123");
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Password"),
+      "capstone123"
+    );
   });
   const onClick = jest.fn();
   // Clicking the button with text "Sign Up"
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
@@ -195,16 +186,16 @@ test("Successful Sign Up but with captial letter email", async () => {
     fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Mazumdar")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       "MOHONA6646@hotmail.com"
     )
   );
   await waitFor(() =>
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Confirm Password"),
       "capstone123"
     )
@@ -212,7 +203,7 @@ test("Successful Sign Up but with captial letter email", async () => {
   // Test if the Sign Up button is pressed
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
-    fireEvent.press(screen.getAllByText("Sign Up")[1]);
+    fireEvent.press(screen.getByTestId("signUpButton"));
     expect(Alert.alert);
   });
 });
@@ -224,14 +215,14 @@ test("Can't Sign Up but with only an email", async () => {
     </NavigationContainer>
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Email"),
       "MOHONA6646@hotmail.com"
     )
   );
   const onClick = jest.fn();
   // Clicking the button with text "Sign Up"
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
@@ -250,7 +241,7 @@ test("Can't Sign Up but with only First and last name", async () => {
   );
   const onClick = jest.fn();
   // Clicking the button with text "Sign Up"
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
@@ -262,17 +253,17 @@ test("Can't Sign Up but with only password", async () => {
     </NavigationContainer>
   );
   await waitFor(() =>
-    fireEvent.press(screen.getByPlaceholderText("Password"), "capstone123")
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
   );
   await waitFor(() =>
-    fireEvent.press(
+    fireEvent.changeText(
       screen.getByPlaceholderText("Confirm Password"),
       "capstone123"
     )
   );
   const onClick = jest.fn();
   // Clicking the button with text "Sign Up"
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
@@ -285,7 +276,92 @@ test("Can't Sign Up if everything is left blank", async () => {
   );
   const onClick = jest.fn();
   // Clicking the button with text "Sign Up"
-  fireEvent.press(screen.getAllByText("Sign Up")[1]);
+  fireEvent.press(screen.getByTestId("signUpButton"));
+  // Asserting that the onClick function is not called
+  expect(onClick).not.toHaveBeenCalled();
+});
+
+test("Can't Sign Up if password is less than 8 characters", async () => {
+  render(
+    <NavigationContainer>
+      <SignUpScreen />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("First Name"), "Mo")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Salah")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Email"),
+      " mosalah@hotmail.com"
+    )
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "123")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Confirm Password"), "123")
+  );
+  await waitFor(() => fireEvent.press(screen.getByTestId("isOrganizer")));
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("signUpButton"));
+  });
+  const onClick = jest.fn();
+  // Clicking the button with text "Sign Up"
+  fireEvent.press(screen.getByTestId("signUpButton"));
+  // Asserting that the onClick function is not called
+  expect(onClick).not.toHaveBeenCalled();
+});
+
+test("Can't Sign Up if there is no last name", async () => {
+  render(
+    <NavigationContainer>
+      <SignUpScreen />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("First Name"), "Mo")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Confirm Password"),
+      "capstone123"
+    )
+  );
+  const onClick = jest.fn();
+  // Clicking the button with text "Sign Up"
+  fireEvent.press(screen.getByTestId("signUpButton"));
+  // Asserting that the onClick function is not called
+  expect(onClick).not.toHaveBeenCalled();
+});
+
+test("Can't Sign Up if there is no First name", async () => {
+  render(
+    <NavigationContainer>
+      <SignUpScreen />
+    </NavigationContainer>
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Last Name"), "Mo")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Password"), "capstone123")
+  );
+  await waitFor(() =>
+    fireEvent.changeText(
+      screen.getByPlaceholderText("Confirm Password"),
+      "capstone123"
+    )
+  );
+  const onClick = jest.fn();
+  // Clicking the button with text "Sign Up"
+  fireEvent.press(screen.getByTestId("signUpButton"));
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });

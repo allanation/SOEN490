@@ -56,8 +56,6 @@ function SignUpScreen() {
       .then((userCredentials) => {
         // If the account is created successfully, navigate to the login screen
         // and add the user's details to the Firebase database
-        const user = userCredentials.user;
-        console.log(user.email);
         Alert.alert("Account Created Succesfully");
         navigation.navigate("Login");
         return addDoc(collection(db, "users"), {
@@ -162,6 +160,7 @@ function SignUpScreen() {
           </View>
         </View>
         <AppButton
+          testID={"signUpButton"}
           style={{
             shadowColor: "black", // IOS
             shadowOffset: { height: 1, width: 1 }, // IOS

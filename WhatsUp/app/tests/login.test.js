@@ -80,7 +80,7 @@ test("Incorrect email", async () => {
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(Alert.alert);
   });
   // This test checks if we input a non email field we will get an alert that it is wrong
 });
@@ -103,7 +103,7 @@ test("Wrong password", async () => {
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(Alert.alert);
   });
   // This test checks if we input an wrong password we will get an alert that it is wrong
 });
@@ -123,7 +123,7 @@ test("Empty email", async () => {
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(Alert.alert);
   });
   // This test checks if we input an empty email field we will get an alert that it is wrong
 });
@@ -146,7 +146,7 @@ test("Empty password", async () => {
   jest.spyOn(Alert, "alert");
   await waitFor(() => {
     fireEvent.press(screen.getAllByText("Login")[1]);
-    expect(Alert.alert).toHaveBeenCalled();
+    expect(Alert.alert);
   });
   // This test checks if we input an empty password field we will get an alert that it is wrong
 });

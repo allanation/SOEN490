@@ -95,5 +95,5 @@ test("Go back to Login page", async () => {
     </NavigationContainer>
   );
   render(ls);
-  expect(screen.getByText("Please enter your details"));
+  expect(screen.getAllByText("Login"));
 });

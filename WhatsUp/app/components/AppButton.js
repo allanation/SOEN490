@@ -1,15 +1,16 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
-import { Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
-import colors from '../config/colors';
+import React from "react";
+import { Text, TouchableOpacity, StyleSheet, Platform } from "react-native";
+import colors from "../config/colors";
 
 function AppButton({
   title,
   onPress,
-  color = 'primary',
+  color = "primary",
   disabled = false,
   style,
-  textStyle
+  textStyle,
+  testID,
 }) {
   return (
     <TouchableOpacity
@@ -21,6 +22,7 @@ function AppButton({
       ]}
       onPress={onPress}
       disabled={disabled}
+      testID={testID}
     >
       <Text style={[styles.text, textStyle]}>{title}</Text>
     </TouchableOpacity>
@@ -30,18 +32,18 @@ function AppButton({
 const styles = StyleSheet.create({
   button: {
     borderRadius: 20,
-    alignSelf: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    alignItems: "center",
     padding: 12,
-    width: '90%',
+    width: "90%",
     marginVertical: 40,
     marginLeft: "1%",
   },
   text: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    fontWeight: "bold",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
     textAlign: "center",
     textAlignVertical: "center",
   },
