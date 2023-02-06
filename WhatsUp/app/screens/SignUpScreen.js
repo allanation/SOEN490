@@ -121,7 +121,7 @@ function SignUpScreen() {
         <TitleHeaders title="Sign Up" style={{ marginBottom: "2%" }} />
         <TitleHeaders
           title="Please fill the following information"
-          isTitle = {false}
+          isTitle={false}
           style={{ marginBottom: "2%" }}
         />
         <AppTextInput
@@ -157,6 +157,7 @@ function SignUpScreen() {
               style={styles.check}
               value={isOrganizer}
               onValueChange={setIsOrganizer}
+              testID="isOrganizer"
             />
           </View>
         </View>
