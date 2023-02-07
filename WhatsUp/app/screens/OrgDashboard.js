@@ -5,23 +5,18 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   TouchableOpacity,
   FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
-import { Ionicons } from "@expo/vector-icons";
-import EventBanner from "../components/EventBanner";
 import SearchBar from "../components/SearchBar";
-import EventImage from "../assets/stringio.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
 import { convertStartDate } from "./AttendeeDashboard.js";
-import { format } from "date-fns/format";
 import Event from "../components/Event";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
@@ -107,6 +102,7 @@ function OrganizerDashboardScreen() {
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
         isOrganizer={true}
+        coverImageName={item.coverImage}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
@@ -313,7 +309,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 15,
     marginBottom: 5,
-
   },
   upcoming: {
     marginTop: 5,
@@ -321,12 +316,12 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.primary,
     paddingBottom: 5,
     fontWeight: "bold",
-    marginLeft: '20%'
+    marginLeft: "20%",
   },
   previous: {
     marginTop: 5,
     paddingBottom: 5,
-    marginLeft: '20%'
+    marginLeft: "20%",
   },
   container: {
     left: "2.5%",
