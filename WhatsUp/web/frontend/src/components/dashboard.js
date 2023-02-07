@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "./dashboard.css";
-import EventImage from "../images/concordiaUni.jpg";
 import WhatsUpLogo from "../images/w1.png";
 import UserImage from "../images/george.jpeg";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
@@ -107,12 +106,6 @@ function Dashboard() {
     RejectedEvents();
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
-  console.log(
-    unapprovedevents.map(
-      (unapprovedEvent) => new Date(unapprovedEvent.startDate)
-    )
-  );
-
   return (
     <div className="container col-12">
       {viewUnapproved &&
@@ -126,7 +119,13 @@ function Dashboard() {
                 </div>
                 <div className="event-header col-12">
                   <div className="event-image col-6">
-                    <img id="eventImage" src={EventImage} alt="Event" />
+                    <img
+                      id="eventImage"
+                      src={require("../cover images/" +
+                        unapprovedEvent.coverImage +
+                        ".jpg")}
+                      alt="Event"
+                    />
                   </div>
                   <div className="main-details col-6">
                     <div className="main-detail-left col-6">
@@ -309,7 +308,13 @@ function Dashboard() {
                 </div>
                 <div className="event-header col-12">
                   <div className="event-image col-6">
-                    <img id="eventImage" src={EventImage} alt="Event" />
+                    <img
+                      id="eventImage"
+                      src={require("../cover images/" +
+                        approvedEvent.coverImage +
+                        ".jpg")}
+                      alt="Event"
+                    />
                   </div>
                   <div className="main-details col-6">
                     <div className="main-detail-left col-6">
@@ -427,7 +432,13 @@ function Dashboard() {
                 </div>
                 <div className="event-header col-12">
                   <div className="event-image col-6">
-                    <img id="eventImage" src={EventImage} alt="Event" />
+                    <img
+                      id="eventImage"
+                      src={require("../cover images/" +
+                        rejectedEvent.coverImage +
+                        ".jpg")}
+                      alt="Event"
+                    />
                   </div>
                   <div className="main-details col-6">
                     <div className="main-detail-left col-6">
@@ -615,7 +626,13 @@ function Dashboard() {
                 onClick={() => setSelectedEvent(unapprovedEvent.id)}
               >
                 <div className="view-event-image">
-                  <img id="eventImage" src={EventImage} alt="Event" />
+                  <img
+                    id="eventImage"
+                    src={require("../cover images/" +
+                      unapprovedEvent.coverImage +
+                      ".jpg")}
+                    alt="Event"
+                  />
                 </div>
                 <div className="event-banner-text">
                   <p className="event-banner-title">
@@ -649,7 +666,13 @@ function Dashboard() {
                 onClick={() => setSelectedEvent(approvedEvent.id)}
               >
                 <div className="view-event-image">
-                  <img id="eventImage" src={EventImage} alt="Event" />
+                  <img
+                    id="eventImage"
+                    src={require("../cover images/" +
+                      approvedEvent.coverImage +
+                      ".jpg")}
+                    alt="Event"
+                  />
                 </div>
                 <div className="event-banner-text" data-testid="approved-event">
                   <p className="event-banner-title">
@@ -683,7 +706,13 @@ function Dashboard() {
                 onClick={() => setSelectedEvent(rejectedEvent.id)}
               >
                 <div className="view-event-image">
-                  <img id="eventImage" src={EventImage} alt="Event" />
+                  <img
+                    id="eventImage"
+                    src={require("../cover images/" +
+                      rejectedEvent.coverImage +
+                      ".jpg")}
+                    alt="Event"
+                  />
                 </div>
                 <div className="event-banner-text">
                   <p className="event-banner-title">

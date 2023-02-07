@@ -20,10 +20,32 @@ function OrgView({ route, navigation }) {
   const { prop } = route.params;
   const Tab = createMaterialTopTabNavigator();
 
+  let coverImageSource;
+
+  if (prop.coverImage == "Art") {
+    coverImageSource = require("../assets/CoverImages/Art.jpg");
+  } else if (prop.coverImage == "Auditorium") {
+    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (prop.coverImage == "Concordia") {
+    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
+  } else if (prop.coverImage == "Frosh") {
+    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
+  } else if (prop.coverImage == "Graduation") {
+    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
+  } else if (prop.coverImage == "McGill") {
+    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
+  } else if (prop.coverImage == "Park") {
+    coverImageSource = require("../assets/CoverImages/Park.jpg");
+  } else if (prop.coverImage == "Sports") {
+    coverImageSource = require("../assets/CoverImages/Sports.jpg");
+  } else if (prop.coverImage == "Studying") {
+    coverImageSource = require("../assets/CoverImages/Studying.jpg");
+  }
+
   return (
     <Screen style={{ backgroundColor: "white" }}>
       <Image
-        source={{ uri: prop.coverImage }}
+        source={coverImageSource}
         resizeMode="cover"
         style={styles.headerImage}
       />
@@ -81,13 +103,22 @@ function OrgView({ route, navigation }) {
       >
         <AppButton
           style={styles.btn}
-          title={prop.eventStatus === 'Rejected' ? "Resubmit" : <Ionicons
-            name="ios-megaphone-outline"
-            size={18}
-            color={colors.white}
-          > <Text style={styles.text}>Blast Info</Text></Ionicons>}
+          title={
+            prop.eventStatus === "Rejected" ? (
+              "Resubmit"
+            ) : (
+              <Ionicons
+                name="ios-megaphone-outline"
+                size={18}
+                color={colors.white}
+              >
+                {" "}
+                <Text style={styles.text}>Blast Info</Text>
+              </Ionicons>
+            )
+          }
           onPress={() => {}}
-          />
+        />
       </View>
     </Screen>
   );
@@ -96,6 +127,7 @@ function OrgView({ route, navigation }) {
 const styles = StyleSheet.create({
   headerImage: {
     height: "35%",
+    width: "100%",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     marginTop: -50,
@@ -126,8 +158,8 @@ const styles = StyleSheet.create({
   text: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: Platform.OS === 'ios' ? 'Helvetica Neue' : 'sans-serif',
+    fontWeight: "bold",
+    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
     textAlign: "center",
     textAlignVertical: "center",
   },
