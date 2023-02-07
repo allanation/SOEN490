@@ -333,6 +333,7 @@ exports[`renders correctly 1`] = `
               false,
             ]
           }
+          testID="isOrganizer"
         />
       </View>
     </View>
@@ -374,6 +375,7 @@ exports[`renders correctly 1`] = `
           "width": "90%",
         }
       }
+      testID="signUpButton"
     >
       <Text
         style={

@@ -56,8 +56,6 @@ function SignUpScreen() {
       .then((userCredentials) => {
         // If the account is created successfully, navigate to the login screen
         // and add the user's details to the Firebase database
-        const user = userCredentials.user;
-        console.log(user.email);
         Alert.alert("Account Created Succesfully");
         navigation.navigate("Login");
         return addDoc(collection(db, "users"), {
@@ -121,7 +119,7 @@ function SignUpScreen() {
         <TitleHeaders title="Sign Up" style={{ marginBottom: "2%" }} />
         <TitleHeaders
           title="Please fill the following information"
-          isTitle = {false}
+          isTitle={false}
           style={{ marginBottom: "2%" }}
         />
         <AppTextInput
@@ -157,10 +155,12 @@ function SignUpScreen() {
               style={styles.check}
               value={isOrganizer}
               onValueChange={setIsOrganizer}
+              testID="isOrganizer"
             />
           </View>
         </View>
         <AppButton
+          testID={"signUpButton"}
           style={{
             shadowColor: "black", // IOS
             shadowOffset: { height: 1, width: 1 }, // IOS
