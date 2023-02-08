@@ -18,6 +18,7 @@ import OrgView from "./screens/OrgView";
 import OrgDetails from "./screens/OrgDetails";
 import OrgStatus from "./screens/OrgStatus";
 import AttendeeDashboard from "./screens/AttendeeDashboard.js";
+import AttendeeFavorites from "./screens/AttendeeFavorites.js";
 import UserProfile from "./screens/UserProfile";
 import AttendeeView from "./screens/AttendeeView";
 
@@ -82,7 +83,7 @@ const AttendeeTabScreen = () => {
     >
       <Tab.Screen name="User" component={AttendeeDashboard} />
       <Tab.Screen name="Ticket" component={AttendeeDashboard} />
-      <Tab.Screen name="Bookmark" component={AttendeeDashboard} />
+      <Tab.Screen name="Bookmark" component={AttendeeFavorites} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
     </Tab.Navigator>
   );

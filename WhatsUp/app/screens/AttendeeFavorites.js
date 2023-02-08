@@ -17,9 +17,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
-
 import { format } from "date-fns";
-import { list } from "firebase/storage";
 
 export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
@@ -46,6 +44,7 @@ function AttendeeDashboard() {
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
   const [listenerEvents, setListenerEvents] = useState([]);
   const [user] = useAuthState(auth);
 
@@ -59,6 +58,20 @@ function AttendeeDashboard() {
     }
   };
 
+  //function to get all the events bookmarked by the user
+  const getBookMarks = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        const bookMarksField = doc.data().bookMarks;
+        setBookmarks(bookMarksField);
+      });
+    }
+  };
+
+  //function to load the events depending on if they are
+  //bookmarked by the user
   const getEvents = async () => {
     const q = query(
       collection(db, "events"),
@@ -67,26 +80,83 @@ function AttendeeDashboard() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        setAllEvents(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setMasterData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setPreviousData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+        {
+          for (const item of bookmarks) {
+            if (item == doc.id) {
+              if (allEvents.length > 0)
+                for (const item of allEvents) {
+                  if (item.id == doc.id) {
+                    break;
+                  } else if (item.id == allEvents[allEvents.length - 1].id) {
+                    console.log("got ya");
+                    setAllEvents((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setMasterData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setPreviousData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                  } else {
+                    continue;
+                  }
+                }
+              else {
+                setAllEvents((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setMasterData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setPreviousData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+              }
+            }
+          }
+        }
       });
     }
   };
+
+  //function that removes the unbookmarked event from the page
+  const removeEventsNotBookmarked = () => {
+    for (const event of allEvents) {
+      var count = 0;
+      if (bookmarks.length != 0) {
+        for (const bookmark of bookmarks) {
+          if (event.id != bookmark && count != bookmarks.length - 1) {
+            count++;
+            continue;
+          } else if (event.id != bookmark && count == bookmarks.length - 1) {
+            setAllEvents((current) =>
+              current.filter((item) => item.id !== event.id)
+            );
+          } else {
+            break;
+          }
+        }
+      } else {
+        setAllEvents([]);
+      }
+    }
+  };
+
+  async function bookmarkAndgetEvents() {
+    await getBookMarks();
+    removeEventsNotBookmarked();
+    await getEvents();
+  }
 
   var welcome = "Welcome, " + userName + "!";
 
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
+    console.log("useeffect is used");
     getName();
-    getEvents();
+    bookmarkAndgetEvents();
     console.log(allEvents);
   }, []);
 
@@ -170,10 +240,10 @@ function AttendeeDashboard() {
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
       />
-      <FlatList
+      {/* <FlatList
         data={filteredUserData ? filteredUserData : []}
         renderItem={ItemView}
-      />
+      /> */}
     </>
   );
 

@@ -12,7 +12,16 @@ import {
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
 
-function Event({ image, title, organizer, date, onPress, isOrganizer, ...key }) {
+function Event({
+  image,
+  title,
+  organizer,
+  date,
+  onPress,
+  isOrganizer,
+  id,
+  ...key
+}) {
   const logoUri =
     "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
 
@@ -22,9 +31,14 @@ function Event({ image, title, organizer, date, onPress, isOrganizer, ...key }) 
       onPress={onPress}
     >
       <View style={{ flex: 2 }}>
-        <Image source={{ uri: image}} 
+        <Image
+          source={{ uri: image }}
           style={{
-            width: '100%', height: "100%", borderRadius: 19 }} />
+            width: "100%",
+            height: "100%",
+            borderRadius: 19,
+          }}
+        />
       </View>
 
       <View style={{ flex: 3, marginLeft: 15 }}>
@@ -44,7 +58,7 @@ function Event({ image, title, organizer, date, onPress, isOrganizer, ...key }) 
           </Text>
         </View>
       </View>
-      {isOrganizer ? '' : <BookmarkButton />}
+      {isOrganizer ? "" : <BookmarkButton id={id} />}
     </TouchableOpacity>
   );
 }
