@@ -103,6 +103,7 @@ function AttendeeDashboard() {
                   }
                 }
               else {
+                console.log("hey there");
                 setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
@@ -157,7 +158,6 @@ function AttendeeDashboard() {
     console.log("useeffect is used");
     getName();
     bookmarkAndgetEvents();
-    console.log(allEvents);
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);

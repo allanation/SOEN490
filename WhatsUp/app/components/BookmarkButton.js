@@ -22,6 +22,8 @@ function BookmarkButton({ colour = "#32bca5", id }) {
   const [Active, setActive] = useState(false);
   const [email, setEmail] = useState("");
   const [docId, setDocId] = useState("");
+  const [bookmarks, setBookmarks] = useState([]);
+  const [isStyled, setStyle] = useState(false);
   const [user] = useAuthState(auth);
 
   const getEmail = async () => {
@@ -35,8 +37,31 @@ function BookmarkButton({ colour = "#32bca5", id }) {
     }
   };
 
+  const getBookMarks = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        const bookMarksField = doc.data().bookMarks;
+        setBookmarks(bookMarksField);
+      });
+    }
+  };
+
+  const settingStyle = () => {
+    for (const bookmark of bookmarks) {
+      if (bookmark == id) {
+        setStyle(true);
+        console.log(id);
+        break;
+      } else setStyle(false);
+    }
+  };
+
   useEffect(() => {
     getEmail();
+    getBookMarks();
+    settingStyle();
   }, []);
 
   const addBookMarkInUsers = async () => {
@@ -72,7 +97,7 @@ function BookmarkButton({ colour = "#32bca5", id }) {
       onPress={handlePress}
     >
       <Ionicons
-        name={Active ? "ios-bookmark" : "ios-bookmark-outline"}
+        name={Active || isStyled ? "ios-bookmark" : "ios-bookmark-outline"}
         size={30}
         color={"#32bca5"}
         style={{ height: 30, width: 30, top: "1%" }}
