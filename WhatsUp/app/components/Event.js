@@ -20,6 +20,7 @@ function Event({
   onPress,
   isOrganizer,
   coverImageName,
+  id,
   ...key
 }) {
   let coverImageSource;
