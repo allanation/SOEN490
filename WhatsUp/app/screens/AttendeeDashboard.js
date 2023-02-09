@@ -9,17 +9,10 @@ import UtilBtn from "../components/UtilBtn";
 import Event from "../components/Event";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-  onSnapshot,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 
 import { format } from "date-fns";
-import { list } from "firebase/storage";
 
 export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
@@ -60,6 +53,7 @@ function AttendeeDashboard() {
   };
 
   const getEvents = async () => {
+    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
@@ -104,6 +98,7 @@ function AttendeeDashboard() {
         title={item.eventName}
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
+        coverImageName={item.coverImage}
         id={item.id}
         onPress={() => navigation.navigate("AttendeeView", { prop: item })}
       />

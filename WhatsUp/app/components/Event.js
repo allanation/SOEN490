@@ -19,11 +19,30 @@ function Event({
   date,
   onPress,
   isOrganizer,
-  id,
+  coverImageName,
   ...key
 }) {
-  const logoUri =
-    "https://www.concordia.ca/news/stories/2019/09/12/jmsb-becomes-the-first-business-school-certified-by-women-in-governance/_jcr_content/top-image.img.768.medium.jpg/1568299098646.jpg";
+  let coverImageSource;
+
+  if (coverImageName == "Art") {
+    coverImageSource = require("../assets/CoverImages/Art.jpg");
+  } else if (coverImageName == "Auditorium") {
+    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (coverImageName == "Concordia") {
+    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
+  } else if (coverImageName == "Frosh") {
+    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
+  } else if (coverImageName == "Graduation") {
+    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
+  } else if (coverImageName == "McGill") {
+    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
+  } else if (coverImageName == "Park") {
+    coverImageSource = require("../assets/CoverImages/Park.jpg");
+  } else if (coverImageName == "Sports") {
+    coverImageSource = require("../assets/CoverImages/Sports.jpg");
+  } else if (coverImageName == "Studying") {
+    coverImageSource = require("../assets/CoverImages/Studying.jpg");
+  }
 
   return (
     <TouchableOpacity
@@ -32,7 +51,7 @@ function Event({
     >
       <View style={{ flex: 2 }}>
         <Image
-          source={{ uri: image }}
+          source={coverImageSource}
           style={{
             width: "100%",
             height: "100%",

@@ -64,10 +64,12 @@
   .text-title {
     font-weight: bold;
     font-size: larger;
+    padding-left: 10px;
   }
 
   .text-content {
     padding-top: 4px;
+    padding-left: 10px;
   }
 
   .additional-container {
@@ -92,7 +94,7 @@
   }
 
   .day {
-    padding: 12px;
+    padding: 15px;
   }
 
   .day-count {
@@ -149,6 +151,7 @@
     align-items: center;
     justify-content: center;
     color: var(--primary);
+    margin-top: 3%;
   }
 
   .reject-btn:hover {
@@ -157,7 +160,7 @@
   }
 
   .reject-btn:active {
-    background-color: white;;
+    background-color: white;
   }
 
   .reject-comments {
@@ -255,7 +258,8 @@
     border: none;
   }
 
-  .logout-btn {
+  .logout-btn,
+  .approve-btn {
     background-color: var(--primary);
     width: 120px;
     height: 48px;
@@ -267,12 +271,20 @@
     font-weight: bold;
   }
 
-  .logout-btn:hover, .comment-reject-btn:hover {
+  .approve-btn {
+    margin-top: 3%;
+  }
+
+  .logout-btn:hover,
+  .comment-reject-btn:hover,
+  .approve-btn:hover {
     background-color: #3acfb7;
     cursor: pointer;
   }
 
-  .logout-btn:active, .comment-reject-btn:active {
+  .logout-btn:active,
+  .comment-reject-btn:active,
+  .approve-btn:active {
     background-color: #32bca5;
   }
 
@@ -340,8 +352,7 @@
   }
 
   .view-event-image img {
-    width: 10vw;
-
+    width: 200px;
     height: 100%;
   }
 
@@ -360,38 +371,8 @@
     font-size: 12px;
   }
   /* For desktop: */
-  .col-1 {
-    width: 8.33%;
-  }
-  .col-2 {
-    width: 16.66%;
-  }
-  .col-3 {
-    width: 25%;
-  }
   .col-4 {
-    width: 33.33%;
-  }
-  .col-5 {
-    width: 41.66%;
-  }
-  .col-6 {
-    width: 50%;
-  }
-  .col-7 {
-    width: 58.33%;
-  }
-  .col-8 {
-    width: 66.66%;
-  }
-  .col-9 {
-    width: 75%;
-  }
-  .col-10 {
-    width: 83.33%;
-  }
-  .col-11 {
-    width: 91.66%;
+    width: 36.8%;
   }
   .col-12 {
     width: 100%;
