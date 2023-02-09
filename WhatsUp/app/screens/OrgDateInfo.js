@@ -35,6 +35,7 @@ function OrganizerDateInfo() {
         <UtilBtn
           icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => navigation.navigate("POC")}
         />
         <TitleHeaders
@@ -59,7 +60,7 @@ function OrganizerDateInfo() {
         </View>
       </View>
       <View>
-        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"} onPress={validateEventDate}></AppButton>
       </View>
     </Screen>
   );
