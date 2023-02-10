@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import UtilBtn from "../components/UtilBtn";
 import AppButton from "../components/AppButton";
 import { Ionicons } from "@expo/vector-icons";
+import { getCoverImageSource } from "./AttendeeView";
 
 OrgView.propTypes = {
   route: PropTypes.any,
@@ -20,32 +21,10 @@ function OrgView({ route, navigation }) {
   const { prop } = route.params;
   const Tab = createMaterialTopTabNavigator();
 
-  let coverImageSource;
-
-  if (prop.coverImage == "Art") {
-    coverImageSource = require("../assets/CoverImages/Art.jpg");
-  } else if (prop.coverImage == "Auditorium") {
-    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
-  } else if (prop.coverImage == "Concordia") {
-    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
-  } else if (prop.coverImage == "Frosh") {
-    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
-  } else if (prop.coverImage == "Graduation") {
-    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
-  } else if (prop.coverImage == "McGill") {
-    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
-  } else if (prop.coverImage == "Park") {
-    coverImageSource = require("../assets/CoverImages/Park.jpg");
-  } else if (prop.coverImage == "Sports") {
-    coverImageSource = require("../assets/CoverImages/Sports.jpg");
-  } else if (prop.coverImage == "Studying") {
-    coverImageSource = require("../assets/CoverImages/Studying.jpg");
-  }
-
   return (
     <Screen style={{ backgroundColor: "white" }}>
       <Image
-        source={coverImageSource}
+        source={getCoverImageSource(prop.coverImage)}
         resizeMode="cover"
         style={styles.headerImage}
       />

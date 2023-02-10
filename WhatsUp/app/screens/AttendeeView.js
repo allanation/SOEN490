@@ -14,6 +14,29 @@ AttendeeView.propTypes = {
   navigation: PropTypes.any,
 };
 
+export const getCoverImageSource = (coverImageName) => {
+  if (coverImageName == "Art") {
+    coverImageName = require("../assets/CoverImages/Art.jpg");
+  } else if (coverImageName == "Auditorium") {
+    coverImageName = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (coverImageName == "Concordia") {
+    coverImageName = require("../assets/CoverImages/Concordia.jpg");
+  } else if (coverImageName == "Frosh") {
+    coverImageName = require("../assets/CoverImages/Frosh.jpg");
+  } else if (coverImageName == "Graduation") {
+    coverImageName = require("../assets/CoverImages/Graduation.jpg");
+  } else if (coverImageName == "McGill") {
+    coverImageName = require("../assets/CoverImages/McGill.jpeg");
+  } else if (coverImageName == "Park") {
+    coverImageName = require("../assets/CoverImages/Park.jpg");
+  } else if (coverImageName == "Sports") {
+    coverImageName = require("../assets/CoverImages/Sports.jpg");
+  } else if (coverImageName == "Studying") {
+    coverImageName = require("../assets/CoverImages/Studying.jpg");
+  }
+  return coverImageName;
+};
+
 function AttendeeView({ route, navigation }) {
   const { prop } = route.params;
   const Tab = createMaterialTopTabNavigator();
@@ -28,32 +51,10 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
-  let coverImageSource;
-
-  if (prop.coverImage == "Art") {
-    coverImageSource = require("../assets/CoverImages/Art.jpg");
-  } else if (prop.coverImage == "Auditorium") {
-    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
-  } else if (prop.coverImage == "Concordia") {
-    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
-  } else if (prop.coverImage == "Frosh") {
-    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
-  } else if (prop.coverImage == "Graduation") {
-    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
-  } else if (prop.coverImage == "McGill") {
-    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
-  } else if (prop.coverImage == "Park") {
-    coverImageSource = require("../assets/CoverImages/Park.jpg");
-  } else if (prop.coverImage == "Sports") {
-    coverImageSource = require("../assets/CoverImages/Sports.jpg");
-  } else if (prop.coverImage == "Studying") {
-    coverImageSource = require("../assets/CoverImages/Studying.jpg");
-  }
-
   return (
     <Screen style={{ backgroundColor: "white" }}>
       <Image
-        source={coverImageSource}
+        source={getCoverImageSource(prop.coverImage)}
         resizeMode="cover"
         style={styles.headerImage}
       />
