@@ -33,7 +33,7 @@ function Dashboard() {
   const [adminComment, setAdminComment] = useState("");
 
   // useEffect to load unapproved events
-  const getUnApprovedEvents = async () => {
+  const UnApprovedEvents = async () => {
     const name = "Unapproved";
     const q = query(collection(db, "events"), where("eventStatus", "==", name));
     const querySnapshot = await getDocs(q);
@@ -93,7 +93,7 @@ function Dashboard() {
 
   useEffect(() => {
     ApprovedEvents();
-    getUnApprovedEvents();
+    UnApprovedEvents();
     RejectedEvents();
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
