@@ -1,15 +1,18 @@
-import { StyleSheet, View, Image, Text, Platform } from "react-native";
+import { StyleSheet, View, Image, Text, Platform, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import OrgDetails from "./OrgDetails";
 import OrgStatus from "./OrgStatus";
 import AttendeeSchedule from "./AttendeeSchedule";
 import colors from "../config/colors";
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import UtilBtn from "../components/UtilBtn";
 import AppButton from "../components/AppButton";
 import { Ionicons } from "@expo/vector-icons";
+import AppModal from "../components/AppModal";
+import AppTextInput from "../components/AppTextInput";
+import TitleHeaders from "../components/TitleHeaders";
 
 OrgView.propTypes = {
   route: PropTypes.any,
@@ -41,6 +44,23 @@ function OrgView({ route, navigation }) {
   } else if (prop.coverImage == "Studying") {
     coverImageSource = require("../assets/CoverImages/Studying.jpg");
   }
+
+  const [modalVisible, setModalVisible] = useState(false);
+  const [orgBlast, setOrgBlast] = useState("");
+  const [message, setMessage] = useState("");
+
+  const handleSendBlast = async (
+    message
+  ) => {
+    if (message.length == 0) {
+      Alert.alert("Error", "Please fill out the message.");
+      return;
+    }
+
+    console.log(message);
+    setModalVisible(false);
+    setMessage("");
+  };
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
@@ -117,9 +137,53 @@ function OrgView({ route, navigation }) {
               </Ionicons>
             )
           }
-          onPress={() => {}}
+          onPress={() => {setModalVisible(true)}}
         />
       </View>
+      <AppModal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+         }}
+      >
+        <View style={styles.modalView}>
+          <View style={styles.inputView}>
+            <UtilBtn
+              icon="chevron-back-outline"
+              style={{ position: "absolute" }}
+              onPress={() => setModalVisible(!modalVisible)}
+            />
+            <TitleHeaders style={{ alignSelf: "center" }} title={"Blast Info"} />
+            <Text
+              style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver', marginTop: "1%" }}
+            >
+              From {prop.eventName} Event
+            </Text>
+            <ScrollView
+              keyboardDismissMode="interactive"
+              style={{ width: "100%" }}
+            >
+              <AppTextInput
+                placeholder="Message"
+                onChangeText={(currentMessage) =>
+                  setMessage(currentMessage)
+                }
+              />
+              <AppButton
+                title="Send"
+                style={{ marginTop: 0 }}
+                onPress={() =>
+                  handleSendBlast(
+                    message
+                  )
+                }
+              />
+            </ScrollView>
+          </View>
+        </View>
+      </AppModal>
     </Screen>
   );
 }
@@ -162,6 +226,32 @@ const styles = StyleSheet.create({
     fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
     textAlign: "center",
     textAlignVertical: "center",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 35,
+    padding: 20,
+    paddingTop: 20,
+    width: "86%",
+    // height: "62%",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  inputView: {
+    marginTop: 8,
+    borderColor: colors.lightGrey,
+    borderRadius: 7,
+    width: "90%",
+    alignSelf: "center",
+    paddingTop: 20,
   },
 });
 
