@@ -93,7 +93,6 @@ function OrganizeEventTags() {
         console.log('she already goes here!!!');
       }
     } else {
-      console.log('hi');
     }
   }
 

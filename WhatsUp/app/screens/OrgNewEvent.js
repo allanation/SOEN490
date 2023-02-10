@@ -12,7 +12,6 @@ import {
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
-import * as ImagePicker from "expo-image-picker";
 import { EvilIcons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import AppModal from "../components/AppModal";
@@ -27,12 +26,8 @@ import McGill from "../assets/CoverImages/McGill.jpeg";
 import Park from "../assets/CoverImages/Park.jpg";
 import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
-import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
-
-import { storage } from "../firebase";
-import { async } from "@firebase/util";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -184,8 +179,6 @@ function OrganizerNewEvent() {
           </View>
         </View>
       </ScrollView>
-
-      {/* <ImgOrgBottom style={{position: "absolute"}} resizeMode="contain" /> */}
       <View>
         <AppButton
           title={"Next"}

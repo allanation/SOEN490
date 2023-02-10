@@ -222,7 +222,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
-    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
