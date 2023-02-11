@@ -10,7 +10,7 @@ import {
 import OrgPOCScreen from "../screens/OrgPointOfContact";
 import OrgDateInfoScreen from "../screens/OrgDateInfo";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import OrgDaySchedule from "../screens/OrgDaySchedule";
+import OrgDayScheduleScreen from "../screens/OrgDaySchedule";
 import { Alert } from "react-native";
 
 jest.useFakeTimers();
@@ -63,7 +63,7 @@ test("Successfully go to next page when the start date and end date are filled",
   });
   render(
     <NavigationContainer>
-      <OrgDaySchedule />
+      <OrgDayScheduleScreen />
     </NavigationContainer>
   );
 });

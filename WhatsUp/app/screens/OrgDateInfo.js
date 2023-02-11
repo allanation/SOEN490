@@ -41,6 +41,7 @@ function OrganizerDateInfo() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
+          testID={"dateInfoTitle"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
