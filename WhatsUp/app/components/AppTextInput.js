@@ -21,7 +21,6 @@ const styles = StyleSheet.create({
     width: "98%",
     marginVertical: 10,
     opacity: 0.9,
-    // borderStyle: "ridge",
     borderWidth: 1,
     marginLeft: "1%",
   },
