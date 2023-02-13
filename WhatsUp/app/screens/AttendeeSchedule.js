@@ -31,12 +31,22 @@ function AttendeeSchedule({ route }) {
   const [previousData, setPreviousData] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState("");
-  const [filteredOrgData, setFilteredOrgData] = useState("");
 
   const ItemView = ({ item }) => {
     return (
       <View>
       <Text style={styles.subtitle}>Day {item.day}</Text>
+      <FlatList
+          data={item.schedule}
+          renderItem={DayView}
+          style={{}}
+        />
+      </View>
+    );
+  };
+
+  const DayView = ({item}) => {
+    return(
       <ItineraryEventSched
         title={item.title}
         startTime={item.startTime}
@@ -45,7 +55,6 @@ function AttendeeSchedule({ route }) {
         description={item.description}
         id={item.id}
       />
-      </View>
     );
   };
 
@@ -59,15 +68,6 @@ function AttendeeSchedule({ route }) {
         return itemData.indexOf(textData) > -1;
       });
 
-      const orgSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
       setFilteredData(newData);
       console.log(filteredData);
       setSearch(text);
@@ -87,10 +87,6 @@ function AttendeeSchedule({ route }) {
           data={filteredData ? filteredData : itinerary}
           renderItem={ItemView}
           style={{}}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
         />
       </>
     );
