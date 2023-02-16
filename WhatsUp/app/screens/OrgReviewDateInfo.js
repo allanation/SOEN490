@@ -35,7 +35,7 @@ function OrgReviewDateInfo() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
-          onPress={() => navigation.navigate("POC")}
+          onPress={() => navigation.navigate("OrgReviewPOC")}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}

@@ -125,7 +125,6 @@ export default function App() {
           name='OrgReviewEventTags'
           component={OrgReviewEventTags}
         />
-        <Stack.Screen name='OrgReviewDateInfo' component={OrgReviewDateInfo} />
         <Stack.Screen name='Organizer' component={TabScreen} />
         <Stack.Screen name='AttendeeDashboard' component={AttendeeDashboard} />
         <Stack.Screen name='Attendee' component={AttendeeTabScreen} />

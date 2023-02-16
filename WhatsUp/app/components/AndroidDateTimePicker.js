@@ -74,19 +74,6 @@ function AndroidDateTimePicker() {
     }
   };
   const handleAddingEvent = async (sdate, edate) => {
-    // !!! ADD ANDROID VALIDATION !!!
-    // if (endTime.timestamp == '') {
-    //   Alert.alert('Error', 'Please select a later timestamp');
-    //   return;
-    // }
-    // if (
-    //   startDate.timestamp == endDate.timestamp &&
-    //   endTime.timestamp < startTime.timestamp
-    // ) {
-    //   Alert.alert('Error', 'Cannot end before the event starts');
-    //   return;
-    // }
-
     const eventDates = {
       startDate: sdate.toLocaleDateString(),
       startTime: sdate.toLocaleTimeString(),
@@ -115,14 +102,14 @@ function AndroidDateTimePicker() {
         <AppButton
           style={styles.btn}
           onPress={checkID("startDate")}
-          title="Start Date"
-          id="111"
+          title='Start Date'
+          id='111'
           textStyle={{ color: colors.primary }}
         />
         <AppButton
           style={styles.btn}
           onPress={checkID("startTime")}
-          title="Start Time"
+          title='Start Time'
           textStyle={{ color: colors.primary }}
         />
         <Text style={styles.text}>Event Starts: {sdate.toLocaleString()}</Text>
@@ -139,19 +126,19 @@ function AndroidDateTimePicker() {
         <AppButton
           style={styles.btn}
           onPress={checkID("endDate")}
-          title="End Date"
+          title='End Date'
           textStyle={{ color: colors.primary }}
         />
         <AppButton
           style={styles.btn}
           onPress={checkID("endTime")}
-          title="End Time"
+          title='End Time'
           textStyle={{ color: colors.primary }}
         />
         <Text style={styles.text}>Event Ends: {edate.toLocaleString()}</Text>
         {show && (
           <DateTimePicker
-            testID="dateTimePicker"
+            testID='dateTimePicker'
             value={date}
             mode={mode}
             is24Hour={true}

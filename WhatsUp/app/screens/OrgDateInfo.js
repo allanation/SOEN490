@@ -33,7 +33,7 @@ function OrganizerDateInfo() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           onPress={() => navigation.navigate("POC")}
         />
@@ -46,7 +46,7 @@ function OrganizerDateInfo() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title="Please pick the dates for your event"
+          title='Please pick the dates for your event'
         />
       </View>
       <View style={{ paddingTop: 20 }}>

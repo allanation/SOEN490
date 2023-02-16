@@ -11,7 +11,6 @@ import { Storage } from "expo-storage";
 
 function OrgReviewPOC() {
   const navigation = useNavigation();
-  //initiate state with prop id
   const [pocName, setPocName] = useState("");
   const [pocPhoneNum, setPocPhoneNum] = useState("");
   const [pocEmail, setPocEmail] = useState("");
@@ -42,7 +41,7 @@ function OrgReviewPOC() {
 
     //If every mandatory fields is filled out, store the information and go to next page
     storePOC(POC);
-    navigation.navigate("OrgReviewDateTime");
+    navigation.navigate("OrgReviewDateInfo");
   };
 
   const goBackToNewEvent = async () => {
@@ -54,7 +53,7 @@ function OrgReviewPOC() {
 
     //Store the information before leaving page
     storePOC(POC);
-    navigation.navigate("NewEvent");
+    navigation.navigate("OrgReviewEvent", { route: "" });
   };
 
   const storePOC = async (POC) => {

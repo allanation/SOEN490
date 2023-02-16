@@ -1,11 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Alert
-} from "react-native";
+import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
 import AppTextInput from "../components/AppTextInput";
@@ -13,7 +7,7 @@ import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
 import { useNavigation } from "@react-navigation/native";
-import { Storage } from 'expo-storage';
+import { Storage } from "expo-storage";
 
 function OrganizerPOC() {
   const navigation = useNavigation();
@@ -24,67 +18,62 @@ function OrganizerPOC() {
   useEffect(() => {
     getPOCData();
   }, []);
- 
-  const handleAddingOrganizerPOC= async (
-    pocName,
-    pocPhoneNum,
-    pocEmail) => { 
 
-  if (pocName.length == 0) {
-    Alert.alert("Error", "Please fill out the name.");
-    return;
-  }
-  if (pocPhoneNum.length == 0) {
-    Alert.alert("Error", "Please fill out the phone number.");
-    return;
-  }
-  if (pocEmail.length == 0) {
-    Alert.alert("Error", "Please fill out the email.");
-    return;
-  }
+  const handleAddingOrganizerPOC = async (pocName, pocPhoneNum, pocEmail) => {
+    if (pocName.length == 0) {
+      Alert.alert("Error", "Please fill out the name.");
+      return;
+    }
+    if (pocPhoneNum.length == 0) {
+      Alert.alert("Error", "Please fill out the phone number.");
+      return;
+    }
+    if (pocEmail.length == 0) {
+      Alert.alert("Error", "Please fill out the email.");
+      return;
+    }
 
-  const POC = {
-    pocName: pocName,
-    pocPhoneNum: pocPhoneNum,
-    pocEmail: pocEmail
+    const POC = {
+      pocName: pocName,
+      pocPhoneNum: pocPhoneNum,
+      pocEmail: pocEmail,
+    };
+
+    //If every mandatory fields is filled out, store the information and go to next page
+    storePOC(POC);
+    navigation.navigate("OrgReviewDateInfo");
   };
 
-  //If every mandatory fields is filled out, store the information and go to next page
-  storePOC(POC);
-  navigation.navigate('DateInfo')
-  }
+  const goBackToNewEvent = async () => {
+    const POC = {
+      pocName: pocName,
+      pocPhoneNum: pocPhoneNum,
+      pocEmail: pocEmail,
+    };
 
-  const goBackToNewEvent= async () => { 
-
-  const POC = {
-    pocName: pocName,
-    pocPhoneNum: pocPhoneNum,
-    pocEmail: pocEmail
+    //Store the information before leaving page
+    storePOC(POC);
+    navigation.navigate("OrgReviewEvent");
   };
-
-  //Store the information before leaving page
-  storePOC(POC);
-  navigation.navigate('NewEvent')
-  }
 
   const storePOC = async (POC) => {
     try {
       const jsonValue = JSON.stringify(POC);
       await Storage.setItem({
-        key: 'POC',
-        value: jsonValue
-      })
+        key: "POC",
+        value: jsonValue,
+      });
     } catch (e) {
-      console.log(e)
+      console.log(e);
     }
-  }
+  };
 
   const getPOCData = async () => {
     try {
       const POC = await Storage.getItem({
-        key: 'POC'
-      })
-      if(POC !== null) {
+        key: "POC",
+      });
+      if (POC !== null) {
         const POCObject = JSON.parse(POC);
         if (POCObject.pocName.length != 0) {
           setPocName(POCObject.pocName);
@@ -96,17 +85,17 @@ function OrganizerPOC() {
           setPocEmail(POCObject.pocEmail);
         }
       }
-    } catch(e) {
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
-       <View style={{ flexDirection: "row", justifyContent: "center" }}>
+      <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon="chevron-back-outline"
-          style={{position: "absolute", left:0}}
+          icon='chevron-back-outline'
+          style={{ position: "absolute", left: 0 }}
           onPress={() => goBackToNewEvent()}
         />
         <TitleHeaders
@@ -115,29 +104,28 @@ function OrganizerPOC() {
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
-      
         <TitleHeaders
           style={{ alignSelf: "center" }}
-          isTitle = {false}
-          title="Please fill the following information"
+          isTitle={false}
+          title='Please fill the following information'
         />
       </View>
-      <ScrollView style= {{paddingTop: 20}}>
+      <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
-            placeholder="Name"
+            placeholder='Name'
             value={pocName}
             onChangeText={(currentName) => setPocName(currentName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder="Phone Number"
+            placeholder='Phone Number'
             value={pocPhoneNum}
             onChangeText={(currentPhoneNumber) =>
               setPocPhoneNum(currentPhoneNumber)
             }
           ></AppTextInput>
           <AppTextInput
-            placeholder="Email"
+            placeholder='Email'
             value={pocEmail}
             onChangeText={(currentEmail) => setPocEmail(currentEmail)}
           ></AppTextInput>
@@ -148,7 +136,7 @@ function OrganizerPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
-        onPress={() => handleAddingOrganizerPOC(pocName,pocPhoneNum,pocEmail)}
+        onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>
   );

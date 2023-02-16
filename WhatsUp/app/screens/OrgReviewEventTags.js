@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
@@ -18,6 +18,40 @@ function OrgReviewEventTags() {
   const [tags, setTags] = useState([]);
   const [currentTag, setCurrentTag] = useState("");
   const ids = uuid.v4();
+
+  useEffect(() => {
+    getEventTagsData();
+  }, []);
+
+  const getEventTagsData = async () => {
+    try {
+      const eventTags = await Storage.getItem({
+        key: "tags",
+      });
+      if (eventTags !== null) {
+        const TagsObject = JSON.parse(eventTags);
+        if (TagsObject.tags.length != 0) {
+          setTags(TagsObject.tags);
+          console.log("here's your tags");
+          console.log(tags);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storeTags = async (tags) => {
+    try {
+      const jsonValue = JSON.stringify(itinerary);
+      await Storage.setItem({
+        key: "tags",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const submitEvent = async (tags) => {
     if (tags.length == 0) {
@@ -74,6 +108,7 @@ function OrgReviewEventTags() {
           Storage.removeItem({ key: "POC" });
           Storage.removeItem({ key: "eventDates" });
           Storage.removeItem({ key: "itinerary" });
+          Storage.removeItem({ key: "tags" });
 
           Alert.alert("Event Reviewed Succesfully");
           navigation.navigate("Organizer");
@@ -107,11 +142,14 @@ function OrgReviewEventTags() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
-          onPress={() => navigation.navigate("OrgDay")}
+          onPress={() => {
+            storeTags(tags);
+            navigation.navigate("OrgReviewDaySchedule");
+          }}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
-          title={"Create Event Tags"}
+          title={"Edit Event Tags"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>

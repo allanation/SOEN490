@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,6 @@ import {
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
-import * as ImagePicker from "expo-image-picker";
 import { EvilIcons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import AppModal from "../components/AppModal";
@@ -27,25 +26,68 @@ import McGill from "../assets/CoverImages/McGill.jpeg";
 import Park from "../assets/CoverImages/Park.jpg";
 import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
-import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 
-import { storage } from "../firebase";
-import { async } from "@firebase/util";
-
 function OrgReviewEvent() {
   const navigation = useNavigation();
+  //Event useStates
   const [modalVisible, setModalVisible] = useState(false);
-  // set these as the event based on their id prop
   const [eventName, setEventName] = useState("");
   const [orgName, setOrgName] = useState("");
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
   const [description, setDescription] = useState("");
-  const [coverImage, setCoverImage] = useState(null);
+  const [coverImage, setCoverImage] = useState("");
   const [coverImageName, setCoverImageName] = useState("");
   const [imageSelected, setImageSelected] = useState("");
+
+  useEffect(() => {
+    getEventData();
+  }, []);
+
+  const getEventData = async () => {
+    try {
+      const newEvent = await Storage.getItem({
+        key: "newEvent",
+      });
+      if (newEvent !== null) {
+        const EventObject = JSON.parse(newEvent);
+        if (EventObject.eventName.length != 0) {
+          setEventName(EventObject.eventName);
+        }
+        if (EventObject.orgName.length != 0) {
+          setOrgName(EventObject.orgName);
+        }
+        if (EventObject.location.length != 0) {
+          setLocation(EventObject.location);
+        }
+        if (EventObject.description.length != 0) {
+          setDescription(EventObject.description);
+        }
+        if (EventObject.link.length != 0) {
+          setLink(EventObject.link);
+        }
+        if (EventObject.coverImage.length != 0) {
+          setCoverImageName(EventObject.coverImage);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storeNewEvent = async (newEvent) => {
+    try {
+      const jsonValue = JSON.stringify(newEvent);
+      await Storage.setItem({
+        key: "newEvent",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleAddingEvent = async (
     eventName,
@@ -87,18 +129,6 @@ function OrgReviewEvent() {
     //If every mandatory fields is filled out, store the information and go to next page
     storeNewEvent(newEvent);
     navigation.navigate("OrgReviewPOC");
-  };
-
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const handleCoverImage = async (coverImage, coverImageName) => {

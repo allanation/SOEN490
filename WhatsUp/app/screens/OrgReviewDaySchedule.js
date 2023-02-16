@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
@@ -25,6 +25,28 @@ function OrgReviewDaySchedule({ day }) {
   const [location, setLocation] = useState("");
   const navigation = useNavigation();
   const ids = uuid.v4();
+
+  useEffect(() => {
+    getItineraryData();
+  }, []);
+
+  const getItineraryData = async () => {
+    try {
+      const itineraryG = await Storage.getItem({
+        key: "itinerary",
+      });
+      if (itineraryG !== null) {
+        const ItineraryObject = JSON.parse(itineraryG);
+        console.log("here's your itinerary");
+        console.log(ItineraryObject);
+        if (ItineraryObject.itinerary.length != 0) {
+          setItinerary(ItineraryObject.itinerary);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleAddEvent = async (
     title,
@@ -75,7 +97,7 @@ function OrgReviewDaySchedule({ day }) {
   const goToTagsPage = async () => {
     //Store the information before leaving page
     storeItinerary(itinerary);
-    navigation.navigate("OrgReviewTags");
+    navigation.navigate("OrgReviewEventTags");
   };
 
   const storeItinerary = async (itinerary) => {
@@ -96,7 +118,10 @@ function OrgReviewDaySchedule({ day }) {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <UtilBtn
             icon='chevron-back-outline'
-            onPress={() => navigation.navigate("DateInfo")}
+            onPress={() => {
+              storeItinerary(itinerary);
+              navigation.navigate("OrgReviewDateInfo");
+            }}
             style={{ position: "absolute", left: 0 }}
           />
           <TitleHeaders
