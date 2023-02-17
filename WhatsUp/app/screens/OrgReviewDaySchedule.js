@@ -47,12 +47,8 @@ function OrgReviewDaySchedule({ day }) {
       });
       if (itinerary !== null) {
         const ItineraryObject = JSON.parse(itinerary);
-        console.log("here's your itinerary");
-        console.log(ItineraryObject);
         if (ItineraryObject.length !== 0) {
           setItinerary(ItineraryObject);
-          console.log("here is your itinerary");
-          console.log(itinerary);
         }
       }
     } catch (e) {
@@ -101,7 +97,6 @@ function OrgReviewDaySchedule({ day }) {
   };
 
   const onEdit = (newItinerary) => () => {
-    console.log("test");
     setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
     setItinerary((itinerary) => [...itinerary, newItinerary]);
   };
@@ -160,7 +155,6 @@ function OrgReviewDaySchedule({ day }) {
 
       setFilteredOrgData(orgSearch);
       setFilteredData(newData);
-      console.log(filteredData);
       setSearch(text);
     } else {
       displayedItinerary

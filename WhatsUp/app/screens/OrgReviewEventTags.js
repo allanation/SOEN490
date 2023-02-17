@@ -30,11 +30,10 @@ function OrgReviewEventTags() {
       });
       if (eventTags !== null) {
         const TagsObject = JSON.parse(eventTags);
-
         console.log("here's your tags");
         console.log(TagsObject);
-        if (TagsObject.tags.length != 0) {
-          setTags(TagsObject.tags);
+        if (TagsObject.length != 0) {
+          setTags(TagsObject);
         }
       }
     } catch (e) {

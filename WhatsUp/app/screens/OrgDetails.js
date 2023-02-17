@@ -145,7 +145,7 @@ function OrgDetails({ route }) {
   const [tags, setTags] = useState(prop.tags);
   const storeTags = async (tags) => {
     try {
-      const jsonValue = JSON.stringify(itinerary);
+      const jsonValue = JSON.stringify(tags);
       await Storage.setItem({
         key: "tags",
         value: jsonValue,
