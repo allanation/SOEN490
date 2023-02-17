@@ -5,8 +5,8 @@ import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
+import ReviewIOSDateTimePicker from "../components/ReviewIOSDateTimePicker";
+import ReviewAndroidDateTimePicker from "../components/ReviewAndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 
@@ -52,9 +52,9 @@ function OrgReviewDateInfo() {
       <View style={{ paddingTop: 20 }}>
         <View>
           {Platform.OS === "ios" ? (
-            <IOSDateTimePicker />
+            <ReviewIOSDateTimePicker />
           ) : (
-            <AndroidDateTimePicker />
+            <ReviewAndroidDateTimePicker />
           )}
         </View>
       </View>
