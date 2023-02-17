@@ -2,6 +2,7 @@
 import React from "react";
 import "./dashboard.css";
 import WhatsUpLogo from "../images/w1.png";
+import { useNavigate } from "react-router-dom";
 import UserImage from "../images/george.jpeg";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -10,7 +11,8 @@ import TextField from "@mui/material/TextField";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import {
   getDocs,
   collection,
@@ -22,6 +24,7 @@ import {
 import dateformat from "dateformat";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [approvedevents, setapprovedevents] = useState([]);
   const [unapprovedevents, setunapprovedevents] = useState([]);
   const [rejectedevents, setrejectedevents] = useState([]);
@@ -89,6 +92,14 @@ function Dashboard() {
     await updateDoc(changingToApprove, {
       eventStatus: "Approved",
     });
+  };
+
+  const logOut = () => {
+    signOut(auth)
+      .then(() => {
+        alert("You have been signed out.")
+        navigate("/");
+      });
   };
 
   useEffect(() => {
@@ -580,9 +591,9 @@ function Dashboard() {
               Rejected
             </button>
           </div>
-          <div className="logout-btn">
+          <button onClick={logOut} className="logout-btn">
             <p>Log Out</p>
-          </div>
+          </button>
         </div>
         <div className="search col-12">
           <TextField
