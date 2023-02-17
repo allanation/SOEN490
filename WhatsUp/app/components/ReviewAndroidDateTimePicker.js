@@ -7,6 +7,29 @@ import AppButton from "./AppButton";
 import { Storage } from "expo-storage";
 
 function ReviewAndroidDateTimePicker() {
+  useEffect(() => {
+    getDateTimeData();
+  }, []);
+
+  const getDateTimeData = async () => {
+    try {
+      const eventDates = await Storage.getItem({
+        key: "eventDates",
+      });
+      if (eventDates !== null) {
+        const EventDatesObject = JSON.parse(eventDates);
+        if (EventDatesObject.startDate !== 0) {
+          setSDate(new Date(EventDatesObject.startDate).toLocaleDateString());
+        }
+        if (EventDatesObject.endDate !== 0) {
+          setEDate(new Date(EventDatesObject.endDate).toLocaleDateString());
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   const [date, setDate] = useState(new Date());
   const [sdate, setSDate] = useState(new Date());
   const [edate, setEDate] = useState(new Date());
