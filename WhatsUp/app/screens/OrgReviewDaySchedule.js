@@ -2,7 +2,14 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Alert,
+  FlatList,
+} from "react-native";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
 import colors from "../config/colors";
@@ -26,21 +33,26 @@ function OrgReviewDaySchedule({ day }) {
   const navigation = useNavigation();
   const ids = uuid.v4();
 
+  const [filteredData, setFilteredData] = useState("");
+  const [filteredOrgData, setFilteredOrgData] = useState("");
+
   useEffect(() => {
     getItineraryData();
   }, []);
 
   const getItineraryData = async () => {
     try {
-      const itineraryG = await Storage.getItem({
+      const itinerary = await Storage.getItem({
         key: "itinerary",
       });
-      if (itineraryG !== null) {
-        const ItineraryObject = JSON.parse(itineraryG);
+      if (itinerary !== null) {
+        const ItineraryObject = JSON.parse(itinerary);
         console.log("here's your itinerary");
         console.log(ItineraryObject);
-        if (ItineraryObject.itinerary.length != 0) {
-          setItinerary(ItineraryObject.itinerary);
+        if (ItineraryObject.length !== 0) {
+          setItinerary(ItineraryObject);
+          console.log("here is your itinerary");
+          console.log(itinerary);
         }
       }
     } catch (e) {
@@ -111,6 +123,68 @@ function OrgReviewDaySchedule({ day }) {
       console.log(e);
     }
   };
+
+  const ItemView = ({ item }) => {
+    return (
+      <View>
+        <Text style={styles.subtitle}>Day {item.day}</Text>
+        <ItineraryEventSched
+          title={item.title}
+          startTime={item.startTime}
+          endTime={item.endTime}
+          location={item.location}
+          description={item.description}
+          id={item.id}
+        />
+      </View>
+    );
+  };
+
+  const searchFilter = (text) => {
+    if (text && displayedItinerary) {
+      const newData = masterData.filter((item) => {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      const orgSearch = masterData.filter((item) => {
+        const itemData = item.organizer
+          ? item.organizer.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      setFilteredOrgData(orgSearch);
+      setFilteredData(newData);
+      console.log(filteredData);
+      setSearch(text);
+    } else {
+      displayedItinerary
+        ? setFilteredData(masterData)
+        : setFilteredData(previousData);
+      setSearch(text);
+    }
+  };
+
+  var showItinerary;
+
+  showItinerary = (
+    <>
+      <FlatList
+        data={filteredData ? filteredData : itinerary}
+        renderItem={ItemView}
+        style={{}}
+      />
+      <FlatList
+        data={filteredOrgData ? filteredOrgData : []}
+        renderItem={ItemView}
+      />
+    </>
+  );
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>

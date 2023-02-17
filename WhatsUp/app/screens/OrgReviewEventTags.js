@@ -30,10 +30,11 @@ function OrgReviewEventTags() {
       });
       if (eventTags !== null) {
         const TagsObject = JSON.parse(eventTags);
+
+        console.log("here's your tags");
+        console.log(TagsObject);
         if (TagsObject.tags.length != 0) {
           setTags(TagsObject.tags);
-          console.log("here's your tags");
-          console.log(tags);
         }
       }
     } catch (e) {
@@ -43,7 +44,7 @@ function OrgReviewEventTags() {
 
   const storeTags = async (tags) => {
     try {
-      const jsonValue = JSON.stringify(itinerary);
+      const jsonValue = JSON.stringify(tags);
       await Storage.setItem({
         key: "tags",
         value: jsonValue,
