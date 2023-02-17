@@ -93,7 +93,6 @@ function OrganizeEventTags() {
         console.log('she already goes here!!!');
       }
     } else {
-      console.log('hi');
     }
   }
 
@@ -165,6 +164,7 @@ function OrganizeEventTags() {
       <View>
         <AppButton
           title={'Submit Event'}
+          testID={"submitEvent"}
           onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>

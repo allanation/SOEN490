@@ -101,6 +101,7 @@ function IOSDateTimePicker() {
         <DateTimePicker
           display='inline'
           style={styles.btn}
+          testID={"startTime"}
           mode='time'
           value={startTime.date}
           minuteInterval='15'
@@ -127,6 +128,7 @@ function IOSDateTimePicker() {
         <DateTimePicker
           display='inline'
           style={styles.btn}
+          testID={"endTime"}
           mode='time'
           value={endTime.date}
           minuteInterval='15'

@@ -12,7 +12,6 @@ import {
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppTextInput from "../components/AppTextInput";
-import * as ImagePicker from "expo-image-picker";
 import { EvilIcons } from "@expo/vector-icons";
 import AppButton from "../components/AppButton";
 import AppModal from "../components/AppModal";
@@ -27,12 +26,8 @@ import McGill from "../assets/CoverImages/McGill.jpeg";
 import Park from "../assets/CoverImages/Park.jpg";
 import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
-import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
-
-import { storage } from "../firebase";
-import { async } from "@firebase/util";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -176,6 +171,7 @@ function OrganizerNewEvent() {
 
             <EvilIcons
               onPress={() => setModalVisible(true)}
+              testID={"chooseImage"}
               name="image"
               size={36}
               color={colors.primary}
@@ -184,11 +180,10 @@ function OrganizerNewEvent() {
           </View>
         </View>
       </ScrollView>
-
-      {/* <ImgOrgBottom style={{position: "absolute"}} resizeMode="contain" /> */}
       <View>
         <AppButton
           title={"Next"}
+          testID={"nextButton"}
           onPress={() =>
             handleAddingEvent(
               eventName,
@@ -232,6 +227,7 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Studying, "Studying")}
+                  testID={"studyingImage"}
                 >
                   <Image
                     source={Studying}
@@ -244,6 +240,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(McGill, "McGill")}
+                  testID={"mcGillImage"}
                 >
                   <Image
                     source={McGill}
@@ -256,6 +253,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Park, "Park")}
+                  testID={"parkImage"}
                 >
                   <Image
                     source={Park}
@@ -270,6 +268,7 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Concordia, "Concordia")}
+                  testID={"concordiaImage"}
                 >
                   <Image
                     source={Concordia}
@@ -282,6 +281,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Auditorium, "Auditorium")}
+                  testID={"auditoriumImage"}
                 >
                   <Image
                     source={Auditorium}
@@ -294,6 +294,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Graduation, "Graduation")}
+                  testID={"graduationImage"}
                 >
                   <Image
                     source={Graduation}
@@ -308,6 +309,7 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Frosh, "Frosh")}
+                  testID={"froshImage"}
                 >
                   <Image
                     source={Frosh}
@@ -318,7 +320,10 @@ function OrganizerNewEvent() {
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleCoverImage(Art, "Art")}>
+                <TouchableOpacity 
+                  onPress={() => handleCoverImage(Art, "Art")}
+                  testID={"artImage"}
+                >
                   <Image
                     source={Art}
                     style={
@@ -330,6 +335,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Sports, "Sports")}
+                  testID={"sportsImage"}
                 >
                   <Image
                     source={Sports}
@@ -343,6 +349,7 @@ function OrganizerNewEvent() {
               </View>
               <AppButton
                 title="Submit"
+                testID={"submitImage"}
                 style={{ marginTop: 15 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);

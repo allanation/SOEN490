@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, StatusBar, ImageBackground} from "react-native";
+import { StyleSheet, StatusBar, ImageBackground} from "react-native";
 import Constants from "expo-constants";
 
 function Screen({ children, style, backgroundImage, resizeMode }) {

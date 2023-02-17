@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, Alert } from 'react-native';
 import colors from '../config/colors';
 import AppModal from './AppModal';
@@ -183,7 +183,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: '86%',
-    // height: "62%",
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

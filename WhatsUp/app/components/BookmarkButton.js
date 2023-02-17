@@ -5,7 +5,7 @@ import { TouchableOpacity, StyleSheet} from 'react-native';
 import {useState} from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-function BookmarkButton({colour = '#32bca5'}) {
+function BookmarkButton({}) {
     const [Active, setActive] = useState(false);
 
     const handlePress = () => {

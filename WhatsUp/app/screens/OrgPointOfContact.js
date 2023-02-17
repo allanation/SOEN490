@@ -96,6 +96,7 @@ function OrganizerPOC() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => goBackToNewEvent()}
         />
         <TitleHeaders
@@ -136,6 +137,7 @@ function OrganizerPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
+        testID={"nextButton"}
         onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>
