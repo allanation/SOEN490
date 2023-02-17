@@ -3,7 +3,7 @@ import React from "react";
 import "./dashboard.css";
 import WhatsUpLogo from "../images/w1.png";
 import { useNavigate } from "react-router-dom";
-import UserImage from "../images/george.jpeg";
+import UserImage from "../images/Empty-User.jpg";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -95,11 +95,10 @@ function Dashboard() {
   };
 
   const logOut = () => {
-    signOut(auth)
-      .then(() => {
-        alert("You have been signed out.")
-        navigate("/");
-      });
+    signOut(auth).then(() => {
+      alert("You have been signed out.");
+      navigate("/");
+    });
   };
 
   useEffect(() => {
@@ -122,7 +121,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         unapprovedEvent.coverImage +
                         ".jpg")}
@@ -311,7 +310,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         approvedEvent.coverImage +
                         ".jpg")}
@@ -435,7 +434,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         rejectedEvent.coverImage +
                         ".jpg")}
