@@ -5,6 +5,7 @@ import {
   Platform,
   Text,
   Dimensions,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import Screen from "../components/Screen";
@@ -18,6 +19,15 @@ import { convertStartDate } from "./AttendeeDashboard.js";
 import { format } from "date-fns";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 
 OrgDetails.propTypes = {
   route: PropTypes.any,
@@ -68,10 +78,35 @@ function OrgDetails({ route }) {
     }
   };
 
+  const deleteEvent = async (eventTitle, orgEmail) => {
+    console.log(eventTitle, orgEmail)
+    const q = query(
+      collection(db, "events"),
+      where("eventName", "==", eventTitle),
+      where("pocEmail", "==", orgEmail)
+    );
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setDocKey(doc.id);
+        console.log(docKey);
+      });
+    }
+    
+    try {
+      await deleteDoc(doc(db, "events", docKey));
+      Alert.alert("Event was successfully deleted.");
+      navigation.navigate("OrganizerDashboard");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   //Point of contact details
   const [pocName, setPocName] = useState(prop.pocName);
   const [pocPhoneNum, setPocPhoneNum] = useState(prop.pocPhoneNum);
   const [pocEmail, setPocEmail] = useState(prop.pocEmail);
+  const [docKey, setDocKey] = useState("");
   const POC = {
     pocName: pocName,
     pocPhoneNum: pocPhoneNum,
@@ -160,9 +195,37 @@ function OrgDetails({ route }) {
       <ScrollView style={{ width: "100%", display: "flex" }}>
         <View style={{ flexDirection: "row" }}>
           <TitleHeaders title={prop.eventName} />
+          <View style={{ flexDirection: "row", marginLeft: "auto" }}>
           <Ionicons
-            name='pencil'
-            testID='edit-email'
+            name="trash"
+            testID="edit-email"
+            onPress={() =>
+              Alert.alert(
+                "Warning",
+                "Your event will be permanently deleted. Are you sure you wish to proceed?",
+                [
+                  {
+                    text: "Cancel",
+                    style: "cancel",
+                  },
+                  {
+                    text: "Delete Event",
+                    onPress: () => deleteEvent(prop.eventName, prop.pocEmail),
+                  },
+                ]
+              )
+            }
+            size={20}
+            color={colors.primary}
+            style={{
+              marginBottom: "1.5%",
+              alignSelf: "flex-end",
+              paddingRight: "5%"
+            }}
+          />
+          <Ionicons
+            name="pencil"
+            testID="edit-email"
             onPress={() => {
               storeNewEvent(newEvent);
               storePOC(POC);
@@ -176,9 +239,9 @@ function OrgDetails({ route }) {
             style={{
               marginBottom: "1.5%",
               alignSelf: "flex-end",
-              marginLeft: "auto",
             }}
           />
+          </View>
         </View>
         <Text
           style={{
@@ -192,7 +255,7 @@ function OrgDetails({ route }) {
         </Text>
         <View style={styles.iconText}>
           <Ionicons
-            name='ios-location-outline'
+            name="ios-location-outline"
             size={20}
             color={colors.primary}
           />
@@ -200,7 +263,7 @@ function OrgDetails({ route }) {
         </View>
         <View style={styles.iconText}>
           <Ionicons
-            name='ios-calendar-outline'
+            name="ios-calendar-outline"
             size={20}
             color={colors.primary}
           />
@@ -216,7 +279,7 @@ function OrgDetails({ route }) {
           )}
         </View>
         <View style={styles.iconText}>
-          <Ionicons name='ios-time-outline' size={20} color={colors.primary} />
+          <Ionicons name="ios-time-outline" size={20} color={colors.primary} />
           <Text style={{ marginLeft: 10 }}>{`${convertTime(
             prop.startTime
           )} - ${convertTime(prop.endTime)}`}</Text>
