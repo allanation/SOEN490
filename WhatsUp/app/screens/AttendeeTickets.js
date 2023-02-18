@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, RefreshControl } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
@@ -18,7 +18,7 @@ export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
 };
 
-function AttendeeDashboard() {
+function AttendeeTickets() {
   const navigation = useNavigation();
   var date = new Date();
   const months = [
@@ -40,6 +40,8 @@ function AttendeeDashboard() {
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
   const [listenerEvents, setListenerEvents] = useState([]);
+  const [tickets, setTickets] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -52,8 +54,18 @@ function AttendeeDashboard() {
     }
   };
 
+  const getTickets = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        const ticketsField = doc.data().tickets;
+        setTickets(ticketsField);
+      });
+    }
+  };
+
   const getEvents = async () => {
-    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
@@ -61,27 +73,59 @@ function AttendeeDashboard() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        setAllEvents(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setMasterData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setPreviousData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+        {
+          for (const item of tickets) {
+            if (item == doc.id) {
+              if (allEvents.length > 0)
+                for (const item of allEvents) {
+                  if (item.id == doc.id) {
+                    break;
+                  } else if (item.id == allEvents[allEvents.length - 1].id) {
+                    console.log("got ya");
+                    setAllEvents((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setMasterData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setPreviousData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                  } else {
+                    continue;
+                  }
+                }
+              else {
+                console.log("hey there");
+                setAllEvents((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setMasterData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setPreviousData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+              }
+            }
+          }
+        }
       });
     }
   };
 
   var welcome = "Welcome, " + userName + "!";
 
+  async function retriverTicketsAndgetEvents() {
+    await getTickets();
+    await getEvents();
+  }
+
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
     getName();
-    getEvents();
-    console.log();
+    retriverTicketsAndgetEvents();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
@@ -100,7 +144,13 @@ function AttendeeDashboard() {
         date={convertStartDate(item.startDate)}
         coverImageName={item.coverImage}
         id={item.id}
-        onPress={() => navigation.navigate("AttendeeView", { prop: item })}
+        isTicketsPage={true}
+        onPress={() =>
+          navigation.navigate("AttendeeView", {
+            prop: item,
+            fromScreen: "AttendeeTickets",
+          })
+        }
       />
     );
   };
@@ -156,6 +206,14 @@ function AttendeeDashboard() {
     }
   };
 
+  const pullMe = () => {
+    setRefresh(true);
+    retriverTicketsAndgetEvents();
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
+
   var tabs;
   var showEvents;
 
@@ -164,6 +222,9 @@ function AttendeeDashboard() {
       <FlatList
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />
+        }
       />
       <FlatList
         data={filteredUserData ? filteredUserData : []}
@@ -217,9 +278,9 @@ function AttendeeDashboard() {
           />
         </View>
 
-        <Text style={styles.text}>Popular Events</Text>
-
+        <Text style={styles.text}>Tickets</Text>
         <View>{showEvents}</View>
+        <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
       </View>
     </Screen>
   );
@@ -252,6 +313,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  textCentered: {
+    color: "#100101",
+    marginTop: "4%",
+    marginBottom: "3%",
+    fontSize: 12,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   container: {
     left: "2.5%",
     marginTop: "5%",
@@ -260,4 +329,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AttendeeDashboard;
+export default AttendeeTickets;
