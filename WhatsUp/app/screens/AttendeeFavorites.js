@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, RefreshControl } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
@@ -18,12 +18,13 @@ import {
 } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 import { format } from "date-fns";
+import AppButton from "../components/AppButton";
 
 export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
 };
 
-function AttendeeDashboard() {
+function AttendeeFavorites() {
   const navigation = useNavigation();
   var date = new Date();
   const months = [
@@ -45,7 +46,6 @@ function AttendeeDashboard() {
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
-  const [listenerEvents, setListenerEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -165,6 +165,7 @@ function AttendeeDashboard() {
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
   const [filteredData, setFilteredData] = useState("");
+  const [refresh, setRefresh] = useState(false);
   const [filteredUserData, setFilteredUserData] = useState("");
 
   const ItemView = ({ item }) => {
@@ -175,7 +176,12 @@ function AttendeeDashboard() {
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
         id={item.id}
-        onPress={() => navigation.navigate("AttendeeView", { prop: item })}
+        coverImageName={item.coverImage}
+        onPress={() =>
+          navigation.navigate("AttendeeView", {
+            prop: item,
+          })
+        }
       />
     );
   };
@@ -231,6 +237,14 @@ function AttendeeDashboard() {
     }
   };
 
+  const pullMe = () => {
+    setRefresh(true);
+    bookmarkAndgetEvents();
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
+
   var tabs;
   var showEvents;
 
@@ -239,11 +253,14 @@ function AttendeeDashboard() {
       <FlatList
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />
+        }
       />
-      {/* <FlatList
+      <FlatList
         data={filteredUserData ? filteredUserData : []}
         renderItem={ItemView}
-      /> */}
+      />
     </>
   );
 
@@ -292,9 +309,9 @@ function AttendeeDashboard() {
           />
         </View>
 
-        <Text style={styles.text}>Popular Events</Text>
-
+        <Text style={styles.text}>Bookmarked Events</Text>
         <View>{showEvents}</View>
+        <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
       </View>
     </Screen>
   );
@@ -327,6 +344,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  textCentered: {
+    color: "#100101",
+    marginTop: "4%",
+    marginBottom: "3%",
+    fontSize: 12,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   container: {
     left: "2.5%",
     marginTop: "5%",
@@ -335,4 +360,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AttendeeDashboard;
+export default AttendeeFavorites;
