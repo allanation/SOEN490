@@ -164,6 +164,7 @@ function OrganizeEventTags() {
       <View>
         <AppButton
           title={'Submit Event'}
+          testID={"submitEvent"}
           onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>
