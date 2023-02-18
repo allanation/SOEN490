@@ -98,6 +98,7 @@ function OrganizerDaySchedule({ day }) {
             icon="chevron-back-outline"
             onPress={() => navigation.navigate("DateInfo")}
             style={{ position: "absolute", left: 0 }}
+            testID={"backButton"}
           />
           <TitleHeaders
             style={{ alignSelf: "center" }}
@@ -115,6 +116,7 @@ function OrganizerDaySchedule({ day }) {
         style={{ alignSelf: "flex-end", marginRight: 24 }}
         icon="add-circle"
         onPress={() => setModalVisible(true)}
+        testID={"addDayIcon"}
       />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
@@ -147,10 +149,11 @@ function OrganizerDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} onPress={() => goToTagsPage()}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"}  onPress={() => goToTagsPage()}></AppButton>
       </View>
       <AppModal
         animationType="fade"
+        testID={"addDayModal"}
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -161,6 +164,7 @@ function OrganizerDaySchedule({ day }) {
           <View style={styles.inputView}>
             <UtilBtn
               icon="chevron-back-outline"
+              testID={"goBackModal"}
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
@@ -196,6 +200,7 @@ function OrganizerDaySchedule({ day }) {
               <AppButton
                 title="Add"
                 style={{ marginTop: 0 }}
+                testID={"addDayButton"}
                 onPress={() =>
                   handleAddEvent(
                     title,
@@ -222,7 +227,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
-    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {

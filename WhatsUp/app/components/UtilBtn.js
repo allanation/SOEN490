@@ -13,7 +13,6 @@ function UtilBtn({
   title,
   onPress,
   color = "primary",
-  disabled = false,
   style,
   icon,
   iconSize = 40,

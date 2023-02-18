@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import BookmarkButton from "../components/BookmarkButton";
 import { Ionicons } from "@expo/vector-icons";
+import { getCoverImageSource } from "../screens/AttendeeView";
 
 function Event({
   image,
@@ -23,27 +24,6 @@ function Event({
   id,
   ...key
 }) {
-  let coverImageSource;
-
-  if (coverImageName == "Art") {
-    coverImageSource = require("../assets/CoverImages/Art.jpg");
-  } else if (coverImageName == "Auditorium") {
-    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
-  } else if (coverImageName == "Concordia") {
-    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
-  } else if (coverImageName == "Frosh") {
-    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
-  } else if (coverImageName == "Graduation") {
-    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
-  } else if (coverImageName == "McGill") {
-    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
-  } else if (coverImageName == "Park") {
-    coverImageSource = require("../assets/CoverImages/Park.jpg");
-  } else if (coverImageName == "Sports") {
-    coverImageSource = require("../assets/CoverImages/Sports.jpg");
-  } else if (coverImageName == "Studying") {
-    coverImageSource = require("../assets/CoverImages/Studying.jpg");
-  }
 
   return (
     <TouchableOpacity
@@ -52,7 +32,7 @@ function Event({
     >
       <View style={{ flex: 2 }}>
         <Image
-          source={coverImageSource}
+          source={getCoverImageSource(coverImageName)}
           style={{
             width: "100%",
             height: "100%",

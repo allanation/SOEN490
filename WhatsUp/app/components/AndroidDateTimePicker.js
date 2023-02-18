@@ -53,39 +53,23 @@ function AndroidDateTimePicker() {
 
   const checkID = (status) => () => {
     if (status == "startDate") {
-      console.log("hahahhahah");
       setClicked("startDate");
       showDatepicker();
     }
     if (status == "startTime") {
-      console.log("hohohoh");
       setClicked("startTime");
       showTimepicker();
     }
     if (status == "endDate") {
-      console.log("hihihihih");
       setClicked("endDate");
       showDatepicker();
     }
     if (status == "endTime") {
-      console.log("huhuhuhu");
       setClicked("endTime");
       showTimepicker();
     }
   };
   const handleAddingEvent = async (sdate, edate) => {
-    // !!! ADD ANDROID VALIDATION !!!
-    // if (endTime.timestamp == '') {
-    //   Alert.alert('Error', 'Please select a later timestamp');
-    //   return;
-    // }
-    // if (
-    //   startDate.timestamp == endDate.timestamp &&
-    //   endTime.timestamp < startTime.timestamp
-    // ) {
-    //   Alert.alert('Error', 'Cannot end before the event starts');
-    //   return;
-    // }
 
     const eventDates = {
       startDate: sdate.toLocaleDateString(),
@@ -172,7 +156,6 @@ function AndroidDateTimePicker() {
 
 const styles = StyleSheet.create({
   picker: {
-    // justifyContent: "center",
     alignSelf: "center",
     width: "60%",
     paddingVertical: "10%",
@@ -183,7 +166,6 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     marginVertical: 10,
     outline: 12,
-    // borderWidth: 1,
     borderColor: colors.primary,
   },
   text: {
