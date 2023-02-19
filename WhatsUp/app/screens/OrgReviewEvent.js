@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -29,17 +29,69 @@ import Studying from "../assets/CoverImages/Studying.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 
-function OrganizerNewEvent() {
+function OrgReviewEvent() {
   const navigation = useNavigation();
+  //Event useStates
   const [modalVisible, setModalVisible] = useState(false);
   const [eventName, setEventName] = useState("");
   const [orgName, setOrgName] = useState("");
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
   const [description, setDescription] = useState("");
-  const [coverImage, setCoverImage] = useState(null);
+  const [coverImage, setCoverImage] = useState("");
   const [coverImageName, setCoverImageName] = useState("");
   const [imageSelected, setImageSelected] = useState("");
+  const [guid, setGuid] = useState("");
+
+  useEffect(() => {
+    getEventData();
+  }, []);
+
+  const getEventData = async () => {
+    try {
+      const newEvent = await Storage.getItem({
+        key: "newEvent",
+      });
+      if (newEvent !== null) {
+        const EventObject = JSON.parse(newEvent);
+        if (EventObject.eventName.length != 0) {
+          setEventName(EventObject.eventName);
+        }
+        if (EventObject.orgName.length != 0) {
+          setOrgName(EventObject.orgName);
+        }
+        if (EventObject.location.length != 0) {
+          setLocation(EventObject.location);
+        }
+        if (EventObject.description.length != 0) {
+          setDescription(EventObject.description);
+        }
+        if (EventObject.link.length != 0) {
+          setLink(EventObject.link);
+        }
+        if (EventObject.coverImage.length != 0) {
+          setCoverImageName(EventObject.coverImage);
+        }
+        if (EventObject.guid.length != 0) {
+          setGuid(EventObject.guid);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const storeNewEvent = async (newEvent) => {
+    try {
+      const jsonValue = JSON.stringify(newEvent);
+      await Storage.setItem({
+        key: "newEvent",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleAddingEvent = async (
     eventName,
@@ -76,23 +128,12 @@ function OrganizerNewEvent() {
       description: description,
       link: link,
       coverImage: coverImageName,
+      guid: guid,
     };
 
     //If every mandatory fields is filled out, store the information and go to next page
     storeNewEvent(newEvent);
-    navigation.navigate("POC");
-  };
-
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    navigation.navigate("OrgReviewPOC");
   };
 
   const handleCoverImage = async (coverImage, coverImageName) => {
@@ -109,10 +150,7 @@ function OrganizerNewEvent() {
           style={{ position: "absolute", left: 0 }}
           onPress={() => navigation.navigate("Organizer")}
         />
-        <TitleHeaders
-          style={{ alignSelf: "center" }}
-          title={"Create New Event"}
-        />
+        <TitleHeaders style={{ alignSelf: "center" }} title={"Edit Event"} />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
         <TitleHeaders
@@ -125,18 +163,22 @@ function OrganizerNewEvent() {
         <View>
           <AppTextInput
             placeholder="Event Title"
+            value={eventName}
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Organization Name"
+            value={orgName}
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Location"
+            value={location}
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Link for ticket purchase (optional)"
+            value={link}
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
           <AppTextInput
@@ -148,6 +190,7 @@ function OrganizerNewEvent() {
               color: colors.lightGrey,
             }}
             placeholder="Description"
+            value={description}
             onChangeText={(currentDescription) =>
               setDescription(currentDescription)
             }
@@ -171,7 +214,6 @@ function OrganizerNewEvent() {
 
             <EvilIcons
               onPress={() => setModalVisible(true)}
-              testID={"chooseImage"}
               name="image"
               size={36}
               color={colors.primary}
@@ -180,17 +222,18 @@ function OrganizerNewEvent() {
           </View>
         </View>
       </ScrollView>
+
       <View>
         <AppButton
           title={"Next"}
-          testID={"nextButton"}
           onPress={() =>
             handleAddingEvent(
               eventName,
               orgName,
               location,
               description,
-              coverImageName
+              coverImageName,
+              guid
             )
           }
         ></AppButton>
@@ -227,7 +270,6 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Studying, "Studying")}
-                  testID={"studyingImage"}
                 >
                   <Image
                     source={Studying}
@@ -240,7 +282,6 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(McGill, "McGill")}
-                  testID={"mcGillImage"}
                 >
                   <Image
                     source={McGill}
@@ -253,7 +294,6 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Park, "Park")}
-                  testID={"parkImage"}
                 >
                   <Image
                     source={Park}
@@ -268,7 +308,6 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Concordia, "Concordia")}
-                  testID={"concordiaImage"}
                 >
                   <Image
                     source={Concordia}
@@ -281,7 +320,6 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Auditorium, "Auditorium")}
-                  testID={"auditoriumImage"}
                 >
                   <Image
                     source={Auditorium}
@@ -294,7 +332,6 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Graduation, "Graduation")}
-                  testID={"graduationImage"}
                 >
                   <Image
                     source={Graduation}
@@ -309,7 +346,6 @@ function OrganizerNewEvent() {
               <View style={{ flexDirection: "row" }}>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Frosh, "Frosh")}
-                  testID={"froshImage"}
                 >
                   <Image
                     source={Frosh}
@@ -320,10 +356,7 @@ function OrganizerNewEvent() {
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity 
-                  onPress={() => handleCoverImage(Art, "Art")}
-                  testID={"artImage"}
-                >
+                <TouchableOpacity onPress={() => handleCoverImage(Art, "Art")}>
                   <Image
                     source={Art}
                     style={
@@ -335,7 +368,6 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleCoverImage(Sports, "Sports")}
-                  testID={"sportsImage"}
                 >
                   <Image
                     source={Sports}
@@ -349,7 +381,6 @@ function OrganizerNewEvent() {
               </View>
               <AppButton
                 title="Submit"
-                testID={"submitImage"}
                 style={{ marginTop: 15 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
@@ -437,4 +468,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrganizerNewEvent;
+export default OrgReviewEvent;

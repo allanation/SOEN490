@@ -19,31 +19,10 @@ import UtilBtn from "../components/UtilBtn";
 import { convertStartDate } from "./AttendeeDashboard.js";
 import Event from "../components/Event";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { getTodayDate } from "./AttendeeDashboard.js";
 
 function OrganizerDashboardScreen() {
   const navigation = useNavigation();
-  var date = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
-  var todayDate =
-    months[date.getMonth()].substring(0, 3) +
-    " " +
-    date.getDate() +
-    ", " +
-    date.getFullYear();
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
@@ -69,8 +48,6 @@ function OrganizerDashboardScreen() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         allEvents.push(doc.data());
-        // console.log(convertStartDate(doc.data().startDate) > todayDate)
-        // console.log(todayDate)
       });
       setAllEvents(allEvents);
       setMasterData(allEvents);
@@ -103,6 +80,7 @@ function OrganizerDashboardScreen() {
         date={convertStartDate(item.startDate)}
         isOrganizer={true}
         coverImageName={item.coverImage}
+        guid ={item.guid}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
@@ -128,7 +106,6 @@ function OrganizerDashboardScreen() {
 
       setFilteredOrgData(orgSearch);
       setFilteredData(newData);
-      console.log(filteredData);
       setSearch(text);
     } else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
@@ -149,7 +126,6 @@ function OrganizerDashboardScreen() {
 
       setFilteredOrgData(orgSearch);
       setFilteredData(newData);
-      console.log(filteredData);
       setSearch(text);
     } else {
       displayedEvent
@@ -236,7 +212,7 @@ function OrganizerDashboardScreen() {
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{today}</Text>
+                <Text style={styles.paragraph}>{getTodayDate()}</Text>
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}

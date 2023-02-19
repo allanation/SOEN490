@@ -11,8 +11,8 @@
   }
 
   .logo {
-    width: 48px;
-    height: 48px;
+    width: 65px;
+    height: 65px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -20,7 +20,8 @@
 
   .logo-text {
     padding-left: 12px;
-    font-size: 24px;
+    font-size: 28px;
+    font-family: 'Open Sans', sans-serif;
     color: var(--primary);
   }
 
@@ -50,6 +51,7 @@
     flex-direction: row;
     justify-content: center;
     padding: 12px;
+    border-radius: 20px;
   }
   .user-image {
     width: 120px;
@@ -63,13 +65,14 @@
   }
   .text-title {
     font-weight: bold;
-    font-size: larger;
+    font-size: 24px;
     padding-left: 10px;
   }
 
   .text-content {
     padding-top: 4px;
     padding-left: 10px;
+    font-size: 18px;
   }
 
   .additional-container {
@@ -99,6 +102,7 @@
 
   .day-count {
     font-weight: bold;
+    font-size: 20px;
     margin-bottom: 8px;
   }
 
@@ -112,6 +116,7 @@
   .day-title {
     color: var(--primary);
     font-weight: bold;
+    font-size: 18px;
     padding-bottom: 4px;
   }
 
@@ -119,13 +124,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 18px;
     color: var(--lightGrey);
     padding-bottom: 4px;
   }
 
   .itinerary-description {
-    font-size: 12px;
+    font-size: 18px;
   }
 
   .admin-approval {
@@ -202,7 +207,7 @@
     border: 1px solid darkgray;
     height: 380px;
     width: 90%;
-    font-size: 16px;
+    font-size: 18px;
     padding-left: 2%;
     padding-top: 2%;
   }
@@ -235,6 +240,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding-top: 1%;
   }
 
   .event-status {
@@ -245,6 +251,7 @@
   }
 
   .active-status-btn {
+    font-size: 18px;
     font-weight: bold;
     border-bottom: 2px var(--primary);
     border-style: none none solid none;
@@ -252,6 +259,7 @@
   }
 
   .status-btn {
+    font-size: 18px;
     font-weight: bold;
     color: var(--lightGrey);
     background: none;
@@ -269,6 +277,8 @@
     justify-content: center;
     color: white;
     font-weight: bold;
+    font-size: 16px;
+    border-style: none;
   }
 
   .approve-btn {
@@ -368,8 +378,14 @@
     display: flex;
   }
   .event-banner-date-text {
-    font-size: 12px;
+    font-size: 16px;
   }
+
+  #details-eventImage {
+    height: 500px;
+    width: 450px;
+  }
+
   /* For desktop: */
   .col-4 {
     width: 36.8%;

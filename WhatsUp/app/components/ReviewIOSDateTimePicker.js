@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import colors from '../config/colors';
-import AppButton from './AppButton';
-import { Storage } from 'expo-storage';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Text, Alert } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import colors from "../config/colors";
+import AppButton from "./AppButton";
+import { Storage } from "expo-storage";
 
-function IOSDateTimePicker() {
+function ReviewIOSDateTimePicker() {
   const [startDate, setStartDate] = useState({
     date: new Date(Date.now() + 24 * 60 * 60 * 1000),
     timestamp: Date.now() + 24 * 60 * 60 * 1000,
@@ -20,8 +20,49 @@ function IOSDateTimePicker() {
   });
   const [endTime, setEndTime] = useState({
     date: new Date(),
-    timestamp: '',
+    timestamp: "",
   });
+
+  useEffect(() => {
+    getDateTimeData();
+  }, []);
+
+  const getDateTimeData = async () => {
+    try {
+      const eventDates = await Storage.getItem({
+        key: "eventDates",
+      });
+      if (eventDates !== null) {
+        const EventDatesObject = JSON.parse(eventDates);
+        if (EventDatesObject.startDate !== 0) {
+          setStartDate({
+            date: new Date(EventDatesObject.startDate),
+            timestamp: EventDatesObject.startDate,
+          });
+        }
+        if (EventDatesObject.startDate !== 0) {
+          setStartTime({
+            date: new Date(EventDatesObject.startTime),
+            timestamp: EventDatesObject.startTime,
+          });
+        }
+        if (EventDatesObject.startDate !== 0) {
+          setEndDate({
+            date: new Date(EventDatesObject.endDate),
+            timestamp: EventDatesObject.endDate,
+          });
+        }
+        if (EventDatesObject.startDate !== 0) {
+          setEndTime({
+            date: new Date(EventDatesObject.endTime),
+            timestamp: EventDatesObject.endTime,
+          });
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleSelectStartDate = (e) => {
     setStartDate({
@@ -52,15 +93,15 @@ function IOSDateTimePicker() {
   };
 
   const handleAddingEvent = async (startDate, startTime, endDate, endTime) => {
-    if (endTime.timestamp == '') {
-      Alert.alert('Error', 'Please select a later timestamp');
+    if (endTime.timestamp == "") {
+      Alert.alert("Error", "Please select a later timestamp");
       return;
     }
     if (
       startDate.timestamp == endDate.timestamp &&
       endTime.timestamp < startTime.timestamp
     ) {
-      Alert.alert('Error', 'Cannot end before the event starts');
+      Alert.alert("Error", "Cannot end before the event starts");
       return;
     }
 
@@ -78,7 +119,7 @@ function IOSDateTimePicker() {
     try {
       const jsonValue = JSON.stringify(eventDates);
       await Storage.setItem({
-        key: 'eventDates',
+        key: "eventDates",
         value: jsonValue,
       });
       console.log(jsonValue);
@@ -112,8 +153,8 @@ function IOSDateTimePicker() {
         style={{
           flex: 1,
           height: 1,
-          width: '100%',
-          backgroundColor: 'lightgrey',
+          width: "100%",
+          backgroundColor: "lightgrey",
         }}
       />
       <Text style={styles.text}> End Date & Time </Text>
@@ -136,7 +177,7 @@ function IOSDateTimePicker() {
         />
       </View>
       <AppButton
-        title={'Confirm'}
+        title={"Confirm"}
         onPress={() =>
           handleAddingEvent(startDate, startTime, endDate, endTime)
         }
@@ -148,15 +189,15 @@ function IOSDateTimePicker() {
 const styles = StyleSheet.create({
   picker: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirectionL: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirectionL: "row",
   },
   btn: {
-    accentColor: 'red',
-    width: '40%',
+    accentColor: "red",
+    width: "40%",
     marginBottom: 10,
   },
   text: {
@@ -164,11 +205,11 @@ const styles = StyleSheet.create({
     color: colors.darkerGrey,
     marginTop: 10,
     fontSize: 24,
-    alignContent: 'center',
-    alignSelf: 'center',
+    alignContent: "center",
+    alignSelf: "center",
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
 
-export default IOSDateTimePicker;
+export default ReviewIOSDateTimePicker;

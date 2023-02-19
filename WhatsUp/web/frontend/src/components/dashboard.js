@@ -2,7 +2,8 @@
 import React from "react";
 import "./dashboard.css";
 import WhatsUpLogo from "../images/w1.png";
-import UserImage from "../images/george.jpeg";
+import { useNavigate } from "react-router-dom";
+import UserImage from "../images/Empty-User.jpg";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -10,7 +11,8 @@ import TextField from "@mui/material/TextField";
 import FilterListRoundedIcon from "@mui/icons-material/FilterListRounded";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { db, auth } from "../firebase";
+import { signOut } from "firebase/auth";
 import {
   getDocs,
   collection,
@@ -19,10 +21,10 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import dateformat from "dateformat";
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [approvedevents, setapprovedevents] = useState([]);
   const [unapprovedevents, setunapprovedevents] = useState([]);
   const [rejectedevents, setrejectedevents] = useState([]);
@@ -32,17 +34,9 @@ function Dashboard() {
   const [viewUnapproved, clickUnapproved] = useState(false);
   const [viewRejected, clickRejected] = useState(false);
   const [adminComment, setAdminComment] = useState("");
-  const storage = getStorage();
-
-  const getImage = async (url) => {
-    const paths = url.split("/");
-    const lastPath = paths[paths.length - 1];
-    const imageURL = getDownloadURL(ref(storage, lastPath));
-    return imageURL;
-  };
 
   // useEffect to load unapproved events
-  const getUnApprovedEvents = async () => {
+  const UnApprovedEvents = async () => {
     const name = "Unapproved";
     const q = query(collection(db, "events"), where("eventStatus", "==", name));
     const querySnapshot = await getDocs(q);
@@ -100,9 +94,16 @@ function Dashboard() {
     });
   };
 
+  const logOut = () => {
+    signOut(auth).then(() => {
+      alert("You have been signed out.");
+      navigate("/");
+    });
+  };
+
   useEffect(() => {
     ApprovedEvents();
-    getUnApprovedEvents();
+    UnApprovedEvents();
     RejectedEvents();
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
@@ -120,7 +121,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         unapprovedEvent.coverImage +
                         ".jpg")}
@@ -309,7 +310,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         approvedEvent.coverImage +
                         ".jpg")}
@@ -433,7 +434,7 @@ function Dashboard() {
                 <div className="event-header col-12">
                   <div className="event-image col-6">
                     <img
-                      id="eventImage"
+                      id="details-eventImage"
                       src={require("../cover images/" +
                         rejectedEvent.coverImage +
                         ".jpg")}
@@ -589,9 +590,9 @@ function Dashboard() {
               Rejected
             </button>
           </div>
-          <div className="logout-btn">
+          <button onClick={logOut} className="logout-btn">
             <p>Log Out</p>
-          </div>
+          </button>
         </div>
         <div className="search col-12">
           <TextField

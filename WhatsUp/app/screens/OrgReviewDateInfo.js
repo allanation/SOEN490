@@ -5,12 +5,12 @@ import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
+import ReviewIOSDateTimePicker from "../components/ReviewIOSDateTimePicker";
+import ReviewAndroidDateTimePicker from "../components/ReviewAndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 
-function OrganizerDateInfo() {
+function OrgReviewDateInfo() {
   const navigation = useNavigation();
   const validateEventDate = async () => {
     try {
@@ -23,7 +23,7 @@ function OrganizerDateInfo() {
         Alert.alert("Error", "Please confirm your event's date information.");
         return;
       } else {
-        navigation.navigate("OrgDay");
+        navigation.navigate("OrgReviewDaySchedule");
       }
     } catch (e) {
       console.log(e);
@@ -35,13 +35,11 @@ function OrganizerDateInfo() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
-          testID={"backButton"}
-          onPress={() => navigation.navigate("POC")}
+          onPress={() => navigation.navigate("OrgReviewPOC")}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
-          testID={"dateInfoTitle"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
@@ -54,14 +52,14 @@ function OrganizerDateInfo() {
       <View style={{ paddingTop: 20 }}>
         <View>
           {Platform.OS === "ios" ? (
-            <IOSDateTimePicker />
+            <ReviewIOSDateTimePicker />
           ) : (
-            <AndroidDateTimePicker />
+            <ReviewAndroidDateTimePicker />
           )}
         </View>
       </View>
       <View>
-        <AppButton title={"Next"} testID={"nextButton"} onPress={validateEventDate}></AppButton>
+        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
       </View>
     </Screen>
   );
@@ -89,4 +87,4 @@ const styles = StyleSheet.create({
   paragraph: { textAlign: "center" },
 });
 
-export default OrganizerDateInfo;
+export default OrgReviewDateInfo;
