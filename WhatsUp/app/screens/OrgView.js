@@ -67,6 +67,7 @@ function OrgView({ route, navigation }) {
     }
     setModalVisible(false);
     setMessage("");
+    Alert.alert("Message sent successfully.");
   };
 
   useEffect(() => {
