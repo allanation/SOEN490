@@ -5,7 +5,7 @@ import OrgDetails from "./OrgDetails";
 import OrgStatus from "./OrgStatus";
 import AttendeeSchedule from "./AttendeeSchedule";
 import colors from "../config/colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import UtilBtn from "../components/UtilBtn";
 import AppButton from "../components/AppButton";
@@ -15,7 +15,7 @@ import AppTextInput from "../components/AppTextInput";
 import TitleHeaders from "../components/TitleHeaders";
 import { convertStartDate } from "./AttendeeDashboard.js";
 import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, updateDoc, query, arrayUnion, doc, getDocs, where } from "firebase/firestore";
 import { getCoverImageSource } from "./AttendeeView";
 
 
@@ -30,7 +30,18 @@ function OrgView({ route, navigation }) {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [message, setMessage] = useState("");
+  const [docId, setDocId] = useState("");
   var date = new Date().getTime();
+
+  const getDocId = async () => {
+    const q = query(collection(db, "events"), where("guid", "==", prop.guid));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setDocId(doc.id);
+      });
+    }
+  };
 
   const handleSendBlast = async (
     message
@@ -40,11 +51,15 @@ function OrgView({ route, navigation }) {
       return;
     }
 
+    const temp = {
+      dateSent: date,
+      message: message,
+    };
+
     try {
-      await addDoc(collection(db, 'notifications'),{
-        dateSent: date,
-        description: message,
-        eventsName: prop.eventName,
+      const eventToNotify = doc(db, "events", docId);
+      await updateDoc(eventToNotify, {
+        notifications: arrayUnion(temp),
       })
       .catch((error) => console.log(error.message));
     } catch (e) {
@@ -53,6 +68,10 @@ function OrgView({ route, navigation }) {
     setModalVisible(false);
     setMessage("");
   };
+
+  useEffect(() => {
+    getDocId();
+  }, []);
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
