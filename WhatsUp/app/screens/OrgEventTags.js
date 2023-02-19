@@ -50,6 +50,9 @@ function OrganizeEventTags() {
       });
       const itineraryObject = JSON.parse(itinerary);
 
+      //Generate unique id for each event
+      const guid = uuid.v4();
+
       //Save the event to firestore
       await addDoc(collection(db, 'events'), {
         eventStatus: 'Unapproved',
@@ -68,6 +71,7 @@ function OrganizeEventTags() {
         endTime: eventDatesObject.endTime,
         itinerary: itineraryObject,
         tags: tags,
+        guid : guid
       })
         .then(() => {
           Storage.removeItem({ key: 'newEvent' });

@@ -11,7 +11,15 @@ import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
 import EventTagsList from "../components/EventTagsList";
 import { Storage } from "expo-storage";
-import { db, addDoc, collection } from "../firebase";
+import { db } from "../firebase";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 function OrgReviewEventTags() {
   const navigation = useNavigation();
@@ -84,37 +92,52 @@ function OrgReviewEventTags() {
       });
       const itineraryObject = JSON.parse(itinerary);
 
-      //Save the event to firestore
-      await addDoc(collection(db, "events"), {
-        eventStatus: "Unapproved",
-        eventName: newEventObject.eventName,
-        orgName: newEventObject.orgName,
-        location: newEventObject.location,
-        description: newEventObject.description,
-        link: newEventObject.link,
-        coverImage: newEventObject.coverImage,
-        pocName: POCObject.pocName,
-        pocPhoneNum: POCObject.pocPhoneNum,
-        pocEmail: POCObject.pocEmail,
-        startDate: eventDatesObject.startDate,
-        startTime: eventDatesObject.startTime,
-        endDate: eventDatesObject.endDate,
-        endTime: eventDatesObject.endTime,
-        itinerary: itineraryObject,
-        tags: tags,
-      })
-        .then(() => {
-          Storage.removeItem({ key: "newEvent" });
-          Storage.removeItem({ key: "POC" });
-          Storage.removeItem({ key: "eventDates" });
-          Storage.removeItem({ key: "itinerary" });
-          Storage.removeItem({ key: "tags" });
 
-          Alert.alert("Event Reviewed Succesfully");
-          navigation.navigate("Organizer");
-        })
-        .catch((error) => console.log(error.message));
-    } catch (e) {
+      //Edit the event in firestore
+      const q = query(
+        collection(db, "events"),
+        where("guid", "==", newEventObject.guid));
+
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+
+
+        querySnapshot.forEach((doc) => {
+          try{
+            updateDoc(doc.ref, {
+              eventStatus: "Unapproved",
+              eventName: newEventObject.eventName,
+              orgName: newEventObject.orgName,
+              location: newEventObject.location,
+              description: newEventObject.description,
+              link: newEventObject.link,
+              coverImage: newEventObject.coverImage,
+              pocName: POCObject.pocName,
+              pocPhoneNum: POCObject.pocPhoneNum,
+              pocEmail: POCObject.pocEmail,
+              startDate: eventDatesObject.startDate,
+              startTime: eventDatesObject.startTime,
+              endDate: eventDatesObject.endDate,
+              endTime: eventDatesObject.endTime,
+              itinerary: itineraryObject,
+              tags: tags,
+              guid: newEventObject.guid
+          });
+             Storage.removeItem({ key: "newEvent" });
+             Storage.removeItem({ key: "POC" });
+             Storage.removeItem({ key: "eventDates" });
+             Storage.removeItem({ key: "itinerary" });
+             Storage.removeItem({ key: "tags" });
+  
+             Alert.alert("Event Reviewed Succesfully");
+             navigation.navigate("Organizer");
+          } catch (e) {
+            console.log(e);
+          }
+        
+        });
+    } }catch (e) {
       console.log(e);
     }
   };

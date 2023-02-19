@@ -80,6 +80,7 @@ function OrganizerDashboardScreen() {
         date={convertStartDate(item.startDate)}
         isOrganizer={true}
         coverImageName={item.coverImage}
+        guid ={item.guid}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
@@ -105,7 +106,6 @@ function OrganizerDashboardScreen() {
 
       setFilteredOrgData(orgSearch);
       setFilteredData(newData);
-      console.log(filteredData);
       setSearch(text);
     } else if (text && !displayedEvent) {
       const newData = previousData.filter((item) => {
@@ -126,7 +126,6 @@ function OrganizerDashboardScreen() {
 
       setFilteredOrgData(orgSearch);
       setFilteredData(newData);
-      console.log(filteredData);
       setSearch(text);
     } else {
       displayedEvent

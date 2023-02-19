@@ -41,7 +41,7 @@ function OrganizerPOC() {
 
     //If every mandatory fields is filled out, store the information and go to next page
     storePOC(POC);
-    navigation.navigate("OrgReviewDateInfo");
+    navigation.navigate('DateInfo')
   };
 
   const goBackToNewEvent = async () => {

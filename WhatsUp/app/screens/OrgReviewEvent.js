@@ -41,6 +41,7 @@ function OrgReviewEvent() {
   const [coverImage, setCoverImage] = useState("");
   const [coverImageName, setCoverImageName] = useState("");
   const [imageSelected, setImageSelected] = useState("");
+  const [guid, setGuid] = useState("");
 
   useEffect(() => {
     getEventData();
@@ -70,6 +71,9 @@ function OrgReviewEvent() {
         }
         if (EventObject.coverImage.length != 0) {
           setCoverImageName(EventObject.coverImage);
+        }
+        if (EventObject.guid.length != 0) {
+          setGuid(EventObject.guid);
         }
       }
     } catch (e) {
@@ -124,6 +128,7 @@ function OrgReviewEvent() {
       description: description,
       link: link,
       coverImage: coverImageName,
+      guid: guid
     };
 
     //If every mandatory fields is filled out, store the information and go to next page
@@ -229,7 +234,8 @@ function OrgReviewEvent() {
               orgName,
               location,
               description,
-              coverImageName
+              coverImageName,
+              guid
             )
           }
         ></AppButton>

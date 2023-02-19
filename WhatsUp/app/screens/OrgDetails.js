@@ -7,7 +7,7 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState} from "react";
 import Screen from "../components/Screen";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import TitleHeaders from "../components/TitleHeaders";
@@ -48,14 +48,15 @@ function OrgDetails({ route }) {
   };
   const { prop } = route.params;
   const navigation = useNavigation();
-  console.log("here are the props honey!: " + prop);
-  console.log(prop);
+  //console.log("here are the props honey!: " + prop);
+  //console.log(prop);
   //Event useStates
   const [eventName, setEventName] = useState(prop.eventName);
   const [orgName, setOrgName] = useState(prop.orgName);
   const [location, setLocation] = useState(prop.location);
   const [link, setLink] = useState(prop.link);
   const [description, setDescription] = useState(prop.description);
+  const [eventGuid, setEventGuid] = useState(prop.guid);
   const [coverImageName, setCoverImageName] = useState(prop.coverImage);
   const newEvent = {
     eventName: eventName,
@@ -64,6 +65,7 @@ function OrgDetails({ route }) {
     description: description,
     link: link,
     coverImage: coverImageName,
+    guid: eventGuid
   };
 
   const storeNewEvent = async (newEvent) => {
@@ -78,27 +80,21 @@ function OrgDetails({ route }) {
     }
   };
 
-  const deleteEvent = async (eventTitle, orgEmail) => {
-    console.log(eventTitle, orgEmail)
+  const deleteEvent = async (eventGuid) => {
     const q = query(
       collection(db, "events"),
-      where("eventName", "==", eventTitle),
-      where("pocEmail", "==", orgEmail)
-    );
+      where("guid", "==", eventGuid));
     const querySnapshot = await getDocs(q);
-    if (querySnapshot != null) {
+    if (!querySnapshot.empty) {
       querySnapshot.forEach((doc) => {
-        setDocKey(doc.id);
-        console.log(docKey);
+        try{
+          deleteDoc(doc.ref);
+          Alert.alert("Event was successfully deleted.");
+          navigation.navigate("OrganizerDashboard");
+        } catch (e) {
+          console.log(e);
+        }
       });
-    }
-    
-    try {
-      await deleteDoc(doc(db, "events", docKey));
-      Alert.alert("Event was successfully deleted.");
-      navigation.navigate("OrganizerDashboard");
-    } catch (e) {
-      console.log(e);
     }
   };
 
@@ -198,7 +194,6 @@ function OrgDetails({ route }) {
           <View style={{ flexDirection: "row", marginLeft: "auto" }}>
           <Ionicons
             name="trash"
-            testID="edit-email"
             onPress={() =>
               Alert.alert(
                 "Warning",
@@ -210,7 +205,7 @@ function OrgDetails({ route }) {
                   },
                   {
                     text: "Delete Event",
-                    onPress: () => deleteEvent(prop.eventName, prop.pocEmail),
+                    onPress: () => deleteEvent(prop.guid),
                   },
                 ]
               )
@@ -225,7 +220,7 @@ function OrgDetails({ route }) {
           />
           <Ionicons
             name="pencil"
-            testID="edit-email"
+            testID="edit-event"
             onPress={() => {
               storeNewEvent(newEvent);
               storePOC(POC);
