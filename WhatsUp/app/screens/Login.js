@@ -17,8 +17,8 @@ import { SimpleLineIcons } from "@expo/vector-icons";
 
 export default function Login() {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("jasmine@organizer.com");
-  const [password, setPassword] = useState("capstone123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isOrganizer] = useState(false);
   const handleLogin = async () => {
     await signInWithEmailAndPassword(auth, email, password)

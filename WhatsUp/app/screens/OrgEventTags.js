@@ -79,7 +79,7 @@ function OrganizeEventTags() {
           Storage.removeItem({ key: 'eventDates' });
           Storage.removeItem({ key: 'itinerary' });
 
-          Alert.alert('Event Submited Succesfully');
+          Alert.alert('Event Submitted Succesfully');
           navigation.navigate('Organizer');
         })
         .catch((error) => console.log(error.message));
@@ -96,7 +96,6 @@ function OrganizeEventTags() {
       } else {
         console.log('she already goes here!!!');
       }
-    } else {
     }
   }
 

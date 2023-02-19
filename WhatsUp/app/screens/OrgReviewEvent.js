@@ -128,7 +128,7 @@ function OrgReviewEvent() {
       description: description,
       link: link,
       coverImage: coverImageName,
-      guid: guid
+      guid: guid,
     };
 
     //If every mandatory fields is filled out, store the information and go to next page
@@ -146,7 +146,7 @@ function OrgReviewEvent() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon='chevron-back-outline'
+          icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
           onPress={() => navigation.navigate("Organizer")}
         />
@@ -156,30 +156,28 @@ function OrgReviewEvent() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title='Please fill the following information'
+          title="Please fill the following information"
         />
       </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
-            placeholder='Event Title'
+            placeholder="Event Title"
             value={eventName}
-            onChangeText={(currentEventName) =>
-              console.log(setEventName(currentEventName))
-            }
+            onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Organization Name'
+            placeholder="Organization Name"
             value={orgName}
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Location'
+            placeholder="Location"
             value={location}
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Link for ticket purchase (optional)'
+            placeholder="Link for ticket purchase (optional)"
             value={link}
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
@@ -191,7 +189,7 @@ function OrgReviewEvent() {
               textAlignVertical: "top",
               color: colors.lightGrey,
             }}
-            placeholder='Description'
+            placeholder="Description"
             value={description}
             onChangeText={(currentDescription) =>
               setDescription(currentDescription)
@@ -216,7 +214,7 @@ function OrgReviewEvent() {
 
             <EvilIcons
               onPress={() => setModalVisible(true)}
-              name='image'
+              name="image"
               size={36}
               color={colors.primary}
               style={styles.icon}
@@ -241,7 +239,7 @@ function OrgReviewEvent() {
         ></AppButton>
       </View>
       <AppModal
-        animationType='slide'
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -250,12 +248,12 @@ function OrgReviewEvent() {
       >
         <View style={styles.modalView}>
           <View style={styles.inputView}>
-            <View keyboardDismissMode='interactive' style={{ width: "100%" }}>
+            <View keyboardDismissMode="interactive" style={{ width: "100%" }}>
               <View style={{ flexDirection: "row" }}>
                 <UtilBtn
-                  title=''
+                  title=""
                   style={{ opacity: 1, paddingRight: 2, marginBottom: 5 }}
-                  icon='chevron-back'
+                  icon="chevron-back"
                   onPress={() => setModalVisible(!modalVisible)}
                 />
                 <Text
@@ -382,7 +380,7 @@ function OrgReviewEvent() {
                 </TouchableOpacity>
               </View>
               <AppButton
-                title='Submit'
+                title="Submit"
                 style={{ marginTop: 15 }}
                 onPress={() => {
                   setModalVisible(!modalVisible);
