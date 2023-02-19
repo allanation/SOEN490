@@ -13,6 +13,9 @@ import { Ionicons } from "@expo/vector-icons";
 import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import TitleHeaders from "../components/TitleHeaders";
+import { convertStartDate } from "./AttendeeDashboard.js";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
 
 OrgView.propTypes = {
   route: PropTypes.any,
@@ -46,8 +49,8 @@ function OrgView({ route, navigation }) {
   }
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [orgBlast, setOrgBlast] = useState("");
   const [message, setMessage] = useState("");
+  var date = new Date().getTime();
 
   const handleSendBlast = async (
     message
@@ -57,7 +60,17 @@ function OrgView({ route, navigation }) {
       return;
     }
 
-    console.log(message);
+    try {
+      await addDoc(collection(db, 'notifications'),{
+        dateSent: date,
+        description: message,
+        eventsName: prop.eventName,
+      })
+      .catch((error) => console.log(error.message));
+    } catch (e) {
+        console.log(e);
+    }
+    console.log(prop.eventName + " " + message + " " + convertStartDate(date));
     setModalVisible(false);
     setMessage("");
   };
