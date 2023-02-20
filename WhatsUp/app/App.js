@@ -23,6 +23,11 @@ import AttendeeFavorites from "./screens/AttendeeFavorites.js";
 import UserProfile from "./screens/UserProfile";
 import AttendeeView from "./screens/AttendeeView";
 import AttendeeTickets from "./screens/AttendeeTickets";
+import OrgReviewEvent from "./screens/OrgReviewEvent";
+import OrgReviewPOC from "./screens/OrgReviewPOC";
+import OrgReviewDateInfo from "./screens/OrgReviewDateInfo";
+import OrgReviewDaySchedule from "./screens/OrgReviewDaySchedule";
+import OrgReviewEventTags from "./screens/OrgReviewEventTags";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -50,7 +55,7 @@ const TabScreen = () => {
       })}
     >
       <Tab.Screen name="OrganizerDashboard" component={OrgDashboard} />
-      <Tab.Screen name="Notifs" component={OrgDashboard} />
+      <Tab.Screen name="Notifs" component={OrgReviewEvent} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
     </Tab.Navigator>
   );
@@ -124,6 +129,17 @@ export default function App() {
         <Stack.Screen name="OrgView" component={OrgView} />
         <Stack.Screen name="OrgDetails" component={OrgDetails} />
         <Stack.Screen name="OrgStatus" component={OrgStatus} />
+        <Stack.Screen name="OrgReviewEvent" component={OrgReviewEvent} />
+        <Stack.Screen name="OrgReviewPOC" component={OrgReviewPOC} />
+        <Stack.Screen name="OrgReviewDateInfo" component={OrgReviewDateInfo} />
+        <Stack.Screen
+          name="OrgReviewDaySchedule"
+          component={OrgReviewDaySchedule}
+        />
+        <Stack.Screen
+          name="OrgReviewEventTags"
+          component={OrgReviewEventTags}
+        />
         <Stack.Screen name="Organizer" component={TabScreen} />
         <Stack.Screen name="AttendeeDashboard" component={AttendeeDashboard} />
         <Stack.Screen name="Attendee" component={AttendeeTabScreen} />
