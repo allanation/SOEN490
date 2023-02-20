@@ -56,6 +56,7 @@ function AttendeeView({ route, navigation }) {
 
   const [buttonText, setButtonText] = useState("Going");
   const [user] = useAuthState(auth);
+  const [button, setButton] = useState("✔ Going");
   const [docId, setDocId] = useState("");
 
   const getDocId = async () => {
@@ -182,17 +183,13 @@ function AttendeeView({ route, navigation }) {
         ) : (
           <Text></Text>
         )}
-        {fromScreen == "AttendeeTickets" ? (
-          <AppButton style={styles.btn} title="✔ Going" disabled={true} />
-        ) : (
-          <AppButton
-            style={styles.btn}
-            title={buttonText}
-            onPress={() => {
-              handleGoing(buttonText);
-            }}
-          />
-        )}
+        <AppButton
+          style={styles.btn}
+          title={buttonText}
+          onPress={() => {
+            handleGoing(buttonText);
+          }}
+        />
       </View>
     </Screen>
   );

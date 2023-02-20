@@ -114,10 +114,35 @@ function AttendeeTickets() {
     }
   };
 
+  const removeEventsNotTicketed = () => {
+    console.log(tickets);
+    for (const event of allEvents) {
+      var count = 0;
+      if (tickets.length != 0) {
+        for (const ticket of tickets) {
+          if (event.id != ticket && count != tickets.length - 1) {
+            count++;
+            continue;
+          } else if (event.id != ticket && count == tickets.length - 1) {
+            setAllEvents((current) =>
+              current.filter((item) => item.id !== event.id)
+            );
+          } else {
+            break;
+          }
+        }
+      } else {
+        console.log("here?");
+        setAllEvents([]);
+      }
+    }
+  };
+
   var welcome = "Welcome, " + userName + "!";
 
-  async function retriverTicketsAndgetEvents() {
+  async function retrieveTicketsAndgetEvents() {
     await getTickets();
+    removeEventsNotTicketed();
     await getEvents();
   }
 
@@ -125,7 +150,7 @@ function AttendeeTickets() {
 
   useEffect(() => {
     getName();
-    retriverTicketsAndgetEvents();
+    retrieveTicketsAndgetEvents();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
@@ -208,7 +233,7 @@ function AttendeeTickets() {
 
   const pullMe = () => {
     setRefresh(true);
-    retriverTicketsAndgetEvents();
+    retrieveTicketsAndgetEvents();
     setTimeout(() => {
       setRefresh(false);
     }, 1000);

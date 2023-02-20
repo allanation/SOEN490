@@ -4,6 +4,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import colors from "./config/colors";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Login from "./screens/Login";
@@ -62,11 +63,14 @@ const AttendeeTabScreen = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
+          let ticketIcon;
 
           if (route.name === "User") {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "Ticket") {
-            iconName = focused ? "ios-barcode" : "ios-barcode-outline";
+            ticketIcon = focused
+              ? "ticket-confirmation"
+              : "ticket-confirmation-outline";
           } else if (route.name === "Bookmark") {
             iconName = focused ? "ios-bookmark" : "ios-bookmark-outline";
           } else if (route.name === "UserProfile") {
@@ -74,7 +78,16 @@ const AttendeeTabScreen = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          if (iconName)
+            return <Ionicons name={iconName} size={size} color={color} />;
+          else
+            return (
+              <MaterialCommunityIcons
+                name={ticketIcon}
+                size={size}
+                color={color}
+              />
+            );
         },
         tabBarActiveTintColor: colors.primary,
         tabBarInactiveTintColor: colors.primary,
