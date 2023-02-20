@@ -18,8 +18,7 @@ export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
 };
 
-function AttendeeDashboard() {
-  const navigation = useNavigation();
+export const getTodayDate = () => {
   var date = new Date();
   const months = [
     "January",
@@ -36,6 +35,11 @@ function AttendeeDashboard() {
     "December",
   ];
   var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
+  return "Today's " + months[date.getMonth()] + " " + date.getDate();
+};
+
+function AttendeeDashboard() {
+  const navigation = useNavigation();
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
@@ -192,7 +196,7 @@ function AttendeeDashboard() {
           />
         </View>
 
-        <Text style={styles.date}>{today}</Text>
+        <Text style={styles.date}>{getTodayDate()}</Text>
 
         <Text style={styles.title}>{welcome}</Text>
 
