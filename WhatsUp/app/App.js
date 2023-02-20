@@ -20,7 +20,6 @@ import OrgDetails from "./screens/OrgDetails";
 import OrgStatus from "./screens/OrgStatus";
 import AttendeeDashboard from "./screens/AttendeeDashboard.js";
 import AttendeeFavorites from "./screens/AttendeeFavorites.js";
-import AttendeeFavorites from "./screens/AttendeeFavorites.js";
 import UserProfile from "./screens/UserProfile";
 import AttendeeView from "./screens/AttendeeView";
 import AttendeeTickets from "./screens/AttendeeTickets";
