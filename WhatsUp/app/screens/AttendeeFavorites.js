@@ -88,7 +88,6 @@ function AttendeeFavorites() {
                   if (item.id == doc.id) {
                     break;
                   } else if (item.id == allEvents[allEvents.length - 1].id) {
-                    console.log("got ya");
                     setAllEvents((allEvents) =>
                       allEvents.concat({ id: doc.id, ...doc.data() })
                     );

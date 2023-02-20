@@ -5,7 +5,6 @@ import { TouchableOpacity, StyleSheet } from "react-native";
 import { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { auth, db } from "../firebase";
-import firebase from "firebase/app";
 import { useAuthState } from "react-firebase-hooks/auth";
 import {
   updateDoc,

@@ -22,9 +22,9 @@ function Event({
   isOrganizer,
   coverImageName,
   id,
+  isTicketsPage,
   ...key
 }) {
-
   return (
     <TouchableOpacity
       style={[styles.button, { flexDirection: "row" }, { marginTop: 16 }]}
@@ -58,7 +58,7 @@ function Event({
           </Text>
         </View>
       </View>
-      {isOrganizer ? "" : <BookmarkButton id={id} />}
+      {isOrganizer || isTicketsPage ? "" : <BookmarkButton id={id} />}
     </TouchableOpacity>
   );
 }
