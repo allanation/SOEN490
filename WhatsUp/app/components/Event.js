@@ -21,6 +21,7 @@ function Event({
   onPress,
   isOrganizer,
   coverImageName,
+  id,
   ...key
 }) {
 
@@ -57,7 +58,7 @@ function Event({
           </Text>
         </View>
       </View>
-      {isOrganizer ? "" : <BookmarkButton />}
+      {isOrganizer ? "" : <BookmarkButton id={id} />}
     </TouchableOpacity>
   );
 }
