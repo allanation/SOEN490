@@ -81,7 +81,6 @@ function AttendeeDashboard() {
   useEffect(() => {
     getName();
     getEvents();
-    console.log();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
