@@ -80,7 +80,7 @@ const AttendeeTabScreen = () => {
           // You can return any component that you like here!
           if (iconName)
             return <Ionicons name={iconName} size={size} color={color} />;
-          else
+          else if (ticketIcon)
             return (
               <MaterialCommunityIcons
                 name={ticketIcon}

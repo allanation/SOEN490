@@ -56,7 +56,7 @@ function AttendeeView({ route, navigation }) {
 
   const [buttonText, setButtonText] = useState("Going");
   const [user] = useAuthState(auth);
-  const [button, setButton] = useState("✔ Going");
+  const [checkedButton, setCheckedButton] = useState("✔ Going");
   const [docId, setDocId] = useState("");
 
   const getDocId = async () => {
@@ -78,6 +78,22 @@ function AttendeeView({ route, navigation }) {
       });
     } else {
       setButtonText("Going");
+      const notGoing = doc(db, "users", docId);
+      await updateDoc(notGoing, {
+        tickets: arrayRemove(prop.id),
+      });
+    }
+  };
+
+  const handleGoingWhenTicketed = async (checkedButton) => {
+    if (checkedButton == "Going") {
+      setCheckedButton("✔ Going");
+      const setToGoing = doc(db, "users", docId);
+      await updateDoc(setToGoing, {
+        tickets: arrayUnion(prop.id),
+      });
+    } else {
+      setCheckedButton("Going");
       const notGoing = doc(db, "users", docId);
       await updateDoc(notGoing, {
         tickets: arrayRemove(prop.id),
@@ -183,13 +199,23 @@ function AttendeeView({ route, navigation }) {
         ) : (
           <Text></Text>
         )}
-        <AppButton
-          style={styles.btn}
-          title={buttonText}
-          onPress={() => {
-            handleGoing(buttonText);
-          }}
-        />
+        {fromScreen == "AttendeeTickets" ? (
+          <AppButton
+            style={styles.btn}
+            title={checkedButton}
+            onPress={() => {
+              handleGoingWhenTicketed(checkedButton);
+            }}
+          />
+        ) : (
+          <AppButton
+            style={styles.btn}
+            title={buttonText}
+            onPress={() => {
+              handleGoing(buttonText);
+            }}
+          />
+        )}
       </View>
     </Screen>
   );
