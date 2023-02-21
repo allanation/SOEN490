@@ -11,35 +11,13 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  let emailErrorMsg = document.getElementById("email-error-msg");
-  let loginErrorMsg = document.getElementById("login-error-msg");
-  var mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-  function isValidEmail(email) {
-    return mailRegex.test(email);
-  }
-
-  function emailValidator(event) {
-    try {
-      if (!isValidEmail(event.target.value)) {
-        emailErrorMsg.style.display = "block";
-      }
-    } catch (err) {
-      console.log("");
-    }
-    if (isValidEmail(event.target.value)) {
-      emailErrorMsg.style.display = "none";
-    }
-    setEmail(event.target.value);
-  }
-
   const signIn = () => {
     signInWithEmailAndPassword(auth, email, password)
-      .then((auth) => {
+      .then(() => {
         navigate("/dashboard");
       })
       .catch(() => {
-        loginErrorMsg.style.display = "block";
+        alert("Incorrect Email address or Password.");
       });
   };
 
@@ -53,7 +31,7 @@ function Login() {
       <input
         placeholder="Email"
         id="email"
-        onChange={emailValidator}
+        onChange={(event) => setEmail(event.target.value)}
         autoComplete="off"
         className="inputEmail"
         type="email"
@@ -61,9 +39,6 @@ function Login() {
         data-testid="email"
       />
       <br />
-      <p id="email-error-msg" className="email-error-msg">
-        Please enter a valid Email address.
-      </p>
       <input
         placeholder="Password"
         id="password"
@@ -75,9 +50,6 @@ function Login() {
         data-testid="password"
       />
       <br />
-      <p className="login-error-msg" id="login-error-msg">
-        Incorrect Email address or Password.
-      </p>
       <button onClick={signIn} className="loginButton" id="btn">
         Login
       </button>
