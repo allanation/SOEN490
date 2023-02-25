@@ -34,6 +34,26 @@ function Dashboard() {
   const [viewUnapproved, clickUnapproved] = useState(false);
   const [viewRejected, clickRejected] = useState(false);
   const [adminComment, setAdminComment] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredApprovedEvents = approvedevents.filter((event) => {
+    return (
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.orgName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+  const filteredUnapprovedEvents = unapprovedevents.filter((event) => {
+    return (
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.orgName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+  const filteredRejectedEvents = rejectedevents.filter((event) => {
+    return (
+      event.eventName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      event.orgName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
 
   // useEffect to load unapproved events
   const UnApprovedEvents = async () => {
@@ -108,127 +128,127 @@ function Dashboard() {
   }, []); // should have unapprovedevents instead of empty brackets but firebase limit cause issues
 
   return (
-    <div className="container col-12">
+    <div className='container col-12'>
       {viewUnapproved &&
         unapprovedevents.map(
           (unapprovedEvent) =>
             selectedEvent === unapprovedEvent.id && (
-              <div className="event-details col-8">
-                <div className="logo col-12">
-                  <img src={WhatsUpLogo} className="logo" alt="Whats Up Logo" />
-                  <p className="logo-text">WHAT'S UP ADMINISTRATOR</p>
+              <div className='event-details col-8'>
+                <div className='logo col-12'>
+                  <img src={WhatsUpLogo} className='logo' alt='Whats Up Logo' />
+                  <p className='logo-text'>WHAT'S UP ADMINISTRATOR</p>
                 </div>
-                <div className="event-header col-12">
-                  <div className="event-image col-6">
+                <div className='event-header col-12'>
+                  <div className='event-image col-6'>
                     <img
-                      id="details-eventImage"
+                      id='details-eventImage'
                       src={require("../cover images/" +
                         unapprovedEvent.coverImage +
                         ".jpg")}
-                      alt="Event"
+                      alt='Event'
                     />
                   </div>
-                  <div className="main-details col-6">
-                    <div className="main-detail-left col-6">
-                      <div className="text">
-                        <p className="text-title">Event Name</p>
-                        <p className="text-content">
+                  <div className='main-details col-6'>
+                    <div className='main-detail-left col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Event Name</p>
+                        <p className='text-content'>
                           {unapprovedEvent.eventName}
                         </p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Organizer</p>
-                        <p className="text-content">
+                      <div className='text'>
+                        <p className='text-title'>Organizer</p>
+                        <p className='text-content'>
                           {unapprovedEvent.orgName}
                         </p>
                         <img
                           src={UserImage}
-                          alt="George El-Hage"
-                          className="user-image"
+                          alt='George El-Hage'
+                          className='user-image'
                         />
                       </div>
                     </div>
-                    <div className="main-detail-right col-6">
-                      <div className="text">
-                        <p className="text-title">Organization</p>
-                        <p className="text-content">
+                    <div className='main-detail-right col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Organization</p>
+                        <p className='text-content'>
                           {unapprovedEvent.orgName}
                         </p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Point of Contact</p>
-                        <p className="text-content">
+                      <div className='text'>
+                        <p className='text-title'>Point of Contact</p>
+                        <p className='text-content'>
                           {unapprovedEvent.pocName}
                         </p>
-                        <p className="text-content">
+                        <p className='text-content'>
                           {unapprovedEvent.pocPhoneNum}
                         </p>
-                        <p className="text-content">
+                        <p className='text-content'>
                           {unapprovedEvent.pocEmail}
                         </p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="additional-container col-12">
-                  <div className="additional-details col-6">
-                    <div className="text">
-                      <p className="text-title">Date(s)</p>
-                      <p className="text-content">
+                <div className='additional-container col-12'>
+                  <div className='additional-details col-6'>
+                    <div className='text'>
+                      <p className='text-title'>Date(s)</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(unapprovedEvent.startDate).toString(),
                           "dddd, mmmm dS, yyyy"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Time</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Time</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(unapprovedEvent.startDate).toString(),
                           "h:MM:ss TT"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Location</p>
-                      <p className="text-content">{unapprovedEvent.location}</p>
+                    <div className='text'>
+                      <p className='text-title'>Location</p>
+                      <p className='text-content'>{unapprovedEvent.location}</p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Description</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Description</p>
+                      <p className='text-content'>
                         {unapprovedEvent.description}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Link(s)</p>
-                      <p className="text-content">
-                        <a href="">{unapprovedEvent.link}</a>
+                    <div className='text'>
+                      <p className='text-title'>Link(s)</p>
+                      <p className='text-content'>
+                        <a href=''>{unapprovedEvent.link}</a>
                       </p>
                     </div>
                   </div>
-                  <div className="details-right col-6">
-                    <p className="text-title">Schedule</p>
+                  <div className='details-right col-6'>
+                    <p className='text-title'>Schedule</p>
                     {unapprovedEvent.itinerary.map(
                       (unapprovedEventItinerary, index) => (
-                        <div className="schedule">
-                          <div className="text"></div>
-                          <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
-                            <div className="day-itinerary">
-                              <p className="day-title">
+                        <div className='schedule'>
+                          <div className='text'></div>
+                          <div className='day'>
+                            <p className='day-count'>Day {index + 1}</p>
+                            <div className='day-itinerary'>
+                              <p className='day-title'>
                                 {unapprovedEventItinerary.title}
                               </p>
-                              <div className="time-place">
-                                <p className="time">
+                              <div className='time-place'>
+                                <p className='time'>
                                   {unapprovedEventItinerary.startTime} -{" "}
                                   {unapprovedEventItinerary.endTime}
                                 </p>
-                                <p className="place">
+                                <p className='place'>
                                   {unapprovedEventItinerary.location}
                                 </p>
                               </div>
-                              <p className="itinerary-description">
+                              <p className='itinerary-description'>
                                 {unapprovedEventItinerary.description}
                               </p>
                             </div>
@@ -237,27 +257,27 @@ function Dashboard() {
                       )
                     )}
 
-                    <div className="admin-approval">
+                    <div className='admin-approval'>
                       <div
-                        className="approve-btn"
+                        className='approve-btn'
                         onClick={() =>
                           handleAcceptanceEvents(unapprovedEvent.id)
                         }
-                        data-testid="Approve"
+                        data-testid='Approve'
                       >
                         Approve
                       </div>
                       <div
-                        className="reject-btn"
+                        className='reject-btn'
                         onClick={() => setModalVisible(true)}
                       >
                         Reject
                       </div>
                     </div>
                     {modalVisible && (
-                      <div className="reject-comments">
-                        <div className="btn-title-comments">
-                          <div className="backButton">
+                      <div className='reject-comments'>
+                        <div className='btn-title-comments'>
+                          <div className='backButton'>
                             <ChevronLeftIcon
                               style={{
                                 color: "#00c0a4",
@@ -267,7 +287,7 @@ function Dashboard() {
                               onClick={() => setModalVisible(false)}
                             ></ChevronLeftIcon>
                           </div>
-                          <h2 className="rejection-comments-title">
+                          <h2 className='rejection-comments-title'>
                             Reason for Rejection
                           </h2>
                         </div>
@@ -276,14 +296,14 @@ function Dashboard() {
                           {unapprovedEvent.orgName}
                         </h4>
                         <textarea
-                          className="comments"
-                          placeholder="Add a comment explaining why the event was rejected..."
+                          className='comments'
+                          placeholder='Add a comment explaining why the event was rejected...'
                           onChange={(event) =>
                             setAdminComment(event.target.value)
                           }
                         ></textarea>
                         <button
-                          className="comment-reject-btn"
+                          className='comment-reject-btn'
                           onClick={() => {
                             setModalVisible(false);
                             handleRejectEvents(unapprovedEvent.id);
@@ -302,114 +322,114 @@ function Dashboard() {
         approvedevents.map(
           (approvedEvent) =>
             selectedEvent === approvedEvent.id && (
-              <div className="event-details col-8">
-                <div className="logo col-12">
-                  <img src={WhatsUpLogo} className="logo" alt="Whats Up Logo" />
-                  <p className="logo-text">WHAT'S UP ADMINISTRATOR</p>
+              <div className='event-details col-8'>
+                <div className='logo col-12'>
+                  <img src={WhatsUpLogo} className='logo' alt='Whats Up Logo' />
+                  <p className='logo-text'>WHAT'S UP ADMINISTRATOR</p>
                 </div>
-                <div className="event-header col-12">
-                  <div className="event-image col-6">
+                <div className='event-header col-12'>
+                  <div className='event-image col-6'>
                     <img
-                      id="details-eventImage"
+                      id='details-eventImage'
                       src={require("../cover images/" +
                         approvedEvent.coverImage +
                         ".jpg")}
-                      alt="Event"
+                      alt='Event'
                     />
                   </div>
-                  <div className="main-details col-6">
-                    <div className="main-detail-left col-6">
-                      <div className="text">
-                        <p className="text-title">Event Name</p>
-                        <p className="text-content">
+                  <div className='main-details col-6'>
+                    <div className='main-detail-left col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Event Name</p>
+                        <p className='text-content'>
                           {approvedEvent.eventName}
                         </p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Organizer</p>
-                        <p className="text-content">{approvedEvent.orgName}</p>
+                      <div className='text'>
+                        <p className='text-title'>Organizer</p>
+                        <p className='text-content'>{approvedEvent.orgName}</p>
                         <img
                           src={UserImage}
-                          alt="George El-Hage"
-                          className="user-image"
+                          alt='George El-Hage'
+                          className='user-image'
                         />
                       </div>
                     </div>
-                    <div className="main-detail-right col-6">
-                      <div className="text">
-                        <p className="text-title">Organization</p>
-                        <p className="text-content">{approvedEvent.orgName}</p>
+                    <div className='main-detail-right col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Organization</p>
+                        <p className='text-content'>{approvedEvent.orgName}</p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Point of Contact</p>
-                        <p className="text-content">{approvedEvent.pocName}</p>
-                        <p className="text-content">
+                      <div className='text'>
+                        <p className='text-title'>Point of Contact</p>
+                        <p className='text-content'>{approvedEvent.pocName}</p>
+                        <p className='text-content'>
                           {approvedEvent.pocPhoneNum}
                         </p>
-                        <p className="text-content">{approvedEvent.pocEmail}</p>
+                        <p className='text-content'>{approvedEvent.pocEmail}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="additional-container col-12">
-                  <div className="additional-details col-6">
-                    <div className="text">
-                      <p className="text-title">Date(s)</p>
-                      <p className="text-content">
+                <div className='additional-container col-12'>
+                  <div className='additional-details col-6'>
+                    <div className='text'>
+                      <p className='text-title'>Date(s)</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(approvedEvent.startDate).toString(),
                           "dddd, mmmm dS, yyyy"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Time</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Time</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(approvedEvent.startDate).toString(),
                           "h:MM:ss TT"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Location</p>
-                      <p className="text-content">{approvedEvent.location}</p>
+                    <div className='text'>
+                      <p className='text-title'>Location</p>
+                      <p className='text-content'>{approvedEvent.location}</p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Description</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Description</p>
+                      <p className='text-content'>
                         {approvedEvent.description}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Link(s)</p>
-                      <p className="text-content">
-                        <a href="">{approvedEvent.link}</a>
+                    <div className='text'>
+                      <p className='text-title'>Link(s)</p>
+                      <p className='text-content'>
+                        <a href=''>{approvedEvent.link}</a>
                       </p>
                     </div>
                   </div>
-                  <div className="details-right col-6">
-                    <p className="text-title">Schedule</p>
+                  <div className='details-right col-6'>
+                    <p className='text-title'>Schedule</p>
                     {approvedEvent.itinerary.map(
                       (approvedEventItinerary, index) => (
-                        <div className="schedule">
-                          <div className="text"></div>
-                          <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
-                            <div className="day-itinerary">
-                              <p className="day-title">
+                        <div className='schedule'>
+                          <div className='text'></div>
+                          <div className='day'>
+                            <p className='day-count'>Day {index + 1}</p>
+                            <div className='day-itinerary'>
+                              <p className='day-title'>
                                 {approvedEventItinerary.title}
                               </p>
-                              <div className="time-place">
-                                <p className="time">
+                              <div className='time-place'>
+                                <p className='time'>
                                   {approvedEventItinerary.startTime}-{" "}
                                   {approvedEventItinerary.endTime}
                                 </p>
-                                <p className="place">
+                                <p className='place'>
                                   {approvedEventItinerary.location}
                                 </p>
                               </div>
-                              <p className="itinerary-description">
+                              <p className='itinerary-description'>
                                 {approvedEventItinerary.description}
                               </p>
                             </div>
@@ -426,114 +446,114 @@ function Dashboard() {
         rejectedevents.map(
           (rejectedEvent) =>
             selectedEvent === rejectedEvent.id && (
-              <div className="event-details col-8">
-                <div className="logo col-12">
-                  <img src={WhatsUpLogo} className="logo" alt="Whats Up Logo" />
-                  <p className="logo-text">WHAT'S UP ADMINISTRATOR</p>
+              <div className='event-details col-8'>
+                <div className='logo col-12'>
+                  <img src={WhatsUpLogo} className='logo' alt='Whats Up Logo' />
+                  <p className='logo-text'>WHAT'S UP ADMINISTRATOR</p>
                 </div>
-                <div className="event-header col-12">
-                  <div className="event-image col-6">
+                <div className='event-header col-12'>
+                  <div className='event-image col-6'>
                     <img
-                      id="details-eventImage"
+                      id='details-eventImage'
                       src={require("../cover images/" +
                         rejectedEvent.coverImage +
                         ".jpg")}
-                      alt="Event"
+                      alt='Event'
                     />
                   </div>
-                  <div className="main-details col-6">
-                    <div className="main-detail-left col-6">
-                      <div className="text">
-                        <p className="text-title">Event Name</p>
-                        <p className="text-content">
+                  <div className='main-details col-6'>
+                    <div className='main-detail-left col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Event Name</p>
+                        <p className='text-content'>
                           {rejectedEvent.eventName}
                         </p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Organizer</p>
-                        <p className="text-content">{rejectedEvent.orgName}</p>
+                      <div className='text'>
+                        <p className='text-title'>Organizer</p>
+                        <p className='text-content'>{rejectedEvent.orgName}</p>
                         <img
                           src={UserImage}
-                          alt="George El-Hage"
-                          className="user-image"
+                          alt='George El-Hage'
+                          className='user-image'
                         />
                       </div>
                     </div>
-                    <div className="main-detail-right col-6">
-                      <div className="text">
-                        <p className="text-title">Organization</p>
-                        <p className="text-content">{rejectedEvent.orgName}</p>
+                    <div className='main-detail-right col-6'>
+                      <div className='text'>
+                        <p className='text-title'>Organization</p>
+                        <p className='text-content'>{rejectedEvent.orgName}</p>
                       </div>
-                      <div className="text">
-                        <p className="text-title">Point of Contact</p>
-                        <p className="text-content">{rejectedEvent.pocName}</p>
-                        <p className="text-content">
+                      <div className='text'>
+                        <p className='text-title'>Point of Contact</p>
+                        <p className='text-content'>{rejectedEvent.pocName}</p>
+                        <p className='text-content'>
                           {rejectedEvent.pocPhoneNum}
                         </p>
-                        <p className="text-content">{rejectedEvent.pocEmail}</p>
+                        <p className='text-content'>{rejectedEvent.pocEmail}</p>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="additional-container col-12">
-                  <div className="additional-details col-6">
-                    <div className="text">
-                      <p className="text-title">Date(s)</p>
-                      <p className="text-content">
+                <div className='additional-container col-12'>
+                  <div className='additional-details col-6'>
+                    <div className='text'>
+                      <p className='text-title'>Date(s)</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(rejectedEvent.startDate).toString(),
                           "dddd, mmmm dS, yyyy"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Time</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Time</p>
+                      <p className='text-content'>
                         {dateformat(
                           new Date(rejectedEvent.startDate).toString(),
                           "h:MM:ss TT"
                         )}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Location</p>
-                      <p className="text-content">{rejectedEvent.location}</p>
+                    <div className='text'>
+                      <p className='text-title'>Location</p>
+                      <p className='text-content'>{rejectedEvent.location}</p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Description</p>
-                      <p className="text-content">
+                    <div className='text'>
+                      <p className='text-title'>Description</p>
+                      <p className='text-content'>
                         {rejectedEvent.description}
                       </p>
                     </div>
-                    <div className="text">
-                      <p className="text-title">Link(s)</p>
-                      <p className="text-content">
-                        <a href="">{rejectedEvent.link}</a>
+                    <div className='text'>
+                      <p className='text-title'>Link(s)</p>
+                      <p className='text-content'>
+                        <a href=''>{rejectedEvent.link}</a>
                       </p>
                     </div>
                   </div>
-                  <div className="details-right col-6">
-                    <p className="text-title">Schedule</p>
+                  <div className='details-right col-6'>
+                    <p className='text-title'>Schedule</p>
                     {rejectedEvent.itinerary.map(
                       (rejectedEventItinerary, index) => (
-                        <div className="schedule">
-                          <div className="text"></div>
-                          <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
-                            <div className="day-itinerary">
-                              <p className="day-title">
+                        <div className='schedule'>
+                          <div className='text'></div>
+                          <div className='day'>
+                            <p className='day-count'>Day {index + 1}</p>
+                            <div className='day-itinerary'>
+                              <p className='day-title'>
                                 {rejectedEventItinerary.title}
                               </p>
-                              <div className="time-place">
-                                <p className="time">
+                              <div className='time-place'>
+                                <p className='time'>
                                   {rejectedEventItinerary.startTime} -{" "}
                                   {rejectedEventItinerary.endTime}
                                 </p>
-                                <p className="place">
+                                <p className='place'>
                                   {rejectedEventItinerary.location}
                                 </p>
                               </div>
-                              <p className="itinerary-description">
+                              <p className='itinerary-description'>
                                 {rejectedEventItinerary.description}
                               </p>
                             </div>
@@ -546,12 +566,12 @@ function Dashboard() {
               </div>
             )
         )}
-      <div className="event-details col-8"></div>
-      <div className="view-events col-4">
-        <div className="view-nav col-12">
-          <div className="event-status">
+      <div className='event-details col-8'></div>
+      <div className='view-events col-4'>
+        <div className='view-nav col-12'>
+          <div className='event-status'>
             <button
-              data-testid="unbutton"
+              data-testid='unbutton'
               className={
                 viewUnapproved === true ? "active-status-btn" : "status-btn"
               }
@@ -564,7 +584,7 @@ function Dashboard() {
               Unapproved
             </button>
             <button
-              data-testid="abutton"
+              data-testid='abutton'
               className={
                 viewApproved === true ? "active-status-btn" : "status-btn"
               }
@@ -577,7 +597,7 @@ function Dashboard() {
               Approved
             </button>
             <button
-              data-testid="rejectbutton"
+              data-testid='rejectbutton'
               className={
                 viewRejected === true ? "active-status-btn" : "status-btn"
               }
@@ -590,61 +610,63 @@ function Dashboard() {
               Rejected
             </button>
           </div>
-          <button onClick={logOut} className="logout-btn">
+          <button onClick={logOut} className='logout-btn'>
             <p>Log Out</p>
           </button>
         </div>
-        <div className="search col-12">
+        <div className='search col-12'>
           <TextField
-            id="input-with-icon-textfield"
-            label="Search for..."
+            id='input-with-icon-textfield'
+            label='Search for...'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             InputProps={{
               startAdornment: (
-                <InputAdornment position="start">
+                <InputAdornment position='start'>
                   <SearchRoundedIcon />
                 </InputAdornment>
               ),
             }}
-            variant="outlined"
+            variant='outlined'
             style={{ backgroundColor: "white", borderRadius: 4 }}
             fullWidth
           />
-          <div className="filter-icon">
+          <div className='filter-icon'>
             <FilterListRoundedIcon style={{ color: "#00c0a4", fontSize: 36 }} />
           </div>
         </div>
-        <div className="show-events col-12" data-testid="show-events">
+        <div className='show-events col-12' data-testid='show-events'>
           {viewUnapproved &&
             unapprovedevents &&
-            unapprovedevents.map((unapprovedEvent) => (
+            filteredUnapprovedEvents.map((unapprovedEvent) => (
               <div
                 className={
                   selectedEvent === unapprovedEvent.id
                     ? "active-event-banner col-12"
                     : "event-banner col-12"
                 }
-                data-testid="unapproved-event"
+                data-testid='unapproved-event'
                 onClick={() => setSelectedEvent(unapprovedEvent.id)}
               >
-                <div className="view-event-image">
+                <div className='view-event-image'>
                   <img
-                    id="eventImage"
+                    id='eventImage'
                     src={require("../cover images/" +
                       unapprovedEvent.coverImage +
                       ".jpg")}
-                    alt="Event"
+                    alt='Event'
                   />
                 </div>
-                <div className="event-banner-text">
-                  <p className="event-banner-title">
+                <div className='event-banner-text'>
+                  <p className='event-banner-title'>
                     {unapprovedEvent.eventName}
                   </p>
-                  <p className="time-place">{unapprovedEvent.orgName}</p>
-                  <div className="date">
-                    <div className="calendar-icon">
+                  <p className='time-place'>{unapprovedEvent.orgName}</p>
+                  <div className='date'>
+                    <div className='calendar-icon'>
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
-                    <p className="event-banner-date-text">
+                    <p className='event-banner-date-text'>
                       {dateformat(
                         new Date(unapprovedEvent.startDate).toString(),
                         "mmmm dS, yyyy"
@@ -656,9 +678,9 @@ function Dashboard() {
             ))}
           {viewApproved &&
             approvedevents &&
-            approvedevents.map((approvedEvent) => (
+            filteredApprovedEvents.map((approvedEvent) => (
               <div
-                data-testid="approved"
+                data-testid='approved'
                 className={
                   selectedEvent === approvedEvent.id
                     ? "active-event-banner col-12"
@@ -666,25 +688,25 @@ function Dashboard() {
                 }
                 onClick={() => setSelectedEvent(approvedEvent.id)}
               >
-                <div className="view-event-image">
+                <div className='view-event-image'>
                   <img
-                    id="eventImage"
+                    id='eventImage'
                     src={require("../cover images/" +
                       approvedEvent.coverImage +
                       ".jpg")}
-                    alt="Event"
+                    alt='Event'
                   />
                 </div>
-                <div className="event-banner-text" data-testid="approved-event">
-                  <p className="event-banner-title">
+                <div className='event-banner-text' data-testid='approved-event'>
+                  <p className='event-banner-title'>
                     {approvedEvent.eventName}
                   </p>
-                  <p className="time-place">{approvedEvent.orgName}</p>
-                  <div className="date">
-                    <div className="calendar-icon">
+                  <p className='time-place'>{approvedEvent.orgName}</p>
+                  <div className='date'>
+                    <div className='calendar-icon'>
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
-                    <p className="event-banner-date-text">
+                    <p className='event-banner-date-text'>
                       {dateformat(
                         new Date(approvedEvent.startDate).toString(),
                         "mmmm dS, yyyy"
@@ -696,35 +718,35 @@ function Dashboard() {
             ))}
           {viewRejected &&
             rejectedevents &&
-            rejectedevents.map((rejectedEvent) => (
+            filteredRejectedEvents.map((rejectedEvent) => (
               <div
                 className={
                   selectedEvent === rejectedEvent.id
                     ? "active-event-banner col-12"
                     : "event-banner col-12"
                 }
-                data-testid="Rejected"
+                data-testid='Rejected'
                 onClick={() => setSelectedEvent(rejectedEvent.id)}
               >
-                <div className="view-event-image">
+                <div className='view-event-image'>
                   <img
-                    id="eventImage"
+                    id='eventImage'
                     src={require("../cover images/" +
                       rejectedEvent.coverImage +
                       ".jpg")}
-                    alt="Event"
+                    alt='Event'
                   />
                 </div>
-                <div className="event-banner-text">
-                  <p className="event-banner-title">
+                <div className='event-banner-text'>
+                  <p className='event-banner-title'>
                     {rejectedEvent.eventName}
                   </p>
-                  <p className="time-place">{rejectedEvent.orgName}</p>
-                  <div className="date">
-                    <div className="calendar-icon">
+                  <p className='time-place'>{rejectedEvent.orgName}</p>
+                  <div className='date'>
+                    <div className='calendar-icon'>
                       <CalendarMonthRoundedIcon style={{ color: "#00c0a4" }} />
                     </div>
-                    <p className="event-banner-date-text">
+                    <p className='event-banner-date-text'>
                       {dateformat(
                         new Date(rejectedEvent.startDate).toString(),
                         "mmmm dS, yyyy"
