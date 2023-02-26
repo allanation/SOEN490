@@ -149,7 +149,7 @@ function OrgView({ route, navigation }) {
               </Ionicons>
             )
           }
-          onPress={() => {setModalVisible(true)}}
+          onPress={prop.eventStatus === "Rejected" ? () => {navigation.navigate("OrgReviewEvent")}: () => {setModalVisible(true)}}
         />
       </View>
       <AppModal
@@ -167,9 +167,9 @@ function OrgView({ route, navigation }) {
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
-            <TitleHeaders style={{ alignSelf: "center" }} title={"Blast Info"} />
+            <TitleHeaders style={{ paddingLeft: '27%', marginTop: 5 }} title={"Blast Info"} />
             <Text
-              style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver', marginTop: "1%" }}
+              style={{ marginLeft: '1%' ,marginBottom: 5, color: 'silver', marginTop: "5%" }}
             >
               From {prop.eventName} Event
             </Text>
@@ -185,7 +185,7 @@ function OrgView({ route, navigation }) {
               />
               <AppButton
                 title="Send"
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 10 }}
                 onPress={() =>
                   handleSendBlast(
                     message
@@ -246,8 +246,8 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
-    // height: "62%",
     alignItems: "center",
+    marginVertical: '50%',
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
