@@ -11,8 +11,8 @@
   }
 
   .logo {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -20,7 +20,7 @@
 
   .logo-text {
     padding-left: 12px;
-    font-size: 28px;
+    font-size: 24px;
     font-family: 'Open Sans', sans-serif;
     color: var(--primary);
   }
@@ -65,14 +65,13 @@
   }
   .text-title {
     font-weight: bold;
-    font-size: 24px;
+    font-size: larger;
     padding-left: 10px;
   }
 
   .text-content {
     padding-top: 4px;
     padding-left: 10px;
-    font-size: 18px;
   }
 
   .additional-container {
@@ -102,7 +101,6 @@
 
   .day-count {
     font-weight: bold;
-    font-size: 20px;
     margin-bottom: 8px;
   }
 
@@ -116,7 +114,7 @@
   .day-title {
     color: var(--primary);
     font-weight: bold;
-    font-size: 18px;
+    font-size: 12px;
     padding-bottom: 4px;
   }
 
@@ -124,13 +122,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    font-size: 18px;
+    font-size: 12px;
     color: var(--lightGrey);
     padding-bottom: 4px;
   }
 
   .itinerary-description {
-    font-size: 18px;
+    font-size: 12px;
   }
 
   .admin-approval {
@@ -251,7 +249,6 @@
   }
 
   .active-status-btn {
-    font-size: 18px;
     font-weight: bold;
     border-bottom: 2px var(--primary);
     border-style: none none solid none;
@@ -259,7 +256,6 @@
   }
 
   .status-btn {
-    font-size: 18px;
     font-weight: bold;
     color: var(--lightGrey);
     background: none;
@@ -277,7 +273,6 @@
     justify-content: center;
     color: white;
     font-weight: bold;
-    font-size: 16px;
     border-style: none;
   }
 
@@ -327,7 +322,7 @@
     display: flex;
     flex-direction: row;
     height: 100px;
-    width: 360px;
+    width: 300px;
     border-radius: 24px;
     margin-bottom: 18px;
     background-color: white;
@@ -338,7 +333,7 @@
     display: flex;
     flex-direction: row;
     height: 100px;
-    width: 360px;
+    width: 300px;
     border-radius: 24px;
     margin-bottom: 18px;
     border: 2px solid var(--primary);
@@ -378,17 +373,17 @@
     display: flex;
   }
   .event-banner-date-text {
-    font-size: 16px;
+    font-size: 12px;
   }
 
   #details-eventImage {
-    height: 500px;
-    width: 450px;
+    height: 350px;
+    width: 350px;
   }
 
   /* For desktop: */
   .col-4 {
-    width: 36.8%;
+    width: 45.9%;
   }
   .col-12 {
     width: 100%;
