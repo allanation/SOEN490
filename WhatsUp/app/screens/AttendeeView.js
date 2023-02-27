@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { StyleSheet, View, Image, Text, Linking } from "react-native";
 import Screen from "../components/Screen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";

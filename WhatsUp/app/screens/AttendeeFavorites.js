@@ -14,11 +14,9 @@ import {
   getDocs,
   query,
   where,
-  onSnapshot,
 } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 import { format } from "date-fns";
-import AppButton from "../components/AppButton";
 
 export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";

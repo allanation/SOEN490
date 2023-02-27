@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   StyleSheet,
   View,
@@ -25,7 +26,6 @@ import {
   getDocs,
   query,
   where,
-  doc,
   deleteDoc,
 } from "firebase/firestore";
 
@@ -37,7 +37,7 @@ export const convertTime = (number) => {
   return number ? format(new Date(number), "hh:mm aaaaa'm'") : "";
 };
 
-const onRemove = (id) => () => {};
+const onRemove = () => () => {};
 
 function OrgDetails({ route }) {
   const tokyoRegion = {

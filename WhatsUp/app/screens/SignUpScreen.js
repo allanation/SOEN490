@@ -53,7 +53,7 @@ function SignUpScreen() {
 
     // Attempt to create a new user account with the provided email and password
     await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredentials) => {
+      .then(() => {
         // If the account is created successfully, navigate to the login screen
         // and add the user's details to the Firebase database
         Alert.alert("Account Created Succesfully");
