@@ -42,7 +42,9 @@ function Event({
       </View>
 
       <View style={{ flex: 3, marginLeft: 15 }}>
-        <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text}>
+          {title.length < 19 ? title : title.substring(0, 18)}
+        </Text>
         <Text style={{ fontSize: 12, color: "#969696" }}>By {organizer}</Text>
         <View style={{ marginTop: 5, flexDirection: "row" }}>
           <Ionicons name="ios-calendar-outline" size={18} color={"#32bca5"} />
