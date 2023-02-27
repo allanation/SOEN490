@@ -80,7 +80,7 @@ function OrganizerDashboardScreen() {
         date={convertStartDate(item.startDate)}
         isOrganizer={true}
         coverImageName={item.coverImage}
-        guid ={item.guid}
+        guid={item.guid}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
