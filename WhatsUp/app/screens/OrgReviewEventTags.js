@@ -10,6 +10,7 @@ import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
 import EventTagsList from "../components/EventTagsList";
+import { storeTags } from "./OrgDetails";
 import { Storage } from "expo-storage";
 import { db } from "../firebase";
 import {
@@ -44,18 +45,6 @@ function OrgReviewEventTags() {
           setTags(TagsObject);
         }
       }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const storeTags = async (tags) => {
-    try {
-      const jsonValue = JSON.stringify(tags);
-      await Storage.setItem({
-        key: "tags",
-        value: jsonValue,
-      });
     } catch (e) {
       console.log(e);
     }

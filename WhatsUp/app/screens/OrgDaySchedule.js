@@ -13,7 +13,7 @@ import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
-import { Storage } from "expo-storage";
+import { storeItinerary } from "./OrgDetails";
 
 function OrganizerDaySchedule({ day }) {
   const [itinerary, setItinerary] = useState([]);
@@ -76,18 +76,6 @@ function OrganizerDaySchedule({ day }) {
     //Store the information before leaving page
     storeItinerary(itinerary);
     navigation.navigate("OrgTags");
-  };
-
-  const storeItinerary = async (itinerary) => {
-    try {
-      const jsonValue = JSON.stringify(itinerary);
-      await Storage.setItem({
-        key: "itinerary",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   return (

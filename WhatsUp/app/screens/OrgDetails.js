@@ -50,10 +50,46 @@ export const storeNewEvent = async (newEvent) => {
 };
 
 export const storePOC = async (POC) => {
+  try {
+    const jsonValue = JSON.stringify(POC);
+    await Storage.setItem({
+      key: "POC",
+      value: jsonValue,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const storeDates = async (eventDates) => {
+  try {
+    const jsonValue = JSON.stringify(eventDates);
+    await Storage.setItem({
+      key: "eventDates",
+      value: jsonValue,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const storeItinerary = async (itinerary) => {
     try {
-      const jsonValue = JSON.stringify(POC);
+      const jsonValue = JSON.stringify(itinerary);
       await Storage.setItem({
-        key: "POC",
+        key: "itinerary",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  export const storeTags = async (tags) => {
+    try {
+      const jsonValue = JSON.stringify(tags);
+      await Storage.setItem({
+        key: "tags",
         value: jsonValue,
       });
     } catch (e) {
@@ -144,45 +180,11 @@ function OrgDetails({ route }) {
     endTime: endTime.timestamp,
   };
 
-  const storeDates = async (eventDates) => {
-    try {
-      const jsonValue = JSON.stringify(eventDates);
-      await Storage.setItem({
-        key: "eventDates",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   //Itinerary details
   const [itinerary, setItinerary] = useState(prop.itinerary);
 
-  const storeItinerary = async (itinerary) => {
-    try {
-      const jsonValue = JSON.stringify(itinerary);
-      await Storage.setItem({
-        key: "itinerary",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
   //EventTags useState
   const [tags, setTags] = useState(prop.tags);
-  const storeTags = async (tags) => {
-    try {
-      const jsonValue = JSON.stringify(tags);
-      await Storage.setItem({
-        key: "tags",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   return (
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
