@@ -13,7 +13,8 @@ function AndroidDateTimePicker() {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [clicked, setClicked] = useState("");
-  const onChange = (event, selectedDate) => {
+  
+  const onChange = (selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
     if (clicked == "startDate") {

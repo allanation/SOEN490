@@ -16,6 +16,7 @@ import {
   where,
 } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
+import { getTodayDate } from "./AttendeeDashboard";
 import { format } from "date-fns";
 
 export const convertStartDate = (number) => {
@@ -24,23 +25,6 @@ export const convertStartDate = (number) => {
 
 function AttendeeFavorites() {
   const navigation = useNavigation();
-  var date = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
-
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
   const [bookmarks, setBookmarks] = useState([]);
@@ -282,7 +266,7 @@ function AttendeeFavorites() {
           />
         </View>
 
-        <Text style={styles.date}>{today}</Text>
+        <Text style={styles.date}>{getTodayDate()}</Text>
 
         <Text style={styles.title}>{welcome}</Text>
 

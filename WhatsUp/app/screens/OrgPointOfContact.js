@@ -8,6 +8,7 @@ import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { storePOC } from "./OrgDetails";
 
 function OrganizerPOC() {
   const navigation = useNavigation();
@@ -54,18 +55,6 @@ function OrganizerPOC() {
     //Store the information before leaving page
     storePOC(POC);
     navigation.navigate("OrgReviewEvent");
-  };
-
-  const storePOC = async (POC) => {
-    try {
-      const jsonValue = JSON.stringify(POC);
-      await Storage.setItem({
-        key: "POC",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const getPOCData = async () => {

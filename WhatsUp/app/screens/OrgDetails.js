@@ -8,7 +8,7 @@ import {
   Dimensions,
   Alert,
 } from "react-native";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import Screen from "../components/Screen";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import TitleHeaders from "../components/TitleHeaders";
@@ -36,6 +36,30 @@ OrgDetails.propTypes = {
 export const convertTime = (number) => {
   return number ? format(new Date(number), "hh:mm aaaaa'm'") : "";
 };
+
+export const storeNewEvent = async (newEvent) => {
+  try {
+    const jsonValue = JSON.stringify(newEvent);
+    await Storage.setItem({
+      key: "newEvent",
+      value: jsonValue,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const storePOC = async (POC) => {
+    try {
+      const jsonValue = JSON.stringify(POC);
+      await Storage.setItem({
+        key: "POC",
+        value: jsonValue,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 const onRemove = () => () => {};
 
@@ -65,29 +89,15 @@ function OrgDetails({ route }) {
     description: description,
     link: link,
     coverImage: coverImageName,
-    guid: eventGuid
-  };
-
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    guid: eventGuid,
   };
 
   const deleteEvent = async (eventGuid) => {
-    const q = query(
-      collection(db, "events"),
-      where("guid", "==", eventGuid));
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
       querySnapshot.forEach((doc) => {
-        try{
+        try {
           deleteDoc(doc.ref);
           Alert.alert("Event was successfully deleted.");
           navigation.navigate("OrganizerDashboard");
@@ -107,18 +117,6 @@ function OrgDetails({ route }) {
     pocName: pocName,
     pocPhoneNum: pocPhoneNum,
     pocEmail: pocEmail,
-  };
-
-  const storePOC = async (POC) => {
-    try {
-      const jsonValue = JSON.stringify(POC);
-      await Storage.setItem({
-        key: "POC",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   //DateInfo details
@@ -192,50 +190,50 @@ function OrgDetails({ route }) {
         <View style={{ flexDirection: "row" }}>
           <TitleHeaders title={prop.eventName} />
           <View style={{ flexDirection: "row", marginLeft: "auto" }}>
-          <Ionicons
-            name="trash"
-            onPress={() =>
-              Alert.alert(
-                "Warning",
-                "Your event will be permanently deleted. Are you sure you wish to proceed?",
-                [
-                  {
-                    text: "Cancel",
-                    style: "cancel",
-                  },
-                  {
-                    text: "Delete Event",
-                    onPress: () => deleteEvent(prop.guid),
-                  },
-                ]
-              )
-            }
-            size={20}
-            color={colors.primary}
-            style={{
-              marginBottom: "1.5%",
-              alignSelf: "flex-end",
-              paddingRight: "5%"
-            }}
-          />
-          <Ionicons
-            name="pencil"
-            testID="edit-event"
-            onPress={() => {
-              storeNewEvent(newEvent);
-              storePOC(POC);
-              storeDates(eventDates);
-              storeItinerary(itinerary);
-              storeTags(tags);
-              navigation.navigate("OrgReviewEvent");
-            }}
-            size={20}
-            color={colors.primary}
-            style={{
-              marginBottom: "1.5%",
-              alignSelf: "flex-end",
-            }}
-          />
+            <Ionicons
+              name="trash"
+              onPress={() =>
+                Alert.alert(
+                  "Warning",
+                  "Your event will be permanently deleted. Are you sure you wish to proceed?",
+                  [
+                    {
+                      text: "Cancel",
+                      style: "cancel",
+                    },
+                    {
+                      text: "Delete Event",
+                      onPress: () => deleteEvent(prop.guid),
+                    },
+                  ]
+                )
+              }
+              size={20}
+              color={colors.primary}
+              style={{
+                marginBottom: "1.5%",
+                alignSelf: "flex-end",
+                paddingRight: "5%",
+              }}
+            />
+            <Ionicons
+              name="pencil"
+              testID="edit-event"
+              onPress={() => {
+                storeNewEvent(newEvent);
+                storePOC(POC);
+                storeDates(eventDates);
+                storeItinerary(itinerary);
+                storeTags(tags);
+                navigation.navigate("OrgReviewEvent");
+              }}
+              size={20}
+              color={colors.primary}
+              style={{
+                marginBottom: "1.5%",
+                alignSelf: "flex-end",
+              }}
+            />
           </View>
         </View>
         <Text
