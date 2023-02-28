@@ -29,7 +29,8 @@ function OrgNotifications() {
     const allEvents = [];
     const q = query(
       collection(db, "events"),
-      where("pocEmail", "==", user.email)
+      where("pocEmail", "==", user.email),
+      where("eventStatus", "in", ["Approved", "Rejected"])
     );
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
