@@ -23,9 +23,10 @@ function Notifications({ title, status }) {
             source={logo}
             style={{
               width: "100%",
-              height: "100%",
+              height: "93%",
               resizeMode: "contain",
               borderRadius: 17,
+              marginTop: 5,
               marginLeft: 7,
             }}
           />
