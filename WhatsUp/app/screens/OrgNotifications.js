@@ -7,6 +7,7 @@ import {
   Alert,
   Image,
   FlatList,
+  RefreshControl,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
@@ -22,7 +23,8 @@ import logo from "../Images/w3.png";
 
 function OrgNotifications() {
   const navigation = useNavigation();
-  const [orgEvents, setOrgEvents] = useState();
+  const [orgEvents, setOrgEvents] = useState([]);
+  const [refresh, setRefresh] = useState(false);
   const [user] = useAuthState(auth);
 
   const getEvents = async () => {
@@ -46,20 +48,46 @@ function OrgNotifications() {
       <Notification
         title={item.eventName}
         status={item.eventStatus}
-        onPress={() => navigation.navigate("OrgView", { prop: item })}
+        id={item.id}
+        onPress={() => deleteNotifs(item.guid)}
       />
     );
   };
 
+  const deleteNotifs = (id) => {
+    for (const event of orgEvents) {
+      console.log(event.guid + "    " + id);
+      if (event.guid == id) {
+        console.log(orgEvents.indexOf(event));
+        orgEvents.splice(orgEvents.indexOf(event), 1);
+      }
+    }
+  };
+
   useEffect(() => {
     getEvents();
+    console.log(orgEvents);
   }, []);
+
+  const pullMe = () => {
+    setRefresh(true);
+    deleteNotifs();
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
 
   var showEvents;
 
   showEvents = orgEvents ? (
     <>
-      <FlatList data={orgEvents} renderItem={ItemView} style={{}} />
+      <FlatList
+        data={orgEvents}
+        renderItem={ItemView}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />
+        }
+      />
     </>
   ) : (
     <></>
