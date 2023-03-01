@@ -38,8 +38,6 @@ function OrgReviewEventTags() {
       });
       if (eventTags !== null) {
         const TagsObject = JSON.parse(eventTags);
-        console.log("here's your tags");
-        console.log(TagsObject);
         if (TagsObject.length != 0) {
           setTags(TagsObject);
         }
@@ -165,6 +163,7 @@ function OrgReviewEventTags() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => {
             storeTags(tags);
             navigation.navigate("OrgReviewDaySchedule");
@@ -226,6 +225,7 @@ function OrgReviewEventTags() {
       <View>
         <AppButton
           title={"Submit Event"}
+          testID={"submitEvent"}
           onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>

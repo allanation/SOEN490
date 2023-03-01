@@ -109,6 +109,7 @@ function OrganizeEventTags() {
         <UtilBtn
           icon="chevron-back-outline"
           style={{position: "absolute", left:0}}
+          testID={"backButton"}
           onPress={() => navigation.navigate("OrgDay")}
         />
         <TitleHeaders
