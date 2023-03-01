@@ -13,7 +13,6 @@ import { Ionicons } from "@expo/vector-icons";
 import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import TitleHeaders from "../components/TitleHeaders";
-import { convertStartDate } from "./AttendeeDashboard.js";
 import { db } from "../firebase";
 import { collection, updateDoc, query, arrayUnion, doc, getDocs, where } from "firebase/firestore";
 import { getCoverImageSource } from "./AttendeeView";

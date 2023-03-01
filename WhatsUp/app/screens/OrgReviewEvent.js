@@ -28,6 +28,7 @@ import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { storeNewEvent } from "./OrgDetails";
 
 function OrgReviewEvent() {
   const navigation = useNavigation();
@@ -76,18 +77,6 @@ function OrgReviewEvent() {
           setGuid(EventObject.guid);
         }
       }
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
     } catch (e) {
       console.log(e);
     }

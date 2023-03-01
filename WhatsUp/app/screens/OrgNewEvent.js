@@ -28,6 +28,7 @@ import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { storeNewEvent } from "./OrgDetails";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -81,18 +82,6 @@ function OrganizerNewEvent() {
     //If every mandatory fields is filled out, store the information and go to next page
     storeNewEvent(newEvent);
     navigation.navigate("POC");
-  };
-
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const handleCoverImage = async (coverImage, coverImageName) => {

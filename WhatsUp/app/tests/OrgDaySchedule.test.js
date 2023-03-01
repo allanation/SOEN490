@@ -7,9 +7,7 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import OrgPOCScreen from "../screens/OrgPointOfContact";
 import OrgDateInfoScreen from "../screens/OrgDateInfo";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import OrgDayScheduleScreen from "../screens/OrgDaySchedule";
 import { Alert } from "react-native";
 

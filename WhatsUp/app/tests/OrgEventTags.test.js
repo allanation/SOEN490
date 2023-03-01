@@ -7,14 +7,7 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import OrgNewEventScreen from "../screens/OrgNewEvent";
-import OrgPOCScreen from "../screens/OrgPointOfContact";
-import OrgDateInfoScreen from "../screens/OrgDateInfo";
-import IOSDateTimePicker from "../components/IOSDateTimePicker";
-import EventTagsList from "../components/EventTagsList";
-import OrgDaySchedule from "../screens/OrgDaySchedule";
 import OrgEventTagScreen from "../screens/OrgEventTags";
-import { Alert } from "react-native";
 
 it("Renders Create New Event Last Page Correctly", () => {
   const tree = render(
