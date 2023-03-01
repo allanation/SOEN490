@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
+import React, { useState } from "react";
 import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
@@ -7,12 +8,19 @@ import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
 import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
+import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 
 function OrganizerDateInfo() {
   const navigation = useNavigation();
-  const validateEventDate = async () => {
+  const itinerary = [];
+  const [days, setDays] = useState("");
+  const validateEventDate = async (days) => {
+    if(days.length == 0){
+      Alert.alert("Error", "Please fill out the number of days.");
+      return;
+    }
     try {
       //Get NewEvent object
       const newDateInformation = await Storage.getItem({
@@ -23,12 +31,17 @@ function OrganizerDateInfo() {
         Alert.alert("Error", "Please confirm your event's date information.");
         return;
       } else {
-        navigation.navigate("OrgDay");
+        await Storage.setItem({
+          key: 'days',
+          value: days
+        })
+        navigation.push("OrgDay", {day: parseInt(days), i: 1, itinerary: itinerary});
       }
     } catch (e) {
       console.log(e);
     }
   };
+
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -49,7 +62,14 @@ function OrganizerDateInfo() {
           title="Please pick the dates for your event"
         />
       </View>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{paddingTop: 15}}>
+      <AppTextInput
+            placeholder="Number of days"
+            value={days}
+            onChangeText={(day) => setDays(day)}
+          ></AppTextInput>
+      </View>
+      <View style={{ paddingTop: 2 }}>
         <View>
           {Platform.OS === "ios" ? (
             <IOSDateTimePicker />
@@ -59,7 +79,7 @@ function OrganizerDateInfo() {
         </View>
       </View>
       <View>
-        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
+        <AppButton title={"Next"} onPress={() => validateEventDate(days)}></AppButton>
       </View>
     </Screen>
   );

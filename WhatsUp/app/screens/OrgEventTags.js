@@ -44,6 +44,11 @@ function OrganizeEventTags() {
       });
       const eventDatesObject = JSON.parse(eventDates);
 
+      //Get day object
+      const days = await Storage.getItem({
+        key: 'days',
+      });
+      
       //Get itinerary object
       const itinerary = await Storage.getItem({
         key: 'itinerary',
@@ -62,6 +67,7 @@ function OrganizeEventTags() {
         pocName: POCObject.pocName,
         pocPhoneNum: POCObject.pocPhoneNum,
         pocEmail: POCObject.pocEmail,
+        days: days,
         startDate: eventDatesObject.startDate,
         startTime: eventDatesObject.startTime,
         endDate: eventDatesObject.endDate,
@@ -73,6 +79,7 @@ function OrganizeEventTags() {
           Storage.removeItem({ key: 'newEvent' });
           Storage.removeItem({ key: 'POC' });
           Storage.removeItem({ key: 'eventDates' });
+          Storage.removeItem({ key: 'days'});
           Storage.removeItem({ key: 'itinerary' });
 
           Alert.alert('Event Submited Succesfully');
@@ -106,7 +113,7 @@ function OrganizeEventTags() {
         <UtilBtn
           icon="chevron-back-outline"
           style={{position: "absolute", left:0}}
-          onPress={() => navigation.navigate("OrgDay")}
+          onPress={() => navigation.goBack()}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
