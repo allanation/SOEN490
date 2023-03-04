@@ -77,12 +77,30 @@ function Dashboard() {
     } else console.error("Cant find rejected events at the moment");
   };
 
+  var date = new Date();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var statusChangeDate = months[date.getMonth()].substring(0, 3) + " " + date.getDate();
+
   // Rejects the event onClick
   const handleRejectEvents = async (x) => {
     const changingToReject = doc(db, "events", x);
     await updateDoc(changingToReject, {
       eventStatus: "Rejected",
       adminComment: adminComment,
+      statusChangeDate: statusChangeDate,
     });
   };
 
@@ -91,6 +109,7 @@ function Dashboard() {
     const changingToApprove = doc(db, "events", x);
     await updateDoc(changingToApprove, {
       eventStatus: "Approved",
+      statusChangeDate: statusChangeDate,
     });
   };
 

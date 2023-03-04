@@ -1,24 +1,19 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable react/prop-types */
 import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  Alert,
   Image,
   TouchableOpacity,
+  Platform
 } from "react-native";
-import React, { useState, useEffect } from "react";
-import Screen from "../components/Screen";
-import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
-import TitleHeaders from "../components/TitleHeaders";
-import UtilBtn from "../components/UtilBtn";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 import logo from "../Images/w3.png";
 import { Ionicons } from "@expo/vector-icons";
 import colors from "../config/colors";
 
-function Notifications({ title, status, onPress }) {
+function Notifications({ title, status, statusChangeDate, onPress }) {
   const getStyle = () => {
     if (status.valueOf() == "Approved".valueOf()) return styles.approved;
     else if (status.valueOf() == "Rejected".valueOf()) return styles.rejected;
@@ -47,7 +42,7 @@ function Notifications({ title, status, onPress }) {
           <Text style={getStyle({ status })}>{status}</Text>
         </View>
         <View style={{ flex: 1, marginLeft: 15 }}>
-          <Text style={styles.time}>2m ago</Text>
+          <Text style={styles.time}>{statusChangeDate}</Text>
           <TouchableOpacity onPress={onPress}>
             <Ionicons
               name="ios-trash-outline"
@@ -67,17 +62,36 @@ function Notifications({ title, status, onPress }) {
 
 const styles = StyleSheet.create({
   banner: {
-    backgroundColor: "white",
+    
+    width: "95%",
+    alignSelf: "center",
+    backgroundColor: "#fdfdfd",
     flex: 0.31,
     flexDirection: "row",
-    borderRadius: 10,
-    shadowOpacity: 0.08,
+    borderRadius: 18,
+    shadowColor:"#757575",
+    shadowRadius: 4,
+    shadowOpacity: 0.5,
     shadowOffset: {
       width: 0,
-      height: 20,
+      height: 3,
     },
-    shadowRadius: 25,
-    elevation: 5,
+  },
+  container: {
+    height: 150,
+    width: "90%",
+    borderRadius: 12,
+    alignSelf: "center",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#fdfdfd",
+    shadowColor:"#757575",
+    shadowRadius: 8,
+    shadowOpacity: 0.3,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
   adminText: {
     color: "#100101",

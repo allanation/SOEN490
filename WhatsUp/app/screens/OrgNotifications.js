@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import {
   StyleSheet,
@@ -11,18 +12,13 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
-import AppTextInput from "../components/AppTextInput";
-import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Notification from "../components/Notifications";
-import { useNavigation } from "@react-navigation/native";
-import logo from "../Images/w3.png";
 
 function OrgNotifications() {
-  const navigation = useNavigation();
   const [orgEvents, setOrgEvents] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [user] = useAuthState(auth);
@@ -49,6 +45,7 @@ function OrgNotifications() {
         title={item.eventName}
         status={item.eventStatus}
         id={item.id}
+        statusChangeDate={item.statusChangeDate}
         onPress={() => deleteNotifs(item.guid)}
       />
     );
