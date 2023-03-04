@@ -200,28 +200,32 @@ function Dashboard() {
                   <div className="details-right col-6">
                     <p className="text-title">Schedule</p>
                     {unapprovedEvent.itinerary.map(
-                      (unapprovedEventItinerary, index) => (
+                      (unapprovedEventItinerary) => (
                         <div className="schedule">
                           <div className="text"></div>
                           <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
+                            <p className="day-count">Day {unapprovedEventItinerary.day}</p>
+                            {unapprovedEventItinerary.schedule.map(
+                              (unapprovedEventSchedule) => (
                             <div className="day-itinerary">
                               <p className="day-title">
-                                {unapprovedEventItinerary.title}
+                                {unapprovedEventSchedule.title}
                               </p>
                               <div className="time-place">
                                 <p className="time">
-                                  {unapprovedEventItinerary.startTime} -{" "}
-                                  {unapprovedEventItinerary.endTime}
+                                  {unapprovedEventSchedule.startTime} -{" "}
+                                  {unapprovedEventSchedule.endTime}
                                 </p>
                                 <p className="place">
-                                  {unapprovedEventItinerary.location}
+                                  {unapprovedEventSchedule.location}
                                 </p>
                               </div>
                               <p className="itinerary-description">
-                                {unapprovedEventItinerary.description}
+                                {unapprovedEventSchedule.description}
                               </p>
                             </div>
+                            )
+                            )}
                           </div>
                         </div>
                       )
@@ -381,28 +385,32 @@ function Dashboard() {
                   <div className="details-right col-6">
                     <p className="text-title">Schedule</p>
                     {approvedEvent.itinerary.map(
-                      (approvedEventItinerary, index) => (
+                      (approvedEventItinerary) => (
                         <div className="schedule">
                           <div className="text"></div>
                           <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
+                            <p className="day-count">Day {approvedEventItinerary.day}</p>
+                            {approvedEventItinerary.schedule.map(
+                              (approvedEventSchedule) => (
                             <div className="day-itinerary">
                               <p className="day-title">
-                                {approvedEventItinerary.title}
+                                {approvedEventSchedule.title}
                               </p>
                               <div className="time-place">
                                 <p className="time">
-                                  {approvedEventItinerary.startTime}-{" "}
-                                  {approvedEventItinerary.endTime}
+                                  {approvedEventSchedule.startTime}-{" "}
+                                  {approvedEventSchedule.endTime}
                                 </p>
                                 <p className="place">
-                                  {approvedEventItinerary.location}
+                                  {approvedEventSchedule.location}
                                 </p>
                               </div>
                               <p className="itinerary-description">
-                                {approvedEventItinerary.description}
+                                {approvedEventSchedule.description}
                               </p>
                             </div>
+                              )
+                            )}
                           </div>
                         </div>
                       )
@@ -505,28 +513,32 @@ function Dashboard() {
                   <div className="details-right col-6">
                     <p className="text-title">Schedule</p>
                     {rejectedEvent.itinerary.map(
-                      (rejectedEventItinerary, index) => (
+                      (rejectedEventItinerary) => (
                         <div className="schedule">
                           <div className="text"></div>
                           <div className="day">
-                            <p className="day-count">Day {index + 1}</p>
+                            <p className="day-count">Day {rejectedEventItinerary.day}</p>
+                            {rejectedEventItinerary.schedule.map(
+                              (rejectedEventSchedule) => (
                             <div className="day-itinerary">
                               <p className="day-title">
-                                {rejectedEventItinerary.title}
+                                {rejectedEventSchedule.title}
                               </p>
                               <div className="time-place">
                                 <p className="time">
-                                  {rejectedEventItinerary.startTime} -{" "}
-                                  {rejectedEventItinerary.endTime}
+                                  {rejectedEventSchedule.startTime} -{" "}
+                                  {rejectedEventSchedule.endTime}
                                 </p>
                                 <p className="place">
-                                  {rejectedEventItinerary.location}
+                                  {rejectedEventSchedule.location}
                                 </p>
                               </div>
                               <p className="itinerary-description">
-                                {rejectedEventItinerary.description}
+                                {rejectedEventSchedule.description}
                               </p>
                             </div>
+                              )
+                            )}
                           </div>
                         </div>
                       )
