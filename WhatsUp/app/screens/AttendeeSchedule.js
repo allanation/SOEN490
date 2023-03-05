@@ -1,15 +1,12 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-} from "react-native";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import Screen from "../components/Screen";
 import ItineraryEventSched from "../components/ItineraryEventSched";
 import SearchBar from "../components/SearchBar";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -24,7 +21,7 @@ function AttendeeSchedule({ route }) {
     setMasterData(prop);
   }, []);
 
-  const itinerary = prop 
+  const itinerary = prop;
 
   const [displayedItinerary, setDisplayedItinerary] = useState(true);
   const [masterData, setMasterData] = useState([]);
@@ -72,38 +69,42 @@ function AttendeeSchedule({ route }) {
       console.log(filteredData);
       setSearch(text);
     } else {
-            displayedItinerary
-              ? setFilteredData(masterData)
-              : setFilteredData(previousData);
-            setSearch(text);
-          }
+      displayedItinerary
+        ? setFilteredData(masterData)
+        : setFilteredData(previousData);
+      setSearch(text);
+    }
   };
 
   var showItinerary;
- 
-    showItinerary = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : itinerary}
-          renderItem={ItemView}
-          style={{}}
-        />
-      </>
-    );
+
+  showItinerary = (
+    <>
+      <FlatList
+        data={filteredData ? filteredData : itinerary}
+        renderItem={ItemView}
+        style={{}}
+      />
+      <FlatList
+        data={filteredOrgData ? filteredOrgData : []}
+        renderItem={ItemView}
+      />
+    </>
+  );
 
   return (
-      <Screen style={{ padding: "5%", backgroundColor: "white" }}>
-        <View style={{ width: "100%", display: "flex" }}>
-          <SearchBar
-            style={{ width: "85%" }}
-            placeholder="Search for..."
-            handleChange={(text) => {
-              searchFilter(text);
-            }}
-          />
-        </View>
-        {showItinerary}
-      </Screen>
+    <Screen style={{ padding: "5%", backgroundColor: "white" }}>
+      <View style={{ width: "100%", display: "flex" }}>
+        <SearchBar
+          style={{ width: "85%" }}
+          placeholder="Search for..."
+          handleChange={(text) => {
+            searchFilter(text);
+          }}
+        />
+      </View>
+      {showItinerary}
+    </Screen>
   );
 }
 
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   subtitle: {
     padding: 14,
     fontSize: 19,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   icon: {
     marginLeft: "auto",

@@ -1,13 +1,26 @@
+/* eslint-disable no-unused-vars */
 import { StyleSheet, View, Image, Text, Linking } from "react-native";
 import Screen from "../components/Screen";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import AttendeeDetails from "./AttendeeDetails";
 import AttendeeSchedule from "./AttendeeSchedule";
 import colors from "../config/colors";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import UtilBtn from "../components/UtilBtn";
 import AppButton from "../components/AppButton";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth, db } from "../firebase";
+import {
+  updateDoc,
+  doc,
+  query,
+  collection,
+  where,
+  getDocs,
+  arrayRemove,
+  arrayUnion,
+} from "firebase/firestore";
 
 AttendeeView.propTypes = {
   route: PropTypes.any,
@@ -39,17 +52,81 @@ export const getCoverImageSource = (coverImageName) => {
 
 function AttendeeView({ route, navigation }) {
   const { prop } = route.params;
+  const { fromScreen } = route.params;
   const Tab = createMaterialTopTabNavigator();
 
   const [buttonText, setButtonText] = useState("Going");
+  const [user] = useAuthState(auth);
+  const [checkedButton, setCheckedButton] = useState("✔ Going");
+  const [docId, setDocId] = useState("");
 
-  const handleGoing = (buttonText) => {
-    if (buttonText == "Going") {
-      setButtonText("✔ Going");
-    } else {
-      setButtonText("Going");
+  const getDocId = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        setDocId(doc.id);
+      });
     }
   };
+
+  const handleGoing = async (buttonText) => {
+    if (buttonText == "Going") {
+      setButtonText("✔ Going");
+      const setToGoing = doc(db, "users", docId);
+      await updateDoc(setToGoing, {
+        tickets: arrayUnion(prop.id),
+      });
+    } else {
+      setButtonText("Going");
+      const notGoing = doc(db, "users", docId);
+      await updateDoc(notGoing, {
+        tickets: arrayRemove(prop.id),
+      });
+    }
+  };
+
+  const handleGoingWhenTicketed = async (checkedButton) => {
+    if (checkedButton == "Going") {
+      setCheckedButton("✔ Going");
+      const setToGoing = doc(db, "users", docId);
+      await updateDoc(setToGoing, {
+        tickets: arrayUnion(prop.id),
+      });
+    } else {
+      setCheckedButton("Going");
+      const notGoing = doc(db, "users", docId);
+      await updateDoc(notGoing, {
+        tickets: arrayRemove(prop.id),
+      });
+    }
+  };
+
+  useEffect(() => {
+    getDocId();
+  }, []);
+
+  let coverImageSource;
+
+  if (prop.coverImage == "Art") {
+    coverImageSource = require("../assets/CoverImages/Art.jpg");
+  } else if (prop.coverImage == "Auditorium") {
+    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (prop.coverImage == "Concordia") {
+    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
+  } else if (prop.coverImage == "Frosh") {
+    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
+  } else if (prop.coverImage == "Graduation") {
+    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
+  } else if (prop.coverImage == "McGill") {
+    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
+  } else if (prop.coverImage == "Park") {
+    coverImageSource = require("../assets/CoverImages/Park.jpg");
+  } else if (prop.coverImage == "Sports") {
+    coverImageSource = require("../assets/CoverImages/Sports.jpg");
+  } else if (prop.coverImage == "Studying") {
+    coverImageSource = require("../assets/CoverImages/Studying.jpg");
+  }
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
@@ -123,13 +200,23 @@ function AttendeeView({ route, navigation }) {
         ) : (
           <Text></Text>
         )}
-        <AppButton
-          style={styles.btn}
-          title={buttonText}
-          onPress={() => {
-            handleGoing(buttonText);
-          }}
-        />
+        {fromScreen == "AttendeeTickets" ? (
+          <AppButton
+            style={styles.btn}
+            title={checkedButton}
+            onPress={() => {
+              handleGoingWhenTicketed(checkedButton);
+            }}
+          />
+        ) : (
+          <AppButton
+            style={styles.btn}
+            title={buttonText}
+            onPress={() => {
+              handleGoing(buttonText);
+            }}
+          />
+        )}
       </View>
     </Screen>
   );

@@ -1,8 +1,18 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Alert,
+  FlatList,
+} from "react-native";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
 import colors from "../config/colors";
@@ -14,9 +24,10 @@ import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
 import { storeItinerary } from "./OrgDetails";
+import { Storage } from "expo-storage";
 
-function OrganizerDaySchedule({ route }) {
-  const [schedule, setSchedule] = useState([]);
+function OrgReviewDaySchedule({ day }) {
+  const [itinerary, setItinerary] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -25,7 +36,29 @@ function OrganizerDaySchedule({ route }) {
   const [location, setLocation] = useState("");
   const navigation = useNavigation();
   const ids = uuid.v4();
-  const {day, i, itinerary} = route.params;
+
+  const [filteredData, setFilteredData] = useState("");
+  const [filteredOrgData, setFilteredOrgData] = useState("");
+
+  useEffect(() => {
+    getItineraryData();
+  }, []);
+
+  const getItineraryData = async () => {
+    try {
+      const itinerary = await Storage.getItem({
+        key: "itinerary",
+      });
+      if (itinerary !== null) {
+        const ItineraryObject = JSON.parse(itinerary);
+        if (ItineraryObject.length !== 0) {
+          setItinerary(ItineraryObject);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const handleAddEvent = async (
     title,
@@ -50,84 +83,128 @@ function OrganizerDaySchedule({ route }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
-
-    const newSchedule = {
+    const newItinerary = {
       title: title,
       startTime: startTime,
       endTime: endTime,
       description: description,
       location: location,
-      id: ids
-    }
+      id: ids,
+    };
 
-    setSchedule((schedule) => [...schedule, newSchedule]);
+    setItinerary((itinerary) => [...itinerary, newItinerary]);
     setModalVisible(false);
   };
 
-  const addItinerary = async (day,schedule) => {
-    const newItinerary = {
-      day: day.toString(),
-      schedule: schedule,
-    };
-
-    itinerary.push(newItinerary);
-  };
-    
-
   const onRemove = (id) => () => {
-    setSchedule(schedule.filter((item) => item.id !== id));
+    setItinerary(itinerary.filter((item) => item.id !== id));
   };
 
-  const onEdit = (newSchedule) => () => {
-    console.log("test");
-    setSchedule(schedule.filter((item) => item.id !== newSchedule.id));
-    setSchedule((schedule) => [...schedule, newSchedule]);
+  const onEdit = (newItinerary) => () => {
+    setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
+    setItinerary((itinerary) => [...itinerary, newItinerary]);
   };
 
-  const goToNextPage = async () => {
+  const goToTagsPage = async () => {
     //Store the information before leaving page
-    if(i==day){
-      addItinerary(i, schedule);
-      storeItinerary(itinerary);
-      navigation.navigate("OrgTags");
-    }else{ 
-      addItinerary(i, schedule);
-      navigation.push("OrgDay", {day: day, i: (i+1), itinerary: itinerary});
+    storeItinerary(itinerary);
+    navigation.navigate("OrgReviewEventTags");
+  };
+
+  const ItemView = ({ item }) => {
+    return (
+      <View>
+        <Text style={styles.subtitle}>Day {item.day}</Text>
+        <ItineraryEventSched
+          title={item.title}
+          startTime={item.startTime}
+          endTime={item.endTime}
+          location={item.location}
+          description={item.description}
+          id={item.id}
+        />
+      </View>
+    );
+  };
+
+  const searchFilter = (text) => {
+    if (text && displayedItinerary) {
+      const newData = masterData.filter((item) => {
+        const itemData = item.title
+          ? item.title.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      const orgSearch = masterData.filter((item) => {
+        const itemData = item.organizer
+          ? item.organizer.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return itemData.indexOf(textData) > -1;
+      });
+
+      setFilteredOrgData(orgSearch);
+      setFilteredData(newData);
+      setSearch(text);
+    } else {
+      displayedItinerary
+        ? setFilteredData(masterData)
+        : setFilteredData(previousData);
+      setSearch(text);
     }
   };
+
+  var showItinerary;
+
+  showItinerary = (
+    <>
+      <FlatList
+        data={filteredData ? filteredData : itinerary}
+        renderItem={ItemView}
+        style={{}}
+      />
+      <FlatList
+        data={filteredOrgData ? filteredOrgData : []}
+        renderItem={ItemView}
+      />
+    </>
+  );
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ width: "100%", display: "flex" }}>
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <UtilBtn
-            icon="chevron-back-outline"
-            onPress={() => navigation.goBack()}
+            icon='chevron-back-outline'
+            onPress={() => {
+              storeItinerary(itinerary);
+              navigation.navigate("OrgReviewDateInfo");
+            }}
             style={{ position: "absolute", left: 0 }}
-            testID={"backButton"}
           />
           <TitleHeaders
             style={{ alignSelf: "center" }}
-            title={"Day " + (i) + " Schedule"}
+            title={"Day " + (day ? day + " " : "") + "schedule"}
           />
         </View>
 
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title="Please fill the following information"
+          title='Please fill the following information'
         />
       </View>
       <UtilBtn
         style={{ alignSelf: "flex-end", marginRight: 24 }}
-        icon="add-circle"
+        icon='add-circle'
         onPress={() => setModalVisible(true)}
-        testID={"addDayIcon"}
       />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
           <View>
-            {schedule.length == 0 ? (
+            {itinerary.length == 0 ? (
               <Text
                 style={{
                   color: colors.lightGrey,
@@ -138,7 +215,7 @@ function OrganizerDaySchedule({ route }) {
                 'No items in your itinerary yet...'
               </Text>
             ) : (
-              schedule.map((event) => (
+              itinerary.map((event) => (
                 <ItineraryEvent
                   title={event.title}
                   startTime={event.startTime}
@@ -155,11 +232,10 @@ function OrganizerDaySchedule({ route }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} testID={"nextButton"} onPress={() => goToNextPage()}></AppButton>
+        <AppButton title={"Next"} onPress={() => goToTagsPage()}></AppButton>
       </View>
       <AppModal
-        animationType="fade"
-        testID={"addDayModal"}
+        animationType='fade'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -169,44 +245,42 @@ function OrganizerDaySchedule({ route }) {
         <View style={styles.modalView}>
           <View style={styles.inputView}>
             <UtilBtn
-              icon="chevron-back-outline"
-              testID={"goBackModal"}
+              icon='chevron-back-outline'
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
             <TitleHeaders style={{ alignSelf: "center" }} title={"New Item"} />
             <ScrollView
-              keyboardDismissMode="interactive"
+              keyboardDismissMode='interactive'
               style={{ width: "100%" }}
             >
               <AppTextInput
-                placeholder="Title"
+                placeholder='Title'
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
               />
               <AppTextInput
-                placeholder="Start Time"
+                placeholder='Start Time'
                 onChangeText={(currentStartTime) =>
                   setStartTime(currentStartTime)
                 }
               />
               <AppTextInput
-                placeholder="End Time"
+                placeholder='End Time'
                 onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
               />
               <AppTextInput
-                placeholder="Description"
+                placeholder='Description'
                 onChangeText={(currentDescription) =>
                   setDescription(currentDescription)
                 }
               />
               <AppTextInput
-                placeholder="Location (optional)"
+                placeholder='Location (optional)'
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
-                title="Add"
+                title='Add'
                 style={{ marginTop: 0 }}
-                testID={"addDayButton"}
                 onPress={() =>
                   handleAddEvent(
                     title,
@@ -233,6 +307,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
+    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -274,4 +349,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OrganizerDaySchedule;
+export default OrgReviewDaySchedule;

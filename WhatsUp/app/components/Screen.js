@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { StyleSheet, StatusBar, ImageBackground} from "react-native";
 import Constants from "expo-constants";

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, RefreshControl } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
@@ -9,39 +9,25 @@ import UtilBtn from "../components/UtilBtn";
 import Event from "../components/Event";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
-
+import { getTodayDate } from "./AttendeeDashboard";
 import { format } from "date-fns";
 
 export const convertStartDate = (number) => {
   return number ? format(new Date(number), "LLL dd, yyyy") : "";
 };
 
-export const getTodayDate = () => {
-  var date = new Date();
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return "Today's " + months[date.getMonth()] + " " + date.getDate();
-};
-
-function AttendeeDashboard() {
+function AttendeeFavorites() {
   const navigation = useNavigation();
-
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -54,8 +40,21 @@ function AttendeeDashboard() {
     }
   };
 
+  //function to get all the events bookmarked by the user
+  const getBookMarks = async () => {
+    const q = query(collection(db, "users"), where("email", "==", user.email));
+    const querySnapshot = await getDocs(q);
+    if (querySnapshot != null) {
+      querySnapshot.forEach((doc) => {
+        const bookMarksField = doc.data().bookMarks;
+        setBookmarks(bookMarksField);
+      });
+    }
+  };
+
+  //function to load the events depending on if they are
+  //bookmarked by the user
   const getEvents = async () => {
-    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
@@ -63,26 +62,83 @@ function AttendeeDashboard() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        setAllEvents(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setMasterData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setPreviousData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+        {
+          for (const item of bookmarks) {
+            if (item == doc.id) {
+              if (allEvents.length > 0)
+                for (const item of allEvents) {
+                  if (item.id == doc.id) {
+                    break;
+                  } else if (item.id == allEvents[allEvents.length - 1].id) {
+                    setAllEvents((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setMasterData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                    setPreviousData((allEvents) =>
+                      allEvents.concat({ id: doc.id, ...doc.data() })
+                    );
+                  } else {
+                    continue;
+                  }
+                }
+              else {
+                console.log("hey there");
+                setAllEvents((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setMasterData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+                setPreviousData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+              }
+            }
+          }
+        }
       });
     }
   };
+
+  //function that removes the unbookmarked event from the page
+  const removeEventsNotBookmarked = () => {
+    for (const event of allEvents) {
+      var count = 0;
+      if (bookmarks.length != 0) {
+        for (const bookmark of bookmarks) {
+          if (event.id != bookmark && count != bookmarks.length - 1) {
+            count++;
+            continue;
+          } else if (event.id != bookmark && count == bookmarks.length - 1) {
+            setAllEvents((current) =>
+              current.filter((item) => item.id !== event.id)
+            );
+          } else {
+            break;
+          }
+        }
+      } else {
+        setAllEvents([]);
+      }
+    }
+  };
+
+  async function bookmarkAndgetEvents() {
+    await getBookMarks();
+    removeEventsNotBookmarked();
+    await getEvents();
+  }
 
   var welcome = "Welcome, " + userName + "!";
 
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
+    console.log("useeffect is used");
     getName();
-    getEvents();
+    bookmarkAndgetEvents();
   }, []);
 
   const [displayedEvent, setDisplayedEvents] = useState(true);
@@ -90,6 +146,7 @@ function AttendeeDashboard() {
   const [masterData, setMasterData] = useState([]);
   const [previousData, setPreviousData] = useState([]);
   const [filteredData, setFilteredData] = useState("");
+  const [refresh, setRefresh] = useState(false);
   const [filteredUserData, setFilteredUserData] = useState("");
 
   const ItemView = ({ item }) => {
@@ -99,9 +156,13 @@ function AttendeeDashboard() {
         title={item.eventName}
         organizer={item.orgName}
         date={convertStartDate(item.startDate)}
-        coverImageName={item.coverImage}
         id={item.id}
-        onPress={() => navigation.navigate("AttendeeView", { prop: item })}
+        coverImageName={item.coverImage}
+        onPress={() =>
+          navigation.navigate("AttendeeView", {
+            prop: item,
+          })
+        }
       />
     );
   };
@@ -157,6 +218,14 @@ function AttendeeDashboard() {
     }
   };
 
+  const pullMe = () => {
+    setRefresh(true);
+    bookmarkAndgetEvents();
+    setTimeout(() => {
+      setRefresh(false);
+    }, 1000);
+  };
+
   var tabs;
   var showEvents;
 
@@ -165,6 +234,9 @@ function AttendeeDashboard() {
       <FlatList
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />
+        }
       />
       <FlatList
         data={filteredUserData ? filteredUserData : []}
@@ -218,9 +290,9 @@ function AttendeeDashboard() {
           />
         </View>
 
-        <Text style={styles.text}>Popular Events</Text>
-
+        <Text style={styles.text}>Bookmarked Events</Text>
         <View>{showEvents}</View>
+        <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
       </View>
     </Screen>
   );
@@ -253,6 +325,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
+  textCentered: {
+    color: "#100101",
+    marginTop: "4%",
+    marginBottom: "3%",
+    fontSize: 12,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
   container: {
     left: "2.5%",
     marginTop: "5%",
@@ -261,4 +341,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AttendeeDashboard;
+export default AttendeeFavorites;

@@ -25,7 +25,7 @@ export const convertTime = (number) => {
   return number ? format(new Date(number), "hh:mm aaaaa'm'") : "";
 }
 
-const onRemove = (id) => () => {
+const onRemove = () => () => {
   
 };
 

@@ -55,6 +55,9 @@ function OrganizeEventTags() {
       });
       const itineraryObject = JSON.parse(itinerary);
 
+      //Generate unique id for each event
+      const guid = uuid.v4();
+
       //Save the event to firestore
       await addDoc(collection(db, 'events'), {
         eventStatus: 'Unapproved',
@@ -74,6 +77,7 @@ function OrganizeEventTags() {
         endTime: eventDatesObject.endTime,
         itinerary: itineraryObject,
         tags: tags,
+        guid : guid
       })
         .then(() => {
           Storage.removeItem({ key: 'newEvent' });
@@ -82,7 +86,7 @@ function OrganizeEventTags() {
           Storage.removeItem({ key: 'days'});
           Storage.removeItem({ key: 'itinerary' });
 
-          Alert.alert('Event Submited Succesfully');
+          Alert.alert('Event Submitted Succesfully');
           navigation.navigate('Organizer');
         })
         .catch((error) => console.log(error.message));
@@ -99,7 +103,6 @@ function OrganizeEventTags() {
       } else {
         console.log('she already goes here!!!');
       }
-    } else {
     }
   }
 
@@ -171,6 +174,7 @@ function OrganizeEventTags() {
       <View>
         <AppButton
           title={'Submit Event'}
+          testID={"submitEvent"}
           onPress={() => submitEvent(tags)}
         ></AppButton>
       </View>

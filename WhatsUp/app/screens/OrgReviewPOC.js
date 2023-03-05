@@ -10,7 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
 import { storePOC } from "./OrgDetails";
 
-function OrganizerPOC() {
+function OrgReviewPOC() {
   const navigation = useNavigation();
   const [pocName, setPocName] = useState("");
   const [pocPhoneNum, setPocPhoneNum] = useState("");
@@ -42,7 +42,7 @@ function OrganizerPOC() {
 
     //If every mandatory fields is filled out, store the information and go to next page
     storePOC(POC);
-    navigation.navigate('DateInfo')
+    navigation.navigate("OrgReviewDateInfo");
   };
 
   const goBackToNewEvent = async () => {
@@ -54,7 +54,7 @@ function OrganizerPOC() {
 
     //Store the information before leaving page
     storePOC(POC);
-    navigation.navigate("OrgReviewEvent");
+    navigation.navigate("OrgReviewEvent", { route: "" });
   };
 
   const getPOCData = async () => {
@@ -85,7 +85,6 @@ function OrganizerPOC() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
-          testID={"backButton"}
           onPress={() => goBackToNewEvent()}
         />
         <TitleHeaders
@@ -126,7 +125,6 @@ function OrganizerPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
-        testID={"nextButton"}
         onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>
@@ -164,4 +162,4 @@ const styles = StyleSheet.create({
   bottom: { flex: 1, justifyContent: "flex-end", marginBottom: 36 },
 });
 
-export default OrganizerPOC;
+export default OrgReviewPOC;
