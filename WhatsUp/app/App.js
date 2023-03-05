@@ -28,6 +28,7 @@ import OrgReviewPOC from "./screens/OrgReviewPOC";
 import OrgReviewDateInfo from "./screens/OrgReviewDateInfo";
 import OrgReviewDaySchedule from "./screens/OrgReviewDaySchedule";
 import OrgReviewEventTags from "./screens/OrgReviewEventTags";
+import OrgNotifications from "./screens/OrgNotifications";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -42,7 +43,9 @@ const TabScreen = () => {
           } else if (route.name === "UserProfile") {
             iconName = focused ? "ios-person" : "ios-person-outline";
           } else if (route.name === "Notifs") {
-            iconName = focused ? "ios-megaphone" : "ios-megaphone-outline";
+            iconName = focused
+              ? "ios-notifications"
+              : "ios-notifications-outline";
           }
 
           // You can return any component that you like here!
@@ -55,7 +58,7 @@ const TabScreen = () => {
       })}
     >
       <Tab.Screen name="OrganizerDashboard" component={OrgDashboard} />
-      <Tab.Screen name="Notifs" component={OrgReviewEvent} />
+      <Tab.Screen name="Notifs" component={OrgNotifications} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
     </Tab.Navigator>
   );
