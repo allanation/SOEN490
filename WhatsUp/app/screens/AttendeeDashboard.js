@@ -34,7 +34,6 @@ export const getTodayDate = () => {
     "November",
     "December",
   ];
-  var today = "Today's " + months[date.getMonth()] + " " + date.getDate();
   return "Today's " + months[date.getMonth()] + " " + date.getDate();
 };
 
@@ -43,7 +42,6 @@ function AttendeeDashboard() {
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
-  const [listenerEvents, setListenerEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {

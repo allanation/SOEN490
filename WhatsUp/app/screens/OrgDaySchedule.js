@@ -13,10 +13,10 @@ import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
-import { Storage } from "expo-storage";
+import { storeItinerary } from "./OrgDetails";
 
-function OrganizerDaySchedule({ day }) {
-  const [itinerary, setItinerary] = useState([]);
+function OrganizerDaySchedule({ route }) {
+  const [schedule, setSchedule] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -25,6 +25,7 @@ function OrganizerDaySchedule({ day }) {
   const [location, setLocation] = useState("");
   const navigation = useNavigation();
   const ids = uuid.v4();
+  const {day, i, itinerary} = route.params;
 
   const handleAddEvent = async (
     title,
@@ -49,44 +50,49 @@ function OrganizerDaySchedule({ day }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
-    const newItinerary = {
+
+    const newSchedule = {
       title: title,
       startTime: startTime,
       endTime: endTime,
       description: description,
       location: location,
-      id: ids,
-    };
+      id: ids
+    }
 
-    setItinerary((itinerary) => [...itinerary, newItinerary]);
+    setSchedule((schedule) => [...schedule, newSchedule]);
     setModalVisible(false);
   };
 
+  const addItinerary = async (day,schedule) => {
+    const newItinerary = {
+      day: day.toString(),
+      schedule: schedule,
+    };
+
+    itinerary.push(newItinerary);
+  };
+    
+
   const onRemove = (id) => () => {
-    setItinerary(itinerary.filter((item) => item.id !== id));
+    setSchedule(schedule.filter((item) => item.id !== id));
   };
 
-  const onEdit = (newItinerary) => () => {
+  const onEdit = (newSchedule) => () => {
     console.log("test");
-    setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
-    setItinerary((itinerary) => [...itinerary, newItinerary]);
+    setSchedule(schedule.filter((item) => item.id !== newSchedule.id));
+    setSchedule((schedule) => [...schedule, newSchedule]);
   };
 
-  const goToTagsPage = async () => {
+  const goToNextPage = async () => {
     //Store the information before leaving page
-    storeItinerary(itinerary);
-    navigation.navigate("OrgTags");
-  };
-
-  const storeItinerary = async (itinerary) => {
-    try {
-      const jsonValue = JSON.stringify(itinerary);
-      await Storage.setItem({
-        key: "itinerary",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
+    if(i==day){
+      addItinerary(i, schedule);
+      storeItinerary(itinerary);
+      navigation.navigate("OrgTags");
+    }else{ 
+      addItinerary(i, schedule);
+      navigation.push("OrgDay", {day: day, i: (i+1), itinerary: itinerary});
     }
   };
 
@@ -96,13 +102,13 @@ function OrganizerDaySchedule({ day }) {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <UtilBtn
             icon="chevron-back-outline"
-            onPress={() => navigation.navigate("DateInfo")}
+            onPress={() => navigation.goBack()}
             style={{ position: "absolute", left: 0 }}
             testID={"backButton"}
           />
           <TitleHeaders
             style={{ alignSelf: "center" }}
-            title={"Day " + (day ? day + " " : "") + "schedule"}
+            title={"Day " + (i) + " Schedule"}
           />
         </View>
 
@@ -121,7 +127,7 @@ function OrganizerDaySchedule({ day }) {
       <ScrollView>
         <View style={{ marginTop: 12 }}>
           <View>
-            {itinerary.length == 0 ? (
+            {schedule.length == 0 ? (
               <Text
                 style={{
                   color: colors.lightGrey,
@@ -132,7 +138,7 @@ function OrganizerDaySchedule({ day }) {
                 'No items in your itinerary yet...'
               </Text>
             ) : (
-              itinerary.map((event) => (
+              schedule.map((event) => (
                 <ItineraryEvent
                   title={event.title}
                   startTime={event.startTime}
@@ -149,7 +155,7 @@ function OrganizerDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} testID={"nextButton"}  onPress={() => goToTagsPage()}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"} onPress={() => goToNextPage()}></AppButton>
       </View>
       <AppModal
         animationType="fade"

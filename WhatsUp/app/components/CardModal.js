@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import { Modal, StyleSheet, View, } from "react-native";
 import { BlurView } from "expo-blur";

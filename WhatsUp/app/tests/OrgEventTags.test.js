@@ -9,7 +9,6 @@ import {
 } from "@testing-library/react-native";
 import OrgDaySchedule from "../screens/OrgDaySchedule";
 import OrgEventTagScreen from "../screens/OrgEventTags";
-import { Alert } from "react-native";
 
 it("Renders Create New Event Last Page Correctly", () => {
   const tree = render(

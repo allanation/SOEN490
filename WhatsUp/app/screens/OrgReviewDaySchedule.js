@@ -1,3 +1,6 @@
+/* eslint-disable react/jsx-no-undef */
+/* eslint-disable no-undef */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
@@ -20,6 +23,7 @@ import AppModal from "../components/AppModal";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
+import { storeItinerary } from "./OrgDetails";
 import { Storage } from "expo-storage";
 
 function OrgReviewDaySchedule({ day }) {
@@ -105,18 +109,6 @@ function OrgReviewDaySchedule({ day }) {
     //Store the information before leaving page
     storeItinerary(itinerary);
     navigation.navigate("OrgReviewEventTags");
-  };
-
-  const storeItinerary = async (itinerary) => {
-    try {
-      const jsonValue = JSON.stringify(itinerary);
-      await Storage.setItem({
-        key: "itinerary",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
   };
 
   const ItemView = ({ item }) => {
