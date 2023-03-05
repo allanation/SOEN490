@@ -1,15 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Alert,
-  Image,
-  FlatList,
-  RefreshControl,
-} from "react-native";
+import { View, FlatList, RefreshControl } from "react-native";
 import React, { useState, useEffect } from "react";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
@@ -53,9 +44,7 @@ function OrgNotifications() {
 
   const deleteNotifs = (id) => {
     for (const event of orgEvents) {
-      console.log(event.guid + "    " + id);
       if (event.guid == id) {
-        console.log(orgEvents.indexOf(event));
         orgEvents.splice(orgEvents.indexOf(event), 1);
       }
     }
@@ -63,7 +52,6 @@ function OrgNotifications() {
 
   useEffect(() => {
     getEvents();
-    console.log(orgEvents);
   }, []);
 
   const pullMe = () => {
@@ -79,6 +67,7 @@ function OrgNotifications() {
   showEvents = orgEvents ? (
     <>
       <FlatList
+        contentContainerStyle={{ paddingBottom: 400 }}
         data={orgEvents}
         renderItem={ItemView}
         refreshControl={

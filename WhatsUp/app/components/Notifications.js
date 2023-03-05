@@ -6,7 +6,7 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Platform
+  Platform,
 } from "react-native";
 import React from "react";
 import logo from "../Images/w3.png";
@@ -62,14 +62,13 @@ function Notifications({ title, status, statusChangeDate, onPress }) {
 
 const styles = StyleSheet.create({
   banner: {
-    
     width: "95%",
     alignSelf: "center",
     backgroundColor: "#fdfdfd",
     flex: 0.31,
     flexDirection: "row",
     borderRadius: 18,
-    shadowColor:"#757575",
+    shadowColor: "#757575",
     shadowRadius: 4,
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: "#fdfdfd",
-    shadowColor:"#757575",
+    shadowColor: "#757575",
     shadowRadius: 8,
     shadowOpacity: 0.3,
     shadowOffset: {
