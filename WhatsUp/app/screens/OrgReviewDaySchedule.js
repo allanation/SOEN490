@@ -127,35 +127,6 @@ function OrgReviewDaySchedule({ day }) {
     );
   };
 
-  const searchFilter = (text) => {
-    if (text && displayedItinerary) {
-      const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else {
-      displayedItinerary
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
-    }
-  };
-
   var showItinerary;
 
   showItinerary = (
@@ -178,6 +149,7 @@ function OrgReviewDaySchedule({ day }) {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <UtilBtn
             icon='chevron-back-outline'
+            testID={"backButton"}
             onPress={() => {
               storeItinerary(itinerary);
               navigation.navigate("OrgReviewDateInfo");
@@ -200,6 +172,7 @@ function OrgReviewDaySchedule({ day }) {
         style={{ alignSelf: "flex-end", marginRight: 24 }}
         icon='add-circle'
         onPress={() => setModalVisible(true)}
+        testID={"addDayIcon"}
       />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
@@ -232,10 +205,11 @@ function OrgReviewDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} onPress={() => goToTagsPage()}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"}  onPress={() => goToTagsPage()}></AppButton>
       </View>
       <AppModal
         animationType='fade'
+        testID={"addDayModal"}
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -246,6 +220,7 @@ function OrgReviewDaySchedule({ day }) {
           <View style={styles.inputView}>
             <UtilBtn
               icon='chevron-back-outline'
+              testID={"goBackModal"}
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
@@ -280,6 +255,7 @@ function OrgReviewDaySchedule({ day }) {
               />
               <AppButton
                 title='Add'
+                testID={"addDayButton"}
                 style={{ marginTop: 0 }}
                 onPress={() =>
                   handleAddEvent(

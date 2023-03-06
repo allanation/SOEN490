@@ -35,11 +35,13 @@ function OrgReviewDateInfo() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => navigation.navigate("OrgReviewPOC")}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
+          testID={"dateInfoTitle"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
@@ -59,7 +61,7 @@ function OrgReviewDateInfo() {
         </View>
       </View>
       <View>
-        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"} onPress={validateEventDate}></AppButton>
       </View>
     </Screen>
   );

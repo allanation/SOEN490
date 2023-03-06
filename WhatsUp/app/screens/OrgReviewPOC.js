@@ -86,6 +86,7 @@ function OrgReviewPOC() {
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           onPress={() => goBackToNewEvent()}
+          testID={"backButton"}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
@@ -125,6 +126,7 @@ function OrgReviewPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
+        testID={"nextButton"}
         onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>
