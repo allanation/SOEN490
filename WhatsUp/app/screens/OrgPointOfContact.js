@@ -54,7 +54,7 @@ function OrganizerPOC() {
 
     //Store the information before leaving page
     storePOC(POC);
-    navigation.navigate("OrgReviewEvent");
+    navigation.navigate("NewEvent");
   };
 
   const getPOCData = async () => {

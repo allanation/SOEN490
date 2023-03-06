@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState } from "react";
-import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
+import { StyleSheet, View, Platform, Alert, Text } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
@@ -10,15 +10,19 @@ import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import AndroidDateTimePicker from "../components/AndroidDateTimePicker";
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
-import { Storage } from "expo-storage";
+import colors from "../config/colors";
 
 function OrganizerDateInfo() {
   const navigation = useNavigation();
   const itinerary = [];
   const [days, setDays] = useState("");
   const validateEventDate = async (days) => {
-    if(days.length == 0){
+    if (days.length == 0) {
       Alert.alert("Error", "Please fill out the number of days.");
+      return;
+    }
+    if (isNaN(days)) {
+      Alert.alert("Error", "Please enter a number.");
       return;
     }
     try {
@@ -32,10 +36,14 @@ function OrganizerDateInfo() {
         return;
       } else {
         await Storage.setItem({
-          key: 'days',
-          value: days
-        })
-        navigation.push("OrgDay", {day: parseInt(days), i: 1, itinerary: itinerary});
+          key: "days",
+          value: days,
+        });
+        navigation.push("OrgDay", {
+          day: parseInt(days),
+          i: 1,
+          itinerary: itinerary,
+        });
       }
     } catch (e) {
       console.log(e);
@@ -46,7 +54,7 @@ function OrganizerDateInfo() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon='chevron-back-outline'
+          icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
           testID={"backButton"}
           onPress={() => navigation.navigate("POC")}
@@ -61,15 +69,15 @@ function OrganizerDateInfo() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title='Please pick the dates for your event'
+          title="Please pick the dates for your event"
         />
       </View>
-      <View style={{paddingTop: 15}}>
-      <AppTextInput
-            placeholder="Number of days"
-            value={days}
-            onChangeText={(day) => setDays(day)}
-          ></AppTextInput>
+      <View style={{ paddingTop: 15 }}>
+        <AppTextInput
+          placeholder="Number of days"
+          value={days}
+          onChangeText={(day) => setDays(day)}
+        ></AppTextInput>
       </View>
       <View style={{ paddingTop: 2 }}>
         <View>
@@ -79,9 +87,20 @@ function OrganizerDateInfo() {
             <AndroidDateTimePicker />
           )}
         </View>
+        {Platform.OS === "ios" ? (
+          <Text style={{ alignSelf: "center", color: colors.lightGrey }}>
+            You must confirm your event dates before proceeding.
+          </Text>
+        ) : (
+          <Text></Text>
+        )}
       </View>
       <View>
-        <AppButton title={"Next"} testID={"nextButton"} onPress={() => validateEventDate(days)}></AppButton>
+        <AppButton
+          title={"Next"}
+          testID={"nextButton"}
+          onPress={() => validateEventDate(days)}
+        ></AppButton>
       </View>
     </Screen>
   );
