@@ -210,9 +210,9 @@ function OrganizerDashboardScreen() {
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <View style={styles.headerContent}>
+            <View>
               <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{getTodayDate()}</Text>
+                <Text>{getTodayDate()}</Text>
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
@@ -221,13 +221,12 @@ function OrganizerDashboardScreen() {
             </View>
             <UtilBtn
               iconSize={40}
-              style={[styles.button, { flexDirection: "row", size: 12 }]}
+              style={{ flexDirection: "row", size: 12 }}
               icon="add-circle-outline"
               testID="addEventButton"
               onPress={() => navigation.navigate("NewEvent")}
             />
           </View>
-
           <View style={styles.searchBar}>
             <SearchBar
               placeholder="Search for..."

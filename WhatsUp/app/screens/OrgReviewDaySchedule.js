@@ -83,6 +83,10 @@ function OrgReviewDaySchedule({ day }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
     const newItinerary = {
       title: title,
       startTime: startTime,
@@ -250,13 +254,13 @@ function OrgReviewDaySchedule({ day }) {
                 }
               />
               <AppTextInput
-                placeholder='Location (optional)'
+                placeholder='Location'
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
                 title='Add'
                 testID={"addDayButton"}
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 15 }}
                 onPress={() =>
                   handleAddEvent(
                     title,

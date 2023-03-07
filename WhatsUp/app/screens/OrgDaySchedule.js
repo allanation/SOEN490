@@ -50,6 +50,10 @@ function OrganizerDaySchedule({ route }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
 
     const newSchedule = {
       title: title,
@@ -200,12 +204,12 @@ function OrganizerDaySchedule({ route }) {
                 }
               />
               <AppTextInput
-                placeholder="Location (optional)"
+                placeholder="Location"
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
                 title="Add"
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 15 }}
                 testID={"addDayButton"}
                 onPress={() =>
                   handleAddEvent(
