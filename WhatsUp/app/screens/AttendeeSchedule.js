@@ -85,10 +85,6 @@ function AttendeeSchedule({ route }) {
         renderItem={ItemView}
         style={{}}
       />
-      <FlatList
-        data={filteredOrgData ? filteredOrgData : []}
-        renderItem={ItemView}
-      />
     </>
   );
 

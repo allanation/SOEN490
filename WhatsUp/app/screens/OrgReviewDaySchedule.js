@@ -24,10 +24,9 @@ import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import uuid from "react-native-uuid";
 import { storeItinerary } from "./OrgDetails";
-import { Storage } from "expo-storage";
 
-function OrgReviewDaySchedule({ day }) {
-  const [itinerary, setItinerary] = useState([]);
+function OrgReviewDaySchedule({ route }) {
+  const [schedule, setSchedule] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [startTime, setStartTime] = useState("");
@@ -36,29 +35,18 @@ function OrgReviewDaySchedule({ day }) {
   const [location, setLocation] = useState("");
   const navigation = useNavigation();
   const ids = uuid.v4();
-
-  const [filteredData, setFilteredData] = useState("");
-  const [filteredOrgData, setFilteredOrgData] = useState("");
+  const {day, i, itinerary} = route.params;
 
   useEffect(() => {
-    getItineraryData();
-  }, []);
+    getSchedule()
+}, []);
 
-  const getItineraryData = async () => {
-    try {
-      const itinerary = await Storage.getItem({
-        key: "itinerary",
-      });
-      if (itinerary !== null) {
-        const ItineraryObject = JSON.parse(itinerary);
-        if (ItineraryObject.length !== 0) {
-          setItinerary(ItineraryObject);
-        }
-      }
-    } catch (e) {
-      console.log(e);
+const getSchedule = async () => {
+    if(i<=itinerary.length){
+    const thisDay = itinerary[i-1];
+    setSchedule(thisDay.schedule);
     }
-  };
+}
 
   const handleAddEvent = async (
     title,
@@ -83,94 +71,54 @@ function OrgReviewDaySchedule({ day }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
-    const newItinerary = {
+
+    const newSchedule = {
       title: title,
       startTime: startTime,
       endTime: endTime,
       description: description,
       location: location,
-      id: ids,
-    };
+      id: ids
+    }
 
-    setItinerary((itinerary) => [...itinerary, newItinerary]);
+    setSchedule((schedule) => [...schedule, newSchedule]);
     setModalVisible(false);
   };
 
-  const onRemove = (id) => () => {
-    setItinerary(itinerary.filter((item) => item.id !== id));
-  };
-
-  const onEdit = (newItinerary) => () => {
-    setItinerary(itinerary.filter((item) => item.id !== newItinerary.id));
-    setItinerary((itinerary) => [...itinerary, newItinerary]);
-  };
-
-  const goToTagsPage = async () => {
-    //Store the information before leaving page
-    storeItinerary(itinerary);
-    navigation.navigate("OrgReviewEventTags");
-  };
-
-  const ItemView = ({ item }) => {
-    return (
-      <View>
-        <Text style={styles.subtitle}>Day {item.day}</Text>
-        <ItineraryEventSched
-          title={item.title}
-          startTime={item.startTime}
-          endTime={item.endTime}
-          location={item.location}
-          description={item.description}
-          id={item.id}
-        />
-      </View>
-    );
-  };
-
-  const searchFilter = (text) => {
-    if (text && displayedItinerary) {
-      const newData = masterData.filter((item) => {
-        const itemData = item.title
-          ? item.title.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = masterData.filter((item) => {
-        const itemData = item.organizer
-          ? item.organizer.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else {
-      displayedItinerary
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
+  const addItinerary = async (day,schedule) => {
+    const newItinerary = {
+      day: day.toString(),
+      schedule: schedule,
+    };
+    if(day<=itinerary.length){
+    itinerary[day-1] = newItinerary;
+    }else{
+    itinerary.push(newItinerary);
     }
   };
 
-  var showItinerary;
+  const onRemove = (id) => () => {
+    setSchedule(schedule.filter((item) => item.id !== id));
+  };
 
-  showItinerary = (
-    <>
-      <FlatList
-        data={filteredData ? filteredData : itinerary}
-        renderItem={ItemView}
-        style={{}}
-      />
-      <FlatList
-        data={filteredOrgData ? filteredOrgData : []}
-        renderItem={ItemView}
-      />
-    </>
-  );
+  const onEdit = (newSchedule) => () => {
+    console.log("test");
+    setSchedule(schedule.filter((item) => item.id !== newSchedule.id));
+    setSchedule((schedule) => [...schedule, newSchedule]);
+  };
+
+  const goToNextPage = async () => {
+    //Store the information before leaving page
+    if(i==day){
+      addItinerary(i, schedule);
+      itinerary.length = day;
+      storeItinerary(itinerary);
+      navigation.navigate("OrgReviewEventTags");
+    }else{ 
+      addItinerary(i, schedule);
+      navigation.push("OrgReviewDaySchedule", {day: day, i: (i+1), itinerary: itinerary});
+    }
+  };
 
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -179,14 +127,13 @@ function OrgReviewDaySchedule({ day }) {
           <UtilBtn
             icon='chevron-back-outline'
             onPress={() => {
-              storeItinerary(itinerary);
-              navigation.navigate("OrgReviewDateInfo");
+              navigation.goBack()
             }}
             style={{ position: "absolute", left: 0 }}
           />
           <TitleHeaders
             style={{ alignSelf: "center" }}
-            title={"Day " + (day ? day + " " : "") + "schedule"}
+            title={"Day " + (i) + " Schedule"}
           />
         </View>
 
@@ -204,7 +151,7 @@ function OrgReviewDaySchedule({ day }) {
       <ScrollView>
         <View style={{ marginTop: 12 }}>
           <View>
-            {itinerary.length == 0 ? (
+          {schedule.length == 0 ? (
               <Text
                 style={{
                   color: colors.lightGrey,
@@ -215,7 +162,7 @@ function OrgReviewDaySchedule({ day }) {
                 'No items in your itinerary yet...'
               </Text>
             ) : (
-              itinerary.map((event) => (
+              schedule.map((event) => (
                 <ItineraryEvent
                   title={event.title}
                   startTime={event.startTime}
@@ -232,7 +179,7 @@ function OrgReviewDaySchedule({ day }) {
         </View>
       </ScrollView>
       <View>
-        <AppButton title={"Next"} onPress={() => goToTagsPage()}></AppButton>
+      <AppButton title={"Next"} onPress={() => goToNextPage()}></AppButton>
       </View>
       <AppModal
         animationType='fade'

@@ -75,6 +75,11 @@ function OrgReviewEventTags() {
       });
       const eventDatesObject = JSON.parse(eventDates);
 
+      //Get day object
+      const days = await Storage.getItem({
+        key: 'days',
+      });
+
       //Get itinerary object
       const itinerary = await Storage.getItem({
         key: "itinerary",
@@ -105,6 +110,7 @@ function OrgReviewEventTags() {
               pocName: POCObject.pocName,
               pocPhoneNum: POCObject.pocPhoneNum,
               pocEmail: POCObject.pocEmail,
+              days: days,
               startDate: eventDatesObject.startDate,
               startTime: eventDatesObject.startTime,
               endDate: eventDatesObject.endDate,
@@ -116,6 +122,7 @@ function OrgReviewEventTags() {
              Storage.removeItem({ key: "newEvent" });
              Storage.removeItem({ key: "POC" });
              Storage.removeItem({ key: "eventDates" });
+             Storage.removeItem({ key: 'days'});
              Storage.removeItem({ key: "itinerary" });
              Storage.removeItem({ key: "tags" });
   
@@ -156,7 +163,7 @@ function OrgReviewEventTags() {
           style={{ position: "absolute", left: 0 }}
           onPress={() => {
             storeTags(tags);
-            navigation.navigate("OrgReviewDaySchedule");
+            navigation.goBack();
           }}
         />
         <TitleHeaders
