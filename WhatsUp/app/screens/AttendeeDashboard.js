@@ -35,7 +35,7 @@ export const getTodayDate = () => {
     "November",
     "December",
   ];
-  return "Today's " + months[date.getMonth()] + " " + date.getDate();
+  return "Today's " + months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
 };
 
 function AttendeeDashboard() {
@@ -180,7 +180,7 @@ function AttendeeDashboard() {
         <View>
           <View style={styles.header}>
             <View>
-              <Text style={{ color: colors.darkGrey }}>
+              <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
                 <Text>{getTodayDate()}</Text>
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
@@ -199,7 +199,7 @@ function AttendeeDashboard() {
 
           <View style={styles.searchBar}>
             <SearchBar
-              placeholder="Search for..."
+              placeholder="Search for event..."
               handleChange={(text) => {
                 searchFilter(text);
               }}

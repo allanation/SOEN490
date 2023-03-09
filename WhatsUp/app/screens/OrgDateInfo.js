@@ -75,6 +75,7 @@ function OrganizerDateInfo() {
       </View>
       <View style={{ paddingTop: 15 }}>
         <AppTextInput
+          style={styles.shadow}
           placeholder="Number of days"
           value={days}
           onChangeText={(day) => setDays(day)}
@@ -127,6 +128,14 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   paragraph: { textAlign: "center" },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
+  },
 });
 
 export default OrganizerDateInfo;

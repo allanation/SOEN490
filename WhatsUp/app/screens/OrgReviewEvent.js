@@ -152,21 +152,25 @@ function OrgReviewEvent() {
         <View>
           <AppTextInput
             placeholder="Event Title"
+            style={styles.shadow}
             value={eventName}
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Organization Name"
+            style={styles.shadow}
             value={orgName}
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Location"
+            style={styles.shadow}
             value={location}
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
             placeholder="Link for ticket purchase (optional)"
+            style={styles.shadow}
             value={link}
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
@@ -177,6 +181,11 @@ function OrgReviewEvent() {
               height: 100,
               textAlignVertical: "top",
               color: colors.lightGrey,
+              shadowColor: "black", // IOS
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 3, //IOS
+              elevation: 2, // Android
             }}
             placeholder="Description"
             value={description}
@@ -354,9 +363,10 @@ function OrgReviewEvent() {
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => handleCoverImage(Art, "Art")}
-                 testID={"artImage"}
-                 >
+                <TouchableOpacity
+                  onPress={() => handleCoverImage(Art, "Art")}
+                  testID={"artImage"}
+                >
                   <Image
                     source={Art}
                     style={
@@ -467,6 +477,14 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 3,
     borderColor: colors.primary,
+  },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
 });
 

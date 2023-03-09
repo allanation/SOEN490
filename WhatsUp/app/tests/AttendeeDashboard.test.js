@@ -85,7 +85,7 @@ test("When searching in search bar for fa, it should return events that include 
     </NavigationContainer>
   );
   await waitFor(() => {
-    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"fa");
+    fireEvent.changeText(screen.getByPlaceholderText("Search for event..."),"fa");
   });
 });
 

@@ -211,7 +211,7 @@ function OrganizerDashboardScreen() {
         <View>
           <View style={styles.header}>
             <View>
-              <Text style={{ color: colors.darkGrey }}>
+              <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
                 <Text>{getTodayDate()}</Text>
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
@@ -229,7 +229,7 @@ function OrganizerDashboardScreen() {
           </View>
           <View style={styles.searchBar}>
             <SearchBar
-              placeholder="Search for..."
+              placeholder="Search for event..."
               handleChange={(text) => {
                 searchFilter(text);
               }}

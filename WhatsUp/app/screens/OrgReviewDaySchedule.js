@@ -235,26 +235,31 @@ function OrgReviewDaySchedule({ day }) {
             >
               <AppTextInput
                 placeholder='Title'
+                style={styles.shadow}
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
               />
               <AppTextInput
                 placeholder='Start Time'
+                style={styles.shadow}
                 onChangeText={(currentStartTime) =>
                   setStartTime(currentStartTime)
                 }
               />
               <AppTextInput
                 placeholder='End Time'
+                style={styles.shadow}
                 onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
               />
               <AppTextInput
                 placeholder='Description'
+                style={styles.shadow}
                 onChangeText={(currentDescription) =>
                   setDescription(currentDescription)
                 }
               />
               <AppTextInput
                 placeholder='Location'
+                style={styles.shadow}
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
@@ -326,6 +331,14 @@ const styles = StyleSheet.create({
   },
   backModal: {
     backgroundColor: "black",
+  },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
 });
 
