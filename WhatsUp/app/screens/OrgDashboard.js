@@ -19,6 +19,7 @@ import UtilBtn from "../components/UtilBtn";
 import { convertStartDate } from "./AttendeeDashboard.js";
 import Event from "../components/Event";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import EventScreen from "./EventScreen";
 import { getTodayDate } from "./AttendeeDashboard.js";
 
 function OrganizerDashboardScreen() {
@@ -26,6 +27,8 @@ function OrganizerDashboardScreen() {
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
+  const [previousEvents, setPreviousEvents] = useState([]);
+  const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -50,8 +53,8 @@ function OrganizerDashboardScreen() {
         allEvents.push(doc.data());
       });
       setAllEvents(allEvents);
-      setMasterData(allEvents);
-      setPreviousData(allEvents);
+      setUpcomingEvents(allEvents);
+
     }
   };
 
@@ -63,152 +66,10 @@ function OrganizerDashboardScreen() {
     getName();
     getEvents();
   }, []);
-
-  const [displayedEvent, setDisplayedEvents] = useState(true);
-  const [search, setSearch] = useState("");
-  const [masterData, setMasterData] = useState([]);
-  const [previousData, setPreviousData] = useState([]);
-  const [filteredData, setFilteredData] = useState("");
-  const [filteredOrgData, setFilteredOrgData] = useState("");
-
-  const ItemView = ({ item }) => {
-    return (
-      <Event
-        image={item.coverImage}
-        title={item.eventName}
-        organizer={item.orgName}
-        date={convertStartDate(item.startDate)}
-        isOrganizer={true}
-        coverImageName={item.coverImage}
-        guid={item.guid}
-        onPress={() => navigation.navigate("OrgView", { prop: item })}
-      />
-    );
-  };
-
-  const searchFilter = (text) => {
-    if (text && displayedEvent) {
-      const newData = masterData.filter((item) => {
-        const itemData = item.eventName
-          ? item.eventName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = masterData.filter((item) => {
-        const itemData = item.orgName
-          ? item.orgName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else if (text && !displayedEvent) {
-      const newData = previousData.filter((item) => {
-        const itemData = item.eventName
-          ? item.eventName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = previousData.filter((item) => {
-        const itemData = item.orgName
-          ? item.orgName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else {
-      displayedEvent
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
-    }
-  };
-
-  const toggleDisplay = () => {
-    setDisplayedEvents({ displayedEvent: !displayedEvent });
-  };
-
-  var tabs;
-  var showEvents;
-  if (displayedEvent) {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : allEvents}
-          renderItem={ItemView}
-          style={{}}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  } else {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : allEvents}
-          renderItem={ItemView}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  }
+    
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
       <View style={styles.container}>
-        <View>
           <View style={styles.header}>
             <View style={styles.headerContent}>
               <Text style={{ color: colors.darkGrey }}>
@@ -217,39 +78,45 @@ function OrganizerDashboardScreen() {
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
               </Text>
-              <View style={styles.eventTabs}>{tabs}</View>
-            </View>
-            <UtilBtn
+              <UtilBtn
               iconSize={40}
               style={[styles.button, { flexDirection: "row", size: 12 }]}
               icon="add-circle-outline"
               testID="addEventButton"
               onPress={() => navigation.navigate("NewEvent")}
             />
-          </View>
-
-          <View style={styles.searchBar}>
-            <SearchBar
-              placeholder="Search for..."
-              handleChange={(text) => {
-                searchFilter(text);
-              }}
-            />
-            <UtilBtn
-              iconSize={32}
-              style={[
-                styles.button,
-                { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" },
-              ]}
-              icon="ios-options"
-              testID="filters"
-              onPress={() => console.log("Filters")}
-            />
-          </View>
-          <Text style={styles.eventTitle}>Your Events</Text>
-        </View>
-        {showEvents}
-      </View>
+            </View>
+            </View>
+            </View>
+            <Tab.Navigator
+          screenOptions={{
+          tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
+          tabBarIndicatorStyle: {
+            backgroundColor: colors.primary,
+            width: "35%",
+            marginRight: "5%",
+            marginLeft: "5%",
+          },
+          tabBarStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            marginHorizontal: "10%",
+          },
+        }}
+      >
+        <Tab.Screen
+          name="Upcoming"
+          component={EventScreen}
+          initialParams={{ events: upcomingEvents }}
+        />
+        <Tab.Screen
+          name="Previous"
+          component={EventScreen}
+          initialParams={{ events: previousEvents }}
+        />
+      </Tab.Navigator>
+      
     </Screen>
   );
 }
