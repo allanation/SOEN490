@@ -69,8 +69,11 @@ function OrganizerDaySchedule({ route }) {
       day: day.toString(),
       schedule: schedule,
     };
-
+    if(itinerary?.[i-1]){
+      itinerary[i-1] = newItinerary;
+    }else{
     itinerary.push(newItinerary);
+    }
   };
     
 
