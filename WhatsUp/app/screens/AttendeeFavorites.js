@@ -261,7 +261,7 @@ function AttendeeFavorites() {
             icon="notifications"
             iconSize={24}
             title=""
-            onPress={() => console.log("Notification")}
+            onPress={() => navigation.navigate("AttendeeNotifications")}
             testID="notification"
           />
         </View>

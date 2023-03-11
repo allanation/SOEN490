@@ -29,6 +29,7 @@ import OrgReviewDateInfo from "./screens/OrgReviewDateInfo";
 import OrgReviewDaySchedule from "./screens/OrgReviewDaySchedule";
 import OrgReviewEventTags from "./screens/OrgReviewEventTags";
 import OrgNotifications from "./screens/OrgNotifications";
+import AttendeeNotifications from "./screens/AttendeeNotifications";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -107,6 +108,7 @@ const AttendeeTabScreen = () => {
       <Tab.Screen name="Ticket" component={AttendeeTickets} />
       <Tab.Screen name="Bookmark" component={AttendeeFavorites} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
+      <Tab.Screen name="AttendeeNotifications" component={AttendeeNotifications} />
     </Tab.Navigator>
   );
 };
@@ -148,6 +150,7 @@ export default function App() {
         <Stack.Screen name="Attendee" component={AttendeeTabScreen} />
         <Stack.Screen name="AttendeeView" component={AttendeeView} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="AttendeeNotifications" component={AttendeeNotifications} />
       </Stack.Navigator>
     </NavigationContainer>
   );
