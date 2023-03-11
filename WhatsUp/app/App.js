@@ -108,7 +108,6 @@ const AttendeeTabScreen = () => {
       <Tab.Screen name="Ticket" component={AttendeeTickets} />
       <Tab.Screen name="Bookmark" component={AttendeeFavorites} />
       <Tab.Screen name="UserProfile" component={UserProfile} />
-      <Tab.Screen name="AttendeeNotifications" component={AttendeeNotifications} />
     </Tab.Navigator>
   );
 };

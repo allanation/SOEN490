@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import Screen from "../components/Screen";
 import UtilBtn from "../components/UtilBtn";
@@ -78,9 +77,7 @@ function AttendeeNotifications() {
       };
 
       allBlasts.sort(function(a, b) {
-        var keyA = a.dateSent,
-          keyB = b.dateSent;
-        // Compare the 2 dates
+        const keyA = a.dateSent, keyB = b.dateSent;
         if (keyA < keyB) return 1;
         if (keyA > keyB) return -1;
         return 0;
@@ -115,45 +112,39 @@ function AttendeeNotifications() {
 
     return (
         <Screen style={{ padding: 10, backgroundColor: "#F5F5F5" }}>
-            <Text style={styles.title}>Notifications</Text>
+            <View style={{ flexDirection: "row" }}>
+                <Text style={styles.title}>Notifications</Text>
+                <UtilBtn
+                    icon="home-outline"
+                    iconSize={35}
+                          title=""
+                          style={styles.btn}
+                          onPress={() => navigation.goBack()}
+                          testID="Home"
+                        />
+            </View>
+
             {showNotifications}
+
         </Screen>
     )
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-start",
-    width: "30%",
-  },
   title: {
     color: "#100101",
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 8,
   },
-  date: {
-    color: "#969696",
-    marginTop: "5%",
-    fontSize: 12,
-  },
-  text: {
-    color: "#100101",
-    marginTop: "4%",
-    marginBottom: "3%",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  container: {
-    left: "2.5%",
-    marginTop: "5%",
-    flex: 1,
-    marginBottom: "45%",
-  },
+  btn: {
+      position: "absolute",
+      right: 16,
+      shadowOffset: { height: 0, width: 0 }, // IOS
+      shadowOpacity: 0, // IOS
+      shadowRadius: 0, //IOS
+      elevation: 0, // Android
+    },
 });
 
 export default AttendeeNotifications;
