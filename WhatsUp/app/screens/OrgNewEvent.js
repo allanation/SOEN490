@@ -28,6 +28,7 @@ import Sports from "../assets/CoverImages/Sports.jpg";
 import Studying from "../assets/CoverImages/Studying.jpg";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { storeNewEvent } from "./OrgDetails";
 
 function OrganizerNewEvent() {
   const navigation = useNavigation();
@@ -83,18 +84,6 @@ function OrganizerNewEvent() {
     navigation.navigate("POC");
   };
 
-  const storeNewEvent = async (newEvent) => {
-    try {
-      const jsonValue = JSON.stringify(newEvent);
-      await Storage.setItem({
-        key: "newEvent",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const handleCoverImage = async (coverImage, coverImageName) => {
     setCoverImage(coverImage);
     setCoverImageName(coverImageName);
@@ -124,18 +113,22 @@ function OrganizerNewEvent() {
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Event Title"
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Organization Name"
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Location"
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Link for ticket purchase (optional)"
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
@@ -146,6 +139,11 @@ function OrganizerNewEvent() {
               height: 100,
               textAlignVertical: "top",
               color: colors.lightGrey,
+              shadowColor: "black", // IOS
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 2, //IOS
+              elevation: 4, // Android
             }}
             placeholder="Description"
             onChangeText={(currentDescription) =>
@@ -320,7 +318,7 @@ function OrganizerNewEvent() {
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                   onPress={() => handleCoverImage(Art, "Art")}
                   testID={"artImage"}
                 >
@@ -434,6 +432,13 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 3,
     borderColor: colors.primary,
+  },
+  shadow: {
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 2, //IOS
+    elevation: 4, // Android
   },
 });
 

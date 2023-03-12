@@ -1,18 +1,32 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
-import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Platform, Alert, Text } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
 import ReviewIOSDateTimePicker from "../components/ReviewIOSDateTimePicker";
 import ReviewAndroidDateTimePicker from "../components/ReviewAndroidDateTimePicker";
+import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import colors from "../config/colors";
 
 function OrgReviewDateInfo() {
   const navigation = useNavigation();
-  const validateEventDate = async () => {
+  const [days, setDays] = useState("");
+  const [itinerary, setItinerary] = useState([]);
+    useEffect(() => {
+     getDayData();
+     getItineraryData();
+  }, []);
+
+  const validateEventDate = async (days) => {
+    if(days.length == 0){
+      Alert.alert("Error", "Please fill out the number of days.");
+      return;
+    }
     try {
       //Get NewEvent object
       const newDateInformation = await Storage.getItem({
@@ -23,11 +37,43 @@ function OrgReviewDateInfo() {
         Alert.alert("Error", "Please confirm your event's date information.");
         return;
       } else {
-        navigation.navigate("OrgReviewDaySchedule");
+        await Storage.setItem({
+          key: 'days',
+          value: days
+        })
+       navigation.push("OrgReviewDaySchedule", {day: parseInt(days), i: 1, itinerary: itinerary});
       }
     } catch (e) {
       console.log(e);
     }
+  };
+
+  const getDayData = async () => {
+    try {
+      const day = await Storage.getItem({
+        key: "days",
+      });
+      if (day !== null && day.length !==0) {
+          setDays(day);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getItineraryData = async () => {
+    try {
+      const itinerary = await Storage.getItem({
+        key: "itinerary",
+      });
+      if (itinerary !== null) {
+        setItinerary(JSON.parse(itinerary));
+      }
+
+    } catch (e) {
+      console.log(e);
+    }
+
   };
   return (
     <Screen style={{ padding: 20, marginTop: 30 }}>
@@ -35,11 +81,13 @@ function OrgReviewDateInfo() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => navigation.navigate("OrgReviewPOC")}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
+          testID={"dateInfoTitle"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
@@ -49,7 +97,14 @@ function OrgReviewDateInfo() {
           title='Please pick the dates for your event'
         />
       </View>
-      <View style={{ paddingTop: 20 }}>
+      <View style={{paddingTop: 15}}>
+      <AppTextInput
+            placeholder="Number of days"
+            value={days}
+            onChangeText={(day) => setDays(day)}
+          ></AppTextInput>
+      </View>
+      <View style={{ paddingTop: 2 }}>
         <View>
           {Platform.OS === "ios" ? (
             <ReviewIOSDateTimePicker />
@@ -57,9 +112,16 @@ function OrgReviewDateInfo() {
             <ReviewAndroidDateTimePicker />
           )}
         </View>
+        {Platform.OS === "ios" ? (
+          <Text style={{ alignSelf: "center", color: colors.lightGrey }}>
+            You must confirm your event dates before proceeding.
+          </Text>
+        ) : (
+          <Text></Text>
+        )}
       </View>
       <View>
-        <AppButton title={"Next"} onPress={validateEventDate}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"} onPress={() => validateEventDate(days)}></AppButton>
       </View>
     </Screen>
   );

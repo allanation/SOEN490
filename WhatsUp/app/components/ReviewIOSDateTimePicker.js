@@ -4,6 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
 import { Storage } from "expo-storage";
+import { storeDates } from "../screens/OrgDetails";
 
 function ReviewIOSDateTimePicker() {
   const [startDate, setStartDate] = useState({
@@ -103,6 +104,8 @@ function ReviewIOSDateTimePicker() {
     ) {
       Alert.alert("Error", "Cannot end before the event starts");
       return;
+    } else {
+      Alert.alert("Dates confirmed", "Press Next to proceed to the next page.");
     }
 
     const eventDates = {
@@ -115,37 +118,24 @@ function ReviewIOSDateTimePicker() {
     storeDates(eventDates);
   };
 
-  const storeDates = async (eventDates) => {
-    try {
-      const jsonValue = JSON.stringify(eventDates);
-      await Storage.setItem({
-        key: "eventDates",
-        value: jsonValue,
-      });
-      console.log(jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <View>
       <Text style={styles.text}> Start Date & Time </Text>
       <View style={styles.picker}>
         <DateTimePicker
           style={styles.btn}
-          mode='date'
+          mode="date"
           value={startDate.date}
           onChange={handleSelectStartDate}
           minimumDate={new Date()}
         />
         <DateTimePicker
-          display='inline'
+          display="inline"
           style={styles.btn}
           testID={"startTime"}
-          mode='time'
+          mode="time"
           value={startTime.date}
-          minuteInterval='15'
+          minuteInterval="15"
           onChange={handleSelectStartTime}
         />
       </View>
@@ -161,23 +151,23 @@ function ReviewIOSDateTimePicker() {
       <View style={styles.picker}>
         <DateTimePicker
           style={styles.btn}
-          mode='date'
+          mode="date"
           value={endDate.date}
           minimumDate={startDate.date}
           onChange={handleSelectEndDate}
         />
         <DateTimePicker
-          display='inline'
+          display="inline"
           style={styles.btn}
           testID={"endTime"}
-          mode='time'
+          mode="time"
           value={endTime.date}
-          minuteInterval='15'
+          minuteInterval="15"
           onChange={handleSelectEndTime}
         />
       </View>
       <AppButton
-        title={"Confirm"}
+        title={"Confirm Dates"}
         onPress={() =>
           handleAddingEvent(startDate, startTime, endDate, endTime)
         }

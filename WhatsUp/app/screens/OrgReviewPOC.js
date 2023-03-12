@@ -8,6 +8,7 @@ import TitleHeaders from "../components/TitleHeaders";
 import UtilBtn from "../components/UtilBtn";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import { storePOC } from "./OrgDetails";
 
 function OrgReviewPOC() {
   const navigation = useNavigation();
@@ -56,18 +57,6 @@ function OrgReviewPOC() {
     navigation.navigate("OrgReviewEvent", { route: "" });
   };
 
-  const storePOC = async (POC) => {
-    try {
-      const jsonValue = JSON.stringify(POC);
-      await Storage.setItem({
-        key: "POC",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   const getPOCData = async () => {
     try {
       const POC = await Storage.getItem({
@@ -97,6 +86,7 @@ function OrgReviewPOC() {
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           onPress={() => goBackToNewEvent()}
+          testID={"backButton"}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
@@ -114,11 +104,13 @@ function OrgReviewPOC() {
         <View>
           <AppTextInput
             placeholder='Name'
+            style={styles.shadow}
             value={pocName}
             onChangeText={(currentName) => setPocName(currentName)}
           ></AppTextInput>
           <AppTextInput
             placeholder='Phone Number'
+            style={styles.shadow}
             value={pocPhoneNum}
             onChangeText={(currentPhoneNumber) =>
               setPocPhoneNum(currentPhoneNumber)
@@ -126,6 +118,7 @@ function OrgReviewPOC() {
           ></AppTextInput>
           <AppTextInput
             placeholder='Email'
+            style={styles.shadow}
             value={pocEmail}
             onChangeText={(currentEmail) => setPocEmail(currentEmail)}
           ></AppTextInput>
@@ -136,6 +129,7 @@ function OrgReviewPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
+        testID={"nextButton"}
         onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>

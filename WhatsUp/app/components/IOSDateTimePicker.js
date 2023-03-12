@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Alert } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import colors from '../config/colors';
-import AppButton from './AppButton';
-import { Storage } from 'expo-storage';
+import React, { useState } from "react";
+import { StyleSheet, View, Text, Alert } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import colors from "../config/colors";
+import AppButton from "./AppButton";
+import { storeDates } from "../screens/OrgDetails";
 
 function IOSDateTimePicker() {
   const [startDate, setStartDate] = useState({
@@ -20,7 +20,7 @@ function IOSDateTimePicker() {
   });
   const [endTime, setEndTime] = useState({
     date: new Date(),
-    timestamp: '',
+    timestamp: "",
   });
 
   const handleSelectStartDate = (e) => {
@@ -52,16 +52,18 @@ function IOSDateTimePicker() {
   };
 
   const handleAddingEvent = async (startDate, startTime, endDate, endTime) => {
-    if (endTime.timestamp == '') {
-      Alert.alert('Error', 'Please select a later timestamp');
+    if (endTime.timestamp == "") {
+      Alert.alert("Error", "Please select a later timestamp");
       return;
     }
     if (
       startDate.timestamp == endDate.timestamp &&
       endTime.timestamp < startTime.timestamp
     ) {
-      Alert.alert('Error', 'Cannot end before the event starts');
+      Alert.alert("Error", "Cannot end before the event starts");
       return;
+    } else {
+      Alert.alert("Dates confirmed", "Press Next to proceed to the next page.");
     }
 
     const eventDates = {
@@ -74,37 +76,24 @@ function IOSDateTimePicker() {
     storeDates(eventDates);
   };
 
-  const storeDates = async (eventDates) => {
-    try {
-      const jsonValue = JSON.stringify(eventDates);
-      await Storage.setItem({
-        key: 'eventDates',
-        value: jsonValue,
-      });
-      console.log(jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
     <View>
       <Text style={styles.text}> Start Date & Time </Text>
       <View style={styles.picker}>
         <DateTimePicker
           style={styles.btn}
-          mode='date'
+          mode="date"
           value={startDate.date}
           onChange={handleSelectStartDate}
           minimumDate={new Date()}
         />
         <DateTimePicker
-          display='inline'
+          display="inline"
           style={styles.btn}
           testID={"startTime"}
-          mode='time'
+          mode="time"
           value={startTime.date}
-          minuteInterval='15'
+          minuteInterval="15"
           onChange={handleSelectStartTime}
         />
       </View>
@@ -112,31 +101,31 @@ function IOSDateTimePicker() {
         style={{
           flex: 1,
           height: 1,
-          width: '100%',
-          backgroundColor: 'lightgrey',
+          width: "100%",
+          backgroundColor: "lightgrey",
         }}
       />
       <Text style={styles.text}> End Date & Time </Text>
       <View style={styles.picker}>
         <DateTimePicker
           style={styles.btn}
-          mode='date'
+          mode="date"
           value={endDate.date}
           minimumDate={startDate.date}
           onChange={handleSelectEndDate}
         />
         <DateTimePicker
-          display='inline'
+          display="inline"
           style={styles.btn}
           testID={"endTime"}
-          mode='time'
+          mode="time"
           value={endTime.date}
-          minuteInterval='15'
+          minuteInterval="15"
           onChange={handleSelectEndTime}
         />
       </View>
       <AppButton
-        title={'Confirm'}
+        title={"Confirm Dates"}
         onPress={() =>
           handleAddingEvent(startDate, startTime, endDate, endTime)
         }
@@ -148,15 +137,15 @@ function IOSDateTimePicker() {
 const styles = StyleSheet.create({
   picker: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
     padding: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirectionL: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirectionL: "row",
   },
   btn: {
-    accentColor: 'red',
-    width: '40%',
+    accentColor: "red",
+    width: "40%",
     marginBottom: 10,
   },
   text: {
@@ -164,10 +153,10 @@ const styles = StyleSheet.create({
     color: colors.darkerGrey,
     marginTop: 10,
     fontSize: 24,
-    alignContent: 'center',
-    alignSelf: 'center',
+    alignContent: "center",
+    alignSelf: "center",
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 });
 

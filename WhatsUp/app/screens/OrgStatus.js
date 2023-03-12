@@ -54,14 +54,14 @@ function OrgStatus({ route }) {
             marginTop: "7.5%"
           }}
         >
-          Number of Participants
+          {prop.eventStatus === "Rejected" ? "" : "Number of Participants" }
         </Text>
       </View>
       <View>
         <Text
           style={styles.text}
         >
-          Currently unavailable.
+          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" }
         </Text>
       </View>
       <View>
@@ -74,14 +74,34 @@ function OrgStatus({ route }) {
             marginTop: "7.5%"
           }}
         >
-          Number of Favorites
+          {prop.eventStatus === "Rejected" ? "" : "Number of Favorites" }
         </Text>
       </View>
       <View>
         <Text
           style={styles.text}
         >
-          Currently unavailable.
+          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" } 
+        </Text>
+      </View>
+      <View>
+        <Text
+          style={{
+            marginBottom: "2%",
+            fontSize: 18,
+            fontWeight: "bold",
+            marginLeft: "1%",
+            marginTop: "7.5%"
+          }}
+        >
+          {prop.eventStatus === "Rejected" ? "Comments from Admin" : "" } 
+        </Text>
+      </View>
+      <View>
+        <Text
+          style={styles.text}
+        >
+          {prop.eventStatus === "Rejected" ? prop.adminComment : "" }
         </Text>
       </View>
       </ScrollView>

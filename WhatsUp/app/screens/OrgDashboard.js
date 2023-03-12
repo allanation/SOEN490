@@ -80,7 +80,7 @@ function OrganizerDashboardScreen() {
         date={convertStartDate(item.startDate)}
         isOrganizer={true}
         coverImageName={item.coverImage}
-        guid ={item.guid}
+        guid={item.guid}
         onPress={() => navigation.navigate("OrgView", { prop: item })}
       />
     );
@@ -210,9 +210,9 @@ function OrganizerDashboardScreen() {
       <View style={styles.container}>
         <View>
           <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{getTodayDate()}</Text>
+            <View>
+              <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
+                <Text>{getTodayDate()}</Text>
               </Text>
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
@@ -221,16 +221,15 @@ function OrganizerDashboardScreen() {
             </View>
             <UtilBtn
               iconSize={40}
-              style={[styles.button, { flexDirection: "row", size: 12 }]}
+              style={{ flexDirection: "row", size: 12 }}
               icon="add-circle-outline"
               testID="addEventButton"
               onPress={() => navigation.navigate("NewEvent")}
             />
           </View>
-
           <View style={styles.searchBar}>
             <SearchBar
-              placeholder="Search for..."
+              placeholder="Search for event..."
               handleChange={(text) => {
                 searchFilter(text);
               }}

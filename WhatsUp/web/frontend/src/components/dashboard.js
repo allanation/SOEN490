@@ -97,12 +97,31 @@ function Dashboard() {
     } else console.error("Cant find rejected events at the moment");
   };
 
+  var date = new Date();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  var statusChangeDate =
+    months[date.getMonth()].substring(0, 3) + " " + date.getDate();
+
   // Rejects the event onClick
   const handleRejectEvents = async (x) => {
     const changingToReject = doc(db, "events", x);
     await updateDoc(changingToReject, {
       eventStatus: "Rejected",
       adminComment: adminComment,
+      statusChangeDate: statusChangeDate,
     });
   };
 
@@ -111,6 +130,7 @@ function Dashboard() {
     const changingToApprove = doc(db, "events", x);
     await updateDoc(changingToApprove, {
       eventStatus: "Approved",
+      statusChangeDate: statusChangeDate,
     });
   };
 
@@ -230,28 +250,34 @@ function Dashboard() {
                   <div className='details-right col-6'>
                     <p className='text-title'>Schedule</p>
                     {unapprovedEvent.itinerary.map(
-                      (unapprovedEventItinerary, index) => (
+                      (unapprovedEventItinerary) => (
                         <div className='schedule'>
                           <div className='text'></div>
                           <div className='day'>
-                            <p className='day-count'>Day {index + 1}</p>
-                            <div className='day-itinerary'>
-                              <p className='day-title'>
-                                {unapprovedEventItinerary.title}
-                              </p>
-                              <div className='time-place'>
-                                <p className='time'>
-                                  {unapprovedEventItinerary.startTime} -{" "}
-                                  {unapprovedEventItinerary.endTime}
-                                </p>
-                                <p className='place'>
-                                  {unapprovedEventItinerary.location}
-                                </p>
-                              </div>
-                              <p className='itinerary-description'>
-                                {unapprovedEventItinerary.description}
-                              </p>
-                            </div>
+                            <p className='day-count'>
+                              Day {unapprovedEventItinerary.day}
+                            </p>
+                            {unapprovedEventItinerary.schedule.map(
+                              (unapprovedEventSchedule) => (
+                                <div className='day-itinerary'>
+                                  <p className='day-title'>
+                                    {unapprovedEventSchedule.title}
+                                  </p>
+                                  <div className='time-place'>
+                                    <p className='time'>
+                                      {unapprovedEventSchedule.startTime} -{" "}
+                                      {unapprovedEventSchedule.endTime}
+                                    </p>
+                                    <p className='place'>
+                                      {unapprovedEventSchedule.location}
+                                    </p>
+                                  </div>
+                                  <p className='itinerary-description'>
+                                    {unapprovedEventSchedule.description}
+                                  </p>
+                                </div>
+                              )
+                            )}
                           </div>
                         </div>
                       )
@@ -410,33 +436,37 @@ function Dashboard() {
                   </div>
                   <div className='details-right col-6'>
                     <p className='text-title'>Schedule</p>
-                    {approvedEvent.itinerary.map(
-                      (approvedEventItinerary, index) => (
-                        <div className='schedule'>
-                          <div className='text'></div>
-                          <div className='day'>
-                            <p className='day-count'>Day {index + 1}</p>
-                            <div className='day-itinerary'>
-                              <p className='day-title'>
-                                {approvedEventItinerary.title}
-                              </p>
-                              <div className='time-place'>
-                                <p className='time'>
-                                  {approvedEventItinerary.startTime}-{" "}
-                                  {approvedEventItinerary.endTime}
+                    {approvedEvent.itinerary.map((approvedEventItinerary) => (
+                      <div className='schedule'>
+                        <div className='text'></div>
+                        <div className='day'>
+                          <p className='day-count'>
+                            Day {approvedEventItinerary.day}
+                          </p>
+                          {approvedEventItinerary.schedule.map(
+                            (approvedEventSchedule) => (
+                              <div className='day-itinerary'>
+                                <p className='day-title'>
+                                  {approvedEventSchedule.title}
                                 </p>
-                                <p className='place'>
-                                  {approvedEventItinerary.location}
+                                <div className='time-place'>
+                                  <p className='time'>
+                                    {approvedEventSchedule.startTime}-{" "}
+                                    {approvedEventSchedule.endTime}
+                                  </p>
+                                  <p className='place'>
+                                    {approvedEventSchedule.location}
+                                  </p>
+                                </div>
+                                <p className='itinerary-description'>
+                                  {approvedEventSchedule.description}
                                 </p>
                               </div>
-                              <p className='itinerary-description'>
-                                {approvedEventItinerary.description}
-                              </p>
-                            </div>
-                          </div>
+                            )
+                          )}
                         </div>
-                      )
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -534,33 +564,37 @@ function Dashboard() {
                   </div>
                   <div className='details-right col-6'>
                     <p className='text-title'>Schedule</p>
-                    {rejectedEvent.itinerary.map(
-                      (rejectedEventItinerary, index) => (
-                        <div className='schedule'>
-                          <div className='text'></div>
-                          <div className='day'>
-                            <p className='day-count'>Day {index + 1}</p>
-                            <div className='day-itinerary'>
-                              <p className='day-title'>
-                                {rejectedEventItinerary.title}
-                              </p>
-                              <div className='time-place'>
-                                <p className='time'>
-                                  {rejectedEventItinerary.startTime} -{" "}
-                                  {rejectedEventItinerary.endTime}
+                    {rejectedEvent.itinerary.map((rejectedEventItinerary) => (
+                      <div className='schedule'>
+                        <div className='text'></div>
+                        <div className='day'>
+                          <p className='day-count'>
+                            Day {rejectedEventItinerary.day}
+                          </p>
+                          {rejectedEventItinerary.schedule.map(
+                            (rejectedEventSchedule) => (
+                              <div className='day-itinerary'>
+                                <p className='day-title'>
+                                  {rejectedEventSchedule.title}
                                 </p>
-                                <p className='place'>
-                                  {rejectedEventItinerary.location}
+                                <div className='time-place'>
+                                  <p className='time'>
+                                    {rejectedEventSchedule.startTime} -{" "}
+                                    {rejectedEventSchedule.endTime}
+                                  </p>
+                                  <p className='place'>
+                                    {rejectedEventSchedule.location}
+                                  </p>
+                                </div>
+                                <p className='itinerary-description'>
+                                  {rejectedEventSchedule.description}
                                 </p>
                               </div>
-                              <p className='itinerary-description'>
-                                {rejectedEventItinerary.description}
-                              </p>
-                            </div>
-                          </div>
+                            )
+                          )}
                         </div>
-                      )
-                    )}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -617,9 +651,7 @@ function Dashboard() {
         <div className='search col-12'>
           <TextField
             id='input-with-icon-textfield'
-            label='Search for...'
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            label='Search for event...'
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>

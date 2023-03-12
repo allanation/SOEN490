@@ -1,10 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import colors from "../config/colors";
 import AppButton from "./AppButton";
 import { Storage } from "expo-storage";
+import { storeDates } from "../screens/OrgDetails";
 
 function ReviewAndroidDateTimePicker() {
   useEffect(() => {
@@ -36,7 +37,8 @@ function ReviewAndroidDateTimePicker() {
   const [mode, setMode] = useState("date");
   const [show, setShow] = useState(false);
   const [clicked, setClicked] = useState("");
-  const onChange = (event, selectedDate) => {
+  
+  const onChange = (selectedDate) => {
     const currentDate = selectedDate;
     setDate(currentDate);
     if (clicked == "startDate") {
@@ -103,18 +105,7 @@ function ReviewAndroidDateTimePicker() {
     //If every mandatory fields is filled out, store the information and go to next page
     storeDates(eventDates);
   };
-  const storeDates = async (eventDates) => {
-    try {
-      const jsonValue = JSON.stringify(eventDates);
-      await Storage.setItem({
-        key: "eventDates",
-        value: jsonValue,
-      });
-      console.log(jsonValue);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
   return (
     <View>
       <View style={styles.picker}>

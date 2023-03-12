@@ -1,4 +1,5 @@
 import React from "react";
+import ImgOrgBottom from "../components/ImgOrgBottom"
 import { useState } from "react";
 import { StyleSheet, View, Alert } from "react-native";
 import AppButton from "../components/AppButton";
@@ -63,6 +64,7 @@ export default function ResetPassword() {
       <View style={styles.organizertwo}>
         <Links style={styles.link} link="Back to Login" onPress={Login} />
       </View>
+      <ImgOrgBottom resizeMode="contain" />
     </Screen>
   );
 }
