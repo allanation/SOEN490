@@ -5,20 +5,15 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
-import SearchBar from "../components/SearchBar";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
-import { convertStartDate } from "./AttendeeDashboard.js";
-import Event from "../components/Event";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import EventScreen from "./EventScreen";
 import { getTodayDate } from "./AttendeeDashboard.js";
 
@@ -27,8 +22,9 @@ function OrganizerDashboardScreen() {
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
-  const [previousEvents, setPreviousEvents] = useState([]);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
+ 
+  const previousEvents = [];
+  const upcomingEvents = [];
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -42,25 +38,26 @@ function OrganizerDashboardScreen() {
   };
 
   const getEvents = async () => {
-    const allEvents = [];
+    
     const q = query(
       collection(db, "events"),
-      where("pocEmail", "==", user.email)
-    );
+      where("pocEmail", "==", user.email));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        allEvents.push(doc.data());
+        if(Date(doc.data().endDate) <= Date.now){
+          upcomingEvents.push(doc.data());
+        }else{
+          previousEvents.push(doc.data());
+        }
       });
-      setAllEvents(allEvents);
-      setUpcomingEvents(allEvents);
-
+   
     }
   };
 
   var welcome = "Welcome, " + userName + "!";
 
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
   useEffect(() => {
     getName();
@@ -70,11 +67,10 @@ function OrganizerDashboardScreen() {
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
       <View style={styles.container}>
-          <View style={styles.header}>
-            <View style={styles.headerContent}>
-              <Text style={{ color: colors.darkGrey }}>
-                <Text style={styles.paragraph}>{getTodayDate()}</Text>
-              </Text>
+         
+                <Text style={{ color: colors.darkGrey }}>{getTodayDate()}</Text>
+                <View style={styles.header}>
+                
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
               </Text>
@@ -86,11 +82,10 @@ function OrganizerDashboardScreen() {
               onPress={() => navigation.navigate("NewEvent")}
             />
             </View>
-            </View>
-            </View>
+          
             <Tab.Navigator
           screenOptions={{
-          tabBarLabelStyle: { fontSize: 16, fontWeight: "bold" },
+          tabBarLabelStyle: { fontSize: 15, fontWeight: "bold" },
           tabBarIndicatorStyle: {
             backgroundColor: colors.primary,
             width: "35%",
@@ -98,11 +93,13 @@ function OrganizerDashboardScreen() {
             marginLeft: "5%",
           },
           tabBarStyle: {
+            backgroundColor: colors.offWhite,
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            marginHorizontal: "10%",
+            marginHorizontal: "4%",
           },
+          lazy: true
         }}
       >
         <Tab.Screen
@@ -116,55 +113,16 @@ function OrganizerDashboardScreen() {
           initialParams={{ events: previousEvents }}
         />
       </Tab.Navigator>
-      
+    
+      </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-end",
-    width: "50%",
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  eventTitle: {
-    fontWeight: "bold",
-    fontSize: 18,
-    marginTop: 16,
-  },
-  searchBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 18,
-  },
-  filter: {
-    justifyContent: "center",
-  },
-  eventTabs: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 15,
-    marginBottom: 5,
-  },
-  upcoming: {
-    marginTop: 5,
-    borderBottomWidth: 2,
-    borderBottomColor: colors.primary,
-    paddingBottom: 5,
-    fontWeight: "bold",
-    marginLeft: "20%",
-  },
-  previous: {
-    marginTop: 5,
-    paddingBottom: 5,
-    marginLeft: "20%",
   },
   container: {
     left: "2.5%",

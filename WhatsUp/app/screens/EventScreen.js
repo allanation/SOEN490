@@ -5,21 +5,14 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
   FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
-import colors from "../config/colors";
 import SearchBar from "../components/SearchBar";
 import { useNavigation } from "@react-navigation/native";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "../firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
 import { convertStartDate } from "./AttendeeDashboard.js";
 import Event from "../components/Event";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { getTodayDate } from "./AttendeeDashboard.js";
 
 function EventScreen({navigation, route}) {
   const navigations = useNavigation();
@@ -33,9 +26,10 @@ function EventScreen({navigation, route}) {
     const [displayedEvent, setDisplayedEvents] = useState(true);
 
     useEffect(() => {
-        setEvents(route.params.events);
-        setMasterData(events);
-      setPreviousData(events);
+      const event = route.params.events;
+        setEvents(event);
+        setMasterData(event);
+      setPreviousData(event);
       }, []);
 
     const ItemView = ({ item }) => {
@@ -117,7 +111,7 @@ function EventScreen({navigation, route}) {
       );
 
   return (
-    <Screen style={{ padding: 20, marginTop: 10 }}>
+    <Screen>
     <View style={styles.container}>
     <View style={styles.searchBar}>
             <SearchBar
@@ -138,9 +132,10 @@ function EventScreen({navigation, route}) {
             />
           </View>
           <Text style={styles.eventTitle}>Your Events</Text>
-        
+        <View>
         {showEvents}
-      </View>
+        </View>
+        </View>
     </Screen>
   );
 }
@@ -149,30 +144,12 @@ const styles = StyleSheet.create({
     searchBar: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginTop: 18,
+      paddingRight: 5
     },
-    eventTabs: {
-      flexDirection: "row",
-      justifyContent: "space-between",
-      marginTop: 15,
-      marginBottom: 5,
-    },
-    upcoming: {
-      marginTop: 5,
-      borderBottomWidth: 2,
-      borderBottomColor: colors.primary,
-      paddingBottom: 5,
-      fontWeight: "bold",
-      marginLeft: "20%",
-    },
-    previous: {
-      marginTop: 5,
-      paddingBottom: 5,
-      marginLeft: "20%",
+    eventTitle: {
+      padding: 10,
     },
     container: {
-      left: "2.5%",
-      marginTop: "2%",
       flex: 1,
     },
   });
