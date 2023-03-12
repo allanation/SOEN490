@@ -22,7 +22,8 @@ function Blast({
   id,
   ...key
 }) {
-  const subTitle = title.substring(0, 10) + "...";
+
+  const subTitle = title.substring(0, 9) + "...";
   const subMessage = message.substring(0, 99) + "...";
 
   return (
@@ -47,22 +48,22 @@ function Blast({
       </View>
 
       <View style={{ flex: 3, marginLeft: 15 }}>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.text}>
-            {title.length < 11 ? title : subTitle}
-          </Text>
-          <Text
-            style={{
-              fontSize: 9,
-              color: "#100101",
-              marginRight: "2%",
-              marginTop: "5%",
-              flex: 1,
-              textAlign: "right",
-            }}
-          >
-            {date}
-          </Text>
+        <View style={{flexDirection: "row"}}>
+        <Text style={styles.text}>
+          {title.length < 10 ? title : subTitle}
+        </Text>
+        <Text
+                    style={{
+                      fontSize: 9,
+                      color: "#100101",
+                      marginRight: "2%",
+                      marginTop: "5%",
+                      flex: 1,
+                      textAlign: "right",
+                    }}
+                  >
+                    {date}
+                  </Text>
         </View>
         <View style={{ marginTop: 5, flexDirection: "row" }}>
           <Text style={styles.message}>

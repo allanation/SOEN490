@@ -9,11 +9,9 @@ import Blast from "../components/Blast";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
-import { format } from "date-fns";
+import { convertStartDate } from "./AttendeeDashboard.js";
 
-const convertStartDate = (number) => {
-  return number ? format(new Date(number), "MMM LL H:mm") : "";
-};
+import { format } from "date-fns";
 
 function AttendeeNotifications() {
   const navigation = useNavigation();
@@ -55,22 +53,24 @@ function AttendeeNotifications() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         for (const books of allBooked) {
-          const notifs = doc.data().notifications;
-          if (!(notifs === undefined)) {
-            for (const stuff of notifs) {
-              const temp = {
-                coverImage: doc.data().coverImage,
-                eventName: doc.data().eventName,
-                dateSent: stuff.dateSent,
-                message: stuff.message,
-                link: doc.data(),
-              };
-              if (!times.includes(temp.dateSent)) {
-                times.push(temp.dateSent);
-                allBlasts.push(temp);
-              }
+            if (books == doc.id){
+                const notifs = doc.data().notifications;
+                if (!(notifs === undefined)) {
+                    for (const stuff of notifs) {
+                        const temp = {
+                            coverImage: doc.data().coverImage,
+                            eventName: doc.data().eventName,
+                            dateSent: stuff.dateSent,
+                            message: stuff.message,
+                            link: doc.data(),
+                        };
+                        if (!times.includes(temp.dateSent)) {
+                            times.push(temp.dateSent);
+                            allBlasts.push(temp);
+                        }
+                    }
+                }
             }
-          }
         }
       });
     }
@@ -84,33 +84,37 @@ function AttendeeNotifications() {
     return 0;
   });
 
-  useEffect(() => {
-    console.log("useEffect used");
-    getBookmarksAndTickets();
-    getBlasts();
-  }, []);
+      async function bookmarkAndgetBlasts() {
+        await getBookmarksAndTickets();
+        await getBlasts();
+      }
+
+      useEffect(() => {
+        console.log("useEffect used");
+        bookmarkAndgetBlasts();
+      }, []);
+
+
+      const ItemView = ({ item }) => {
+        return (
+          <Blast
+            image={item.coverImage}
+            title={item.eventName}
+            date={convertStartDate(item.dateSent) + format(new Date(item.dateSent), " H:mm")}
+            message = {item.message}
+            coverImageName={item.coverImage}
+            id={item.id}
+            onPress={() => navigation.navigate("AttendeeView", { prop: item.link })}
+          />
+        );
+      };
 
   const pullMe = () => {
     setRefresh(true);
-    getBookmarksAndTickets();
-    getBlasts();
+    bookmarkAndgetBlasts();
     setTimeout(() => {
       setRefresh(false);
     }, 1000);
-  };
-
-  const ItemView = ({ item }) => {
-    return (
-      <Blast
-        image={item.coverImage}
-        title={item.eventName}
-        date={convertStartDate(item.dateSent)}
-        message={item.message}
-        coverImageName={item.coverImage}
-        id={item.id}
-        onPress={() => navigation.navigate("AttendeeView", { prop: item.link })}
-      />
-    );
   };
 
   const showNotifications = (
@@ -136,7 +140,6 @@ function AttendeeNotifications() {
           testID="Home"
         />
       </View>
-
       {showNotifications}
     </Screen>
   );
@@ -153,7 +156,7 @@ const styles = StyleSheet.create({
   btn: {
     position: "absolute",
     marginTop: 10,
-    right: 16,
+    right: "2%",
     shadowOffset: { height: 0, width: 0 }, // IOS
     shadowOpacity: 0, // IOS
     shadowRadius: 0, //IOS
