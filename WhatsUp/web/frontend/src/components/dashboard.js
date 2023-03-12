@@ -651,7 +651,9 @@ function Dashboard() {
         <div className='search col-12'>
           <TextField
             id='input-with-icon-textfield'
-            label='Search for event...'
+            label='Search for...'
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position='start'>
@@ -708,6 +710,26 @@ function Dashboard() {
                 </div>
               </div>
             ))}
+          {/* {filteredUnapprovedEvents.length === 0 ? (
+            <>
+              <div className={"event-banner col-12"}>
+                <div className='view-event-image'></div>
+                <div className='event-banner-text'></div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
+          {filteredApprovedEvents.length === 0 ? (
+            <>
+              <div className={"event-banner col-12"}>
+                <div className='view-event-image'></div>
+                <div className='event-banner-text'></div>
+              </div>
+            </>
+          ) : (
+            <></>
+          )} */}
           {viewApproved &&
             approvedevents &&
             filteredApprovedEvents.map((approvedEvent) => (
