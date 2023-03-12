@@ -45,10 +45,10 @@ function OrganizerDashboardScreen() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        if(Date(doc.data().endDate) <= Date.now){
-          upcomingEvents.push(doc.data());
-        }else{
+        if(doc.data().endDate < Date.now()){
           previousEvents.push(doc.data());
+        }else{
+          upcomingEvents.push(doc.data());
         }
       });
    
@@ -95,7 +95,7 @@ function OrganizerDashboardScreen() {
             marginLeft: "5%",
           },
           tabBarStyle: {
-            backgroundColor: colors.offWhite,
+            backgroundColor: 'transparent',
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,

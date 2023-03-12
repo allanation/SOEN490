@@ -147,7 +147,9 @@ const styles = StyleSheet.create({
       paddingRight: 5
     },
     eventTitle: {
-      padding: 10,
+      fontWeight: "bold",
+      fontSize: 18,
+      marginTop: 16,
     },
     container: {
       flex: 1,
