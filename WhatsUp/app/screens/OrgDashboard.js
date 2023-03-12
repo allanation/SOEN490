@@ -5,20 +5,16 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity,
-  FlatList,
 } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
-import SearchBar from "../components/SearchBar";
 import { useNavigation } from "@react-navigation/native";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import UtilBtn from "../components/UtilBtn";
-import { convertStartDate } from "./AttendeeDashboard.js";
-import Event from "../components/Event";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import EventScreen from "./EventScreen";
 import { getTodayDate } from "./AttendeeDashboard.js";
 
 function OrganizerDashboardScreen() {
@@ -26,6 +22,9 @@ function OrganizerDashboardScreen() {
 
   const [userName, setUserName] = useState("");
   const [allEvents, setAllEvents] = useState([]);
+ 
+  const previousEvents = [];
+  const upcomingEvents = [];
   const [user] = useAuthState(auth);
 
   const getName = async () => {
@@ -39,264 +38,93 @@ function OrganizerDashboardScreen() {
   };
 
   const getEvents = async () => {
-    const allEvents = [];
+    
     const q = query(
       collection(db, "events"),
-      where("pocEmail", "==", user.email)
-    );
+      where("pocEmail", "==", user.email));
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        allEvents.push(doc.data());
+        if(doc.data().endDate < Date.now()){
+          previousEvents.push(doc.data());
+        }else{
+          upcomingEvents.push(doc.data());
+        }
       });
-      setAllEvents(allEvents);
-      setMasterData(allEvents);
-      setPreviousData(allEvents);
+   
     }
   };
 
   var welcome = "Welcome, " + userName + "!";
 
-  const Tab = createBottomTabNavigator();
+  const Tab = createMaterialTopTabNavigator();
 
   useEffect(() => {
     getName();
     getEvents();
   }, []);
-
-  const [displayedEvent, setDisplayedEvents] = useState(true);
-  const [search, setSearch] = useState("");
-  const [masterData, setMasterData] = useState([]);
-  const [previousData, setPreviousData] = useState([]);
-  const [filteredData, setFilteredData] = useState("");
-  const [filteredOrgData, setFilteredOrgData] = useState("");
-
-  const ItemView = ({ item }) => {
-    return (
-      <Event
-        image={item.coverImage}
-        title={item.eventName}
-        organizer={item.orgName}
-        date={convertStartDate(item.startDate)}
-        isOrganizer={true}
-        coverImageName={item.coverImage}
-        guid={item.guid}
-        onPress={() => navigation.navigate("OrgView", { prop: item })}
-      />
-    );
-  };
-
-  const searchFilter = (text) => {
-    if (text && displayedEvent) {
-      const newData = masterData.filter((item) => {
-        const itemData = item.eventName
-          ? item.eventName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = masterData.filter((item) => {
-        const itemData = item.orgName
-          ? item.orgName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else if (text && !displayedEvent) {
-      const newData = previousData.filter((item) => {
-        const itemData = item.eventName
-          ? item.eventName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      const orgSearch = previousData.filter((item) => {
-        const itemData = item.orgName
-          ? item.orgName.toUpperCase()
-          : "".toUpperCase();
-        const textData = text.toUpperCase();
-        return itemData.indexOf(textData) > -1;
-      });
-
-      setFilteredOrgData(orgSearch);
-      setFilteredData(newData);
-      setSearch(text);
-    } else {
-      displayedEvent
-        ? setFilteredData(masterData)
-        : setFilteredData(previousData);
-      setSearch(text);
-    }
-  };
-
-  const toggleDisplay = () => {
-    setDisplayedEvents({ displayedEvent: !displayedEvent });
-  };
-
-  var tabs;
-  var showEvents;
-  if (displayedEvent) {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : allEvents}
-          renderItem={ItemView}
-          style={{}}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  } else {
-    tabs = (
-      <>
-        <TouchableOpacity
-          title="Show Form 1"
-          onPress={() => setDisplayedEvents(true)}
-          style={styles.previous}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          title="Show Form 2"
-          onPress={() => setDisplayedEvents(false)}
-          style={styles.upcoming}
-        >
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Previous</Text>
-        </TouchableOpacity>
-      </>
-    );
-    showEvents = (
-      <>
-        <FlatList
-          data={filteredData ? filteredData : allEvents}
-          renderItem={ItemView}
-        />
-        <FlatList
-          data={filteredOrgData ? filteredOrgData : []}
-          renderItem={ItemView}
-        />
-      </>
-    );
-  }
+    
   return (
     <Screen style={{ padding: 20, marginTop: 10 }}>
       <View style={styles.container}>
-        <View>
-          <View style={styles.header}>
-            <View>
-              <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
+         
+                <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
                 <Text>{getTodayDate()}</Text>
-              </Text>
+                </Text>
+                <View style={styles.header}>
+                
               <Text style={{ fontWeight: "bold", fontSize: 25 }}>
                 {welcome}
               </Text>
-              <View style={styles.eventTabs}>{tabs}</View>
-            </View>
-            <UtilBtn
+              <UtilBtn
               iconSize={40}
               style={{ flexDirection: "row", size: 12 }}
               icon="add-circle-outline"
               testID="addEventButton"
               onPress={() => navigation.navigate("NewEvent")}
             />
-          </View>
-          <View style={styles.searchBar}>
-            <SearchBar
-              placeholder="Search for event..."
-              handleChange={(text) => {
-                searchFilter(text);
-              }}
-            />
-            <UtilBtn
-              iconSize={32}
-              style={[
-                styles.button,
-                { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" },
-              ]}
-              icon="ios-options"
-              testID="filters"
-              onPress={() => console.log("Filters")}
-            />
-          </View>
-          <Text style={styles.eventTitle}>Your Events</Text>
-        </View>
-        {showEvents}
+            </View>
+          
+            <Tab.Navigator
+          screenOptions={{
+          tabBarLabelStyle: { fontSize: 15, fontWeight: "bold" },
+          tabBarIndicatorStyle: {
+            backgroundColor: colors.primary,
+            width: "35%",
+            marginRight: "5%",
+            marginLeft: "5%",
+          },
+          tabBarStyle: {
+            backgroundColor: 'transparent',
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            marginHorizontal: "4%",
+          },
+          lazy: true
+        }}
+      >
+        <Tab.Screen
+          name="Upcoming"
+          component={EventScreen}
+          initialParams={{ events: upcomingEvents }}
+        />
+        <Tab.Screen
+          name="Previous"
+          component={EventScreen}
+          initialParams={{ events: previousEvents }}
+        />
+      </Tab.Navigator>
+    
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-end",
-    width: "50%",
-  },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  eventTitle: {
-    fontWeight: "bold",
-    fontSize: 18,
-    marginTop: 16,
-  },
-  searchBar: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 18,
-  },
-  filter: {
-    justifyContent: "center",
-  },
-  eventTabs: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 15,
-    marginBottom: 5,
-  },
-  upcoming: {
-    marginTop: 5,
-    borderBottomWidth: 2,
-    borderBottomColor: colors.primary,
-    paddingBottom: 5,
-    fontWeight: "bold",
-    marginLeft: "20%",
-  },
-  previous: {
-    marginTop: 5,
-    paddingBottom: 5,
-    marginLeft: "20%",
   },
   container: {
     left: "2.5%",
