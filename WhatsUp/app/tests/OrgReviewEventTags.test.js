@@ -7,13 +7,14 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import OrgDaySchedule from "../screens/OrgDaySchedule";
-import OrgEventTagScreen from "../screens/OrgEventTags";
+import OrgReviewEventTagsScreen from "../screens/OrgReviewEventTags";
+import OrgReviewDayScheduleScreen from "../screens/OrgReviewDaySchedule";
+import { Alert } from "react-native";
 
-it("Renders Create New Event Last Page Correctly", () => {
+it("Renders Review Event Last Page Correctly", () => {
   const tree = render(
     <NavigationContainer>
-      <OrgEventTagScreen />
+      <OrgReviewEventTagsScreen />
     </NavigationContainer>
   ).toJSON();
   expect(tree).toMatchSnapshot();
@@ -22,7 +23,7 @@ it("Renders Create New Event Last Page Correctly", () => {
 test("Successfully adding a tag", async () => {
   render(
     <NavigationContainer>
-      <OrgEventTagScreen />
+      <OrgReviewEventTagsScreen />
     </NavigationContainer>
   );
 
@@ -39,7 +40,7 @@ test("Successfully adding a tag", async () => {
 test("Successfully submitting an event", async () => {
   render(
     <NavigationContainer>
-      <OrgEventTagScreen />
+      <OrgReviewEventTagsScreen />
     </NavigationContainer>
   );
 
@@ -49,10 +50,10 @@ test("Successfully submitting an event", async () => {
 
 });
 
-test("Successfully go back to org day schedule page when clicking on go back Icon", async () => {
+test("Successfully go back to org review day schedule page when clicking on go back Icon", async () => {
   render(
     <NavigationContainer>
-      <OrgEventTagScreen />
+      <OrgReviewEventTagsScreen />
     </NavigationContainer>
   );
 
@@ -61,7 +62,7 @@ test("Successfully go back to org day schedule page when clicking on go back Ico
   });
   render(
     <NavigationContainer>
-      <OrgDaySchedule />
+      <OrgReviewDayScheduleScreen />
     </NavigationContainer>
   );
 });
@@ -146,7 +147,7 @@ test("Successfully go back to org day schedule page when clicking on go back Ico
 
 //   render(
 //     <NavigationContainer>
-//       <OrgEventTagScreen />
+//       <OrgReviewEventTagsScreen />
 //     </NavigationContainer>
 //   );
 //   await waitFor(() => {

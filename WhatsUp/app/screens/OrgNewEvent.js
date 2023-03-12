@@ -113,18 +113,22 @@ function OrganizerNewEvent() {
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Event Title"
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Organization Name"
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Location"
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
+            style={styles.shadow}
             placeholder="Link for ticket purchase (optional)"
             onChangeText={(currentLink) => setLink(currentLink)}
           ></AppTextInput>
@@ -135,6 +139,11 @@ function OrganizerNewEvent() {
               height: 100,
               textAlignVertical: "top",
               color: colors.lightGrey,
+              shadowColor: "black", // IOS
+              shadowOffset: { height: 1, width: 1 }, // IOS
+              shadowOpacity: 0.2, // IOS
+              shadowRadius: 2, //IOS
+              elevation: 4, // Android
             }}
             placeholder="Description"
             onChangeText={(currentDescription) =>
@@ -309,7 +318,7 @@ function OrganizerNewEvent() {
                     }
                   />
                 </TouchableOpacity>
-                <TouchableOpacity 
+                <TouchableOpacity
                   onPress={() => handleCoverImage(Art, "Art")}
                   testID={"artImage"}
                 >
@@ -423,6 +432,13 @@ const styles = StyleSheet.create({
     margin: 10,
     borderWidth: 3,
     borderColor: colors.primary,
+  },
+  shadow: {
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 2, //IOS
+    elevation: 4, // Android
   },
 });
 

@@ -86,6 +86,7 @@ function OrgReviewPOC() {
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           onPress={() => goBackToNewEvent()}
+          testID={"backButton"}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
@@ -103,11 +104,13 @@ function OrgReviewPOC() {
         <View>
           <AppTextInput
             placeholder='Name'
+            style={styles.shadow}
             value={pocName}
             onChangeText={(currentName) => setPocName(currentName)}
           ></AppTextInput>
           <AppTextInput
             placeholder='Phone Number'
+            style={styles.shadow}
             value={pocPhoneNum}
             onChangeText={(currentPhoneNumber) =>
               setPocPhoneNum(currentPhoneNumber)
@@ -115,6 +118,7 @@ function OrgReviewPOC() {
           ></AppTextInput>
           <AppTextInput
             placeholder='Email'
+            style={styles.shadow}
             value={pocEmail}
             onChangeText={(currentEmail) => setPocEmail(currentEmail)}
           ></AppTextInput>
@@ -125,6 +129,7 @@ function OrgReviewPOC() {
       </ScrollView>
       <AppButton
         title={"Next"}
+        testID={"nextButton"}
         onPress={() => handleAddingOrganizerPOC(pocName, pocPhoneNum, pocEmail)}
       ></AppButton>
     </Screen>

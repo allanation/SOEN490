@@ -60,6 +60,10 @@ function OrganizerDaySchedule({ route }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
 
     const newSchedule = {
       title: title,
@@ -194,31 +198,36 @@ function OrganizerDaySchedule({ route }) {
             >
               <AppTextInput
                 placeholder="Title"
+                style={styles.shadow}
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
               />
               <AppTextInput
                 placeholder="Start Time"
+                style={styles.shadow}
                 onChangeText={(currentStartTime) =>
                   setStartTime(currentStartTime)
                 }
               />
               <AppTextInput
                 placeholder="End Time"
+                style={styles.shadow}
                 onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
               />
               <AppTextInput
                 placeholder="Description"
+                style={styles.shadow}
                 onChangeText={(currentDescription) =>
                   setDescription(currentDescription)
                 }
               />
               <AppTextInput
-                placeholder="Location (optional)"
+                placeholder="Location"
+                style={styles.shadow}
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
                 title="Add"
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 15 }}
                 testID={"addDayButton"}
                 onPress={() =>
                   handleAddEvent(
@@ -284,6 +293,14 @@ const styles = StyleSheet.create({
   },
   backModal: {
     backgroundColor: "black",
+  },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
 });
 

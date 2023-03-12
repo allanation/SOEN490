@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
+import { StyleSheet, View, Platform, Alert, Text } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
@@ -11,6 +11,7 @@ import ReviewAndroidDateTimePicker from "../components/ReviewAndroidDateTimePick
 import AppTextInput from "../components/AppTextInput";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import colors from "../config/colors";
 
 function OrgReviewDateInfo() {
   const navigation = useNavigation();
@@ -80,11 +81,13 @@ function OrgReviewDateInfo() {
         <UtilBtn
           icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
+          testID={"backButton"}
           onPress={() => navigation.navigate("OrgReviewPOC")}
         />
         <TitleHeaders
           style={{ alignSelf: "center" }}
           title={"Set Date Information"}
+          testID={"dateInfoTitle"}
         />
       </View>
       <View style={{ width: "100%", display: "flex" }}>
@@ -109,9 +112,16 @@ function OrgReviewDateInfo() {
             <ReviewAndroidDateTimePicker />
           )}
         </View>
+        {Platform.OS === "ios" ? (
+          <Text style={{ alignSelf: "center", color: colors.lightGrey }}>
+            You must confirm your event dates before proceeding.
+          </Text>
+        ) : (
+          <Text></Text>
+        )}
       </View>
       <View>
-        <AppButton title={"Next"} onPress={() => validateEventDate(days)}></AppButton>
+        <AppButton title={"Next"} testID={"nextButton"} onPress={() => validateEventDate(days)}></AppButton>
       </View>
     </Screen>
   );

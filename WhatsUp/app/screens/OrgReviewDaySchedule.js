@@ -71,7 +71,10 @@ const getSchedule = async () => {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
-
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
     const newSchedule = {
       title: title,
       startTime: startTime,
@@ -126,6 +129,7 @@ const getSchedule = async () => {
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <UtilBtn
             icon='chevron-back-outline'
+            testID={"backButton"}
             onPress={() => {
               navigation.goBack()
             }}
@@ -147,6 +151,7 @@ const getSchedule = async () => {
         style={{ alignSelf: "flex-end", marginRight: 24 }}
         icon='add-circle'
         onPress={() => setModalVisible(true)}
+        testID={"addDayIcon"}
       />
       <ScrollView>
         <View style={{ marginTop: 12 }}>
@@ -179,10 +184,11 @@ const getSchedule = async () => {
         </View>
       </ScrollView>
       <View>
-      <AppButton title={"Next"} onPress={() => goToNextPage()}></AppButton>
+      <AppButton title={"Next"} testID={"nextButton"} onPress={() => goToNextPage()}></AppButton>
       </View>
       <AppModal
         animationType='fade'
+        testID={"addDayModal"}
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -193,6 +199,7 @@ const getSchedule = async () => {
           <View style={styles.inputView}>
             <UtilBtn
               icon='chevron-back-outline'
+              testID={"goBackModal"}
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
@@ -203,31 +210,37 @@ const getSchedule = async () => {
             >
               <AppTextInput
                 placeholder='Title'
+                style={styles.shadow}
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
               />
               <AppTextInput
                 placeholder='Start Time'
+                style={styles.shadow}
                 onChangeText={(currentStartTime) =>
                   setStartTime(currentStartTime)
                 }
               />
               <AppTextInput
                 placeholder='End Time'
+                style={styles.shadow}
                 onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
               />
               <AppTextInput
                 placeholder='Description'
+                style={styles.shadow}
                 onChangeText={(currentDescription) =>
                   setDescription(currentDescription)
                 }
               />
               <AppTextInput
-                placeholder='Location (optional)'
+                placeholder='Location'
+                style={styles.shadow}
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
                 title='Add'
-                style={{ marginTop: 0 }}
+                testID={"addDayButton"}
+                style={{ marginTop: 15 }}
                 onPress={() =>
                   handleAddEvent(
                     title,
@@ -293,6 +306,14 @@ const styles = StyleSheet.create({
   },
   backModal: {
     backgroundColor: "black",
+  },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
 });
 
