@@ -73,6 +73,11 @@ function OrgReviewEventTags() {
       });
       const eventDatesObject = JSON.parse(eventDates);
 
+      //Get day object
+      const days = await Storage.getItem({
+        key: 'days',
+      });
+
       //Get itinerary object
       const itinerary = await Storage.getItem({
         key: "itinerary",
@@ -101,6 +106,7 @@ function OrgReviewEventTags() {
               pocName: POCObject.pocName,
               pocPhoneNum: POCObject.pocPhoneNum,
               pocEmail: POCObject.pocEmail,
+              days: days,
               startDate: eventDatesObject.startDate,
               startTime: eventDatesObject.startTime,
               endDate: eventDatesObject.endDate,
@@ -108,15 +114,16 @@ function OrgReviewEventTags() {
               itinerary: itineraryObject,
               tags: tags,
               guid: newEventObject.guid,
-            });
-            Storage.removeItem({ key: "newEvent" });
-            Storage.removeItem({ key: "POC" });
-            Storage.removeItem({ key: "eventDates" });
-            Storage.removeItem({ key: "itinerary" });
-            Storage.removeItem({ key: "tags" });
-
-            Alert.alert("Event Reviewed Succesfully");
-            navigation.navigate("Organizer");
+          });
+             Storage.removeItem({ key: "newEvent" });
+             Storage.removeItem({ key: "POC" });
+             Storage.removeItem({ key: "eventDates" });
+             Storage.removeItem({ key: 'days'});
+             Storage.removeItem({ key: "itinerary" });
+             Storage.removeItem({ key: "tags" });
+  
+             Alert.alert("Event Reviewed Succesfully");
+             navigation.navigate("Organizer");
           } catch (e) {
             console.log(e);
           }
@@ -153,7 +160,7 @@ function OrgReviewEventTags() {
           testID={"backButton"}
           onPress={() => {
             storeTags(tags);
-            navigation.navigate("OrgReviewDaySchedule");
+            navigation.goBack();
           }}
         />
         <TitleHeaders

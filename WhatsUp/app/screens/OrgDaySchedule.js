@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
@@ -26,6 +26,16 @@ function OrganizerDaySchedule({ route }) {
   const navigation = useNavigation();
   const ids = uuid.v4();
   const {day, i, itinerary} = route.params;
+
+  useEffect(() => {
+    getSchedule()
+}, []);
+
+  const getSchedule = async () => {
+    if(itinerary?.[i-1]){
+      setSchedule(itinerary[i-1].schedule)
+    }
+  };
 
   const handleAddEvent = async (
     title,
@@ -73,8 +83,11 @@ function OrganizerDaySchedule({ route }) {
       day: day.toString(),
       schedule: schedule,
     };
-
+    if(itinerary?.[i-1]){
+      itinerary[i-1] = newItinerary;
+    }else{
     itinerary.push(newItinerary);
+    }
   };
     
 
