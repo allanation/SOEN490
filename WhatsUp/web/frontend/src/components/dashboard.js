@@ -628,7 +628,7 @@ function Dashboard() {
         <div className="search col-12">
           <TextField
             id="input-with-icon-textfield"
-            label="Search for..."
+            label="Search for event..."
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

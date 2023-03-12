@@ -104,11 +104,13 @@ function OrgReviewPOC() {
         <View>
           <AppTextInput
             placeholder='Name'
+            style={styles.shadow}
             value={pocName}
             onChangeText={(currentName) => setPocName(currentName)}
           ></AppTextInput>
           <AppTextInput
             placeholder='Phone Number'
+            style={styles.shadow}
             value={pocPhoneNum}
             onChangeText={(currentPhoneNumber) =>
               setPocPhoneNum(currentPhoneNumber)
@@ -116,6 +118,7 @@ function OrgReviewPOC() {
           ></AppTextInput>
           <AppTextInput
             placeholder='Email'
+            style={styles.shadow}
             value={pocEmail}
             onChangeText={(currentEmail) => setPocEmail(currentEmail)}
           ></AppTextInput>

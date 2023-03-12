@@ -12,6 +12,7 @@ import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 import { getTodayDate } from "./AttendeeDashboard";
+import colors from "../config/colors";
 
 import { format } from "date-fns";
 
@@ -242,53 +243,50 @@ function AttendeeTickets() {
   );
 
   return (
-    <Screen style={{ padding: 10, backgroundColor: "#F5F5F5" }}>
+    <Screen style={{ padding: 20, marginTop: 10 }}>
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <UtilBtn
-            icon="pin"
-            iconSize={18}
-            title="Montreal, QC"
-            onPress={() => console.log("Location")}
-            testID="location"
-          />
-          <UtilBtn
-            style={{ position: "absolute", right: 16 }}
-            icon="notifications"
-            iconSize={24}
-            title=""
-            onPress={() => console.log("Notification")}
-            testID="notification"
-          />
+        <View>
+          <View style={styles.header}>
+            <View>
+              <Text style={{ color: colors.darkGrey, marginBottom: 8 }}>
+                <Text>{getTodayDate()}</Text>
+              </Text>
+              <Text style={{ fontWeight: "bold", fontSize: 25 }}>
+                {welcome}
+              </Text>
+              <View style={styles.eventTabs}>{tabs}</View>
+            </View>
+            <UtilBtn
+              style={{ flexDirection: "row", size: 12, marginTop: 5 }}
+              icon="notifications"
+              iconSize={32}
+              onPress={() => console.log("Notification")}
+              testID="notification"
+            />
+          </View>
+
+          <View style={styles.searchBar}>
+            <SearchBar
+              placeholder="Search for event..."
+              handleChange={(text) => {
+                searchFilter(text);
+              }}
+            />
+            <UtilBtn
+              iconSize={32}
+              style={[
+                styles.button,
+                { flexDirection: "row", marginLeft: "2%", marginTop: "0.5%" },
+              ]}
+              icon="ios-options"
+              testID="filters"
+              onPress={() => console.log("Filters")}
+            />
+          </View>
+          <Text style={styles.text}>Tickets</Text>
+          <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
         </View>
-
-        <Text style={styles.date}>{getTodayDate()}</Text>
-
-        <Text style={styles.title}>{welcome}</Text>
-
-        <View style={{ flexDirection: "row" }}>
-          <SearchBar
-            style={{ width: "85%" }}
-            placeholder="Search for..."
-            handleChange={(text) => {
-              searchFilter(text);
-            }}
-          />
-          <UtilBtn
-            iconSize={32}
-            style={[
-              styles.button,
-              { flexDirection: "row", marginLeft: "1%", marginTop: "0.5%" },
-            ]}
-            icon="ios-options"
-            testID="filters"
-            onPress={() => console.log("Filters")}
-          />
-        </View>
-
-        <Text style={styles.text}>Tickets</Text>
-        <View>{showEvents}</View>
-        <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
+        {showEvents}
       </View>
     </Screen>
   );
@@ -334,6 +332,15 @@ const styles = StyleSheet.create({
     marginTop: "5%",
     flex: 1,
     marginBottom: "45%",
+  },
+  searchBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 18,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

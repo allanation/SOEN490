@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import TitleHeaders from "../components/TitleHeaders";
@@ -27,6 +27,16 @@ function OrganizerDaySchedule({ route }) {
   const ids = uuid.v4();
   const {day, i, itinerary} = route.params;
 
+  useEffect(() => {
+    getSchedule()
+}, []);
+
+  const getSchedule = async () => {
+    if(itinerary?.[i-1]){
+      setSchedule(itinerary[i-1].schedule)
+    }
+  };
+
   const handleAddEvent = async (
     title,
     startTime,
@@ -50,6 +60,10 @@ function OrganizerDaySchedule({ route }) {
       Alert.alert("Error", "Please fill out the description.");
       return;
     }
+    if (location.length == 0) {
+      Alert.alert("Error", "Please fill out the location.");
+      return;
+    }
 
     const newSchedule = {
       title: title,
@@ -69,8 +83,11 @@ function OrganizerDaySchedule({ route }) {
       day: day.toString(),
       schedule: schedule,
     };
-
+    if(itinerary?.[i-1]){
+      itinerary[i-1] = newItinerary;
+    }else{
     itinerary.push(newItinerary);
+    }
   };
     
 
@@ -181,31 +198,36 @@ function OrganizerDaySchedule({ route }) {
             >
               <AppTextInput
                 placeholder="Title"
+                style={styles.shadow}
                 onChangeText={(currentTitle) => setTitle(currentTitle)}
               />
               <AppTextInput
                 placeholder="Start Time"
+                style={styles.shadow}
                 onChangeText={(currentStartTime) =>
                   setStartTime(currentStartTime)
                 }
               />
               <AppTextInput
                 placeholder="End Time"
+                style={styles.shadow}
                 onChangeText={(currentEndTime) => setEndTime(currentEndTime)}
               />
               <AppTextInput
                 placeholder="Description"
+                style={styles.shadow}
                 onChangeText={(currentDescription) =>
                   setDescription(currentDescription)
                 }
               />
               <AppTextInput
-                placeholder="Location (optional)"
+                placeholder="Location"
+                style={styles.shadow}
                 onChangeText={(currentLocation) => setLocation(currentLocation)}
               />
               <AppButton
                 title="Add"
-                style={{ marginTop: 0 }}
+                style={{ marginTop: 15 }}
                 testID={"addDayButton"}
                 onPress={() =>
                   handleAddEvent(
@@ -271,6 +293,14 @@ const styles = StyleSheet.create({
   },
   backModal: {
     backgroundColor: "black",
+  },
+  shadow: {
+    justifyContent: "center",
+    shadowColor: "black", // IOS
+    shadowOffset: { height: 1, width: 1 }, // IOS
+    shadowOpacity: 0.2, // IOS
+    shadowRadius: 3, //IOS
+    elevation: 2, // Android
   },
 });
 
