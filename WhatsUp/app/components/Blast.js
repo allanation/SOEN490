@@ -22,13 +22,17 @@ function Blast({
   id,
   ...key
 }) {
-
   const subTitle = title.substring(0, 10) + "...";
   const subMessage = message.substring(0, 99) + "...";
 
   return (
     <TouchableOpacity
-      style={[styles.button, { flexDirection: "row" }, { marginTop: 16 }]}
+      style={[
+        styles.button,
+        { flexDirection: "row" },
+        { marginTop: 16 },
+        { left: 10 },
+      ]}
       onPress={onPress}
     >
       <View style={{ flex: 2 }}>
@@ -43,25 +47,27 @@ function Blast({
       </View>
 
       <View style={{ flex: 3, marginLeft: 15 }}>
-        <View style={{flexDirection: "row"}}>
-        <Text style={styles.text}>
-          {title.length < 11 ? title : subTitle}
-        </Text>
-        <Text
-                    style={{
-                      fontSize: 9,
-                      color: "#100101",
-                      marginRight: "2%",
-                      marginTop: "5%",
-                      flex: 1,
-                      textAlign: "right",
-                    }}
-                  >
-                    {date}
-                  </Text>
+        <View style={{ flexDirection: "row" }}>
+          <Text style={styles.text}>
+            {title.length < 11 ? title : subTitle}
+          </Text>
+          <Text
+            style={{
+              fontSize: 9,
+              color: "#100101",
+              marginRight: "2%",
+              marginTop: "5%",
+              flex: 1,
+              textAlign: "right",
+            }}
+          >
+            {date}
+          </Text>
         </View>
         <View style={{ marginTop: 5, flexDirection: "row" }}>
-            <Text style={styles.message}> {message.length < 100 ? message : subMessage} </Text>
+          <Text style={styles.message}>
+            {message.length < 100 ? message : subMessage}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
