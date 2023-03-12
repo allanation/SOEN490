@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
-import { StyleSheet, View, ScrollView, Platform, Alert } from "react-native";
+import { StyleSheet, View, Platform, Alert, Text } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
@@ -9,6 +9,7 @@ import ReviewIOSDateTimePicker from "../components/ReviewIOSDateTimePicker";
 import ReviewAndroidDateTimePicker from "../components/ReviewAndroidDateTimePicker";
 import { useNavigation } from "@react-navigation/native";
 import { Storage } from "expo-storage";
+import colors from "../config/colors";
 
 function OrgReviewDateInfo() {
   const navigation = useNavigation();
@@ -59,6 +60,13 @@ function OrgReviewDateInfo() {
             <ReviewAndroidDateTimePicker />
           )}
         </View>
+        {Platform.OS === "ios" ? (
+          <Text style={{ alignSelf: "center", color: colors.lightGrey }}>
+            You must confirm your event dates before proceeding.
+          </Text>
+        ) : (
+          <Text></Text>
+        )}
       </View>
       <View>
         <AppButton title={"Next"} testID={"nextButton"} onPress={validateEventDate}></AppButton>

@@ -42,7 +42,7 @@ function OrganizerPOC() {
 
     //If every mandatory fields is filled out, store the information and go to next page
     storePOC(POC);
-    navigation.navigate('DateInfo')
+    navigation.navigate("DateInfo");
   };
 
   const goBackToNewEvent = async () => {
@@ -54,7 +54,7 @@ function OrganizerPOC() {
 
     //Store the information before leaving page
     storePOC(POC);
-    navigation.navigate("OrgReviewEvent");
+    navigation.navigate("NewEvent");
   };
 
   const getPOCData = async () => {
@@ -83,7 +83,7 @@ function OrganizerPOC() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon='chevron-back-outline'
+          icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
           testID={"backButton"}
           onPress={() => goBackToNewEvent()}
@@ -97,25 +97,28 @@ function OrganizerPOC() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title='Please fill the following information'
+          title="Please fill the following information"
         />
       </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
-            placeholder='Name'
+            placeholder="Name"
+            style={styles.shadow}
             value={pocName}
             onChangeText={(currentName) => setPocName(currentName)}
           ></AppTextInput>
           <AppTextInput
-            placeholder='Phone Number'
+            placeholder="Phone Number"
+            style={styles.shadow}
             value={pocPhoneNum}
             onChangeText={(currentPhoneNumber) =>
               setPocPhoneNum(currentPhoneNumber)
             }
           ></AppTextInput>
           <AppTextInput
-            placeholder='Email'
+            placeholder="Email"
+            style={styles.shadow}
             value={pocEmail}
             onChangeText={(currentEmail) => setPocEmail(currentEmail)}
           ></AppTextInput>
