@@ -73,6 +73,17 @@ export const storeDates = async (eventDates) => {
   }
 };
 
+export const storeDay = async (days) => {
+  try{
+    await Storage.setItem({
+      key: "days",
+      value: days,
+    });
+  } catch(e){
+    console.log(e)
+  }
+}
+
 export const storeItinerary = async (itinerary) => {
     try {
       const jsonValue = JSON.stringify(itinerary);
@@ -180,6 +191,9 @@ function OrgDetails({ route }) {
     endTime: endTime.timestamp,
   };
 
+   //EventDays useState
+   const [days, setDays] = useState(prop.days);
+
   //Itinerary details
   const [itinerary, setItinerary] = useState(prop.itinerary);
 
@@ -225,6 +239,7 @@ function OrgDetails({ route }) {
                 storeNewEvent(newEvent);
                 storePOC(POC);
                 storeDates(eventDates);
+                storeDay(days);
                 storeItinerary(itinerary);
                 storeTags(tags);
                 navigation.navigate("OrgReviewEvent");
