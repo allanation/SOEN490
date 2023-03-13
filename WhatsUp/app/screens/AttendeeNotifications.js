@@ -141,6 +141,7 @@ function AttendeeNotifications() {
         />
       </View>
       {showNotifications}
+      <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
     </Screen>
   );
 }
@@ -162,6 +163,14 @@ const styles = StyleSheet.create({
     shadowRadius: 0, //IOS
     elevation: 0, // Android
   },
+    textCentered: {
+      color: "#100101",
+      marginTop: "4%",
+      marginBottom: "3%",
+      fontSize: 12,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
 });
 
 export default AttendeeNotifications;
