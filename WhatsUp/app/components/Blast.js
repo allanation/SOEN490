@@ -9,7 +9,6 @@ import {
   Image,
   View,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { getCoverImageSource } from "../screens/AttendeeView";
 
 function Blast({

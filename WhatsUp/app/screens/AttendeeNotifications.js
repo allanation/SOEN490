@@ -10,16 +10,16 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { convertStartDate } from "./AttendeeDashboard.js";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { format } from "date-fns";
 
 function AttendeeNotifications() {
   const navigation = useNavigation();
 
-  const [allBlasts, setAllBlasts] = useState([]);
-  const [allBooked, setAllBooked] = useState([]);
-  const [allNotifications, setAllNotifications] = useState([]);
-  const [times, setTimes] = useState([]);
+  const [allBlasts] = useState([]);
+  const [allBooked] = useState([]);
+  const [times] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [user] = useAuthState(auth);
 
@@ -29,12 +29,14 @@ function AttendeeNotifications() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         const ticketsField = doc.data().tickets;
+        let ticket;
         for (ticket of ticketsField) {
           if (!allBooked.includes(ticket)) {
             allBooked.push(ticket);
           }
         }
         const bookedField = doc.data().bookMarks;
+        let books;
         for (books of bookedField) {
           if (!allBooked.includes(books)) {
             allBooked.push(books);
@@ -89,8 +91,9 @@ function AttendeeNotifications() {
         await getBlasts();
       }
 
+      const Tab = createBottomTabNavigator();
+
       useEffect(() => {
-        console.log("useEffect used");
         bookmarkAndgetBlasts();
       }, []);
 
@@ -152,11 +155,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: "bold",
     marginBottom: 20,
-    marginTop: 10,
+    marginTop: 30,
+    marginLeft: 15,
   },
   btn: {
     position: "absolute",
-    marginTop: 10,
+    marginTop: 30,
     right: "2%",
     shadowOffset: { height: 0, width: 0 }, // IOS
     shadowOpacity: 0, // IOS
