@@ -9,12 +9,7 @@ import UtilBtn from "../components/UtilBtn";
 import Event from "../components/Event";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import SearchBar from "../components/SearchBar";
 import { getTodayDate } from "./AttendeeDashboard";
 import { format } from "date-fns";
@@ -233,6 +228,7 @@ function AttendeeFavorites() {
   showEvents = (
     <>
       <FlatList
+        contentContainerStyle={{ paddingBottom: 400 }}
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
         refreshControl={
@@ -288,10 +284,10 @@ function AttendeeFavorites() {
             />
           </View>
           <Text style={styles.text}>Bookmarked Events</Text>
-          <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
         </View>
         {showEvents}
       </View>
+      <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
     </Screen>
   );
 }

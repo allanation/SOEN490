@@ -229,6 +229,7 @@ function AttendeeTickets() {
   showEvents = (
     <>
       <FlatList
+        contentContainerStyle={{ paddingBottom: 400 }}
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
         refreshControl={
@@ -284,10 +285,10 @@ function AttendeeTickets() {
             />
           </View>
           <Text style={styles.text}>Tickets</Text>
-          <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
         </View>
         {showEvents}
       </View>
+      <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
     </Screen>
   );
 }
