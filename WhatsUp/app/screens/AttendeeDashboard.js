@@ -192,7 +192,7 @@ function AttendeeDashboard() {
               style={{ flexDirection: "row", size: 12, marginTop: 5 }}
               icon="notifications"
               iconSize={32}
-              onPress={() => console.log("Notification")}
+              onPress={() => navigation.navigate("AttendeeNotifications")}
               testID="notification"
             />
           </View>

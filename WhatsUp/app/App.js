@@ -29,6 +29,7 @@ import OrgReviewDateInfo from "./screens/OrgReviewDateInfo";
 import OrgReviewDaySchedule from "./screens/OrgReviewDaySchedule";
 import OrgReviewEventTags from "./screens/OrgReviewEventTags";
 import OrgNotifications from "./screens/OrgNotifications";
+import AttendeeNotifications from "./screens/AttendeeNotifications";
 import EventScreen from "./screens/EventScreen.js";
 
 const TabScreen = () => {
@@ -150,6 +151,7 @@ export default function App() {
         <Stack.Screen name="Attendee" component={AttendeeTabScreen} />
         <Stack.Screen name="AttendeeView" component={AttendeeView} />
         <Stack.Screen name="UserProfile" component={UserProfile} />
+        <Stack.Screen name="AttendeeNotifications" component={AttendeeNotifications} />
       </Stack.Navigator>
     </NavigationContainer>
   );

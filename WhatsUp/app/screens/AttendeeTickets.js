@@ -229,6 +229,7 @@ function AttendeeTickets() {
   showEvents = (
     <>
       <FlatList
+        contentContainerStyle={{ paddingBottom: 400 }}
         data={filteredData ? filteredData : allEvents}
         renderItem={ItemView}
         refreshControl={
@@ -260,7 +261,7 @@ function AttendeeTickets() {
               style={{ flexDirection: "row", size: 12, marginTop: 5 }}
               icon="notifications"
               iconSize={32}
-              onPress={() => console.log("Notification")}
+              onPress={() => navigation.navigate("AttendeeNotifications")}
               testID="notification"
             />
           </View>
@@ -284,10 +285,10 @@ function AttendeeTickets() {
             />
           </View>
           <Text style={styles.text}>Tickets</Text>
-          <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
         </View>
         {showEvents}
       </View>
+      <Text style={styles.textCentered}>Pull Twice To Refresh...</Text>
     </Screen>
   );
 }
