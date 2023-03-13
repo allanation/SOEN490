@@ -30,6 +30,7 @@ import OrgReviewDaySchedule from "./screens/OrgReviewDaySchedule";
 import OrgReviewEventTags from "./screens/OrgReviewEventTags";
 import OrgNotifications from "./screens/OrgNotifications";
 import AttendeeNotifications from "./screens/AttendeeNotifications";
+import EventScreen from "./screens/EventScreen.js";
 
 const TabScreen = () => {
   const Tab = createBottomTabNavigator();
@@ -128,6 +129,7 @@ export default function App() {
         <Stack.Screen name="POC" component={OrgPointOfContact} />
         <Stack.Screen name="DateInfo" component={OrgDateInfo} />
         <Stack.Screen name="OrgDash" component={OrgDashboard} />
+        <Stack.Screen name="EventScreen" component={EventScreen} />
         <Stack.Screen name="OrgDay" component={OrgDaySchedule} />
         <Stack.Screen name="OrgTags" component={OrgEventTags} />
         <Stack.Screen name="OrgView" component={OrgView} />

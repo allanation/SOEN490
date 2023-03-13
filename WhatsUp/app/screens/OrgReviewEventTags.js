@@ -73,25 +73,28 @@ function OrgReviewEventTags() {
       });
       const eventDatesObject = JSON.parse(eventDates);
 
+      //Get day object
+      const days = await Storage.getItem({
+        key: 'days',
+      });
+
       //Get itinerary object
       const itinerary = await Storage.getItem({
         key: "itinerary",
       });
       const itineraryObject = JSON.parse(itinerary);
 
-
       //Edit the event in firestore
       const q = query(
         collection(db, "events"),
-        where("guid", "==", newEventObject.guid));
+        where("guid", "==", newEventObject.guid)
+      );
 
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
-
-
         querySnapshot.forEach((doc) => {
-          try{
+          try {
             updateDoc(doc.ref, {
               eventStatus: "Unapproved",
               eventName: newEventObject.eventName,
@@ -103,17 +106,19 @@ function OrgReviewEventTags() {
               pocName: POCObject.pocName,
               pocPhoneNum: POCObject.pocPhoneNum,
               pocEmail: POCObject.pocEmail,
+              days: days,
               startDate: eventDatesObject.startDate,
               startTime: eventDatesObject.startTime,
               endDate: eventDatesObject.endDate,
               endTime: eventDatesObject.endTime,
               itinerary: itineraryObject,
               tags: tags,
-              guid: newEventObject.guid
+              guid: newEventObject.guid,
           });
              Storage.removeItem({ key: "newEvent" });
              Storage.removeItem({ key: "POC" });
              Storage.removeItem({ key: "eventDates" });
+             Storage.removeItem({ key: 'days'});
              Storage.removeItem({ key: "itinerary" });
              Storage.removeItem({ key: "tags" });
   
@@ -122,9 +127,9 @@ function OrgReviewEventTags() {
           } catch (e) {
             console.log(e);
           }
-        
         });
-    } }catch (e) {
+      }
+    } catch (e) {
       console.log(e);
     }
   };
@@ -150,12 +155,12 @@ function OrgReviewEventTags() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon='chevron-back-outline'
+          icon="chevron-back-outline"
           style={{ position: "absolute", left: 0 }}
           testID={"backButton"}
           onPress={() => {
             storeTags(tags);
-            navigation.navigate("OrgReviewDaySchedule");
+            navigation.goBack();
           }}
         />
         <TitleHeaders
@@ -167,15 +172,24 @@ function OrgReviewEventTags() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title='Please fill the following information'
+          title="Please fill the following information"
         />
       </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <AppTextInput
-          style={{ fontSize: 18, color: colors.lightGrey }}
-          placeholder='Ex.: University'
+          style={{
+            fontSize: 18,
+            color: colors.lightGrey,
+            justifyContent: "center",
+            shadowColor: "black", // IOS
+            shadowOffset: { height: 1, width: 1 }, // IOS
+            shadowOpacity: 0.2, // IOS
+            shadowRadius: 3, //IOS
+            elevation: 2, // Android
+          }}
+          placeholder="Ex.: University"
           autoCapitalize
-          clearButtonMode='always'
+          clearButtonMode="always"
           onChangeText={(text) => setCurrentTag({ text })}
           value={currentTag.text}
           onSubmitEditing={handleAddingTag}
@@ -183,7 +197,7 @@ function OrgReviewEventTags() {
         <TitleHeaders
           style={{ paddingHorizontal: 20, color: "gray" }}
           isTitle={false}
-          title='Add tags to increase visibility'
+          title="Add tags to increase visibility"
         />
         <View style={{ marginTop: 12 }}>
           <View

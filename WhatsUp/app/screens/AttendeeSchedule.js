@@ -93,7 +93,7 @@ function AttendeeSchedule({ route }) {
       <View style={{ width: "100%", display: "flex" }}>
         <SearchBar
           style={{ width: "85%" }}
-          placeholder="Search for..."
+          placeholder="Search for event..."
           handleChange={(text) => {
             searchFilter(text);
           }}

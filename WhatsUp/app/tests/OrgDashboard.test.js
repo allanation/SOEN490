@@ -74,7 +74,7 @@ test("Searching in upcoming events starting with fa in search bar should show al
     </NavigationContainer>
   );
   await waitFor(() => {
-    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"fa");
+    fireEvent.changeText(screen.getByPlaceholderText("Search for event..."),"fa");
   });
 
 });
@@ -91,7 +91,7 @@ test("Searching in previous events starting with sp in search bar should show al
   });
 
   await waitFor(() => {
-    fireEvent.changeText(screen.getByPlaceholderText("Search for..."),"sp");
+    fireEvent.changeText(screen.getByPlaceholderText("Search for event..."),"sp");
   });
 
 });
