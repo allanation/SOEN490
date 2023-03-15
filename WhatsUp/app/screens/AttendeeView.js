@@ -20,7 +20,11 @@ import {
   getDocs,
   arrayRemove,
   arrayUnion,
+  increment,
+  decrement,
+  FieldValue,
 } from "firebase/firestore";
+import firebase from "firebase/app";
 
 AttendeeView.propTypes = {
   route: PropTypes.any,
@@ -73,6 +77,7 @@ function AttendeeView({ route, navigation }) {
   const handleGoing = async (buttonText) => {
     if (buttonText == "Going") {
       setButtonText("✔ Going");
+      console.log(prop.id);
       const setToGoing = doc(db, "users", docId);
       await updateDoc(setToGoing, {
         tickets: arrayUnion(prop.id),
@@ -86,10 +91,27 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
+  // Accepts the event onClick
+  const handleIncrementNumberOfPartipants = async (x) => {
+    const changingToApprove = doc(db, "events", x);
+    await updateDoc(changingToApprove, {
+      numberOfParticipants: FieldValue.increment(1),
+    });
+  };
+
+  // Accepts the event onClick
+  const handleDecrementNumberOfPartipants = async (x) => {
+    const changingToApprove = doc(db, "events", x);
+    await updateDoc(changingToApprove, {
+      numberOfParticipants: FieldValue.decrement(1),
+    });
+  };
+
   const handleGoingWhenTicketed = async (checkedButton) => {
     if (checkedButton == "Going") {
       setCheckedButton("✔ Going");
       const setToGoing = doc(db, "users", docId);
+      console.log(prop);
       await updateDoc(setToGoing, {
         tickets: arrayUnion(prop.id),
       });
@@ -132,19 +154,19 @@ function AttendeeView({ route, navigation }) {
     <Screen style={{ backgroundColor: "white" }}>
       <Image
         source={getCoverImageSource(prop.coverImage)}
-        resizeMode="cover"
+        resizeMode='cover'
         style={styles.headerImage}
       />
 
       <View style={styles.toolContainer}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           iconSize={25}
           style={styles.toolBtn}
           onPress={() => navigation.goBack()}
         />
         <UtilBtn
-          icon="ios-bookmark-outline"
+          icon='ios-bookmark-outline'
           iconSize={20}
           style={styles.toolBtn}
         >
@@ -169,12 +191,12 @@ function AttendeeView({ route, navigation }) {
         }}
       >
         <Tab.Screen
-          name="Details"
+          name='Details'
           component={AttendeeDetails}
           initialParams={{ prop: prop }}
         />
         <Tab.Screen
-          name="Schedule"
+          name='Schedule'
           component={AttendeeSchedule}
           initialParams={{ prop: prop.itinerary }}
         />
@@ -192,7 +214,7 @@ function AttendeeView({ route, navigation }) {
         {prop.link.length > 0 ? (
           <AppButton
             style={styles.btn}
-            title="Buy Tickets"
+            title='Buy Tickets'
             onPress={() => {
               Linking.openURL(prop.link);
             }}
@@ -214,6 +236,11 @@ function AttendeeView({ route, navigation }) {
             title={buttonText}
             onPress={() => {
               handleGoing(buttonText);
+              {
+                checkedButton === "✔ Going"
+                  ? handleDecrementNumberOfPartipants(prop.id)
+                  : handleIncrementNumberOfPartipants(prop.id);
+              }
             }}
           />
         )}
