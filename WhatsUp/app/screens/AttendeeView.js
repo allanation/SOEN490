@@ -93,48 +93,42 @@ function AttendeeView({ route, navigation }) {
 
   // Accepts the event onClick
   const handleIncrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
 
-          const q = query(
-            collection(db, "events"),
-            where("guid", "==", eventGuid)
-          );
-    
-          const querySnapshot = await getDocs(q);
-    
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach((doc) => {
-              try {
-                updateDoc(doc.ref, {
-                  numberOfParticipants: increment(1),
-              });
-              } catch (e) {
-                console.log(e);
-              }
-            });
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(1),
+            availablePlaces: increment(-1),
+          });
+        } catch (e) {
+          console.log(e);
         }
+      });
+    }
   };
 
   // Accepts the event onClick
   const handleDecrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
 
-          const q = query(
-            collection(db, "events"),
-            where("guid", "==", eventGuid)
-          );
-    
-          const querySnapshot = await getDocs(q);
-    
-          if (!querySnapshot.empty) {
-            querySnapshot.forEach((doc) => {
-              try {
-                updateDoc(doc.ref, {
-                  numberOfParticipants: increment(-1),
-              });
-              } catch (e) {
-                console.log(e);
-              }
-            });
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(-1),
+            availablePlaces: increment(1),
+          });
+        } catch (e) {
+          console.log(e);
         }
+      });
+    }
   };
 
   const handleGoingWhenTicketed = async (checkedButton) => {
@@ -241,6 +235,11 @@ function AttendeeView({ route, navigation }) {
           borderTopWidth: 1,
         }}
       >
+        {prop.availablePlaces > 0 ? (
+          <Text>Place(s) left: {prop.availablePlaces}</Text>
+        ) : (
+          <Text>Sold Out!</Text>
+        )}
         {prop.link.length > 0 ? (
           <AppButton
             style={styles.btn}
@@ -267,7 +266,7 @@ function AttendeeView({ route, navigation }) {
             onPress={() => {
               handleGoing(buttonText);
               {
-                checkedButton === "✔ Going"
+                checkedButton === "Going"
                   ? handleDecrementNumberOfPartipants(prop.guid)
                   : handleIncrementNumberOfPartipants(prop.guid);
               }
