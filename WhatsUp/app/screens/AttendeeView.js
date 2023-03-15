@@ -92,19 +92,49 @@ function AttendeeView({ route, navigation }) {
   };
 
   // Accepts the event onClick
-  const handleIncrementNumberOfPartipants = async (x) => {
-    const changingToApprove = doc(db, "events", x);
-    await updateDoc(changingToApprove, {
-      numberOfParticipants: FieldValue.increment(1),
-    });
+  const handleIncrementNumberOfPartipants = async (eventGuid) => {
+
+          const q = query(
+            collection(db, "events"),
+            where("guid", "==", eventGuid)
+          );
+    
+          const querySnapshot = await getDocs(q);
+    
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              try {
+                updateDoc(doc.ref, {
+                  numberOfParticipants: increment(1),
+              });
+              } catch (e) {
+                console.log(e);
+              }
+            });
+        }
   };
 
   // Accepts the event onClick
-  const handleDecrementNumberOfPartipants = async (x) => {
-    const changingToApprove = doc(db, "events", x);
-    await updateDoc(changingToApprove, {
-      numberOfParticipants: FieldValue.decrement(1),
-    });
+  const handleDecrementNumberOfPartipants = async (eventGuid) => {
+
+          const q = query(
+            collection(db, "events"),
+            where("guid", "==", eventGuid)
+          );
+    
+          const querySnapshot = await getDocs(q);
+    
+          if (!querySnapshot.empty) {
+            querySnapshot.forEach((doc) => {
+              try {
+                updateDoc(doc.ref, {
+                  numberOfParticipants: increment(-1),
+              });
+              } catch (e) {
+                console.log(e);
+              }
+            });
+        }
   };
 
   const handleGoingWhenTicketed = async (checkedButton) => {
@@ -238,8 +268,8 @@ function AttendeeView({ route, navigation }) {
               handleGoing(buttonText);
               {
                 checkedButton === "✔ Going"
-                  ? handleDecrementNumberOfPartipants(prop.id)
-                  : handleIncrementNumberOfPartipants(prop.id);
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
               }
             }}
           />
