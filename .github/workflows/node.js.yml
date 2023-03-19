@@ -18,3 +18,5 @@ jobs:
     - uses: actions/checkout@v3
     - run: npm --prefix WhatsUp/web/frontend install
     - run: npm --prefix WhatsUp/web/frontend test
+    - run: npm --prefix WhatsUp/app install
+    - run: npm --prefix WhatsUp/app test
