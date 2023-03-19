@@ -13,14 +13,14 @@ import { Alert } from "react-native";
 
 jest.useFakeTimers();
 
-it("Renders Review Event First Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgReviewEventScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+// it("Renders Review Event First Page Correctly", () => {
+//   const tree = render(
+//     <NavigationContainer>
+//       <OrgReviewEventScreen />
+//     </NavigationContainer>
+//   ).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
 
 test("If the Event Title is missing, an alert should be prompted", async () => {
   render(

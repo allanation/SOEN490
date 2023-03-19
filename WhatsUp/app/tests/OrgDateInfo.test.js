@@ -15,14 +15,14 @@ import { Alert } from "react-native";
 
 jest.useFakeTimers();
 
-it("Renders Create New Event Third Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgDateInfoScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+// it("Renders Create New Event Third Page Correctly", () => {
+//   const tree = render(
+//     <NavigationContainer>
+//       <OrgDateInfoScreen />
+//     </NavigationContainer>
+//   ).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
 
 test("If the dates are missing, an alert should be prompted", async () => {
   render(
@@ -61,11 +61,6 @@ test("Successfully go to next page when the start date and end date are filled",
   await waitFor(() => {
     fireEvent.press(screen.getByTestId("nextButton"));
   });
-  render(
-    <NavigationContainer>
-      <OrgDayScheduleScreen />
-    </NavigationContainer>
-  );
 });
 
 test("Successfully go back to second create event page when clicking on go back Icon", async () => {

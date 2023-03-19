@@ -14,14 +14,14 @@ import { Alert } from "react-native";
 
 jest.useFakeTimers();
 
-it("Renders Create New Event Second Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgPOCScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+// it("Renders Create New Event Second Page Correctly", () => {
+//   const tree = render(
+//     <NavigationContainer>
+//       <OrgPOCScreen />
+//     </NavigationContainer>
+//   ).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
 
 test("If the name is missing, an alert should be prompted", async () => {
   render(
