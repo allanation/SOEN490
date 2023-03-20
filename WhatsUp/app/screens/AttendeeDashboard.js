@@ -64,15 +64,19 @@ function AttendeeDashboard() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        setAllEvents(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setMasterData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setPreviousData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+        if(doc.data().endDate >= Date.now()){
+          console.log("heyy")
+          setAllEvents((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+        setMasterData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+        setPreviousData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+
+        }
       });
     }
   };
@@ -217,7 +221,9 @@ function AttendeeDashboard() {
           </View>
           <Text style={styles.text}>Popular Events</Text>
         </View>
+        <View>
         {showEvents}
+        </View>
       </View>
     </Screen>
   );
