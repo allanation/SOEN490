@@ -8,6 +8,7 @@ import {
   screen,
 } from "@testing-library/react-native";
 import SignUpScreen from "../screens/SignUpScreen";
+import Login from "../screens/Login";
 import { Alert } from "react-native";
 
 jest.mock('@react-navigation/native', () => ({
@@ -132,21 +133,21 @@ test("Wrong Confirm Password", async () => {
   expect(onClick).not.toHaveBeenCalled();
 });
 
-// test("Successful navigation to login page", async () => {
-//   render(
-//     <NavigationContainer>
-//       <SignUpScreen />
-//     </NavigationContainer>
-//   );
+test("Successful navigation to login page", async () => {
+  render(
+    <NavigationContainer>
+      <SignUpScreen />
+    </NavigationContainer>
+  );
 
-//   await waitFor(() => fireEvent.press(screen.getByText("Login")));
-//   render(
-//     <NavigationContainer>
-//       <Login />
-//     </NavigationContainer>
-//   );
-//   expect(screen.getByPlaceholderText("Email")).toBeTruthy();
-// });
+  await waitFor(() => fireEvent.press(screen.getByText("Login")));
+  render(
+    <NavigationContainer>
+      <Login />
+    </NavigationContainer>
+  );
+  expect(screen.getByPlaceholderText("Email")).toBeTruthy();
+});
 
 test("Checks if the confirm password is working correctly", async () => {
   render(
@@ -371,3 +372,4 @@ test("Can't Sign Up if there is no First name", async () => {
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
+
