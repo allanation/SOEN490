@@ -12,6 +12,13 @@ import Login from "../screens/Login";
 import UserProfile from "../screens/UserProfile";
 import NewEvent from "../screens/OrgNewEvent";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
 
 // it("Renders correctly organizer dashboard page.", () => {

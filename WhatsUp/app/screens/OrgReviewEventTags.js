@@ -37,7 +37,7 @@ function OrgReviewEventTags() {
       const eventTags = await Storage.getItem({
         key: "tags",
       });
-      if (eventTags !== null) {
+      if (eventTags !== null && eventTags !== undefined) {
         const TagsObject = JSON.parse(eventTags);
         if (TagsObject.length != 0) {
           setTags(TagsObject);

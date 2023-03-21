@@ -9,7 +9,13 @@ import {
 } from "@testing-library/react-native";
 import AttendeeDashboardScreen from "../screens/AttendeeDashboard.js";
 import LoginScreen from "../screens/Login";
-import UserProfileScreen from "../screens/UserProfile";
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
 
 jest.useFakeTimers();
 

@@ -11,6 +11,13 @@ import OrgReviewEventTagsScreen from "../screens/OrgReviewEventTags";
 import OrgReviewDayScheduleScreen from "../screens/OrgReviewDaySchedule";
 import { Alert } from "react-native";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 // it("Renders Review Event Last Page Correctly", () => {
 //   const tree = render(
 //     <NavigationContainer>

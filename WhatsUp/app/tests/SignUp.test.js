@@ -11,8 +11,15 @@ import Login from "../screens/Login";
 import SignUpScreen from "../screens/SignUpScreen";
 import { Alert } from "react-native";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
-//jest.spyOn(Alert, "alert");
+
 it("renders correctly", () => {
   const tree = render(
     <NavigationContainer>

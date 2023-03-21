@@ -33,7 +33,7 @@ function ReviewIOSDateTimePicker() {
       const eventDates = await Storage.getItem({
         key: "eventDates",
       });
-      if (eventDates !== null) {
+      if (eventDates !== null && eventDates !== undefined) {
         const EventDatesObject = JSON.parse(eventDates);
         if (EventDatesObject.startDate !== 0) {
           setStartDate({

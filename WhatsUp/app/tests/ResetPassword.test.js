@@ -10,6 +10,14 @@ import {
 import { Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "../screens/Login";
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
 //jest.mock("../screens/ResetPassword.js");
 // it("renders correctly", () => {
@@ -84,16 +92,17 @@ test("Reset password with invalid email", async () => {
 test("Go back to Login page", async () => {
   render(
     <NavigationContainer>
-      <ResetPassword />
+       <ResetPassword />
     </NavigationContainer>
   );
 
   await waitFor(() => fireEvent.press(screen.getByText("Back to Login")));
-  const ls = (
+
+  render(
     <NavigationContainer>
       <Login />
     </NavigationContainer>
   );
-  render(ls);
-  expect(screen.getAllByText("Login"));
+
+  expect(screen.getAllByText("Login")).toBeTruthy();
 });

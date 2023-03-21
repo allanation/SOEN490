@@ -10,6 +10,13 @@ import {
 import OrgDaySchedule from "../screens/OrgDaySchedule";
 import OrgEventTagScreen from "../screens/OrgEventTags";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 // it("Renders Create New Event Last Page Correctly", () => {
 //   const tree = render(
 //     <NavigationContainer>

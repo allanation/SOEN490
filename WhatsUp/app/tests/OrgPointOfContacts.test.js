@@ -12,6 +12,13 @@ import OrgPOCScreen from "../screens/OrgPointOfContact";
 import OrgDateInfoScreen from "../screens/OrgDateInfo";
 import { Alert } from "react-native";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
 
 // it("Renders Create New Event Second Page Correctly", () => {

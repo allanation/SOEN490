@@ -13,6 +13,13 @@ import IOSDateTimePicker from "../components/IOSDateTimePicker";
 import OrgReviewDayScheduleScreen from "../screens/OrgReviewDaySchedule";
 import { Alert } from "react-native";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
 
 // it("Renders Review Event Third Page Correctly", () => {

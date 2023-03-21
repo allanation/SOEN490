@@ -53,7 +53,7 @@ function OrgReviewEvent() {
       const newEvent = await Storage.getItem({
         key: "newEvent",
       });
-      if (newEvent !== null) {
+      if (newEvent !== null && newEvent !== undefined) {
         const EventObject = JSON.parse(newEvent);
         if (EventObject.eventName.length != 0) {
           setEventName(EventObject.eventName);

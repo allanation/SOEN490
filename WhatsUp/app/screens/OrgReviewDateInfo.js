@@ -53,7 +53,7 @@ function OrgReviewDateInfo() {
       const day = await Storage.getItem({
         key: "days",
       });
-      if (day !== null && day.length !==0) {
+      if (day !== null && day !== undefined && day.length !==0) {
           setDays(day);
       }
     } catch (e) {
@@ -66,7 +66,7 @@ function OrgReviewDateInfo() {
       const itinerary = await Storage.getItem({
         key: "itinerary",
       });
-      if (itinerary !== null) {
+      if (itinerary !== null && itinerary !== undefined) {
         setItinerary(JSON.parse(itinerary));
       }
 

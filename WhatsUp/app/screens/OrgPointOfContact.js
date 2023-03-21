@@ -62,7 +62,7 @@ function OrganizerPOC() {
       const POC = await Storage.getItem({
         key: "POC",
       });
-      if (POC !== null) {
+      if (POC !== null && POC !== undefined) {
         const POCObject = JSON.parse(POC);
         if (POCObject.pocName.length != 0) {
           setPocName(POCObject.pocName);
