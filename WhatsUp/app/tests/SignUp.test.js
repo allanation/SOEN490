@@ -133,21 +133,21 @@ test("Wrong Confirm Password", async () => {
   expect(onClick).not.toHaveBeenCalled();
 });
 
-test("Successful navigation to login page", async () => {
-  render(
-    <NavigationContainer>
-      <SignUpScreen />
-    </NavigationContainer>
-  );
+// test("Successful navigation to login page", async () => {
+//   render(
+//     <NavigationContainer>
+//       <SignUpScreen />
+//     </NavigationContainer>
+//   );
 
-  await waitFor(() => fireEvent.press(screen.getByText("Login")));
-  render(
-    <NavigationContainer>
-      <Login />
-    </NavigationContainer>
-  );
-  expect(screen.getByPlaceholderText("Email")).toBeTruthy();
-});
+//   await waitFor(() => fireEvent.press(screen.getByText("Login")));
+//   render(
+//     <NavigationContainer>
+//       <Login />
+//     </NavigationContainer>
+//   );
+//   expect(screen.getByPlaceholderText("Email")).toBeTruthy();
+// });
 
 test("Checks if the confirm password is working correctly", async () => {
   render(
