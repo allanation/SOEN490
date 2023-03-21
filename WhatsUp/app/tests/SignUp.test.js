@@ -7,7 +7,6 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import Login from "../screens/Login";
 import SignUpScreen from "../screens/SignUpScreen";
 import { Alert } from "react-native";
 
