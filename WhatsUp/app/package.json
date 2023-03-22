@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --coverage --detectOpenHandles --forceExit --testTimeout=10000"
+    "test": "jest --coverage --forceExit"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
