@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "test": "jest --coverage --watchAll --no-cache --detectOpenHandles --forceExit"
+    "test": "jest --coverage --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
@@ -72,7 +72,7 @@
     "expo": "~46.0.16",
     "expo-checkbox": "~2.2.0",
     "expo-status-bar": "~1.4.0",
-    "firebase": "^9.14.0",
+    "firebase": "^9.18.0",
     "jest": "^26.6.3",
     "jest-expo": "^46.0.1",
     "react": "18.0.0",
