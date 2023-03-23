@@ -87,6 +87,7 @@ function OrgView({ route, navigation }) {
           iconSize={25}
           style={styles.toolBtn}
           onPress={() => navigation.goBack()}
+          testID={"backButton"}
         />
       </View>
       <Tab.Navigator
@@ -134,6 +135,7 @@ function OrgView({ route, navigation }) {
       >
         <AppButton
           style={styles.btn}
+          testID={"blastInfoButton"}
           title={
             prop.eventStatus === "Rejected" ? (
               "Resubmit"
@@ -154,6 +156,7 @@ function OrgView({ route, navigation }) {
       <AppModal
         animationType="fade"
         transparent={true}
+        testID={"blastInfoModal"}
         visible={modalVisible}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
@@ -163,6 +166,7 @@ function OrgView({ route, navigation }) {
           <View style={styles.inputView}>
             <UtilBtn
               icon="chevron-back-outline"
+              testID={"goBackModal"}
               style={{ position: "absolute" }}
               onPress={() => setModalVisible(!modalVisible)}
             />
@@ -184,6 +188,7 @@ function OrgView({ route, navigation }) {
               />
               <AppButton
                 title="Send"
+                testID={"sendButton"}
                 style={{ marginTop: 10 }}
                 onPress={() =>
                   handleSendBlast(
