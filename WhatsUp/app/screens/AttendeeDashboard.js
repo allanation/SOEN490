@@ -65,7 +65,6 @@ function AttendeeDashboard() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         if(doc.data().endDate >= Date.now()){
-          console.log("heyy")
           setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
