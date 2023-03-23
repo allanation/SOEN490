@@ -35,7 +35,14 @@ export const getTodayDate = () => {
     "November",
     "December",
   ];
-  return "Today's " + months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+  return (
+    "Today's " +
+    months[date.getMonth()] +
+    " " +
+    date.getDate() +
+    ", " +
+    date.getFullYear()
+  );
 };
 
 function AttendeeDashboard() {
@@ -56,7 +63,6 @@ function AttendeeDashboard() {
   };
 
   const getEvents = async () => {
-    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
