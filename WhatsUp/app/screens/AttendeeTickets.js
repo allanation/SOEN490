@@ -65,7 +65,6 @@ function AttendeeTickets() {
                   if (item.id == doc.id) {
                     break;
                   } else if (item.id == allEvents[allEvents.length - 1].id) {
-                    console.log("got ya");
                     setAllEvents((allEvents) =>
                       allEvents.concat({ id: doc.id, ...doc.data() })
                     );
@@ -80,7 +79,6 @@ function AttendeeTickets() {
                   }
                 }
               else {
-                console.log("hey there");
                 setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
@@ -116,7 +114,6 @@ function AttendeeTickets() {
           }
         }
       } else {
-        console.log("here?");
         setAllEvents([]);
       }
     }

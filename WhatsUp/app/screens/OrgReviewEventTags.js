@@ -75,7 +75,7 @@ function OrgReviewEventTags() {
 
       //Get day object
       const days = await Storage.getItem({
-        key: 'days',
+        key: "days",
       });
 
       //Get itinerary object
@@ -114,16 +114,16 @@ function OrgReviewEventTags() {
               itinerary: itineraryObject,
               tags: tags,
               guid: newEventObject.guid,
-          });
-             Storage.removeItem({ key: "newEvent" });
-             Storage.removeItem({ key: "POC" });
-             Storage.removeItem({ key: "eventDates" });
-             Storage.removeItem({ key: 'days'});
-             Storage.removeItem({ key: "itinerary" });
-             Storage.removeItem({ key: "tags" });
-  
-             Alert.alert("Event Reviewed Succesfully");
-             navigation.navigate("Organizer");
+            });
+            Storage.removeItem({ key: "newEvent" });
+            Storage.removeItem({ key: "POC" });
+            Storage.removeItem({ key: "eventDates" });
+            Storage.removeItem({ key: "days" });
+            Storage.removeItem({ key: "itinerary" });
+            Storage.removeItem({ key: "tags" });
+
+            Alert.alert("Event Reviewed Succesfully");
+            navigation.navigate("Organizer");
           } catch (e) {
             console.log(e);
           }
@@ -139,11 +139,7 @@ function OrgReviewEventTags() {
     if (!tags.some((tag) => e.nativeEvent.text == tag.tagname)) {
       if (e.nativeEvent.text.length > 0) {
         setTags((tags) => [...tags, newTag]);
-      } else {
-        console.log("she already goes here!!!");
       }
-    } else {
-      console.log("hi");
     }
   }
 

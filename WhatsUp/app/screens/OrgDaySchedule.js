@@ -96,7 +96,6 @@ function OrganizerDaySchedule({ route }) {
   };
 
   const onEdit = (newSchedule) => () => {
-    console.log("test");
     setSchedule(schedule.filter((item) => item.id !== newSchedule.id));
     setSchedule((schedule) => [...schedule, newSchedule]);
   };

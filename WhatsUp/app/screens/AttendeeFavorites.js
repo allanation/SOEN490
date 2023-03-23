@@ -80,7 +80,6 @@ function AttendeeFavorites() {
                   }
                 }
               else {
-                console.log("hey there");
                 setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
@@ -132,7 +131,6 @@ function AttendeeFavorites() {
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
-    console.log("useeffect is used");
     getName();
     bookmarkAndgetEvents();
   }, []);
