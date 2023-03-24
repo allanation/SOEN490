@@ -272,27 +272,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     paddingTop: 20,
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    alignSelf: "flex-start",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  backModal: {
-    backgroundColor: "black",
-  },
   shadow: {
     justifyContent: "center",
     shadowColor: "black", // IOS

@@ -137,25 +137,6 @@ function OrgReviewPOC() {
 }
 
 const styles = StyleSheet.create({
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
   shadow: {
     justifyContent: "center",
     shadowColor: "black", // IOS
@@ -164,7 +145,6 @@ const styles = StyleSheet.create({
     shadowRadius: 3, //IOS
     elevation: 2, // Android
   },
-  bottom: { flex: 1, justifyContent: "flex-end", marginBottom: 36 },
 });
 
 export default OrgReviewPOC;

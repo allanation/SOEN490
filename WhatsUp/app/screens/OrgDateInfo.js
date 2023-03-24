@@ -109,25 +109,6 @@ function OrganizerDateInfo() {
 }
 
 const styles = StyleSheet.create({
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
   shadow: {
     justifyContent: "center",
     shadowColor: "black", // IOS

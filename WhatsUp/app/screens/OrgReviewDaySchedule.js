@@ -266,7 +266,6 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 20,
     width: "86%",
-    // height: "62%",
     alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
@@ -284,27 +283,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     paddingTop: 20,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    alignSelf: "flex-start",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  backModal: {
-    backgroundColor: "black",
   },
   shadow: {
     justifyContent: "center",

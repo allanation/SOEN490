@@ -33,13 +33,6 @@ const styles = StyleSheet.create({
         marginTop: 22,  
         resizeMode: "contain"
     },
-    blurBackground: {
-        position: "absolute",
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-    },
 });
 
 export default AppModal;
