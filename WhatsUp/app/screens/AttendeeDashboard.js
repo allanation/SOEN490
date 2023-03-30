@@ -35,7 +35,14 @@ export const getTodayDate = () => {
     "November",
     "December",
   ];
-  return "Today's " + months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+  return (
+    "Today's " +
+    months[date.getMonth()] +
+    " " +
+    date.getDate() +
+    ", " +
+    date.getFullYear()
+  );
 };
 
 function AttendeeDashboard() {
@@ -56,7 +63,6 @@ function AttendeeDashboard() {
   };
 
   const getEvents = async () => {
-    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
@@ -229,25 +235,6 @@ function AttendeeDashboard() {
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-start",
-    width: "30%",
-  },
-  title: {
-    color: "#100101",
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  date: {
-    color: "#969696",
-    marginTop: "5%",
-    fontSize: 12,
-  },
   searchBar: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -7,16 +7,16 @@
 Be sure to check out our [Wiki](https://github.com/jasminelebel/SOEN490/wiki) for more information on the agile development behind this project's implementation.
 
 ## Team Members
-|#              |Name                   |Github Username                                                |Student ID
-|---            |---                    |---                                                            |---
-|1              |Jasmine Lebel          |[jasminelebel](https://github.com/jasminelebel)                |40135464
-|2              |Sofiya Taver           |[sofiyataver](https://github.com/sofiyataver)                  |40095050
-|3              |Mohona Mazumdar        |[mohona6646](https://github.com/mohona6646)                    |40129421
-|4              |Ahmad Hamdy            |[ahmadhany99](https://github.com/ahmadhany99)                  |40068060
-|5              |Andrea El-Hage         |[andreaelhage](https://github.com/andreaelhage)                |40090327
-|6              |Allan Paul Lopez       |[allanation](https://github.com/allanation)                    |40000954
-|7              |Samaninder Singh       |[SamSDK](https://github.com/SamSDK)                            |40133493
-|8              |Jonathan Di Ioia       |[infernalturtle](https://github.com/infernalturtle)            |40132750  
+|#              |Name                                |Github Username                                                |Student ID
+|---            |---                                |---                                                            |---
+|1              |Jasmine Lebel (Team Lead)          |[jasminelebel](https://github.com/jasminelebel)                |40135464
+|2              |Sofiya Taver                       |[sofiyataver](https://github.com/sofiyataver)                  |40095050
+|3              |Mohona Mazumdar                    |[mohona6646](https://github.com/mohona6646)                    |40129421
+|4              |Ahmad Hamdy                        |[ahmadhany99](https://github.com/ahmadhany99)                  |40068060
+|5              |Andrea El-Hage                     |[andreaelhage](https://github.com/andreaelhage)                |40090327
+|6              |Allan Paul Lopez                   |[allanation](https://github.com/allanation)                    |40000954
+|7              |Samaninder Singh                   |[SamSDK](https://github.com/SamSDK)                            |40133493
+|8              |Jonathan Di Ioia                   |[infernalturtle](https://github.com/infernalturtle)            |40132750  
 
 ## Naming Convention
 ### Branches:
@@ -44,6 +44,6 @@ Be sure to check out our [Wiki](https://github.com/jasminelebel/SOEN490/wiki) fo
 3. After signing in, scan the QR code from the terminal to run app on mobile.
 
 ## Using ESLint:
-1. Use `npm run lint` to start the linter and detect any code smells.
-2. Use `npm run lint-fix` to allow the linter to fix some code smells which do not require manual fixing.
+- Use `npx eslint` to start the linter and detect any code smells.
+- Resolve code violations prior to pushing to your branch.
 

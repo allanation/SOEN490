@@ -362,16 +362,6 @@ function OrganizerNewEvent() {
 }
 
 const styles = StyleSheet.create({
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  paragraph: { textAlign: "center" },
   coverImage: {
     width: 75,
     height: 75,
@@ -386,11 +376,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     marginVertical: 10,
-  },
-  bottom: {
-    flex: 1,
-    justifyContent: "flex-end",
-    marginBottom: 36,
   },
   modalView: {
     margin: 270,

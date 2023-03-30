@@ -96,7 +96,6 @@ function OrganizerDaySchedule({ route }) {
   };
 
   const onEdit = (newSchedule) => () => {
-    console.log("test");
     setSchedule(schedule.filter((item) => item.id !== newSchedule.id));
     setSchedule((schedule) => [...schedule, newSchedule]);
   };
@@ -272,27 +271,6 @@ const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     paddingTop: 20,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    alignSelf: "flex-start",
-  },
-  buttonClose: {
-    backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-  },
-  backModal: {
-    backgroundColor: "black",
   },
   shadow: {
     justifyContent: "center",

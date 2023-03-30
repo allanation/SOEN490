@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import { Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
@@ -75,7 +75,7 @@ function OrgReviewEventTags() {
 
       //Get day object
       const days = await Storage.getItem({
-        key: 'days',
+        key: "days",
       });
 
       //Get itinerary object
@@ -114,16 +114,16 @@ function OrgReviewEventTags() {
               itinerary: itineraryObject,
               tags: tags,
               guid: newEventObject.guid,
-          });
-             Storage.removeItem({ key: "newEvent" });
-             Storage.removeItem({ key: "POC" });
-             Storage.removeItem({ key: "eventDates" });
-             Storage.removeItem({ key: 'days'});
-             Storage.removeItem({ key: "itinerary" });
-             Storage.removeItem({ key: "tags" });
-  
-             Alert.alert("Event Reviewed Succesfully");
-             navigation.navigate("Organizer");
+            });
+            Storage.removeItem({ key: "newEvent" });
+            Storage.removeItem({ key: "POC" });
+            Storage.removeItem({ key: "eventDates" });
+            Storage.removeItem({ key: "days" });
+            Storage.removeItem({ key: "itinerary" });
+            Storage.removeItem({ key: "tags" });
+
+            Alert.alert("Event Reviewed Succesfully");
+            navigation.navigate("Organizer");
           } catch (e) {
             console.log(e);
           }
@@ -139,11 +139,7 @@ function OrgReviewEventTags() {
     if (!tags.some((tag) => e.nativeEvent.text == tag.tagname)) {
       if (e.nativeEvent.text.length > 0) {
         setTags((tags) => [...tags, newTag]);
-      } else {
-        console.log("she already goes here!!!");
       }
-    } else {
-      console.log("hi");
     }
   }
 
@@ -235,64 +231,5 @@ function OrgReviewEventTags() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 35,
-    padding: 20,
-    paddingTop: 25,
-    width: "86%",
-    height: "62%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  inputView: {
-    display: "flex",
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    width: "90%",
-    alignSelf: "center",
-  },
-  inputBox: {
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-    borderStyle: "solid",
-    borderWidth: 1,
-    marginTop: 40,
-  },
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
-});
 
 export default OrgReviewEventTags;

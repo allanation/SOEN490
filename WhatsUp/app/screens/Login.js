@@ -51,7 +51,6 @@ export default function Login() {
   return (
     <Screen
       resizeMode='cover'
-      backgroundImage='https://cdn.dribbble.com/users/479289/screenshots/4521207/media/c3e3bd246bbff91101a54e69daa8b1f0.gif'
       style={{ paddingHorizontal: "10%" }}
     >
       <Image
@@ -165,10 +164,6 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
   organizertwo: {
     alignItems: "flex-end",
     width: "98%",
@@ -177,21 +172,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignSelf: "center",
   },
-  roundshape: {
-    backgroundColor: "grey",
-    height: 65,
-    width: 65,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignContent: "center",
-    borderRadius: 45,
-  },
   text: {
     color: colors.darkerGrey,
     fontSize: 16,
-  },
-  text2: {
-    fontSize: 16,
-    color: colors.darkGrey,
   },
 });

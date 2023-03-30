@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React from "react";
-import { TouchableOpacity, StyleSheet, Platform, Text, View } from "react-native";
+import { TouchableOpacity, Text, View } from "react-native";
 import colors from "../config/colors";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -39,20 +38,5 @@ function UtilBtn({
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 7,
-    alignSelf: "center",
-    alignItems: "center",
-    padding: 12,
-  },
-  text: {
-    color: colors.white,
-    fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
-  },
-});
 
 export default UtilBtn;

@@ -10,7 +10,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import Notification from "../components/Notifications";
 
 function OrgNotifications() {
-  const [orgEvents, setOrgEvents] = useState([]);
+  const [orgNotifs, setOrgNotifs] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [user] = useAuthState(auth);
 
@@ -26,7 +26,7 @@ function OrgNotifications() {
       querySnapshot.forEach((doc) => {
         allEvents.push(doc.data());
       });
-      setOrgEvents(allEvents);
+      setOrgNotifs(allEvents);
     }
   };
 
@@ -43,9 +43,9 @@ function OrgNotifications() {
   };
 
   const deleteNotifs = (id) => {
-    for (const event of orgEvents) {
+    for (const event of orgNotifs) {
       if (event.guid == id) {
-        orgEvents.splice(orgEvents.indexOf(event), 1);
+        orgNotifs.splice(orgNotifs.indexOf(event), 1);
       }
     }
   };
@@ -64,11 +64,11 @@ function OrgNotifications() {
 
   var showEvents;
 
-  showEvents = orgEvents ? (
+  showEvents = orgNotifs ? (
     <>
       <FlatList
         contentContainerStyle={{ paddingBottom: 400 }}
-        data={orgEvents}
+        data={orgNotifs}
         renderItem={ItemView}
         refreshControl={
           <RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />

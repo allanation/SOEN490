@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
   function SearchBar({ handleChange, placeholder }) {
     return (
       <View style={styles.container}>
-                <View style={styles.iconContainer}>
+                <View>
             <Icon name="ios-search" style={styles.icon}/>
         </View>
       <TextInput

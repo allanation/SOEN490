@@ -55,24 +55,24 @@ function AttendeeNotifications() {
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
         for (const books of allBooked) {
-            if (books == doc.id){
-                const notifs = doc.data().notifications;
-                if (!(notifs === undefined)) {
-                    for (const stuff of notifs) {
-                        const temp = {
-                            coverImage: doc.data().coverImage,
-                            eventName: doc.data().eventName,
-                            dateSent: stuff.dateSent,
-                            message: stuff.message,
-                            link: doc.data(),
-                        };
-                        if (!times.includes(temp.dateSent)) {
-                            times.push(temp.dateSent);
-                            allBlasts.push(temp);
-                        }
-                    }
+          if (books == doc.id) {
+            const notifs = doc.data().notifications;
+            if (!(notifs === undefined)) {
+              for (const notif of notifs) {
+                const temp = {
+                  coverImage: doc.data().coverImage,
+                  eventName: doc.data().eventName,
+                  dateSent: notif.dateSent,
+                  message: notif.message,
+                  link: doc.data(),
+                };
+                if (!times.includes(temp.dateSent)) {
+                  times.push(temp.dateSent);
+                  allBlasts.push(temp);
                 }
+              }
             }
+          }
         }
       });
     }
@@ -81,36 +81,36 @@ function AttendeeNotifications() {
   allBlasts.sort(function (a, b) {
     const keyA = a.dateSent,
       keyB = b.dateSent;
-    if (keyA < keyB) return 1;
-    if (keyA > keyB) return -1;
-    return 0;
+    return keyA < keyB ? 1 : keyA > keyB ? -1 : 0;
   });
 
-      async function bookmarkAndgetBlasts() {
-        await getBookmarksAndTickets();
-        await getBlasts();
-      }
+  async function bookmarkAndgetBlasts() {
+    await getBookmarksAndTickets();
+    await getBlasts();
+  }
 
-      const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator();
 
-      useEffect(() => {
-        bookmarkAndgetBlasts();
-      }, []);
+  useEffect(() => {
+    bookmarkAndgetBlasts();
+  }, []);
 
-
-      const ItemView = ({ item }) => {
-        return (
-          <Blast
-            image={item.coverImage}
-            title={item.eventName}
-            date={convertStartDate(item.dateSent) + format(new Date(item.dateSent), " H:mm")}
-            message = {item.message}
-            coverImageName={item.coverImage}
-            id={item.id}
-            onPress={() => navigation.navigate("AttendeeView", { prop: item.link })}
-          />
-        );
-      };
+  const ItemView = ({ item }) => {
+    return (
+      <Blast
+        image={item.coverImage}
+        title={item.eventName}
+        date={
+          convertStartDate(item.dateSent) +
+          format(new Date(item.dateSent), " H:mm")
+        }
+        message={item.message}
+        coverImageName={item.coverImage}
+        id={item.id}
+        onPress={() => navigation.navigate("AttendeeView", { prop: item.link })}
+      />
+    );
+  };
 
   const pullMe = () => {
     setRefresh(true);
@@ -167,14 +167,14 @@ const styles = StyleSheet.create({
     shadowRadius: 0, //IOS
     elevation: 0, // Android
   },
-    textCentered: {
-      color: "#100101",
-      marginTop: "4%",
-      marginBottom: "3%",
-      fontSize: 12,
-      fontWeight: "bold",
-      textAlign: "center",
-    },
+  textCentered: {
+    color: "#100101",
+    marginTop: "4%",
+    marginBottom: "3%",
+    fontSize: 12,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
 });
 
 export default AttendeeNotifications;
