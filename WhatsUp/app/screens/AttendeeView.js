@@ -58,10 +58,11 @@ function AttendeeView({ route, navigation }) {
   const { prop } = route.params;
   const { fromScreen } = route.params;
   const Tab = createMaterialTopTabNavigator();
-
-  const [buttonText, setButtonText] = useState("Going");
   const [user] = useAuthState(auth);
-  const [checkedButton, setCheckedButton] = useState("✔ Going");
+  const [test, setTest] = useState({
+    buttonText: "Going",
+    checkedButton: "✔ Going",
+  });
   const [docId, setDocId] = useState("");
 
   const getDocId = async () => {
@@ -78,6 +79,9 @@ function AttendeeView({ route, navigation }) {
     if (buttonText == "Going") {
       setButtonText("✔ Going");
       console.log(prop.id);
+  const handleGoing = async (test) => {
+    if (test == "Going") {
+      setTest({ buttonText: "✔ Going", checkedButton: "✔ Going" });
       const setToGoing = doc(db, "users", docId);
       await updateDoc(setToGoing, {
         tickets: arrayUnion(prop.id),
@@ -141,6 +145,7 @@ function AttendeeView({ route, navigation }) {
       });
     } else {
       setCheckedButton("Going");
+      setTest({ buttonText: "Going", checkedButton: "Going" });
       const notGoing = doc(db, "users", docId);
       await updateDoc(notGoing, {
         tickets: arrayRemove(prop.id),
@@ -151,28 +156,6 @@ function AttendeeView({ route, navigation }) {
   useEffect(() => {
     getDocId();
   }, []);
-
-  let coverImageSource;
-
-  if (prop.coverImage == "Art") {
-    coverImageSource = require("../assets/CoverImages/Art.jpg");
-  } else if (prop.coverImage == "Auditorium") {
-    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
-  } else if (prop.coverImage == "Concordia") {
-    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
-  } else if (prop.coverImage == "Frosh") {
-    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
-  } else if (prop.coverImage == "Graduation") {
-    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
-  } else if (prop.coverImage == "McGill") {
-    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
-  } else if (prop.coverImage == "Park") {
-    coverImageSource = require("../assets/CoverImages/Park.jpg");
-  } else if (prop.coverImage == "Sports") {
-    coverImageSource = require("../assets/CoverImages/Sports.jpg");
-  } else if (prop.coverImage == "Studying") {
-    coverImageSource = require("../assets/CoverImages/Studying.jpg");
-  }
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
@@ -254,15 +237,15 @@ function AttendeeView({ route, navigation }) {
         {fromScreen == "AttendeeTickets" ? (
           <AppButton
             style={styles.btn}
-            title={checkedButton}
+            title={test.checkedButton}
             onPress={() => {
-              handleGoingWhenTicketed(checkedButton);
+              handleGoing(test.checkedButton);
             }}
           />
         ) : (
           <AppButton
             style={styles.btn}
-            title={buttonText}
+            title={test.buttonText}
             onPress={() => {
               handleGoing(buttonText);
               {
@@ -270,6 +253,7 @@ function AttendeeView({ route, navigation }) {
                   ? handleDecrementNumberOfPartipants(prop.guid)
                   : handleIncrementNumberOfPartipants(prop.guid);
               }
+              handleGoing(test.buttonText);
             }}
           />
         )}

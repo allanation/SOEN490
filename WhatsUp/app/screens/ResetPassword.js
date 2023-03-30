@@ -70,26 +70,9 @@ export default function ResetPassword() {
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
   organizertwo: {
     paddingLeft: 110,
     width: "98%",
-  },
-  rowContainer: {
-    flexDirection: "row",
-    alignSelf: "center",
-  },
-  roundshape: {
-    backgroundColor: "grey",
-    height: 65,
-    width: 65,
-    justifyContent: "center",
-    alignSelf: "center",
-    alignContent: "center",
-    borderRadius: 45,
   },
   link: {
     marginLeft: "14.1%",

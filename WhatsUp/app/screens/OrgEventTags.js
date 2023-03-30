@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import { Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
@@ -193,64 +193,5 @@ function OrganizeEventTags() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 35,
-    padding: 20,
-    paddingTop: 25,
-    width: "86%",
-    height: "62%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  inputView: {
-    display: "flex",
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    width: "90%",
-    alignSelf: "center",
-  },
-  inputBox: {
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-    borderStyle: "solid",
-    borderWidth: 1,
-    marginTop: 40,
-  },
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
-});
 
 export default OrganizeEventTags;

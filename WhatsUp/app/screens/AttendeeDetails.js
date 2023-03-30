@@ -109,9 +109,6 @@ function AttendeeDetails({route}) {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    marginLeft: "auto",
-  },
   iconText: {
     flexDirection: "row",
     marginTop: 3,

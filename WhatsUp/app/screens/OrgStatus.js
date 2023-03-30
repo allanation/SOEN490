@@ -4,7 +4,6 @@ import {
   ScrollView,
   Platform,
   Text,
-  Dimensions,
 } from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
@@ -100,14 +99,6 @@ function OrgStatus({ route }) {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    marginLeft: "auto",
-  },
-  iconText: {
-    flexDirection: "row",
-    marginTop: 3,
-    marginLeft: 8,
-  },
   text: {
     color: "#100101",
     fontSize: 16,
@@ -115,19 +106,6 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     marginBottom: "2%",
     marginLeft: "1%",
-  },
-  description: {
-    marginLeft: "1%",
-    fontSize: 14,
-    alignSelf: "flex-start",
-    alignContent: "flex-start",
-    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
-  },
-  map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height / 4,
-    borderRadius: 20,
-    overflow: "hidden",
   },
 });
 
