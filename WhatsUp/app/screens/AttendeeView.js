@@ -136,16 +136,6 @@ function AttendeeView({ route, navigation }) {
     getDocId();
   }, []);
 
-  // useEffect(() => {
-  //   setAvailablePlaces(prop.availablePlaces);
-  // }, [availablePlaces]);
-
-  // useEffect(() => {
-  //   prop.tickets.includes(prop.id)
-  //     ? setCheckedButton("✔ Going")
-  //     : setCheckedButton("Going");
-  // }, [checkedButton]);
-
   let coverImageSource;
 
   if (prop.coverImage == "Art") {
@@ -258,6 +248,11 @@ function AttendeeView({ route, navigation }) {
             title={test.checkedButton}
             onPress={() => {
               handleGoing(test.checkedButton);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         ) : (
@@ -266,6 +261,11 @@ function AttendeeView({ route, navigation }) {
             title={test.buttonText}
             onPress={() => {
               handleGoing(test.buttonText);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         )}
