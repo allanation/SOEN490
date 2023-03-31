@@ -24,85 +24,75 @@ function OrgStatus({ route }) {
   return (
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-          }}
-        >
-          Status
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus}
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Number of Participants" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Number of Favorites" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" } 
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "Comments from Admin" : "" } 
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? prop.adminComment : "" }
-        </Text>
-      </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+            }}
+          >
+            Status
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>{prop.eventStatus}</Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Approved" ? "Number of Participants" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Approved" ? prop.numberOfParticipants : ""}
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Approved" ? "Number of Favorites" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Approved" ? prop.numberOfFavorites : ""}
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Rejected" ? "Comments from Admin" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Rejected" ? prop.adminComment : ""}
+          </Text>
+        </View>
       </ScrollView>
     </Screen>
   );

@@ -37,6 +37,7 @@ function OrganizerNewEvent() {
   const [orgName, setOrgName] = useState("");
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
+  const [availablePlaces, setAvailablePlaces] = useState("");
   const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState(null);
   const [coverImageName, setCoverImageName] = useState("");
@@ -77,6 +78,7 @@ function OrganizerNewEvent() {
       description: description,
       link: link,
       coverImage: coverImageName,
+      availablePlaces: availablePlaces,
     };
 
     //If every mandatory fields is filled out, store the information and go to next page
@@ -94,7 +96,7 @@ function OrganizerNewEvent() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           onPress={() => navigation.navigate("Organizer")}
         />
@@ -107,30 +109,37 @@ function OrganizerNewEvent() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title="Please fill the following information"
+          title='Please fill the following information'
         />
       </View>
       <ScrollView style={{ paddingTop: 20 }}>
         <View>
           <AppTextInput
             style={styles.shadow}
-            placeholder="Event Title"
+            placeholder='Event Title'
             onChangeText={(currentEventName) => setEventName(currentEventName)}
           ></AppTextInput>
           <AppTextInput
             style={styles.shadow}
-            placeholder="Organization Name"
+            placeholder='Organization Name'
             onChangeText={(currentOrgName) => setOrgName(currentOrgName)}
           ></AppTextInput>
           <AppTextInput
             style={styles.shadow}
-            placeholder="Location"
+            placeholder='Location'
             onChangeText={(currentLocation) => setLocation(currentLocation)}
           ></AppTextInput>
           <AppTextInput
             style={styles.shadow}
-            placeholder="Link for ticket purchase (optional)"
+            placeholder='Link for ticket purchase (optional)'
             onChangeText={(currentLink) => setLink(currentLink)}
+          ></AppTextInput>
+          <AppTextInput
+            style={styles.shadow}
+            placeholder='Available places/tickets (optional)'
+            onChangeText={(currentAvailablePlaces) =>
+              setAvailablePlaces(currentAvailablePlaces)
+            }
           ></AppTextInput>
           <AppTextInput
             multiline={true}
@@ -145,7 +154,7 @@ function OrganizerNewEvent() {
               shadowRadius: 2, //IOS
               elevation: 4, // Android
             }}
-            placeholder="Description"
+            placeholder='Description'
             onChangeText={(currentDescription) =>
               setDescription(currentDescription)
             }
@@ -170,7 +179,7 @@ function OrganizerNewEvent() {
             <EvilIcons
               onPress={() => setModalVisible(true)}
               testID={"chooseImage"}
-              name="image"
+              name='image'
               size={36}
               color={colors.primary}
               style={styles.icon}
@@ -194,7 +203,7 @@ function OrganizerNewEvent() {
         ></AppButton>
       </View>
       <AppModal
-        animationType="slide"
+        animationType='slide'
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -203,12 +212,12 @@ function OrganizerNewEvent() {
       >
         <View style={styles.modalView}>
           <View style={styles.inputView}>
-            <View keyboardDismissMode="interactive" style={{ width: "100%" }}>
+            <View keyboardDismissMode='interactive' style={{ width: "100%" }}>
               <View style={{ flexDirection: "row" }}>
                 <UtilBtn
-                  title=""
+                  title=''
                   style={{ opacity: 1, paddingRight: 2, marginBottom: 5 }}
-                  icon="chevron-back"
+                  icon='chevron-back'
                   onPress={() => setModalVisible(!modalVisible)}
                 />
                 <Text
@@ -346,7 +355,7 @@ function OrganizerNewEvent() {
                 </TouchableOpacity>
               </View>
               <AppButton
-                title="Submit"
+                title='Submit'
                 testID={"submitImage"}
                 style={{ marginTop: 15 }}
                 onPress={() => {

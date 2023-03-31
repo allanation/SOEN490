@@ -20,7 +20,11 @@ import {
   getDocs,
   arrayRemove,
   arrayUnion,
+  increment,
+  decrement,
+  FieldValue,
 } from "firebase/firestore";
+import firebase from "firebase/app";
 
 AttendeeView.propTypes = {
   route: PropTypes.any,
@@ -59,7 +63,9 @@ function AttendeeView({ route, navigation }) {
     buttonText: "Going",
     checkedButton: "✔ Going",
   });
+  const [checkedButton, setCheckedButton] = useState("Going");
   const [docId, setDocId] = useState("");
+  const [availablePlaces, setAvailablePlaces] = useState(prop.availablePlaces);
 
   const getDocId = async () => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -87,27 +93,106 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
+  // Accepts the event onClick
+  const handleIncrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(1),
+            availablePlaces: increment(-1),
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+  };
+
+  // Accepts the event onClick
+  const handleDecrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(-1),
+            availablePlaces: increment(1),
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+  };
+
+  const handleGoingWhenTicketed = async (checkedButton) => {
+    if (checkedButton == "Going") {
+      setCheckedButton("✔ Going");
+      const setToGoing = doc(db, "users", docId);
+      console.log(prop);
+      await updateDoc(setToGoing, {
+        tickets: arrayUnion(prop.id),
+      });
+    } else {
+      setCheckedButton("Going");
+      const notGoing = doc(db, "users", docId);
+      await updateDoc(notGoing, {
+        tickets: arrayRemove(prop.id),
+      });
+    }
+  };
+
   useEffect(() => {
     getDocId();
   }, []);
+
+  let coverImageSource;
+
+  if (prop.coverImage == "Art") {
+    coverImageSource = require("../assets/CoverImages/Art.jpg");
+  } else if (prop.coverImage == "Auditorium") {
+    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (prop.coverImage == "Concordia") {
+    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
+  } else if (prop.coverImage == "Frosh") {
+    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
+  } else if (prop.coverImage == "Graduation") {
+    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
+  } else if (prop.coverImage == "McGill") {
+    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
+  } else if (prop.coverImage == "Park") {
+    coverImageSource = require("../assets/CoverImages/Park.jpg");
+  } else if (prop.coverImage == "Sports") {
+    coverImageSource = require("../assets/CoverImages/Sports.jpg");
+  } else if (prop.coverImage == "Studying") {
+    coverImageSource = require("../assets/CoverImages/Studying.jpg");
+  }
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
       <Image
         source={getCoverImageSource(prop.coverImage)}
-        resizeMode="cover"
+        resizeMode='cover'
         style={styles.headerImage}
       />
 
       <View style={styles.toolContainer}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           iconSize={25}
           style={styles.toolBtn}
           onPress={() => navigation.goBack()}
         />
         <UtilBtn
-          icon="ios-bookmark-outline"
+          icon='ios-bookmark-outline'
           iconSize={20}
           style={styles.toolBtn}
         >
@@ -132,12 +217,12 @@ function AttendeeView({ route, navigation }) {
         }}
       >
         <Tab.Screen
-          name="Details"
+          name='Details'
           component={AttendeeDetails}
           initialParams={{ prop: prop }}
         />
         <Tab.Screen
-          name="Schedule"
+          name='Schedule'
           component={AttendeeSchedule}
           initialParams={{ prop: prop.itinerary }}
         />
@@ -152,10 +237,22 @@ function AttendeeView({ route, navigation }) {
           borderTopWidth: 1,
         }}
       >
+        <View
+          style={{
+            alignSelf: "center",
+            paddingHorizontal: "5%",
+          }}
+        >
+          {prop.availablePlaces > 0 ? (
+            <Text>Place(s) left: {prop.availablePlaces}</Text>
+          ) : (
+            <Text>Sold Out!</Text>
+          )}
+        </View>
         {prop.link.length > 0 ? (
           <AppButton
             style={styles.btn}
-            title="Buy Tickets"
+            title='Buy Tickets'
             onPress={() => {
               Linking.openURL(prop.link);
             }}
@@ -169,6 +266,12 @@ function AttendeeView({ route, navigation }) {
             title={test.checkedButton}
             onPress={() => {
               handleGoing(test.checkedButton);
+              handleGoingWhenTicketed(checkedButton);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         ) : (
@@ -177,6 +280,11 @@ function AttendeeView({ route, navigation }) {
             title={test.buttonText}
             onPress={() => {
               handleGoing(test.buttonText);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         )}
