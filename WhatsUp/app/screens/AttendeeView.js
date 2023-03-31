@@ -63,6 +63,7 @@ function AttendeeView({ route, navigation }) {
     buttonText: "Going",
     checkedButton: "✔ Going",
   });
+  const [checkedButton, setCheckedButton] = useState("Going");
   const [docId, setDocId] = useState("");
   const [availablePlaces, setAvailablePlaces] = useState(prop.availablePlaces);
 
@@ -128,6 +129,23 @@ function AttendeeView({ route, navigation }) {
         } catch (e) {
           console.log(e);
         }
+      });
+    }
+  };
+
+  const handleGoingWhenTicketed = async (checkedButton) => {
+    if (checkedButton == "Going") {
+      setCheckedButton("✔ Going");
+      const setToGoing = doc(db, "users", docId);
+      console.log(prop);
+      await updateDoc(setToGoing, {
+        tickets: arrayUnion(prop.id),
+      });
+    } else {
+      setCheckedButton("Going");
+      const notGoing = doc(db, "users", docId);
+      await updateDoc(notGoing, {
+        tickets: arrayRemove(prop.id),
       });
     }
   };
@@ -248,6 +266,7 @@ function AttendeeView({ route, navigation }) {
             title={test.checkedButton}
             onPress={() => {
               handleGoing(test.checkedButton);
+              handleGoingWhenTicketed(checkedButton);
               {
                 checkedButton === "Going"
                   ? handleDecrementNumberOfPartipants(prop.guid)
