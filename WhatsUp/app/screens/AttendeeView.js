@@ -64,6 +64,7 @@ function AttendeeView({ route, navigation }) {
     checkedButton: "✔ Going",
   });
   const [docId, setDocId] = useState("");
+  const [availablePlaces, setAvailablePlaces] = useState(prop.availablePlaces);
 
   const getDocId = async () => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -75,10 +76,6 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
-  const handleGoing = async (buttonText) => {
-    if (buttonText == "Going") {
-      setButtonText("✔ Going");
-      console.log(prop.id);
   const handleGoing = async (test) => {
     if (test == "Going") {
       setTest({ buttonText: "✔ Going", checkedButton: "✔ Going" });
@@ -87,7 +84,7 @@ function AttendeeView({ route, navigation }) {
         tickets: arrayUnion(prop.id),
       });
     } else {
-      setButtonText("Going");
+      setTest({ buttonText: "Going", checkedButton: "Going" });
       const notGoing = doc(db, "users", docId);
       await updateDoc(notGoing, {
         tickets: arrayRemove(prop.id),
@@ -135,27 +132,41 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
-  const handleGoingWhenTicketed = async (checkedButton) => {
-    if (checkedButton == "Going") {
-      setCheckedButton("✔ Going");
-      const setToGoing = doc(db, "users", docId);
-      console.log(prop);
-      await updateDoc(setToGoing, {
-        tickets: arrayUnion(prop.id),
-      });
-    } else {
-      setCheckedButton("Going");
-      setTest({ buttonText: "Going", checkedButton: "Going" });
-      const notGoing = doc(db, "users", docId);
-      await updateDoc(notGoing, {
-        tickets: arrayRemove(prop.id),
-      });
-    }
-  };
-
   useEffect(() => {
     getDocId();
   }, []);
+
+  // useEffect(() => {
+  //   setAvailablePlaces(prop.availablePlaces);
+  // }, [availablePlaces]);
+
+  // useEffect(() => {
+  //   prop.tickets.includes(prop.id)
+  //     ? setCheckedButton("✔ Going")
+  //     : setCheckedButton("Going");
+  // }, [checkedButton]);
+
+  let coverImageSource;
+
+  if (prop.coverImage == "Art") {
+    coverImageSource = require("../assets/CoverImages/Art.jpg");
+  } else if (prop.coverImage == "Auditorium") {
+    coverImageSource = require("../assets/CoverImages/Auditorium.jpg");
+  } else if (prop.coverImage == "Concordia") {
+    coverImageSource = require("../assets/CoverImages/Concordia.jpg");
+  } else if (prop.coverImage == "Frosh") {
+    coverImageSource = require("../assets/CoverImages/Frosh.jpg");
+  } else if (prop.coverImage == "Graduation") {
+    coverImageSource = require("../assets/CoverImages/Graduation.jpg");
+  } else if (prop.coverImage == "McGill") {
+    coverImageSource = require("../assets/CoverImages/McGill.jpeg");
+  } else if (prop.coverImage == "Park") {
+    coverImageSource = require("../assets/CoverImages/Park.jpg");
+  } else if (prop.coverImage == "Sports") {
+    coverImageSource = require("../assets/CoverImages/Sports.jpg");
+  } else if (prop.coverImage == "Studying") {
+    coverImageSource = require("../assets/CoverImages/Studying.jpg");
+  }
 
   return (
     <Screen style={{ backgroundColor: "white" }}>
@@ -218,11 +229,18 @@ function AttendeeView({ route, navigation }) {
           borderTopWidth: 1,
         }}
       >
-        {prop.availablePlaces > 0 ? (
-          <Text>Place(s) left: {prop.availablePlaces}</Text>
-        ) : (
-          <Text>Sold Out!</Text>
-        )}
+        <View
+          style={{
+            alignSelf: "center",
+            paddingHorizontal: "5%",
+          }}
+        >
+          {prop.availablePlaces > 0 ? (
+            <Text>Place(s) left: {prop.availablePlaces}</Text>
+          ) : (
+            <Text>Sold Out!</Text>
+          )}
+        </View>
         {prop.link.length > 0 ? (
           <AppButton
             style={styles.btn}
@@ -247,12 +265,6 @@ function AttendeeView({ route, navigation }) {
             style={styles.btn}
             title={test.buttonText}
             onPress={() => {
-              handleGoing(buttonText);
-              {
-                checkedButton === "Going"
-                  ? handleDecrementNumberOfPartipants(prop.guid)
-                  : handleIncrementNumberOfPartipants(prop.guid);
-              }
               handleGoing(test.buttonText);
             }}
           />

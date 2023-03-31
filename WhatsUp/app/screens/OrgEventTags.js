@@ -66,6 +66,7 @@ function OrganizeEventTags() {
         location: newEventObject.location,
         description: newEventObject.description,
         link: newEventObject.link,
+        availablePlaces: newEventObject.availablePlaces,
         coverImage: newEventObject.coverImage,
         pocName: POCObject.pocName,
         pocPhoneNum: POCObject.pocPhoneNum,
