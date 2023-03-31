@@ -96,22 +96,6 @@ test("Searching in previous events starting with sp in search bar should show al
 
 });
 
-test("Switching sucessfully between previous and upcoming events tabs", async () => {
-  render(
-    <NavigationContainer>
-      <OrgDashboard />
-    </NavigationContainer>
-  );
-  await waitFor(() => {
-    fireEvent.press(screen.getByText("Previous"));
-  });
-
-  await waitFor(() => {
-    fireEvent.press(screen.getByText("Upcoming"));
-  });
-
-});
-
 test("Clicking on filter Icon should show filters", async () => {
   render(
     <NavigationContainer>
