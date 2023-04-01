@@ -204,6 +204,7 @@ function OrgDetails({ route }) {
           <View style={{ flexDirection: "row", marginLeft: "auto" }}>
             <Ionicons
               name="trash"
+              testID="delete-event"
               onPress={() =>
                 Alert.alert(
                   "Warning",

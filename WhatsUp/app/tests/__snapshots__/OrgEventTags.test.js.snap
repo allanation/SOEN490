@@ -166,7 +166,16 @@ exports[`Renders Create New Event Last Page Correctly 1`] = `
             },
             Object {
               "color": "#989797",
+              "elevation": 2,
               "fontSize": 18,
+              "justifyContent": "center",
+              "shadowColor": "black",
+              "shadowOffset": Object {
+                "height": 1,
+                "width": 1,
+              },
+              "shadowOpacity": 0.2,
+              "shadowRadius": 3,
             },
           ]
         }
@@ -282,6 +291,7 @@ exports[`Renders Create New Event Last Page Correctly 1`] = `
           "width": "90%",
         }
       }
+      testID="submitEvent"
     >
       <Text
         style={
