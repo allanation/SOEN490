@@ -8,12 +8,18 @@ import OrgStatus from "../screens/OrgStatus";
 
 jest.useFakeTimers();
 
+const mockedParams = {
+  route: { params: {prop: {eventStatus: 'Rejected' }} },
+  navigation: ''
+  };
+
 it("Renders correctly organizer status page", async () => {
     const tree = render(
       <NavigationContainer>
-        <OrgStatus />
+        <OrgStatus {...mockedParams}/>
       </NavigationContainer>
     ).toJSON();
-  
     expect(tree).toMatchSnapshot();
   });
+
+  
