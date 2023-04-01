@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/react-in-jsx-scope */
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Platform, Alert, Text } from "react-native";
+import { View, Platform, Alert, Text } from "react-native";
 import Screen from "../components/Screen";
 import AppButton from "../components/AppButton";
 import TitleHeaders from "../components/TitleHeaders";
@@ -126,27 +126,5 @@ function OrgReviewDateInfo() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
-});
 
 export default OrgReviewDateInfo;

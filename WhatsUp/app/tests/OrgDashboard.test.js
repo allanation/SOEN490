@@ -9,7 +9,6 @@ import {
 } from "@testing-library/react-native";
 import OrgDashboard from "../screens/OrgDashboard";
 import Login from "../screens/Login";
-import UserProfile from "../screens/UserProfile";
 import NewEvent from "../screens/OrgNewEvent";
 
 jest.mock('@react-navigation/native', () => ({
@@ -105,8 +104,6 @@ test("Clicking on add Event Icon goes successfully to add new event page.", asyn
 //   await waitFor(() => {
 //     fireEvent.press(screen.getByTestId("Upcoming"));
 //   });
-
-// });
 
 test("Clicking on filter Icon should show filters", async () => {
   render(

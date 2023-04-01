@@ -20,7 +20,11 @@ import {
   getDocs,
   arrayRemove,
   arrayUnion,
+  increment,
+  decrement,
+  FieldValue,
 } from "firebase/firestore";
+import firebase from "firebase/app";
 
 AttendeeView.propTypes = {
   route: PropTypes.any,
@@ -54,11 +58,14 @@ function AttendeeView({ route, navigation }) {
   const { prop } = route.params;
   const { fromScreen } = route.params;
   const Tab = createMaterialTopTabNavigator();
-
-  const [buttonText, setButtonText] = useState("Going");
   const [user] = useAuthState(auth);
-  const [checkedButton, setCheckedButton] = useState("✔ Going");
+  const [test, setTest] = useState({
+    buttonText: "Going",
+    checkedButton: "✔ Going",
+  });
+  const [checkedButton, setCheckedButton] = useState("Going");
   const [docId, setDocId] = useState("");
+  const [availablePlaces, setAvailablePlaces] = useState(prop.availablePlaces);
 
   const getDocId = async () => {
     const q = query(collection(db, "users"), where("email", "==", user.email));
@@ -70,18 +77,58 @@ function AttendeeView({ route, navigation }) {
     }
   };
 
-  const handleGoing = async (buttonText) => {
-    if (buttonText == "Going") {
-      setButtonText("✔ Going");
+  const handleGoing = async (test) => {
+    if (test == "Going") {
+      setTest({ buttonText: "✔ Going", checkedButton: "✔ Going" });
       const setToGoing = doc(db, "users", docId);
       await updateDoc(setToGoing, {
         tickets: arrayUnion(prop.id),
       });
     } else {
-      setButtonText("Going");
+      setTest({ buttonText: "Going", checkedButton: "Going" });
       const notGoing = doc(db, "users", docId);
       await updateDoc(notGoing, {
         tickets: arrayRemove(prop.id),
+      });
+    }
+  };
+
+  // Accepts the event onClick
+  const handleIncrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(1),
+            availablePlaces: increment(-1),
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+    }
+  };
+
+  // Accepts the event onClick
+  const handleDecrementNumberOfPartipants = async (eventGuid) => {
+    const q = query(collection(db, "events"), where("guid", "==", eventGuid));
+
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      querySnapshot.forEach((doc) => {
+        try {
+          updateDoc(doc.ref, {
+            numberOfParticipants: increment(-1),
+            availablePlaces: increment(1),
+          });
+        } catch (e) {
+          console.log(e);
+        }
       });
     }
   };
@@ -90,6 +137,7 @@ function AttendeeView({ route, navigation }) {
     if (checkedButton == "Going") {
       setCheckedButton("✔ Going");
       const setToGoing = doc(db, "users", docId);
+      console.log(prop);
       await updateDoc(setToGoing, {
         tickets: arrayUnion(prop.id),
       });
@@ -132,19 +180,19 @@ function AttendeeView({ route, navigation }) {
     <Screen style={{ backgroundColor: "white" }}>
       <Image
         source={getCoverImageSource(prop.coverImage)}
-        resizeMode="cover"
+        resizeMode='cover'
         style={styles.headerImage}
       />
 
       <View style={styles.toolContainer}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           iconSize={25}
           style={styles.toolBtn}
           onPress={() => navigation.goBack()}
         />
         <UtilBtn
-          icon="ios-bookmark-outline"
+          icon='ios-bookmark-outline'
           iconSize={20}
           style={styles.toolBtn}
         >
@@ -169,12 +217,12 @@ function AttendeeView({ route, navigation }) {
         }}
       >
         <Tab.Screen
-          name="Details"
+          name='Details'
           component={AttendeeDetails}
           initialParams={{ prop: prop }}
         />
         <Tab.Screen
-          name="Schedule"
+          name='Schedule'
           component={AttendeeSchedule}
           initialParams={{ prop: prop.itinerary }}
         />
@@ -189,10 +237,22 @@ function AttendeeView({ route, navigation }) {
           borderTopWidth: 1,
         }}
       >
+        <View
+          style={{
+            alignSelf: "center",
+            paddingHorizontal: "5%",
+          }}
+        >
+          {prop.availablePlaces > 0 ? (
+            <Text>Place(s) left: {prop.availablePlaces}</Text>
+          ) : (
+            <Text>Sold Out!</Text>
+          )}
+        </View>
         {prop.link.length > 0 ? (
           <AppButton
             style={styles.btn}
-            title="Buy Tickets"
+            title='Buy Tickets'
             onPress={() => {
               Linking.openURL(prop.link);
             }}
@@ -203,17 +263,28 @@ function AttendeeView({ route, navigation }) {
         {fromScreen == "AttendeeTickets" ? (
           <AppButton
             style={styles.btn}
-            title={checkedButton}
+            title={test.checkedButton}
             onPress={() => {
+              handleGoing(test.checkedButton);
               handleGoingWhenTicketed(checkedButton);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         ) : (
           <AppButton
             style={styles.btn}
-            title={buttonText}
+            title={test.buttonText}
             onPress={() => {
-              handleGoing(buttonText);
+              handleGoing(test.buttonText);
+              {
+                checkedButton === "Going"
+                  ? handleDecrementNumberOfPartipants(prop.guid)
+                  : handleIncrementNumberOfPartipants(prop.guid);
+              }
             }}
           />
         )}

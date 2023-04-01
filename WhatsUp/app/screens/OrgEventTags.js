@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { StyleSheet, Text, View, ScrollView, Alert } from "react-native";
+import { Text, View, ScrollView, Alert } from "react-native";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import AppButton from "../components/AppButton";
@@ -66,6 +66,7 @@ function OrganizeEventTags() {
         location: newEventObject.location,
         description: newEventObject.description,
         link: newEventObject.link,
+        availablePlaces: newEventObject.availablePlaces,
         coverImage: newEventObject.coverImage,
         pocName: POCObject.pocName,
         pocPhoneNum: POCObject.pocPhoneNum,
@@ -78,6 +79,8 @@ function OrganizeEventTags() {
         itinerary: itineraryObject,
         tags: tags,
         guid: guid,
+        numberOfParticipants: 0,
+        numberOfFavorites: 0,
       })
         .then(() => {
           Storage.removeItem({ key: "newEvent" });
@@ -114,7 +117,7 @@ function OrganizeEventTags() {
     <Screen style={{ padding: 20, marginTop: 30 }}>
       <View style={{ flexDirection: "row", justifyContent: "center" }}>
         <UtilBtn
-          icon="chevron-back-outline"
+          icon='chevron-back-outline'
           style={{ position: "absolute", left: 0 }}
           testID={"backButton"}
           onPress={() => navigation.goBack()}
@@ -128,7 +131,7 @@ function OrganizeEventTags() {
         <TitleHeaders
           style={{ alignSelf: "center" }}
           isTitle={false}
-          title="Please fill the following information"
+          title='Please fill the following information'
         />
       </View>
       <ScrollView style={{ paddingTop: 20 }}>
@@ -143,9 +146,9 @@ function OrganizeEventTags() {
             shadowRadius: 3, //IOS
             elevation: 2, // Android
           }}
-          placeholder="Ex.: University"
+          placeholder='Ex.: University'
           autoCapitalize
-          clearButtonMode="always"
+          clearButtonMode='always'
           onChangeText={(text) => setCurrentTag({ text })}
           value={currentTag.text}
           onSubmitEditing={handleAddingTag}
@@ -153,7 +156,7 @@ function OrganizeEventTags() {
         <TitleHeaders
           style={{ paddingHorizontal: 20, color: "gray" }}
           isTitle={false}
-          title="Add tags to increase visibility"
+          title='Add tags to increase visibility'
         />
         <View style={{ marginTop: 12 }}>
           <View
@@ -191,64 +194,5 @@ function OrganizeEventTags() {
     </Screen>
   );
 }
-
-const styles = StyleSheet.create({
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 35,
-    padding: 20,
-    paddingTop: 25,
-    width: "86%",
-    height: "62%",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  inputView: {
-    display: "flex",
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    width: "90%",
-    alignSelf: "center",
-  },
-  inputBox: {
-    borderColor: colors.lightGrey,
-    borderRadius: 7,
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-    borderStyle: "solid",
-    borderWidth: 1,
-    marginTop: 40,
-  },
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
-});
 
 export default OrganizeEventTags;

@@ -105,30 +105,11 @@ function AttendeeSchedule({ route }) {
 }
 
 const styles = StyleSheet.create({
-  newEventHeader: {
-    justifyContent: "center",
-    marginTop: 8,
-    marginBottom: 16,
-  },
-  headerContent: {
-    justifyContent: "flex-start",
-    width: "100%",
-  },
   subtitle: {
     padding: 14,
     fontSize: 19,
     fontWeight: "bold",
   },
-  icon: {
-    marginLeft: "auto",
-  },
-  coverPage: {
-    flexDirection: "row",
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 10,
-  },
-  paragraph: { textAlign: "center" },
 });
 
 export default AttendeeSchedule;

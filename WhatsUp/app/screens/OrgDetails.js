@@ -74,39 +74,39 @@ export const storeDates = async (eventDates) => {
 };
 
 export const storeDay = async (days) => {
-  try{
+  try {
     await Storage.setItem({
       key: "days",
       value: days,
     });
-  } catch(e){
-    console.log(e)
+  } catch (e) {
+    console.log(e);
   }
-}
+};
 
 export const storeItinerary = async (itinerary) => {
-    try {
-      const jsonValue = JSON.stringify(itinerary);
-      await Storage.setItem({
-        key: "itinerary",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  try {
+    const jsonValue = JSON.stringify(itinerary);
+    await Storage.setItem({
+      key: "itinerary",
+      value: jsonValue,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
-  export const storeTags = async (tags) => {
-    try {
-      const jsonValue = JSON.stringify(tags);
-      await Storage.setItem({
-        key: "tags",
-        value: jsonValue,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+export const storeTags = async (tags) => {
+  try {
+    const jsonValue = JSON.stringify(tags);
+    await Storage.setItem({
+      key: "tags",
+      value: jsonValue,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 
 const onRemove = () => () => {};
 
@@ -119,9 +119,6 @@ function OrgDetails({ route }) {
   };
   const { prop } = route.params;
   const navigation = useNavigation();
-  //console.log("here are the props honey!: " + prop);
-  //console.log(prop);
-  //Event useStates
   const [eventName, setEventName] = useState(prop.eventName);
   const [orgName, setOrgName] = useState(prop.orgName);
   const [location, setLocation] = useState(prop.location);
@@ -159,7 +156,6 @@ function OrgDetails({ route }) {
   const [pocName, setPocName] = useState(prop.pocName);
   const [pocPhoneNum, setPocPhoneNum] = useState(prop.pocPhoneNum);
   const [pocEmail, setPocEmail] = useState(prop.pocEmail);
-  const [docKey, setDocKey] = useState("");
   const POC = {
     pocName: pocName,
     pocPhoneNum: pocPhoneNum,
@@ -191,8 +187,8 @@ function OrgDetails({ route }) {
     endTime: endTime.timestamp,
   };
 
-   //EventDays useState
-   const [days, setDays] = useState(prop.days);
+  //EventDays useState
+  const [days, setDays] = useState(prop.days);
 
   //Itinerary details
   const [itinerary, setItinerary] = useState(prop.itinerary);
@@ -208,6 +204,7 @@ function OrgDetails({ route }) {
           <View style={{ flexDirection: "row", marginLeft: "auto" }}>
             <Ionicons
               name="trash"
+              testID="delete-event"
               onPress={() =>
                 Alert.alert(
                   "Warning",
@@ -332,9 +329,6 @@ function OrgDetails({ route }) {
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    marginLeft: "auto",
-  },
   iconText: {
     flexDirection: "row",
     marginTop: 3,

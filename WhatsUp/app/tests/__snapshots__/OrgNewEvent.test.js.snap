@@ -165,7 +165,16 @@ exports[`Renders Create New Event First Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 4,
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 2,
+              },
             ]
           }
         >
@@ -198,7 +207,16 @@ exports[`Renders Create New Event First Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 4,
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 2,
+              },
             ]
           }
         >
@@ -231,7 +249,16 @@ exports[`Renders Create New Event First Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 4,
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 2,
+              },
             ]
           }
         >
@@ -264,7 +291,16 @@ exports[`Renders Create New Event First Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 4,
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 2,
+              },
             ]
           }
         >
@@ -299,7 +335,15 @@ exports[`Renders Create New Event First Page Correctly 1`] = `
               },
               Object {
                 "color": "#989797",
+                "elevation": 4,
                 "height": 100,
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 2,
                 "textAlignVertical": "top",
               },
             ]

@@ -4,7 +4,6 @@ import {
   ScrollView,
   Platform,
   Text,
-  Dimensions,
 } from "react-native";
 import React from "react";
 import Screen from "../components/Screen";
@@ -25,99 +24,81 @@ function OrgStatus({ route }) {
   return (
     <Screen style={{ padding: "5%", backgroundColor: "white" }}>
       <ScrollView style={{ width: "100%", display: "flex" }}>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-          }}
-        >
-          Status
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus}
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Number of Participants" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Number of Favorites" }
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? "" : "Currently Unavailable" } 
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={{
-            marginBottom: "2%",
-            fontSize: 18,
-            fontWeight: "bold",
-            marginLeft: "1%",
-            marginTop: "7.5%"
-          }}
-        >
-          {prop.eventStatus === "Rejected" ? "Comments from Admin" : "" } 
-        </Text>
-      </View>
-      <View>
-        <Text
-          style={styles.text}
-        >
-          {prop.eventStatus === "Rejected" ? prop.adminComment : "" }
-        </Text>
-      </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+            }}
+          >
+            Status
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>{prop.eventStatus}</Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Approved" ? "Number of Participants" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Approved" ? prop.numberOfParticipants : ""}
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Approved" ? "Number of Favorites" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Approved" ? prop.numberOfFavorites : ""}
+          </Text>
+        </View>
+        <View>
+          <Text
+            style={{
+              marginBottom: "2%",
+              fontSize: 18,
+              fontWeight: "bold",
+              marginLeft: "1%",
+              marginTop: "7.5%",
+            }}
+          >
+            {prop.eventStatus === "Rejected" ? "Comments from Admin" : ""}
+          </Text>
+        </View>
+        <View>
+          <Text style={styles.text}>
+            {prop.eventStatus === "Rejected" ? prop.adminComment : ""}
+          </Text>
+        </View>
       </ScrollView>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  icon: {
-    marginLeft: "auto",
-  },
-  iconText: {
-    flexDirection: "row",
-    marginTop: 3,
-    marginLeft: 8,
-  },
   text: {
     color: "#100101",
     fontSize: 16,
@@ -125,19 +106,6 @@ const styles = StyleSheet.create({
     marginTop: "2%",
     marginBottom: "2%",
     marginLeft: "1%",
-  },
-  description: {
-    marginLeft: "1%",
-    fontSize: 14,
-    alignSelf: "flex-start",
-    alignContent: "flex-start",
-    fontFamily: Platform.OS === "ios" ? "Helvetica Neue" : "sans-serif",
-  },
-  map: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height / 4,
-    borderRadius: 20,
-    overflow: "hidden",
   },
 });
 

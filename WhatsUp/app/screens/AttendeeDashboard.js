@@ -35,7 +35,14 @@ export const getTodayDate = () => {
     "November",
     "December",
   ];
-  return "Today's " + months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+  return (
+    "Today's " +
+    months[date.getMonth()] +
+    " " +
+    date.getDate() +
+    ", " +
+    date.getFullYear()
+  );
 };
 
 function AttendeeDashboard() {
@@ -56,7 +63,6 @@ function AttendeeDashboard() {
   };
 
   const getEvents = async () => {
-    const allEvents = [];
     const q = query(
       collection(db, "events"),
       where("eventStatus", "==", "Approved")
@@ -64,15 +70,18 @@ function AttendeeDashboard() {
     const querySnapshot = await getDocs(q);
     if (querySnapshot != null) {
       querySnapshot.forEach((doc) => {
-        setAllEvents(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setMasterData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
-        setPreviousData(
-          querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-        );
+        if(doc.data().endDate >= Date.now()){
+          setAllEvents((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+        setMasterData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+        setPreviousData((allEvents) =>
+                  allEvents.concat({ id: doc.id, ...doc.data() })
+                );
+
+        }
       });
     }
   };
@@ -217,32 +226,15 @@ function AttendeeDashboard() {
           </View>
           <Text style={styles.text}>Popular Events</Text>
         </View>
+        <View>
         {showEvents}
+        </View>
       </View>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-start",
-    width: "30%",
-  },
-  title: {
-    color: "#100101",
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  date: {
-    color: "#969696",
-    marginTop: "5%",
-    fontSize: 12,
-  },
   searchBar: {
     flexDirection: "row",
     justifyContent: "space-between",

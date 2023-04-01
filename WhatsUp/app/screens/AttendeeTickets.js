@@ -65,7 +65,6 @@ function AttendeeTickets() {
                   if (item.id == doc.id) {
                     break;
                   } else if (item.id == allEvents[allEvents.length - 1].id) {
-                    console.log("got ya");
                     setAllEvents((allEvents) =>
                       allEvents.concat({ id: doc.id, ...doc.data() })
                     );
@@ -80,7 +79,6 @@ function AttendeeTickets() {
                   }
                 }
               else {
-                console.log("hey there");
                 setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
@@ -116,7 +114,6 @@ function AttendeeTickets() {
           }
         }
       } else {
-        console.log("here?");
         setAllEvents([]);
       }
     }
@@ -294,25 +291,6 @@ function AttendeeTickets() {
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-start",
-    width: "30%",
-  },
-  title: {
-    color: "#100101",
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  date: {
-    color: "#969696",
-    marginTop: "5%",
-    fontSize: 12,
-  },
   text: {
     color: "#100101",
     marginTop: "4%",

@@ -80,7 +80,6 @@ function AttendeeFavorites() {
                   }
                 }
               else {
-                console.log("hey there");
                 setAllEvents((allEvents) =>
                   allEvents.concat({ id: doc.id, ...doc.data() })
                 );
@@ -132,7 +131,6 @@ function AttendeeFavorites() {
   const Tab = createBottomTabNavigator();
 
   useEffect(() => {
-    console.log("useeffect is used");
     getName();
     bookmarkAndgetEvents();
   }, []);
@@ -293,25 +291,6 @@ function AttendeeFavorites() {
 }
 
 const styles = StyleSheet.create({
-  organizer: {
-    alignItems: "flex-start",
-    width: "50%",
-  },
-  organizertwo: {
-    alignItems: "flex-start",
-    width: "30%",
-  },
-  title: {
-    color: "#100101",
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 8,
-  },
-  date: {
-    color: "#969696",
-    marginTop: "5%",
-    fontSize: 12,
-  },
   text: {
     color: "#100101",
     marginTop: "4%",

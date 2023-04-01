@@ -144,7 +144,49 @@ exports[`Renders Review Event Third Page Correctly 1`] = `
   <View
     style={
       Object {
-        "paddingTop": 20,
+        "paddingTop": 15,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "white",
+            "borderColor": "#989797",
+            "borderRadius": 12,
+            "borderWidth": 1,
+            "marginLeft": "1%",
+            "marginVertical": 10,
+            "opacity": 0.9,
+            "paddingHorizontal": 12,
+            "paddingVertical": 7,
+            "width": "98%",
+          },
+          undefined,
+        ]
+      }
+    >
+      <TextInput
+        onChangeText={[Function]}
+        placeholder="Number of days"
+        placeholderTextColor="grey"
+        style={
+          Object {
+            "color": "black",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 18,
+            "opacity": 1,
+          }
+        }
+        value=""
+      />
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "paddingTop": 2,
       }
     }
   >
@@ -179,7 +221,7 @@ exports[`Renders Review Event Third Page Correctly 1`] = `
           }
         >
           <RNDateTimePicker
-            date={1677689381878}
+            date={1680372505889}
             displayIOS="inline"
             enabled={true}
             minuteInterval="15"
@@ -241,7 +283,7 @@ exports[`Renders Review Event Third Page Correctly 1`] = `
           }
         >
           <RNDateTimePicker
-            date={1677689381878}
+            date={1680372505889}
             displayIOS="inline"
             enabled={true}
             minuteInterval="15"
@@ -317,11 +359,21 @@ exports[`Renders Review Event Third Page Correctly 1`] = `
               ]
             }
           >
-            Confirm
+            Confirm Dates
           </Text>
         </View>
       </View>
     </View>
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "#989797",
+        }
+      }
+    >
+      You must confirm your event dates before proceeding.
+    </Text>
   </View>
   <View>
     <View
@@ -361,6 +413,7 @@ exports[`Renders Review Event Third Page Correctly 1`] = `
           "width": "90%",
         }
       }
+      testID="nextButton"
     >
       <Text
         style={

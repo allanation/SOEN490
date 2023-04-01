@@ -165,7 +165,17 @@ exports[`Renders Review Event Second Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 2,
+                "justifyContent": "center",
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 3,
+              },
             ]
           }
         >
@@ -199,7 +209,17 @@ exports[`Renders Review Event Second Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 2,
+                "justifyContent": "center",
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 3,
+              },
             ]
           }
         >
@@ -233,7 +253,17 @@ exports[`Renders Review Event Second Page Correctly 1`] = `
                 "paddingVertical": 7,
                 "width": "98%",
               },
-              undefined,
+              Object {
+                "elevation": 2,
+                "justifyContent": "center",
+                "shadowColor": "black",
+                "shadowOffset": Object {
+                  "height": 1,
+                  "width": 1,
+                },
+                "shadowOpacity": 0.2,
+                "shadowRadius": 3,
+              },
             ]
           }
         >
@@ -301,6 +331,7 @@ exports[`Renders Review Event Second Page Correctly 1`] = `
         "width": "90%",
       }
     }
+    testID="nextButton"
   >
     <Text
       style={

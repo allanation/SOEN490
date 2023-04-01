@@ -8,7 +8,7 @@ function CardModal({ children, style, ...otherProps }) {
   return (
     <Modal {...otherProps}>
       <BlurView  style={styles.blurBackground} intensity={10}>
-        <View OnPress={() => console.log("hello")} style={[styles.centeredView, style]}>{children}</View>
+        <View OnPress={() => console.log("")} style={[styles.centeredView, style]}>{children}</View>
       </BlurView>
     </Modal>
   );
