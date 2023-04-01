@@ -7,12 +7,19 @@ import {
   fireEvent,
   screen,
 } from "@testing-library/react-native";
-import Login from "../screens/Login";
 import SignUpScreen from "../screens/SignUpScreen";
+import Login from "../screens/Login";
 import { Alert } from "react-native";
 
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
-//jest.spyOn(Alert, "alert");
+
 it("renders correctly", () => {
   const tree = render(
     <NavigationContainer>
@@ -172,6 +179,7 @@ test("Checks if the confirm password is working correctly", async () => {
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
+
 test("Successful Sign Up but with captial letter email", async () => {
   //Test that check if user can sign up with email in capital letter and still able to signup
   render(
@@ -365,3 +373,4 @@ test("Can't Sign Up if there is no First name", async () => {
   // Asserting that the onClick function is not called
   expect(onClick).not.toHaveBeenCalled();
 });
+

@@ -11,6 +11,14 @@ import {
 import { Alert } from "react-native";
 import ResetPassword from "../screens/ResetPassword";
 import SignUpScreen from "../screens/SignUpScreen";
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
 jest.useFakeTimers();
 
 it("renders correctly", () => {

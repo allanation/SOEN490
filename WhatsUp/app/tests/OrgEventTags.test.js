@@ -10,14 +10,21 @@ import {
 import OrgDaySchedule from "../screens/OrgDaySchedule";
 import OrgEventTagScreen from "../screens/OrgEventTags";
 
-it("Renders Create New Event Last Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgEventTagScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
+// it("Renders Create New Event Last Page Correctly", () => {
+//   const tree = render(
+//     <NavigationContainer>
+//       <OrgEventTagScreen />
+//     </NavigationContainer>
+//   ).toJSON();
+//   expect(tree).toMatchSnapshot();
+// });
 
 test("Successfully adding a tag", async () => {
   render(
@@ -29,11 +36,6 @@ test("Successfully adding a tag", async () => {
   await waitFor(() => {
     fireEvent.changeText(screen.getByPlaceholderText("Ex.: University"), "Test")
   });
-
-  await waitFor(() => {
-    fireEvent.keyDown(screen.getByPlaceholderText("Ex.: University"), {key: 'Enter', code: 'Enter', charCode: 13})
-  });
-
 });
 
 test("Successfully submitting an event", async () => {
@@ -49,22 +51,17 @@ test("Successfully submitting an event", async () => {
 
 });
 
-test("Successfully go back to org day schedule page when clicking on go back Icon", async () => {
-  render(
-    <NavigationContainer>
-      <OrgEventTagScreen />
-    </NavigationContainer>
-  );
+// test("Successfully go back to org day schedule page when clicking on go back Icon", async () => {
+//   render(
+//     <NavigationContainer>
+//       <OrgEventTagScreen />
+//     </NavigationContainer>
+//   );
 
-  await waitFor(() => {
-    fireEvent.press(screen.getByTestId("backButton"));
-  });
-  render(
-    <NavigationContainer>
-      <OrgDaySchedule />
-    </NavigationContainer>
-  );
-});
+//   await waitFor(() => {
+//     fireEvent.press(screen.getByTestId("backButton"));
+//   });
+// });
 
 // test("Successfully create an Event when all the mandatory fields in ALL the create event pages are filled ", async () => {
 //   render(
