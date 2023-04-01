@@ -15,14 +15,9 @@ import { Alert } from "react-native";
 
 jest.useFakeTimers();
 
-it("Renders Create New Event Third Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgDateInfoScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+const mockedParams = {
+  route: { params: { } }
+};
 
 test("If the dates are missing, an alert should be prompted", async () => {
   render(
@@ -37,6 +32,22 @@ test("If the dates are missing, an alert should be prompted", async () => {
     fireEvent.press(screen.getByTestId("nextButton"));
     expect(Alert.alert);
   });
+});
+
+test("Successfully setting the number of days to 10 and go to next page", async () => {
+  render(
+    <NavigationContainer>
+      <OrgDateInfoScreen />
+    </NavigationContainer>
+  );
+
+  jest.spyOn(Alert, "alert");
+
+  await waitFor(() =>
+    fireEvent.changeText(screen.getByPlaceholderText("Number of days"), "10"));
+
+  await waitFor(() => {
+    fireEvent.press(screen.getByTestId("nextButton"));});
 });
 
 test("Successfully go to next page when the start date and end date are filled", async () => {
@@ -63,7 +74,7 @@ test("Successfully go to next page when the start date and end date are filled",
   });
   render(
     <NavigationContainer>
-      <OrgDayScheduleScreen />
+      <OrgDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 });

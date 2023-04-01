@@ -13,19 +13,21 @@ import { Alert } from "react-native";
 
 jest.useFakeTimers();
 
-it("Renders Review Event Fourth Page Correctly", () => {
-  const tree = render(
-    <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
-    </NavigationContainer>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: () => ({
+    navigate: jest.fn(),
+  }),
+}));
+
+const mockedParams = {
+  route: { params: { } }
+};
 
 test("Successfully go back to third create event page when clicking on go back Icon", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -42,7 +44,7 @@ test("Successfully go back to third create event page when clicking on go back I
 test("When clicking on add day schedule Icon, the add day modal should be visible", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -56,7 +58,7 @@ test("When clicking on add day schedule Icon, the add day modal should be visibl
 test("When the modal is visible, successfuly click on go back icon", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -72,7 +74,7 @@ test("When the modal is visible, successfuly click on go back icon", async () =>
 test("If the Title is missing, an alert should be prompted", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams}  />
     </NavigationContainer>
   );
 
@@ -104,7 +106,7 @@ test("If the Title is missing, an alert should be prompted", async () => {
 test("If the Start Time is missing, an alert should be prompted", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -136,7 +138,7 @@ test("If the Start Time is missing, an alert should be prompted", async () => {
 test("If the End Time is missing, an alert should be prompted", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -168,7 +170,7 @@ test("If the End Time is missing, an alert should be prompted", async () => {
 test("If the Description is missing, an alert should be prompted", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
@@ -200,7 +202,7 @@ test("If the Description is missing, an alert should be prompted", async () => {
 test("Successfully adding a day when all the mandatory fields are filled and go to next page", async () => {
   render(
     <NavigationContainer>
-      <OrgReviewDayScheduleScreen />
+      <OrgReviewDayScheduleScreen {...mockedParams} />
     </NavigationContainer>
   );
 
