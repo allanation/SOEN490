@@ -123,6 +123,7 @@ function OrgDetails({ route }) {
   const [orgName, setOrgName] = useState(prop.orgName);
   const [location, setLocation] = useState(prop.location);
   const [link, setLink] = useState(prop.link);
+  const [availablePlaces, setAvailablePlaces] = useState(prop.availablePlaces);
   const [description, setDescription] = useState(prop.description);
   const [eventGuid, setEventGuid] = useState(prop.guid);
   const [coverImageName, setCoverImageName] = useState(prop.coverImage);
@@ -132,6 +133,7 @@ function OrgDetails({ route }) {
     location: location,
     description: description,
     link: link,
+    availablePlaces: availablePlaces,
     coverImage: coverImageName,
     guid: eventGuid,
   };

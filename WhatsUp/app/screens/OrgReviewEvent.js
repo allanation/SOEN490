@@ -38,6 +38,7 @@ function OrgReviewEvent() {
   const [orgName, setOrgName] = useState("");
   const [location, setLocation] = useState("");
   const [link, setLink] = useState("");
+  const [availablePlaces, setAvailablePlaces] = useState("");
   const [description, setDescription] = useState("");
   const [coverImage, setCoverImage] = useState("");
   const [coverImageName, setCoverImageName] = useState("");
@@ -69,6 +70,9 @@ function OrgReviewEvent() {
         }
         if (EventObject.link.length != 0) {
           setLink(EventObject.link);
+        }
+        if (EventObject.availablePlaces.length != 0) {
+          setAvailablePlaces(EventObject.availablePlaces);
         }
         if (EventObject.coverImage.length != 0) {
           setCoverImageName(EventObject.coverImage);
@@ -116,6 +120,7 @@ function OrgReviewEvent() {
       location: location,
       description: description,
       link: link,
+      availablePlaces: availablePlaces,
       coverImage: coverImageName,
       guid: guid,
     };
@@ -173,6 +178,14 @@ function OrgReviewEvent() {
             style={styles.shadow}
             value={link}
             onChangeText={(currentLink) => setLink(currentLink)}
+          ></AppTextInput>
+          <AppTextInput
+            style={styles.shadow}
+            value={availablePlaces}
+            placeholder='Available places/tickets (optional)'
+            onChangeText={(currentAvailablePlaces) =>
+              setAvailablePlaces(currentAvailablePlaces)
+            }
           ></AppTextInput>
           <AppTextInput
             multiline={true}
